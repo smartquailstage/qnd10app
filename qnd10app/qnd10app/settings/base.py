@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 INSTALLED_APPS = [
     'baton',
-     'wagtail',
+    'wagtail',
     'django.contrib.sites',
     #'courses',
     #'courses_exams',
@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'wagtail.documents',
     'wagtail.images',
     'wagtail.search',
+    'wagtail.hooks',
     #'wagtail.locales',
     #"wagtail_localize",
    # 'wagtail.core',
@@ -65,7 +66,7 @@ INSTALLED_APPS = [
     'wagtail.contrib.routable_page',
     'wagtail.contrib.modeladmin',
     #'wagalytics',
-    'wagtailfontawesome',
+    #'wagtailfontawesome',
     'wagtailgmaps',
     'wagtailmenus',
     #'django_social_share',
