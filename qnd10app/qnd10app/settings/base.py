@@ -23,13 +23,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 INSTALLED_APPS = [
     'baton',
-     
+     'wagtail',
     'django.contrib.sites',
     #'courses',
     #'courses_exams',
     #'card_test',
     #'thumbnails',
     #'cart',
+    "wagtail_localize",
     'django.contrib.contenttypes',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -39,9 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'storages',
     #Wagtail Inicials
-   # 'core',
+    'core',
     #'wagtail.locales',
-   # 'wagtail_localize.locales',
+    'wagtail_localize.locales',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.embeds',
@@ -51,8 +52,9 @@ INSTALLED_APPS = [
     'wagtail.documents',
     'wagtail.images',
     'wagtail.search',
-    'wagtail.locales',
-    'wagtail.core',
+    #'wagtail.locales',
+    #"wagtail_localize",
+   # 'wagtail.core',
     
  
      
@@ -171,7 +173,9 @@ SBACART_SESSION_ID = 'cart'
 SBTCART_SESSION_ID = 'cart'
 SBMCART_SESSION_ID = 'cart'
 
-
+USE_I18N = True
+WAGTAIL_I18N_ENABLED = True
+USE_L10N = True
 
 
 # Internationalization
