@@ -23,19 +23,25 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 INSTALLED_APPS = [
     'baton',
-    'widget_tweaks',
+     
+    'django.contrib.sites',
+    #'courses',
+    #'courses_exams',
+    #'card_test',
+    #'thumbnails',
+    #'cart',
+    'django.contrib.contenttypes',
     'django.contrib.admin',
     'django.contrib.auth',
-    'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-    'wagtailmenus',
-    #'wagtail_localize.locales',
-    #"wagtail_localize",
-    'wagtail.admin',
-    'wagtail.locales',
+    'storages',
+    #Wagtail Inicials
+   # 'core',
+    #'wagtail.locales',
+   # 'wagtail_localize.locales',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.embeds',
@@ -45,20 +51,43 @@ INSTALLED_APPS = [
     'wagtail.documents',
     'wagtail.images',
     'wagtail.search',
+    'wagtail.locales',
+    'wagtail.core',
     
+ 
+     
+    #'wagtail.locales',
+    #'wagtail.contrib.simple_translation',
+    'wagtail.admin',
     'wagtail.contrib.settings',
     'wagtail.contrib.routable_page',
-    'social_django',
-    
-    'wagtail',
-    #smartquailApps
-
-
-    'modelcluster',
+    'wagtail.contrib.modeladmin',
+    #'wagalytics',
+    'wagtailfontawesome',
+    'wagtailgmaps',
+    'wagtailmenus',
+    #'django_social_share',
     'taggit',
-    #'webapp',
-    'rosetta',
+    'django_social_share',
+    'streams',
+    'widget_tweaks',
+   # 'wagtailcaptcha',
+   #SMARTQUAIL-BUSINESS-CONSULTING
+  
+    'social_django',
+    'sorl.thumbnail',
+    #'students',
+    'embed_video',
     'qr_code',
+#    'actions',
+  
+    
+    'baton.autodiscover',   
+    #'memcache_status',
+    'rest_framework',
+    'ckeditor',
+    'rosetta',
+    
     
 ]
 
@@ -94,6 +123,8 @@ TEMPLATES = [
     },
 ]
 
+
+SITE_ID = 1
 
 
 
@@ -189,3 +220,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+

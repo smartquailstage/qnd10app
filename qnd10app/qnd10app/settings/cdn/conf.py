@@ -3,7 +3,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-ENV_FILE_PATH = BASE_DIR / ".env_dev"
+ENV_FILE_PATH = BASE_DIR / ".env_stage"
 load_dotenv(str(ENV_FILE_PATH))
 
 AWS_ACCESS_KEY_ID=os.environ.get("AWS_ACCESS_KEY_ID")

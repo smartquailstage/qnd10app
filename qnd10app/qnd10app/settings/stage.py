@@ -3,7 +3,7 @@ from .base import *
 ENV_FILE_PATH = BASE_DIR / ".env_stage"
 load_dotenv(str(ENV_FILE_PATH))
 
-DEBUG = config("DEBUG", cast=bool)
+DEBUG =  os.environ.get("DEBUG") 
 
 
 # Quick-start development settings - unsuitable for production
