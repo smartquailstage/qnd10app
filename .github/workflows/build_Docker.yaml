@@ -1,4 +1,4 @@
-name: SmartQuail Docker Build Apps QND10
+name: SmartQuail Docker Build Apps QND20
 
 on:
   workflow_call:
@@ -9,11 +9,11 @@ on:
     branches: [main]
  
 jobs:
-  qnd10app_test:
-    uses: smartquailstage/qnd10app/.github/workflows/qnd10app_test.yaml@main
-  Docker_qnd10:
+  app_test:
+    uses: smartquailstage/qnd10app/.github/workflows/app_test.yaml@main
+  Docker_container_build:
     runs-on: ubuntu-latest
-    needs: [qnd10app_test]
+    needs: [app_test]
     env:
       DJANGO_SECRET_KEY: test-key-not-good
     steps:
@@ -25,7 +25,7 @@ jobs:
         username: ${{ secrets.DOCKER_HUB_USERNAME }}
         password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
     - name: Build container image
-      working-directory: ./qnd10_docker
+      working-directory: ./qnd10dock
       run: | 
         docker build -f Dockerfile \
             -t smartquail/qnd10app:latest \
