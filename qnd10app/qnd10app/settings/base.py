@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     #Wagtail Inicials
     'core',
     #'wagtail.locales',
+    "wagtail_modeladmin",
     'wagtail_localize.locales',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
@@ -64,7 +65,7 @@ INSTALLED_APPS = [
     'wagtail.admin',
     'wagtail.contrib.settings',
     'wagtail.contrib.routable_page',
-    'wagtail.contrib.modeladmin',
+   # 'wagtail.contrib.modeladmin',
     #'wagalytics',
     #'wagtailfontawesome',
     'wagtailgmaps',
