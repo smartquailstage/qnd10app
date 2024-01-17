@@ -40,8 +40,8 @@ wagtail-localize
 wagtailmenus
 weasyprint==60.2
 
-botocore==1.29.27
-boto3==1.26.27
+botocore==1.34.20 
+boto3==1.34.20 
 #System HOST
 PyOpenSSL
 python-dotenv==0.21.0
