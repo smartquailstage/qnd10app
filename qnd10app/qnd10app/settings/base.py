@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-    'storages',
+    #'storages',
     #Wagtail Inicials
     'core',
     #'wagtail.locales',
