@@ -37,6 +37,7 @@ django-parler
 django-localflavor
 django-rosetta
 wagtail-localize
+wagtail-modeladmin==1.0.0
 wagtailmenus
 weasyprint==60.2
 
