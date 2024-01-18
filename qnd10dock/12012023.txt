@@ -2,7 +2,7 @@ django==4.2.6
 django-dotenv
 django-baton
 
-wagtail==4.0.2
+wagtail==4.2.4
 
 django-social-share
 wagtailgmaps
