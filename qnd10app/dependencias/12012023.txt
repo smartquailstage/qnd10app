@@ -1,8 +1,8 @@
-django==5.0
+django==4.2
 django-dotenv
 django-baton
 
-wagtail==5.2
+wagtail==5.1
 
 django-social-share
 wagtailgmaps
