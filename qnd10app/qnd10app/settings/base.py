@@ -17,7 +17,11 @@ from decouple import config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+ENV_FILE_PATH = BASE_DIR / ".env_stage"
+load_dotenv(str(ENV_FILE_PATH))
 
+
+ROOT_URLCONF = os.environ.get("ROOT_URLCONF")
 
 # Application definition
 
