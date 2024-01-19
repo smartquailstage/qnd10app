@@ -1,4 +1,4 @@
-django==4.2.6
+django==4.1
 django-dotenv
 django-baton
 
