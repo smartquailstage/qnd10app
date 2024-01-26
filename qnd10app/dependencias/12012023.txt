@@ -16,7 +16,7 @@ redis
 django-dotenv
 psycopg2-binary
 django-storages
-
+social-auth-app-django
 #Django Web App dependencies
 django-social-auth
 #social-auth-app-django
