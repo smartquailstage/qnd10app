@@ -62,29 +62,30 @@ REDIS_DB =os.environ.get('REDIS_DB')
 
 
 BATON = {
-    'SITE_HEADER': '<a href="#"><img src="/static/img/m2.png" height="26px"></a>',
-    'SITE_TITLE': '',
-    'INDEX_TITLE': 'TODO EN ORDEN CLEAN & BUILDING CIA. LTDA.- BUSINESS ANALITYCS CONSULTING',
-    'SUPPORT_HREF': '#',
-    'COPYRIGHT': '<a href="#"><img src="/static/img/m2.png" height="18px"></a>&nbsp;&nbsp; copyright © 2022', # noqa
-    'POWERED_BY': '<a href="#"><img src="/static/img/logo_smartquailgray.png" height="13px"</a>',
+    'SITE_HEADER': '<img src="/static/img/logo_flor.png" width="180px" >',
+    'SITE_TITLE': 'Isla Floreana CC',
+    'INDEX_TITLE': 'Administración- Centro comunitario Isla Floreana',
+    #'SUPPORT_HREF': 'https://github.com/otto-torino/django-baton/issues',
+    'COPYRIGHT': 'copyright © 2022 <a href="#">Isla Floreana Centro Comunitario</a>', # noqa
+    'POWERED_BY': '<img src="/static/img/logo.png" width="40px" >',
     'CONFIRM_UNSAVED_CHANGES': True,
     'SHOW_MULTIPART_UPLOADING': True,
     'ENABLE_IMAGES_PREVIEW': True,
     'CHANGELIST_FILTERS_IN_MODAL': True,
     'CHANGELIST_FILTERS_ALWAYS_OPEN': False,
     'CHANGELIST_FILTERS_FORM': True,
-    'MENU_ALWAYS_COLLAPSED': True,
-    'MENU_TITLE': 'Todo en Orden',
-    'MESSAGES_TOASTS': False,
+    'MENU_ALWAYS_COLLAPSED': False,
+    'MENU_TITLE': 'Isla Floreana',
+    'MESSAGES_TOASTS': True,
     'GRAVATAR_DEFAULT_IMG': 'retro',
-    'LOGIN_SPLASH': '/static/img/login_splash.jpg',
+    'LOGIN_SPLASH': '/static/img/3.jpg',
+    'LOGOUT_SPLASH': '/static/img/3.jpg',
     'SEARCH_FIELD': {
         'label': 'Search contents...',
-         'url': '/search/',
+        'url': '/search/',
     },
     'MENU': (
-        { 'type': 'title', 'label': 'Gerencia', 'apps': ('auth','todo_en_orden', ) },
+        { 'type': 'title', 'label': 'Smart Office', 'apps': ('auth', ) },
         {
             'type': 'app',
             'name': 'auth',
@@ -101,336 +102,31 @@ BATON = {
                 },
             )
         },
-         {
-            'type': 'app',
-            'name': 'todo_en_orden',
-            'label': 'Dpto Contable',
-            'icon': 'fa fa-user',
-            'models': (
-                {
-                    'name': 'order',
-                    'label': 'Clientes'
-                },
-                {
-                    'name': 'order',
-                    'label': 'Servicios'
-                },
-            )
-        },
+
         {
             'type': 'app',
-            'name': 'todo_en_orden',
-            'label': 'Dpto Operativo',
-            'icon': 'fa fa-user',
+            'name': 'orders',
+            'label': 'Reservas',
+            'icon': 'fa fa-folder-open',
             'models': (
                 {
                     'name': 'order',
-                    'label': 'Clientes'
+                    'label': 'Reservas Online'
                 },
                 {
-                    'name': 'order',
-                    'label': 'Servicios'
-                },
-            )
-        },
-         {
-            'type': 'app',
-            'name': 'todo_en_orden',
-            'label': 'Dpto RRHH',
-            'icon': 'fa fa-user',
-            'models': (
-                {
-                    'name': 'order',
-                    'label': 'Clientes'
-                },
-                {
-                    'name': 'order',
-                    'label': 'Servicios'
-                },
-            )
-        },
-        {
-            'type': 'app',
-            'name': 'todo_en_orden',
-            'label': 'Dpto Legal',
-            'icon': 'fa fa-user',
-            'models': (
-                {
-                    'name': 'order',
-                    'label': 'Clientes'
-                },
-                {
-                    'name': 'order',
-                    'label': 'Servicios'
-                },
-            )
-        },
-        {
-            'type': 'app',
-            'name': 'todo_en_orden',
-            'label': 'Dpto Marketing',
-            'icon': 'fa fa-user',
-            'models': (
-                {
-                    'name': 'order',
-                    'label': 'Clientes'
-                },
-                {
-                    'name': 'order',
-                    'label': 'Servicios'
-                },
-            )
-        },
-         { 'type': 'title', 'label': 'Administración Operativa', 'apps': ('auth','todo_en_orden', ) },
-              {
-            'type': 'app',
-            'name': 'todo_en_orden',
-            'label': 'Entradas y salidas',
-            'icon': 'fa fa-user',
-            'models': (
-                {
-                    'name': 'order',
-                    'label': 'Clientes'
-                },
-                {
-                    'name': 'order',
-                    'label': 'Servicios'
-                },
-            )
-        },
-         {
-            'type': 'app',
-            'name': 'todo_en_orden',
-            'label': 'Propuestas',
-            'icon': 'fa fa-user',
-            'models': (
-                {
-                    'name': 'order',
-                    'label': 'Clientes'
-                },
-                {
-                    'name': 'order',
-                    'label': 'Servicios'
-                },
-            )
-        },
-         {
-            'type': 'app',
-            'name': 'todo_en_orden',
-            'label': 'Servicios',
-            'icon': 'fa fa-user',
-            'models': (
-                {
-                    'name': 'order',
-                    'label': 'Clientes'
-                },
-                {
-                    'name': 'order',
-                    'label': 'Servicios'
-                },
-            )
-        },
-        {
-            'type': 'app',
-            'name': 'todo_en_orden',
-            'label': 'Kardex por Venta',
-            'icon': 'fa fa-user',
-            'models': (
-                {
-                    'name': 'order',
-                    'label': 'Clientes'
-                },
-                {
-                    'name': 'order',
-                    'label': 'Servicios'
-                },
-            )
-        },
-         {
-            'type': 'app',
-            'name': 'todo_en_orden',
-            'label': 'Kardex por Contrato ',
-            'icon': 'fa fa-user',
-            'models': (
-                {
-                    'name': 'order',
-                    'label': 'Clientes'
-                },
-                {
-                    'name': 'order',
-                    'label': 'Servicios'
-                },
-            )
-        },
-                 {
-            'type': 'app',
-            'name': 'todo_en_orden',
-            'label': 'Contratos ',
-            'icon': 'fa fa-user',
-            'models': (
-                {
-                    'name': 'order',
-                    'label': 'Clientes'
-                },
-                {
-                    'name': 'order',
-                    'label': 'Servicios'
+                    'name': 'group',
+                    'label': 'Groups'
                 },
             )
         },
 
-         {
-            'type': 'app',
-            'name': 'todo_en_orden',
-            'label': 'Kardex de herramientas ',
-            'icon': 'fa fa-user',
-            'models': (
-                {
-                    'name': 'order',
-                    'label': 'Clientes'
-                },
-                {
-                    'name': 'order',
-                    'label': 'Servicios'
-                },
-            )
-        },
-
-          
-        
-        { 'type': 'title', 'label': 'Administración Contable', 'apps': ('auth','todo_en_orden', ) },
-              {
-            'type': 'app',
-            'name': 'todo_en_orden',
-            'label': 'Cuentas por cobrar',
-            'icon': 'fa fa-user',
-            'models': (
-                {
-                    'name': 'order',
-                    'label': 'Clientes'
-                },
-                {
-                    'name': 'order',
-                    'label': 'Servicios'
-                },
-            )
-        },
-         {
-            'type': 'app',
-            'name': 'todo_en_orden',
-            'label': 'Cuentas por pagar',
-            'icon': 'fa fa-user',
-            'models': (
-                {
-                    'name': 'order',
-                    'label': 'Clientes'
-                },
-                {
-                    'name': 'order',
-                    'label': 'Servicios'
-                },
-            )
-        },
-         {
-            'type': 'app',
-            'name': 'todo_en_orden',
-            'label': 'Egresos',
-            'icon': 'fa fa-user',
-            'models': (
-                {
-                    'name': 'order',
-                    'label': 'Clientes'
-                },
-                {
-                    'name': 'order',
-                    'label': 'Servicios'
-                },
-            )
-        },
-        {
-            'type': 'app',
-            'name': 'todo_en_orden',
-            'label': 'venta de Insumos',
-            'icon': 'fa fa-user',
-            'models': (
-                {
-                    'name': 'order',
-                    'label': 'Clientes'
-                },
-                {
-                    'name': 'order',
-                    'label': 'Servicios'
-                },
-            )
-        },
-         {
-            'type': 'app',
-            'name': 'todo_en_orden',
-            'label': 'Facturación',
-            'icon': 'fa fa-user',
-            'models': (
-                {
-                    'name': 'order',
-                    'label': 'Clientes'
-                },
-                {
-                    'name': 'order',
-                    'label': 'Servicios'
-                },
-            )
-        },
-
-        {
-            'type': 'app',
-            'name': 'todo_en_orden',
-            'label': 'Nómina',
-            'icon': 'fa fa-user',
-            'models': (
-                {
-                    'name': 'order',
-                    'label': 'Clientes'
-                },
-                {
-                    'name': 'order',
-                    'label': 'Servicios'
-                },
-            )
-        },
-
-                {
-            'type': 'app',
-            'name': 'todo_en_orden',
-            'label': 'IESS',
-            'icon': 'fa fa-user',
-            'models': (
-                {
-                    'name': 'order',
-                    'label': 'Clientes'
-                },
-                {
-                    'name': 'order',
-                    'label': 'Servicios'
-                },
-            )
-        },
-
-          {
-            'type': 'app',
-            'name': 'todo_en_orden',
-            'label': 'Bancos',
-            'icon': 'fa fa-user',
-            'models': (
-                {
-                    'name': 'order',
-                    'label': 'Banco Guayaquil'
-                },
-                {
-                    'name': 'order',
-                    'label': 'Banco Internacional'
-                },
-            )
-        },
-              
+        { 'type': 'title', 'label': 'Contents', 'apps': ('flatpages', ) },
+        { 'type': 'model', 'label': 'Pages', 'name': 'flatpage', 'app': 'flatpages' },
+        { 'type': 'free', 'label': 'Custom Link', 'url': 'http://www.google.it', 'perms': ('flatpages.add_flatpage', 'auth.change_user') },
+        { 'type': 'free', 'label': 'My parent voice', 'default_open': True, 'children': [
+            { 'type': 'model', 'label': 'A Model', 'name': 'mymodelname', 'app': 'myapp' },
+            { 'type': 'free', 'label': 'Another custom link', 'url': 'http://www.google.it' },
+        ] },
     ),
 }
 

@@ -27,6 +27,7 @@ ROOT_URLCONF = os.environ.get("ROOT_URLCONF")
 
 INSTALLED_APPS = [
     'baton',
+    "bootstrap4",
     'wagtail',
     'django.contrib.sites',
     #'courses',
@@ -36,8 +37,9 @@ INSTALLED_APPS = [
     #'cart',
     "wagtail_localize",
     'django.contrib.contenttypes',
-    'django.contrib.admin',
+    
     'django.contrib.auth',
+    'django.contrib.admin',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
@@ -90,11 +92,12 @@ INSTALLED_APPS = [
 #    'actions',
   
     
-    'baton.autodiscover',   
+      
     #'memcache_status',
     'rest_framework',
     'ckeditor',
     'rosetta',
+    'baton.autodiscover', 
     
     
 ]
@@ -102,13 +105,17 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    #'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
+    #'django.middleware.cache.FetchFromCacheMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    'wagtail.contrib.legacy.sitemiddleware.SiteMiddleware',
+   # 'wagtail.core.middleware.SiteMiddleware',
+    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]
 
 
@@ -117,7 +124,7 @@ MIDDLEWARE = [
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [(os.path.join(BASE_DIR, 'templates')),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -126,6 +133,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.i18n',
+                'wagtailmenus.context_processors.wagtailmenus',
+                'wagtail.contrib.settings.context_processors.settings'
+               
             ],
         },
     },
