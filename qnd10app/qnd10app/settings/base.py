@@ -27,7 +27,6 @@ ROOT_URLCONF = os.environ.get("ROOT_URLCONF")
 
 INSTALLED_APPS = [
     'baton',
-    "bootstrap4",
     'wagtail',
     'django.contrib.sites',
     #'courses',
@@ -97,6 +96,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'ckeditor',
     'rosetta',
+    "bootstrap4",
     'baton.autodiscover', 
     
     
