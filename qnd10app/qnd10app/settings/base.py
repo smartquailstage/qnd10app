@@ -88,23 +88,6 @@ INSTALLED_APPS = [
     'social_django',
     
     'wagtail',
-    #smartquailApps
-    #smarbusinessmedia
-    'sbmshop',
-    'sbmcart',
-    'sbmorders',
-    #smartbusinesslaw
-    'sblcart',
-    'sblshop',
-    'sblorders',
-    #smartbusinessanalitycs
-    'sbashop',
-    'sbacart',
-    'sbaorders',
-    #smartbusinesstech
-    'sbtshop',
-    'sbtcart',
-    'sbtorders',
 
     'modelcluster',
     'taggit',
