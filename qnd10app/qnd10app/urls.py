@@ -24,7 +24,7 @@ from wagtail.admin import urls as wagtailadmin_urls
 from wagtail import urls as wagtail_urls
 from wagtail import urls as wagtaildocs_urls
 
-urlpatterns = i18n_patterns (
+urlpatterns = [
 
     path('analytics/', admin.site.urls),
     path('baton/', include('baton.urls')),
@@ -35,7 +35,7 @@ urlpatterns = i18n_patterns (
     re_path(r'^documents/', include(wagtaildocs_urls)),
     re_path(r'', include(wagtail_urls)),
 
-  )  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
+  ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
