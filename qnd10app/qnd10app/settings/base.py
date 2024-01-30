@@ -91,7 +91,6 @@ INSTALLED_APPS = [
 
     'modelcluster',
     'taggit',
-    'webapp',
     'rosetta',
     'qr_code',
     'baton',
