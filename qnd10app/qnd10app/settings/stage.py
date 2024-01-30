@@ -1,51 +1,5 @@
 from .base import *
 
-ENV_FILE_PATH = BASE_DIR / ".env_stage"
-load_dotenv(str(ENV_FILE_PATH))
-
-DEBUG =  os.environ.get("DEBUG") 
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
-
-# SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = os.environ.get("DEBUG")
-ALLOWED_HOSTS = [os.environ.get("ENV_ALLOWED_HOST")]
-
-
-#Nombre del sitio web
-WAGTAIL_SITE_NAME =os.environ.get("WAGTAIL_SITE_NAME")  
-WAGTAILADMIN_BASE_URL = os.environ.get("WAGTAILADMIN_BASE_URL") 
-
-WAGTAILIMAGES_MAX_UPLOAD_SIZE = 30 * 1024 * 1024   # 15mb
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-BRAINTREE_MERCHANT_ID = os.environ.get('BRAINTREE_M_ID')
-BRAINTREE_PUBLIC_KEY = os.environ.get('BRAINTREE_KEY')
-BRAINTREE_PRIVATE_KEY = os.environ.get('BRAINTREE_PRIVATE_KEY')
-
-from braintree import Configuration, Environment
-# para desplegar cambiar sandbox con Production
-Configuration.configure(
-    Environment.Sandbox,
-    BRAINTREE_MERCHANT_ID,
-    BRAINTREE_PUBLIC_KEY,
-    BRAINTREE_PRIVATE_KEY
-)
-
-
-WSGI_APPLICATION = os.environ.get("WSGI_APPLICATION")
-
-LOCALE_PATHS = (
-    os.path.join(BASE_DIR, 'locale/'),
-)
-
-WAGTAILADMIN_BASE_URL =  os.environ.get('DOMAINS')
-
 
 
 BATON = {
@@ -269,6 +223,7 @@ BATON = {
          
     ),
 }
+
 
 
 

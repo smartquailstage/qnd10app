@@ -11,8 +11,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
 from pathlib import Path
+from .base import *
 from dotenv import load_dotenv
-from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,34 +21,58 @@ ENV_FILE_PATH = BASE_DIR / ".env_stage"
 load_dotenv(str(ENV_FILE_PATH))
 
 
-ROOT_URLCONF = os.environ.get("ROOT_URLCONF")
+
+
+
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = os.environ.get("DEBUG")
+ALLOWED_HOSTS = [os.environ.get("ENV_ALLOWED_HOST")]
+
+
+#Nombre del sitio web
+WAGTAIL_SITE_NAME =os.environ.get("WAGTAIL_SITE_NAME")  
+
+WAGTAILIMAGES_MAX_UPLOAD_SIZE = 30 * 1024 * 1024   # 15mb
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+BRAINTREE_MERCHANT_ID = os.environ.get('BRAINTREE_M_ID')
+BRAINTREE_PUBLIC_KEY = os.environ.get('BRAINTREE_KEY')
+BRAINTREE_PRIVATE_KEY = os.environ.get('BRAINTREE_PRIVATE_KEY')
+
+from braintree import Configuration, Environment
+# para desplegar cambiar sandbox con Production
+Configuration.configure(
+    Environment.Sandbox,
+    BRAINTREE_MERCHANT_ID,
+    BRAINTREE_PUBLIC_KEY,
+    BRAINTREE_PRIVATE_KEY
+)
 
 # Application definition
 
 INSTALLED_APPS = [
-    'baton',
-    'wagtail',
-    'django.contrib.sites',
-    #'courses',
-    #'courses_exams',
-    #'card_test',
-    #'thumbnails',
-    #'cart',
-    "wagtail_localize",
-    'django.contrib.contenttypes',
     
-    'django.contrib.auth',
+    'widget_tweaks',
     'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-    #'storages',
-    #Wagtail Inicials
-    'core',
+    'wagtailmenus',
+    "wagtail_localize",
+    "wagtail_localize.locales",
+    #'wagtail_localize.locales',
+    #"wagtail_localize",
+    'wagtail.admin',
     #'wagtail.locales',
-    "wagtail_modeladmin",
-    'wagtail_localize.locales',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.embeds',
@@ -58,73 +82,58 @@ INSTALLED_APPS = [
     'wagtail.documents',
     'wagtail.images',
     'wagtail.search',
-    'wagtail.hooks',
-    #'wagtail.locales',
-    #"wagtail_localize",
-   # 'wagtail.core',
     
- 
-     
-    #'wagtail.locales',
-    #'wagtail.contrib.simple_translation',
-    'wagtail.admin',
     'wagtail.contrib.settings',
     'wagtail.contrib.routable_page',
-   # 'wagtail.contrib.modeladmin',
-    #'wagalytics',
-    #'wagtailfontawesome',
-    'wagtailgmaps',
-    'wagtailmenus',
-    #'django_social_share',
-    'taggit',
-    'django_social_share',
-    'streams',
-    'widget_tweaks',
-   # 'wagtailcaptcha',
-   #SMARTQUAIL-BUSINESS-CONSULTING
-  
     'social_django',
-    'sorl.thumbnail',
-    #'students',
-    'embed_video',
-    'qr_code',
-#    'actions',
-  
     
-      
-    #'memcache_status',
-    'rest_framework',
-    'ckeditor',
+    'wagtail',
+    #smartquailApps
+    #smarbusinessmedia
+    'sbmshop',
+    'sbmcart',
+    'sbmorders',
+    #smartbusinesslaw
+    'sblcart',
+    'sblshop',
+    'sblorders',
+    #smartbusinessanalitycs
+    'sbashop',
+    'sbacart',
+    'sbaorders',
+    #smartbusinesstech
+    'sbtshop',
+    'sbtcart',
+    'sbtorders',
+
+    'modelcluster',
+    'taggit',
+    'webapp',
     'rosetta',
-    "bootstrap4",
-    'baton.autodiscover', 
-    
+    'qr_code',
+    'baton',
+    'baton.autodiscover',
     
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    #'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
-    #'django.middleware.cache.FetchFromCacheMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
-    'wagtail.contrib.legacy.sitemiddleware.SiteMiddleware',
-   # 'wagtail.core.middleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
-
-
+ROOT_URLCONF = 'qnd10app.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [(os.path.join(BASE_DIR, 'templates')),],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -133,18 +142,16 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.i18n',
-                'wagtailmenus.context_processors.wagtailmenus',
-                'wagtail.contrib.settings.context_processors.settings'
-               
             ],
         },
     },
 ]
 
+WSGI_APPLICATION = 'qnd10app.wsgi.application'
 
-SITE_ID = 1
-
-
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale/'),
+)
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -189,15 +196,15 @@ SBACART_SESSION_ID = 'cart'
 SBTCART_SESSION_ID = 'cart'
 SBMCART_SESSION_ID = 'cart'
 
-USE_I18N = True
-WAGTAIL_I18N_ENABLED = True
-USE_L10N = True
+
 
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale/'),
+)
 
 from django.utils.translation import gettext_lazy as _
 
@@ -220,7 +227,7 @@ WAGTAILSEARCH_BACKENDS = {
     }
 }
 
-
+WAGTAILADMIN_BASE_URL =  os.environ.get('DOMAINS')
 
 USE_L10N = True
 
@@ -240,4 +247,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-

@@ -1,8 +1,8 @@
-Django==4.2.9
+django==4.2.6
 django-dotenv
 django-baton
 
-wagtail==5.2.3
+wagtail==5.2.1
 
 django-social-share
 wagtailgmaps
@@ -16,14 +16,14 @@ redis
 django-dotenv
 psycopg2-binary
 django-storages
-social-auth-app-django
+
 #Django Web App dependencies
 django-social-auth
-#social-auth-app-django
+social-auth-app-django
 sorl-thumbnail
 django-widget-tweaks
-#django-phone-field
-#django-phonenumber-field
+django-phone-field
+django-phonenumber-field[phonenumberslite]
 django-bootstrap-datepicker-plus
 django-bootstrap-v5
 django-bootstrap4
@@ -37,14 +37,13 @@ django-parler
 django-localflavor
 django-rosetta
 wagtail-localize
-wagtail-modeladmin==1.0.0
 wagtailmenus
 weasyprint==60.2
 
-botocore==1.34.20 
-boto3==1.34.20 
+botocore==1.29.27
+boto3==1.26.27
 #System HOST
 PyOpenSSL
 python-dotenv==0.21.0
-python-decouple  
+
 braintree
