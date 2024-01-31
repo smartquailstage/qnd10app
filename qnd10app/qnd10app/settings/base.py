@@ -57,7 +57,7 @@ Configuration.configure(
 # Application definition
 
 INSTALLED_APPS = [
-    
+    'baton',
     'widget_tweaks',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -93,7 +93,7 @@ INSTALLED_APPS = [
     'taggit',
     'rosetta',
     'qr_code',
-    'baton',
+    
     'baton.autodiscover',
     
 ]
