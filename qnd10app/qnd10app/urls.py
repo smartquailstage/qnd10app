@@ -24,9 +24,18 @@ from wagtail.admin import urls as wagtailadmin_urls
 from wagtail import urls as wagtail_urls
 from wagtail import urls as wagtaildocs_urls
 
-urlpatterns = [
 
-    path('analytics/', admin.site.urls),
+def UserAdmin(user):
+    return  user.is_staff
+
+
+
+
+
+urlpatterns = [
+  
+    path('login/', admin.site.urls),
+   # path('analytics/', admin.site.urls),
     path('baton/', include('baton.urls')),
     path('social-auth/', include('social_django.urls', namespace='social')),
     path('rosetta/', include('rosetta.urls')),

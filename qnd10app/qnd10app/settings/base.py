@@ -98,16 +98,20 @@ INSTALLED_APPS = [
     
 ]
 
+#AUTH_USER_MODEL = 'smartquail'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+   # 'qnd10app.settings.middleware.GroupAccessMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+   # 'auto_auth.AutoAuthMiddleware',
 ]
 
 ROOT_URLCONF = 'qnd10app.urls'
