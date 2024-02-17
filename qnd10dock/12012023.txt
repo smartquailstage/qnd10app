@@ -20,6 +20,7 @@ django-storages
 #Django Web App dependencies
 django-social-auth
 social-auth-app-django
+django-ckeditor
 sorl-thumbnail
 django-widget-tweaks
 django-phone-field

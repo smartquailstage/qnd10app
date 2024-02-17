@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}QuitoCultura - Fomento editorial & lteraria{% endblock %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-xl-4 col-lg-5 col-md-7 mx-auto mt-5">
+    <div class="card radius-10">
+      <div class="card-body p-4">
+        <div class="text-center">
+          <h4>Para postularse: </h4>
+          <p>Ingresa con tus redes favoritas</p>
+         
+        </div>
+        <form action="{% url 'login' %}" method="post" class="form-body row g-3">
+          <div class="col-12 col-lg-12">
+            <div class="d-grid gap-2">
+              <a href="{% url "social:begin" "google-oauth2" %}" class="btn border border-2 border-primary"><img
+                  src="{% static 'assets/images/icons/google.png' %}" width="20" alt=""><span class="ms-3 fw-500">Ingresar con
+                  Google</span></a>
+              <a href="{% url "social:begin" "facebook" %}" class="btn border border-2 border-dark"><img
+                    src="{% static 'assets/images/icons/facebook.png' %}" width="20" alt=""><span class="ms-3 fw-500">Ingresar con Facebook</span></a>
+              
+              <a href="{% url "social:begin" "instagram" %}" class="btn border border-2 border-dark"><img
+                        src="{% static 'assets/images/icons/instagram.png' %}" width="20" alt=""><span class="ms-3 fw-500">Ingresar con Instagram</span></a>
+                        <a href="{% url "social:begin" "linkedin-oauth2" %}" class="btn border border-2 border-dark"><img
+                          src="{% static 'assets/images/icons/linkedin.png' %}" width="20" alt=""><span class="ms-3 fw-500">Ingresar con LinkedIn</span></a>
+                       
+          </div>
+          <div class="col-12 col-lg-12">
+            <div class="position-relative border-bottom my-3">
+              <div class="position-absolute seperator-2 translate-middle-y">O</div>
+              
+            </div>
+          </div>
+          <p>Escribe tu nombre de usuario y contraseña</p>
+          {% csrf_token %}
+    {% for hidden_field in form.hidden_fields %}
+      {{ hidden_field }}
+    {% endfor %}
+
+    {% if form.non_field_errors %}
+      <div class="alert alert-danger" role="alert">
+      {% for error in form.non_field_errors %}
+        {{ error }}
+      {% endfor %}
+      </div>
+    {% endif %}
+
+    {% for field in form.visible_fields %}
+      <div class="form-group">
+      <div class="group">
+      <label for="user" class="label">{{ field.label_tag }}</label>
+
+
+      {% if form.is_bound %}
+        {% if field.errors %}
+        <p>Su nombre de usuario y contraseña no coinciden. Porfavor intente de nuevo.</p>
+        {% render_field field class="form-control is-invalid input" %}
+        {% for error in field.errors %}
+          <div class="invalid-feedback">
+          {{ error }}
+          </div>
+        {% endfor %}
+        {% else %}
+        <p>Porfavor, complete el siguiente formulario:</p>
+        {% render_field field class="form-control is-valid " %}
+        {% endif %}
+      {% else %}
+        {% render_field field class="form-control input" %}
+      {% endif %}
+
+      {% if field.help_text %}
+        <small class="form-text text-muted">{{ field.help_text }}</small>
+      {% endif %}
+      </div>
+    {% endfor %}
+    <p></p>
+
+          <div class="col-12 col-lg-12">
+            <div class="d-grid">
+          <input type="hidden" name="next" value="{{ next }}" />
+          <button type="submit" value="Log-in" class="btn btn-primary">Ingresar</button>
+            </div>
+          </div>
+          <div class="col-12 col-lg-6 text-end">
+            <a href="authentication-reset-password-basic.html">¿Olvidaste tu contraseña?</a>
+          </div>
+          <div class="col-12 col-lg-12 text-center">
+            <p class="mb-0">¿Todavía no tienes una cuenta? <a href="authentication-sign-up-basic.html">Registrate</a></p>
+            <p></p>
+            <p>Al hacer click en 'Ingresar' Está aceptando automaticamente los <a href="#">términos y condiciones del servicio</a> & <a href="#">políticas de privacidad</a></p>
+            <p>Distrito Metropolitano de Quito (DMQ)</p>
+          </div>
+        </form>    
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,227 @@
+<div class="page-content">
+    <!--breadcrumb-->
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+      <div class="breadcrumb-title pe-3">Forms</div>
+      <div class="ps-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb mb-0 p-0">
+            <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Wizard</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="ms-auto">
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary">Settings</button>
+          <button type="button" class="btn btn-primary split-bg-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">	<span class="visually-hidden">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end">	<a class="dropdown-item" href="javascript:;">Action</a>
+            <a class="dropdown-item" href="javascript:;">Another action</a>
+            <a class="dropdown-item" href="javascript:;">Something else here</a>
+            <div class="dropdown-divider"></div>	<a class="dropdown-item" href="javascript:;">Separated link</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--end breadcrumb-->
+  
+    <!--start stepper one--> 
+     
+      <h6 class="text-uppercase">Non Linear</h6>
+      <hr>
+    <div id="stepper1" class="bs-stepper">
+      <div class="card">
+      
+      <div class="card-header">
+        <div class="d-lg-flex flex-lg-row align-items-lg-center justify-content-lg-between" role="tablist">
+          <div class="step" data-target="#test-l-1">
+            <div class="step-trigger" role="tab" id="stepper1trigger1" aria-controls="test-l-1">
+            <div class="bs-stepper-circle">1</div>
+            <div class="">
+              <h5 class="mb-0 steper-title">Personal Info</h5>
+              <p class="mb-0 steper-sub-title">Enter Your Details</p>
+            </div>
+            </div>
+          </div>
+          <div class="bs-stepper-line"></div>
+          <div class="step" data-target="#test-l-2">
+            <div class="step-trigger" role="tab" id="stepper1trigger2" aria-controls="test-l-2">
+              <div class="bs-stepper-circle">2</div>
+              <div class="">
+                <h5 class="mb-0 steper-title">Account Details</h5>
+                <p class="mb-0 steper-sub-title">Setup Account Details</p>
+              </div>
+            </div>
+            </div>
+          <div class="bs-stepper-line"></div>
+          <div class="step" data-target="#test-l-3">
+            <div class="step-trigger" role="tab" id="stepper1trigger3" aria-controls="test-l-3">
+              <div class="bs-stepper-circle">3</div>
+              <div class="">
+                <h5 class="mb-0 steper-title">Education</h5>
+                <p class="mb-0 steper-sub-title">Education Details</p>
+              </div>
+            </div>
+            </div>
+            <div class="bs-stepper-line"></div>
+            <div class="step" data-target="#test-l-4">
+              <div class="step-trigger" role="tab" id="stepper1trigger4" aria-controls="test-l-4">
+              <div class="bs-stepper-circle">4</div>
+              <div class="">
+                <h5 class="mb-0 steper-title">Work Experience</h5>
+                <p class="mb-0 steper-sub-title">Experience Details</p>
+              </div>
+              </div>
+            </div>
+          </div>
+      </div>
+        <div class="card-body">
+      
+        <div class="bs-stepper-content">
+          <form action="." onSubmit="return true;" method="post">
+            {% csrf_token %}
+            <div id="test-l-1" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger1">
+                <h5 class="mb-1">Your Personal Information</h5>
+                <p class="mb-4">Enter your personal information to get closer to companies</p>
+        
+                <div class="row g-3">
+                    <div class="col-12 col-lg-6">
+                        {% for hidden_field in user_form.hidden_fields %}
+                            {{ hidden_field }}
+                        {% endfor %}
+        
+                        {% if user_form.non_field_errors %}
+                            <div class="alert alert-danger" role="alert">
+                                {% for error in user_form.non_field_errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+        
+                        {% for field in user_form.visible_fields %}
+                            <div class="form-group">
+                                <div class="group">
+                                    <label for="user" class="label">{{ field.label_tag }}</label>
+        
+                                    {% if form.is_bound %}
+                                        {% if field.errors %}
+                                            <p>Your username and password do not match. Please try again.</p>
+                                            {% render_field field class="form-control is-invalid input" %}
+                                            {% for error in field.errors %}
+                                                <div class="invalid-feedback">
+                                                    {{ error }}
+                                                </div>
+                                            {% endfor %}
+                                        {% else %}
+                                            <p>Please complete the following form:</p>
+                                            {% render_field field class="form-control is-valid " %}
+                                        {% endif %}
+                                    {% else %}
+                                        {% render_field field class="form-control input" %}
+                                    {% endif %}
+        
+                                    {% if field.help_text %}
+                                        <small class="form-text text-muted">{{ field.help_text }}</small>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Asegúrate de cerrar correctamente el formulario -->
+            <button type="submit" class="btn btn-success px-4">Submit</button>
+        </form>
+         
+              
+              
+            <div class="col-12 col-lg-6">
+              
+              <button class="btn btn-primary px-4" type="submit"   value="Save changes" onclick="stepper1.next()">Next<i class='bx bx-right-arrow-alt ms-2'></i></button>
+            </div>  
+            </div>
+          </div><!---end row-->
+          
+          </div>
+  
+          <div id="test-l-2" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger2">
+  
+          <h5 class="mb-1">Account Details</h5>
+          <p class="mb-4">Enter Your Account Details.</p>
+  
+          <div class="row g-3">
+           
+            <div class="col-12">
+              <div class="d-flex align-items-center gap-3">
+                <button class="btn btn-outline-secondary px-4" onclick="stepper1.previous()"><i class='bx bx-left-arrow-alt me-2'></i>Previous</button>
+                <button class="btn btn-primary px-4" onclick="stepper1.next()">Next<i class='bx bx-right-arrow-alt ms-2'></i></button>
+              </div>
+            </div>
+          </div><!---end row-->
+          
+          </div>
+  
+          <div id="test-l-3" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger3">
+          <h5 class="mb-1">Your Education Information</h5>
+          <p class="mb-4">Inform companies about your education life</p>
+  
+          <div class="row g-3">
+            <div class="col-12">
+              <div class="d-flex align-items-center gap-3">
+                <button class="btn btn-outline-secondary px-4" onclick="stepper1.previous()"><i class='bx bx-left-arrow-alt me-2'></i>Previous</button>
+                <button class="btn btn-primary px-4" onclick="stepper1.next()">Next<i class='bx bx-right-arrow-alt ms-2'></i></button>
+              </div>
+            </div>
+          </div><!---end row-->
+          
+          </div>
+  
+          <div id="test-l-4" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger4">
+          <h5 class="mb-1">Work Experiences</h5>
+          <p class="mb-4">Can you talk about your past work experience?</p>
+  
+          <div class="row g-3">
+  
+            <div class="col-12">
+              <div class="d-flex align-items-center gap-3">
+                <button class="btn btn-primary px-4" onclick="stepper1.previous()"><i class='bx bx-left-arrow-alt me-2'></i>Previous</button>
+                <button  type="submit" value="Save changes" onclick="submitForm()" class="btn btn-success px-4" >Submit</button>
+                
+               
+              </div>
+            </div>
+          </div><!---end row-->
+          
+          </div>
+          
+          <p><input type="submit" value="Save changes"></p>
+        </form>
+        </div>
+         
+      </div>
+
+
+
+      {% if user_form.is_bound %}
+      {% if field.errors %}
+      <p>Your username and password do not match. Please try again.</p>
+      {% render_field field class="form-control is-invalid input" %}
+     {% for error in field.errors %}
+     <div class="invalid-feedback">
+     {{ error }}
+     </div>
+     {% endfor %}
+     {% else %}
+     <p>Please complete the following form:</p>
+     {% render_field field class="form-control is-valid " %}
+     {% endif %}
+     {% else %}
+     {% render_field field class="form-control input" %}
+     {% endif %}
+   
+     {% if field.help_text %}
+      <small class="form-text text-muted">{{ field.help_text }}</small>
+     {% endif %}
+     {% endfor %}

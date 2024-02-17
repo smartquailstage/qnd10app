@@ -57,6 +57,7 @@ Configuration.configure(
 # Application definition
 
 INSTALLED_APPS = [
+    'account',
     'baton',
     'widget_tweaks',
     'django.contrib.admin',
@@ -88,11 +89,14 @@ INSTALLED_APPS = [
     'social_django',
     
     'wagtail',
+    'editorial',
+    'agenda_cultural_participativa',
 
     'modelcluster',
     'taggit',
     'rosetta',
     'qr_code',
+    'ckeditor',
     
     'baton.autodiscover',
     
@@ -106,7 +110,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'qnd10app.settings.middleware.GroupAccessMiddleware',
+    #'qnd10app.settings.middleware.GroupAccessMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
@@ -169,11 +173,15 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-   # 'account.authentication.EmailAuthBackend',
+    
+    'social_core.backends.linkedin.LinkedinOAuth2',
+    'social_core.backends.instagram.InstagramOAuth2',
+    'account.authentication.EmailAuthBackend',
+    'social_core.backends.linkedin.LinkedinOAuth2',
     'social_core.backends.facebook.FacebookOAuth2',
     'social_core.backends.twitter.TwitterOAuth',
     'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
 ]
 
 CART_SESSION_ID = 'cart'
@@ -182,6 +190,8 @@ SBACART_SESSION_ID = 'cart'
 SBTCART_SESSION_ID = 'cart'
 SBMCART_SESSION_ID = 'cart'
 
+
+EMAIL_BACKEND= 'django.core.mail.backends.console.EmailBackend'
 
 
 
@@ -228,6 +238,9 @@ USE_L10N = True
 USE_TZ = True
 
 
+LOGIN_REDIRECT_URL = 'dashboard'
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

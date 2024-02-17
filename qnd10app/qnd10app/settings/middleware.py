@@ -1,4 +1,4 @@
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden,HttpResponseRedirect
 from django.contrib.auth.models import Group
 
 class GroupAccessMiddleware:
@@ -12,7 +12,7 @@ class GroupAccessMiddleware:
             if request.path == '/login/':
                 return self.get_response(request)
             # Otherwise, forbid access
-            return HttpResponseForbidden("Acceso Denegado.Usted intento violar el articulo N.56 del contrato de tecnologias Para volver a ingresar contactese con: SmartQuail.S.A.S - +592-99-6352-1262")
+            return HttpResponseRedirect('/businessmedia/')
 
         # Check if the user is a member of the specified group
         required_group_name = 'Administrador'  # Replace with your desired group name
@@ -21,4 +21,4 @@ class GroupAccessMiddleware:
         if required_group and request.user.groups.filter(id=required_group.id).exists():
             return self.get_response(request)
         else:
-            return HttpResponseForbidden("Acceso Denegado.Usted intento violar el articulo N.56 y N.58 del contrato de tecnologias Para volver a ingresar contactese con: SmartQuail.S.A.S - +592-99-6352-1262")
+            return HttpResponseRedirect('/businessmedia/')

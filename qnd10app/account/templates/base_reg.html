@@ -1,0 +1,73 @@
+{% load static %}
+{% load widget_tweaks %}
+
+<!doctype html>
+<html lang="en" class="light-theme">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- loader-->
+  <link href="{% static 'assets/css/pace.min.css' %}" rel="stylesheet" />
+  <script src="{% static 'assets/js/pace.min.js' %}"></script>
+
+  <!--plugins-->
+  <link href="{% static 'assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css' %}" rel="stylesheet" />
+
+  <!-- CSS Files -->
+  <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/css/bootstrap-extended.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/css/icons.css' %}" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+  <title>QuitoCultura - Fomento editorial & lteraria</title>
+</head>
+
+<body>
+
+  <div class="login-bg-overlay au-sign-in-basic"></div>
+
+  <!--start wrapper-->
+  <div class="wrapper">
+    {% include "registration/header_reg.html" %}
+    <div class="container">
+      {% block content %}   
+      {% endblock %} 
+    </div>
+    <footer class="my-5">
+      <div class="container">
+        <div class="d-flex align-items-center gap-4 fs-5 justify-content-center social-login-footer">
+          <a href="javascript:;">
+            <ion-icon name="logo-twitter"></ion-icon>
+          </a>
+          <a href="javascript:;">
+            <ion-icon name="logo-linkedin"></ion-icon>
+          </a>
+          <a href="javascript:;">
+            <ion-icon name="logo-github"></ion-icon>
+          </a>
+          <a href="javascript:;">
+            <ion-icon name="logo-facebook"></ion-icon>
+          </a>
+          <a href="javascript:;">
+            <ion-icon name="logo-pinterest"></ion-icon>
+          </a>
+        </div>
+        <div class="text-center">
+          <p class="my-4">Copyright © 2024 SmartQuail.S.A.S</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <!--end wrapper-->
+
+
+
+  <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+  
+</body>
+
+</html>
