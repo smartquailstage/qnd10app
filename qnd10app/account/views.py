@@ -3,8 +3,10 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import User
 from .forms import LoginForm, UserRegistrationForm, \
-                   UserEditForm, ProfileEditForm
+                   UserEditForm, ProfileEditForm,ContactEditForm,Contact2EditForm,LegalEditForm
 from .models import Profile
 
 
@@ -68,16 +70,36 @@ def edit(request):
         profile_form = ProfileEditForm(instance=request.user.profile,
                                        data=request.POST,
                                        files=request.FILES)
-        if user_form.is_valid() and profile_form.is_valid():
+        contact_form = ContactEditForm(instance=request.user.profile,
+                                       data=request.POST)
+        contact2_form = Contact2EditForm(instance=request.user.profile,
+                                       data=request.POST)
+        legal_form = LegalEditForm(instance=request.user.profile,
+                                       data=request.POST)
+        if user_form.is_valid() and profile_form.is_valid() and contact_form.is_valid() and contact2_form.is_valid() and legal_form.is_valid() :
             user_form.save()
             profile_form.save()
+            contact_form.save()
+            contact2_form.save()
+            legal_form.save()
             messages.success(request, 'Profile updated successfully')
         else:
             messages.error(request, 'Error updating your profile')
     else:
         user_form = UserEditForm(instance=request.user)
         profile_form = ProfileEditForm(instance=request.user.profile)
+        contact_form = ContactEditForm(instance=request.user.profile)
+        contact2_form = Contact2EditForm(instance=request.user.profile)
+        legal_form = LegalEditForm(instance=request.user.profile)
     return render(request,
                   'account/edit.html',
                   {'user_form': user_form,
-                   'profile_form': profile_form})
+                   'profile_form': profile_form,
+                   'contact_form': contact_form,
+                   'contact2_form': contact2_form,
+                    'legal_form': legal_form })
+
+@login_required
+def user_profile(request, username):
+    user = get_object_or_404(User, username=username, is_active=True)
+    return render (request, 'account/edit.html','account/header.html', {'section':'user_profile', 'user':user})

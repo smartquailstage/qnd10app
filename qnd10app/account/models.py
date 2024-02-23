@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from datetime import datetime
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Profile(models.Model):
@@ -14,14 +15,15 @@ class Profile(models.Model):
     ]
 
     GENERO = [
-        ('Hombre','Indígena'),
-        ('Mujer','Afroecuatoriano'),
+        ('Masculino','Masculino'),
+        ('Femenino','Femenino'),
         ('No binario','Montubio'),
         ('Género fluido','Género fluido'),
         ('Bigénero','Bigénero'),
         ('Transexual','Transexual'),
         ('Andrógino','Andrógino'),
     ]
+
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     date_of_birth = models.DateField(blank=True, null=True,verbose_name="Fecha de nacimiento")
@@ -32,8 +34,8 @@ class Profile(models.Model):
     fecha_nacimiento = models.DateField(null=True)
     edad = models.IntegerField(blank=True, null=True)
     seudonimo = models.CharField(max_length=125,  verbose_name="Seudónimo",null=True)
-    autoidenty_etnica =  models.CharField(choices=ETNICA, max_length=200,null=True)
-    genero = models.CharField(choices=GENERO, max_length=200,null=True)
+    autoidenty_etnica =  models.CharField(choices=ETNICA, max_length=200,null=True, verbose_name="Autoidentificación Etnica")
+    genero = models.CharField(choices=GENERO, max_length=200,null=True,verbose_name="Autoidentificación Género")
 
     def calcular_edad(self):
         if self.fecha_nacimiento:
@@ -50,7 +52,7 @@ class Profile(models.Model):
     def __str__(self):
         return 'Perfil de usuario {}'.format(self.user.username)
     
-class natural(models.Model):
+class contacto(models.Model):
     PROVINCIA = [
         ('Azuay','Azuay'),
         ('Bolívar','Bolívar'),
@@ -452,7 +454,7 @@ class natural(models.Model):
         ),
         # Otras parroquias de Imbabura aquí
     )
-
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,null=True)
     provincia =  models.CharField(choices=PROVINCIA, max_length=200,null=True)
     canton1 = models.CharField(choices=CANTONES_AZUAY, max_length=200,null=True)
     canton2 = models.CharField(choices=CANTONES_BOLIVAR, max_length=200,null=True)
@@ -487,8 +489,21 @@ class natural(models.Model):
     parroquia9 = models.CharField(choices=PARROQUIAS_IMBABURA, max_length=200,null=True)
     direccion = models.CharField( max_length=200,null=True)
     gero_ref = models.CharField( max_length=200,null=True)
-    telefono = models.CharField( max_length=200,null=True)
+    telefono = PhoneNumberField(null=True)
 
+    def __str__(self):
+        return 'Contacto de usuario {}'.format(self.user.get_full_name)
+
+
+
+class legal(models.Model):
+    LEGAL = [('Natural','Natural'),('Jurídico','Jurídico')]
 
     
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,null=True)
+    ruc = models.IntegerField(blank=True, null=True, verbose_name = "¿Usted dispone de R.U.C?")
+    natu_juri =  models.CharField(choices=LEGAL, max_length=200,null=True, verbose_name = "¿En que estado legal desea realizar su registro?")
+
+    def __str__(self):
+        return 'Informaciín legal de usuario {}'.format(self.user.get_full_name)
 

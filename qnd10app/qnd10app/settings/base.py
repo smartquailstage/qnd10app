@@ -97,7 +97,8 @@ INSTALLED_APPS = [
     'rosetta',
     'qr_code',
     'ckeditor',
-    
+    'sorl.thumbnail',
+    'phonenumber_field',
     'baton.autodiscover',
     
 ]
