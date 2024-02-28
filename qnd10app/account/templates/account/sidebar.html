@@ -88,19 +88,27 @@
           </li>
     
      
-
+         
           <li class="menu-label">Postulación a convocatorias</li>
+          {% if acepta %}
+          {% for objeto in acepta %}
           <li>
             <li>
               <a href="pages-user-profile.html">
                 <div class="parent-icon">
                   <ion-icon name="person-add-outline"></ion-icon>
                 </div>
-                <div class="menu-title">Postularse</div>
+                <div class="menu-title">Postularse</div> {{ objeto }}
               </a>
             </li>
           </li>
-
+          {% endfor %}
+          {% else %}
+          <li>
+          <p>Todavía no actualiza Registro</p> 
+          </li>
+         {% endif %}
+        
           <li class="menu-label">Información de Usuarios</li>
           <li>
             <li>

@@ -6,8 +6,8 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from .forms import LoginForm, UserRegistrationForm, \
-                   UserEditForm, ProfileEditForm,ContactEditForm,Contact2EditForm,LegalEditForm
-from .models import Profile
+                   UserEditForm, ProfileEditForm,ContactEditForm,Contact2EditForm,LegalEditForm,ContactLegalEditForm,ContactLegal2EditForm,ActivityEditForm,Activity2EditForm,TermsEditForm
+from .models import Profile,terms
 
 
 def user_login(request):
@@ -69,35 +69,142 @@ def edit(request):
                                  data=request.POST)
         profile_form = ProfileEditForm(instance=request.user.profile,
                                        data=request.POST,
-                                       files=request.FILES)
-        contact_form = ContactEditForm(instance=request.user.profile,
-                                       data=request.POST)
-        contact2_form = Contact2EditForm(instance=request.user.profile,
-                                       data=request.POST)
-        legal_form = LegalEditForm(instance=request.user.profile,
-                                       data=request.POST)
-        if user_form.is_valid() and profile_form.is_valid() and contact_form.is_valid() and contact2_form.is_valid() and legal_form.is_valid() :
+                                       files=request.FILES)        
+        if user_form.is_valid() and profile_form.is_valid() :
             user_form.save()
             profile_form.save()
-            contact_form.save()
-            contact2_form.save()
-            legal_form.save()
             messages.success(request, 'Profile updated successfully')
         else:
             messages.error(request, 'Error updating your profile')
     else:
         user_form = UserEditForm(instance=request.user)
         profile_form = ProfileEditForm(instance=request.user.profile)
+
+ 
+    return render(request,
+                  'account/edit_profiles/edit_profile.html',
+                  {'user_form': user_form,
+                   'profile_form': profile_form})
+
+@login_required
+def edit_contact(request):
+    if request.method == 'POST':
+        contact_form = ContactEditForm(instance=request.user.profile,
+                                       data=request.POST,
+                                       files=request.FILES)
+        contact2_form = Contact2EditForm(instance=request.user.profile,
+                                       data=request.POST,
+                                       files=request.FILES)
+      
+        
+        if  contact_form.is_valid() and contact2_form.is_valid() :
+            contact_form.save()
+            contact2_form.save()
+
+
+            messages.success(request, 'Profile updated successfully')
+        else:
+            messages.error(request, 'Error updating your profile')
+    else:
         contact_form = ContactEditForm(instance=request.user.profile)
         contact2_form = Contact2EditForm(instance=request.user.profile)
-        legal_form = LegalEditForm(instance=request.user.profile)
+ 
     return render(request,
-                  'account/edit.html',
-                  {'user_form': user_form,
-                   'profile_form': profile_form,
-                   'contact_form': contact_form,
-                   'contact2_form': contact2_form,
-                    'legal_form': legal_form })
+                  'account/edit_profiles/edit_contact_profile.html',
+                  {'contact_form': contact_form,
+                   'contact2_form': contact2_form,})
+
+@login_required
+def edit_legal(request):
+    if request.method == 'POST':
+        legal_form = LegalEditForm(instance=request.user.profile,
+                                       data=request.POST,
+                                       files=request.FILES)
+        legal_contact_form = ContactLegalEditForm(instance=request.user.profile,
+                                       data=request.POST,
+                                       files=request.FILES)
+        legal_contact2_form = ContactLegal2EditForm(instance=request.user.profile,
+                                       data=request.POST,
+                                       files=request.FILES)
+      
+        
+        if  legal_form.is_valid() and legal_contact_form.is_valid() and legal_contact_form.is_valid() :
+            legal_form.save()
+            legal_contact_form.save()
+            legal_contact2_form.save()
+
+
+            messages.success(request, 'Profile updated successfully')
+        else:
+            messages.error(request, 'Error updating your profile')
+    else:
+        legal_form = ContactLegalEditForm(instance=request.user.profile)
+        legal_contact_form = Contact2EditForm(instance=request.user.profile)
+        legal_contact2_form = ContactLegal2EditForm(instance=request.user.profile)
+ 
+    return render(request,
+                  'account/edit_profiles/edit_legal_profile.html',
+                  {'legal_form': legal_form,
+                   'legal_contact_form': legal_contact_form,
+                   'legal_contact2_form': legal_contact2_form,})
+
+@login_required
+def edit_activity(request):
+    if request.method == 'POST':
+        activity_form = ActivityEditForm(instance=request.user.profile,
+                                       data=request.POST,
+                                       files=request.FILES)
+        activity2_form = Activity2EditForm(instance=request.user.profile,
+                                       data=request.POST,
+                                       files=request.FILES)
+      
+        
+        if   activity_form.is_valid() and activity2_form.is_valid()  :
+            activity_form.save()
+            activity2_form.save()
+          
+
+
+            messages.success(request, 'Profile updated successfully')
+        else:
+            messages.error(request, 'Error updating your profile')
+    else:
+        activity_form = ActivityEditForm(instance=request.user.profile)
+        activity2_form = Activity2EditForm(instance=request.user.profile)
+
+ 
+    return render(request,
+                  'account/edit_profiles/edit_activity_profile.html',
+                  {'activity_form': activity_form,
+                   'activity2_form': activity2_form})
+
+@login_required
+def edit_terms(request):
+    if request.method == 'POST':
+        terms_form = TermsEditForm(instance=request.user.profile,
+                                       data=request.POST,
+                                       files=request.FILES)
+        if  terms_form.is_valid():
+            terms_form.save()
+            messages.success(request, 'Profile updated successfully')
+        else:
+            messages.error(request, 'Error updating your profile')
+    else:
+        terms_form = TermsEditForm(instance=request.user.profile)
+
+    return render(request,
+                  'account/edit_profiles/edit_terms_profile.html',
+                  {'terms_form':terms_form})
+@login_required
+def aprobacion(request):
+    # Lógica del manejador de objetos en la vista
+    acepta = terms.objects.filter(agree=True)
+    
+    # Hacer algo con el queryset, como pasarlo al contexto para renderizarlo en la plantilla
+    context = {
+        'acepta': acepta
+    }
+    return render(request, 'account/sidebar.html', context)
 
 @login_required
 def user_profile(request, username):

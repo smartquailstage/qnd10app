@@ -1,0 +1,124 @@
+{% extends "base_dash.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}Completar registro{% endblock %}
+
+{% block content %}
+
+
+
+<!--end stepper one--> 
+
+      
+<!--start stepper two--> 
+<h6 class="text-uppercase">Registro de usuario</h6>
+<hr>
+<div id="stepper1" class="bs-stepper">
+<div class="card">
+  
+  <div class="card-header">
+    <div class="d-lg-flex flex-lg-row align-items-lg-center justify-content-lg-between" role="tablist">
+      <div class="step" data-target="#test-nl-1">
+      <div class="step-trigger" role="tab" id="stepper1trigger1" aria-controls="test-nl-1">
+        <div class="bs-stepper-circle"><i class='bx bx-user fs-4'></i></div>
+        <div class="">
+          <h5 class="mb-0 steper-title">Información Personal</h5>
+          <p class="mb-0 steper-sub-title">Datos de Usuario</p>
+        </div>
+      </div>
+      </div>
+      <div class="bs-stepper-line"></div>
+      <div class="step" data-target="#test-nl-2">
+        <div class="step-trigger" role="tab" id="stepper1trigger2" aria-controls="test-nl-2">
+        <div class="bs-stepper-circle"><i class='bx bxs-contact fs-4'></i></div>
+        <div class="">
+          <h5 class="mb-0 steper-title">Información de Contacto</h5>
+          <p class="mb-0 steper-sub-title"> Datos Localidad & Contacto</p>
+        </div>
+        </div>
+      </div>
+      <div class="bs-stepper-line"></div>
+      <div class="step" data-target="#test-nl-3">
+        <div class="step-trigger" role="tab" id="stepper1trigger3" aria-controls="test-nl-3">
+        <div class="bs-stepper-circle"><i class='bx bx-file fs-4'></i></div>
+        <div class="">
+          <h5 class="mb-0 steper-title">Información Legal</h5>
+          <p class="mb-0 steper-sub-title">Datos Personaría Jurídica/Natural</p>
+        </div>
+        </div>
+      </div>
+      <div class="bs-stepper-line"></div>
+        <div class="step" data-target="#test-nl-4">
+          <div class="step-trigger" role="tab" id="stepper1trigger4" aria-controls="test-nl-4">
+          <div class="bs-stepper-circle"><i class='bx bxs-film fs-4'></i></div>
+          <div class="">
+            <h5 class="mb-0 steper-title">Actividad</h5>
+            <p class="mb-0 steper-sub-title">Descripción de actividades </p>
+          </div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="card-body">
+  <div class="bs-stepper-content">
+
+    <form action="." method="post" enctype="multipart/form-data" id="stepper-form">
+      
+      <div id="test-nl-3" role="tabpanel"  aria-labelledby="stepper1trigger3">
+        <h5 class="mb-1">Información de estatus legal</h5>
+        <p class="mb-4">Escriba la personaría jurñidica al cual desea registrarse</p>
+      
+        <div class="row g-3">
+          <div class="col-12 col-lg-6 ">
+            {% csrf_token %}
+            {{ legal_form.as_p }}
+          </div>
+          <div class="col-12 col-lg-6">
+            {% csrf_token %}
+            {{ legal_contact_form.as_p }}
+            {{ legal_contact2_form.as_p }}
+          </div>
+      
+          <div class="col-12">
+            <div class="d-flex align-items-center gap-3">
+              <button class="btn btn-outline-secondary px-4" onclick="stepper1.previous()"><i class='bx bx-left-arrow-alt me-2'></i>Anterior</button>
+              <button class="btn btn-primary px-4" onclick="stepper1.next()">Siguiente<i class='bx bx-right-arrow-alt ms-2'></i></button>
+            </div>
+          </div>
+        </div><!---end row-->
+        
+      </div>
+    
+    </form>
+
+  </div>
+  </div>
+
+ </div>
+</div>
+
+
+
+<a href="javaScript:;" class="back-to-top"><ion-icon name="arrow-up-outline"></ion-icon></a>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const botonesSiguiente = document.querySelectorAll('[id^="btn-siguiente-"]');
+    botonesSiguiente.forEach(btn => {
+      btn.addEventListener('click', function() {
+        const form = document.getElementById('stepper-form');
+        form.submit(); // Enviar el formulario
+      });
+    });
+  });
+  </script>
+
+<script>
+  function actualizarPagina() {
+    location.reload();
+  }
+  </script>
+
+{% endblock %}

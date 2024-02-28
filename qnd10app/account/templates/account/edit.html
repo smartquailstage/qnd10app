@@ -60,254 +60,299 @@
         </div>
     </div>
   </div>
+
   <div class="card-body">
-  
   <div class="bs-stepper-content">
-    <form onSubmit="return false">
-      
-    <div id="test-nl-1" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper2trigger1">
-      <h5 class="mb-1">{{ user.get_full_name }}</h5>
-      <p class="mb-4">Actualize su registro al sistema, llenando el siguiente formulario:</p>
 
-      <div class="row g-3">
-
-        <div class="col-12 col-lg-6">
-          {% if profile_form.instance.photo %}
-          <img src="{{ profile_form.instance.photo.url }}" alt="Image" style="width: 300px; border-radius: 50%;">
+    <form action="." method="post" enctype="multipart/form-data" id="stepper-form">
+  
+      <div id="test-nl-1" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper2trigger1">
+        <h5 class="mb-1">{{ user.get_full_name }}</h5>
+        <p class="mb-4">Actualize su registro al sistema, llenando el siguiente formulario:</p>
+        <div class="row g-3">
+          <div class="col-12 col-lg-6">
+            {% if profile_form.instance.photo %}
+            <img src="{{ profile_form.instance.photo.url }}" alt="Image" style="width: 300px; border-radius: 50%;">
+            {% else %}
+            <img src="{% static 'assets/images/icons/no-image-icon-md.png' %}" alt="Image" style="width: 300px; border-radius: 50%;">
+            {% endif %}
+  
+            {% if user_form.non_field_errors %}
+            <div class="alert alert-danger" role="alert">
+            {% for error in user_form.non_field_errors %}
+              {{ error }}
+            {% endfor %}
+            </div>
+          {% endif %}
+  
+          {% for field in user_form.visible_fields %}
+          <p></p>
+          <label for="user" class="label">{{ field.label_tag }}</label>
+          
+          {% if user_form.is_bound %}
+          {% if field.errors %}
+          {% render_field field class="form-control is-invalid input" %}
           {% else %}
-          <img src="{% static 'assets/images/icons/no-image-icon-md.png' %}" alt="Image" style="width: 300px; border-radius: 50%;">
+              {% render_field field class="form-control  is-valid " %}
           {% endif %}
-
-          {% if user_form.non_field_errors %}
-          <div class="alert alert-danger" role="alert">
-          {% for error in user_form.non_field_errors %}
-            {{ error }}
+          {% else %}
+              {% render_field field class="form-control  input" %}
+            {% endif %}
+      {% endfor %}
+      {% csrf_token %}
+      </div>
+  
+          <div class="col-12 col-lg-6">
+  
+            {% if profile_form.non_field_errors %}
+            <div class="alert alert-danger" role="alert">
+            {% for error in profile_form.non_field_errors %}
+              {{ error }}
+            {% endfor %}
+            </div>
+          {% endif %}
+  
+          {% for field in profile_form.visible_fields %}
+          <p></p>
+          <label for="user" class="label">{{ field.label_tag }}</label>  
+          {% if profile_form.is_bound %}
+          {% if field.errors %}
+          {% render_field field class="form-control is-invalid input" %}
+          {% else %}
+              {% render_field field class="form-control is-valid " %}
+          {% endif %}
+          {% else %}
+              {% render_field field class="form-control input" %}
+            {% endif %}
           {% endfor %}
+          {% csrf_token %}
           </div>
-        {% endif %}
-
-        {% for field in user_form.visible_fields %}
-        <p></p>
-        <label for="user" class="label">{{ field.label_tag }}</label>
-        
-        {% if user_form.is_bound %}
-        {% if field.errors %}
-        {% render_field field class="form-control is-invalid input" %}
-        {% else %}
-            {% render_field field class="form-control  is-valid " %}
-        {% endif %}
-        {% else %}
-            {% render_field field class="form-control  input" %}
-          {% endif %}
-    {% endfor %}
-    </div>
-
-        <div class="col-12 col-lg-6">
-
-          {% if profile_form.non_field_errors %}
-          <div class="alert alert-danger" role="alert">
-          {% for error in profile_form.non_field_errors %}
-            {{ error }}
-          {% endfor %}
+        </div>
+          <div class="col-12 col-lg-6">
+            <button class="btn btn-primary px-4" onclick="stepper1.next()">Actualizar<i class='bx bx-right-arrow-alt ms-2'></i></button>
+            <a class="btn btn-primary px-4" href="{% url "account:edit_contact" %}" onclick="stepper1.next()" >Siguiente<i class='bx bx-right-arrow-alt ms-2'></i></a>
           </div>
-        {% endif %}
-
-        {% for field in profile_form.visible_fields %}
-        <p></p>
-        <label for="user" class="label">{{ field.label_tag }}</label>  
-        {% if profile_form.is_bound %}
-        {% if field.errors %}
-        {% render_field field class="form-control is-invalid input" %}
-        {% else %}
-            {% render_field field class="form-control is-valid " %}
-        {% endif %}
-        {% else %}
-            {% render_field field class="form-control input" %}
-          {% endif %}
-        {% endfor %}
-        </div>
-
-       
-
-         
-        
-        </div>
-        
-        <div class="col-12 col-lg-6">
-          <button class="btn btn-primary px-4" onclick="stepper1.next()">Siguiente<i class='bx bx-right-arrow-alt ms-2'></i></button>
-        </div>
-      </div><!---end row-->
-      
-    </div>
-
-    <div id="test-nl-2" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger2">
-
-      <h5 class="mb-1">Información de Localidad y contacto</h5>
-      <p class="mb-4">Escriba  información sobre su Localidad y contacto</p>
-
-      <div class="row g-3">
-        <div class="col-12 col-lg-6">
-
-          {% if contact_form.non_field_errors %}
-          <div class="alert alert-danger" role="alert">
-          {% for error in contact_form.non_field_errors %}
-            {{ error }}
-          {% endfor %}
-          </div>
-        {% endif %}
-
-        {% for field in contact_form.visible_fields %}
-        <p></p>
-        <label for="user" class="label">{{ field.label_tag }}</label>  
-        {% if contact_form.is_bound %}
-        {% if field.errors %}
-        {% render_field field class="form-control is-invalid input" %}
-        {% else %}
-            {% render_field field class="form-control is-valid " %}
-        {% endif %}
-        {% else %}
-            {% render_field field class="form-control input" %}
-          {% endif %}
-        {% endfor %}
-        </div>
-
-        <div class="col-12 col-lg-6">
           
+      </div><!---end row-->
+      
+      
+      <div id="test-nl-2" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger2">
+      
+        <h5 class="mb-1">Información de Localidad y contacto</h5>
+        <p class="mb-4">Escriba  información sobre su Localidad y contacto</p>
+      
+        <div class="row g-3">
+          <div class="col-12 col-lg-6">
 
-          {% if contact2_form.non_field_errors %}
-          <div class="alert alert-danger" role="alert">
-          {% for error in contact2_form.non_field_errors %}
-            {{ error }}
-          {% endfor %}
-          </div>
-        {% endif %}
-
-        {% for field in contact2_form.visible_fields %}
-        <p></p>
-        <label for="user" class="label">{{ field.label_tag }}</label>  
-        {% if contact2_form.is_bound %}
-        {% if field.errors %}
-        {% render_field field class="form-control is-invalid input" %}
-        {% else %}
-            {% render_field field class="form-control is-valid " %}
-        {% endif %}
-        {% else %}
-            {% render_field field class="form-control input" %}
+            {% if contact_form.non_field_errors %}
+            <div class="alert alert-danger" role="alert">
+            {% for error in contact_form.non_field_errors %}
+              {{ error }}
+            {% endfor %}
+            </div>
           {% endif %}
-        {% endfor %}
-        </div>
-
-        <div class="col-12">
-          <div class="d-flex align-items-center gap-3">
-            <button class="btn btn-outline-secondary px-4" onclick="stepper1.previous()"><i class='bx bx-left-arrow-alt me-2'></i>Anterior</button>
-            <button class="btn btn-primary px-4" onclick="stepper1.next()">Siguiente<i class='bx bx-right-arrow-alt ms-2'></i></button>
-          </div>
-        </div>
-      </div><!---end row-->
-      
-    </div>
-
-    <div id="test-nl-3" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger3">
-      <h5 class="mb-1">Your Education Information</h5>
-      <p class="mb-4">Inform companies about your education life</p>
-
-      <div class="row g-3">
-        <div class="col-12 col-lg-6">
-          
-
-          {% if legal_form.non_field_errors %}
-          <div class="alert alert-danger" role="alert">
-          {% for error in legal_form.non_field_errors %}
-            {{ error }}
-          {% endfor %}
-          </div>
-        {% endif %}
-
-        {% for field in legal_form.visible_fields %}
-        <p></p>
-        <label for="user" class="label">{{ field.label_tag }}</label>  
-        {% if legal_form.is_bound %}
-        {% if field.errors %}
-        {% render_field field class="form-control is-invalid input" %}
-        {% else %}
-            {% render_field field class="form-control is-valid " %}
-        {% endif %}
-        {% else %}
-            {% render_field field class="form-control input" %}
+  
+          {% for field in contact_form.visible_fields %}
+          <p></p>
+          <label for="user" class="label">{{ field.label_tag }}</label>  
+          {% if contact_form.is_bound %}
+          {% if field.errors %}
+          {% render_field field class="form-control is-invalid input" %}
+          {% else %}
+              {% render_field field class="form-control is-valid " %}
           {% endif %}
-        {% endfor %}
-        </div>
-        <div class="col-12">
-          <div class="d-flex align-items-center gap-3">
-            <button class="btn btn-outline-secondary px-4" onclick="stepper1.previous()"><i class='bx bx-left-arrow-alt me-2'></i>Anterior</button>
-            <button class="btn btn-primary px-4" onclick="stepper1.next()">Siguiente<i class='bx bx-right-arrow-alt ms-2'></i></button>
+          {% else %}
+              {% render_field field class="form-control input" %}
+            {% endif %}
+          {% endfor %}
+          {% csrf_token %}
+          </div>
+  
+          <div class="col-12 col-lg-6">
+            
+  
+            {% if contact2_form.non_field_errors %}
+            <div class="alert alert-danger" role="alert">
+            {% for error in contact2_form.non_field_errors %}
+              {{ error }}
+            {% endfor %}
+            </div>
+          {% endif %}
+  
+          {% for field in contact2_form.visible_fields %}
+          <p></p>
+          <label for="user" class="label">{{ field.label_tag }}</label>  
+          {% if contact2_form.is_bound %}
+          {% if field.errors %}
+          {% render_field field class="form-control is-invalid input" %}
+          {% else %}
+              {% render_field field class="form-control is-valid " %}
+          {% endif %}
+          {% else %}
+              {% render_field field class="form-control input" %}
+            {% endif %}
+          {% endfor %}
+          {% csrf_token %}
+          </div>
+      
+          <div class="col-12">
+            <div class="d-flex align-items-center gap-3">
+              <button class="btn btn-outline-secondary px-4" onclick="stepper1.previous()"><i class='bx bx-left-arrow-alt me-2'></i>Anterior</button>
+              <button class="btn btn-primary px-4" onclick="stepper1.next()">Siguiente<i class='bx bx-right-arrow-alt ms-2'></i></button>
+            </div>
+          </div>
+        </div><!---end row-->
+        
+      </div>
+      
+      <div id="test-nl-3" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger3">
+        <h5 class="mb-1">Información de estatus legal</h5>
+        <p class="mb-4">Escriba la personaría jurñidica al cual desea registrarse</p>
+      
+        <div class="row g-3">
+          <div class="col-12 col-lg-6">
+
+            {% if legal_form.non_field_errors %}
+            <div class="alert alert-danger" role="alert">
+            {% for error in legal_form.non_field_errors %}
+              {{ error }}
+            {% endfor %}
+            </div>
+          {% endif %}
+  
+          {% for field in legal_form.visible_fields %}
+          <p></p>
+          <label for="user" class="label">{{ field.label_tag }}</label>  
+          {% if legal_form.is_bound %}
+          {% if field.errors %}
+          {% render_field field class="form-control is-invalid input" %}
+          {% else %}
+              {% render_field field class="form-control is-valid " %}
+          {% endif %}
+          {% else %}
+              {% render_field field class="form-control input" %}
+            {% endif %}
+          {% endfor %}
+          {% csrf_token %}
+          </div>
+  
+          <div class="col-12 col-lg-6">
+            
+  
+            {% if legal_contact_form.non_field_errors %}
+            <div class="alert alert-danger" role="alert">
+            {% for error in legal_contact_form.non_field_errors %}
+              {{ error }}
+            {% endfor %}
+            </div>
+          {% endif %}
+  
+          {% for field in legal_contact_form.visible_fields %}
+          <p></p>
+          <label for="user" class="label">{{ field.label_tag }}</label>  
+          {% if legal_contact_form.is_bound %}
+          {% if field.errors %}
+          {% render_field field class="form-control is-invalid input" %}
+          {% else %}
+              {% render_field field class="form-control is-valid " %}
+          {% endif %}
+          {% else %}
+              {% render_field field class="form-control input" %}
+            {% endif %}
+          {% endfor %}
+          {% csrf_token %}
+          </div>
+
+          <div class="col-12 col-lg-6">
+            
+  
+            {% if legal_contact2_form.non_field_errors %}
+            <div class="alert alert-danger" role="alert">
+            {% for error in legal_contact2_form.non_field_errors %}
+              {{ error }}
+            {% endfor %}
+            </div>
+          {% endif %}
+  
+          {% for field in legal_contact2_form.visible_fields %}
+          <p></p>
+          <label for="user" class="label">{{ field.label_tag }}</label>  
+          {% if legal_contact2_form.is_bound %}
+          {% if field.errors %}
+          {% render_field field class="form-control is-invalid input" %}
+          {% else %}
+              {% render_field field class="form-control is-valid " %}
+          {% endif %}
+          {% else %}
+              {% render_field field class="form-control input" %}
+            {% endif %}
+          {% endfor %}
+          {% csrf_token %}
+          </div>
+      
+          <div class="col-12">
+            <div class="d-flex align-items-center gap-3">
+              <button class="btn btn-outline-secondary px-4" onclick="stepper1.previous()"><i class='bx bx-left-arrow-alt me-2'></i>Anterior</button>
+              <button class="btn btn-primary px-4" onclick="stepper1.next()">Siguiente<i class='bx bx-right-arrow-alt ms-2'></i></button>
+            </div>
           </div>
         </div>
-      </div><!---end row-->
+        
+      </div>
       
-    </div>
-
-    <div id="test-nl-4" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger4">
-      <h5 class="mb-1">Work Experiences</h5>
-      <p class="mb-4">Can you talk about your past work experience?</p>
-
-      <div class="row g-3">
-        <div class="col-12 col-lg-6">
-          <label for="Experience1" class="form-label">Experience 1</label>
-          <input type="text" class="form-control" id="Experience1" placeholder="Experience 1">
-        </div>
-        <div class="col-12 col-lg-6">
-          <label for="Position1" class="form-label">Position</label>
-          <input type="text" class="form-control" id="Position1" placeholder="Position">
-        </div>
-        <div class="col-12 col-lg-6">
-          <label for="Experience2" class="form-label">Experience 2</label>
-          <input type="text" class="form-control" id="Experience2" placeholder="Experience 2">
-        </div>
-        <div class="col-12 col-lg-6">
-          <label for="PhoneNumber" class="form-label">Position</label>
-          <input type="text" class="form-control" id="PhoneNumber" placeholder="Position">
-        </div>
-        <div class="col-12 col-lg-6">
-          <label for="Experience3" class="form-label">Experience 3</label>
-          <input type="text" class="form-control" id="Experience3" placeholder="Experience 3">
-        </div>
-        <div class="col-12 col-lg-6">
-          <label for="PhoneNumber" class="form-label">Position</label>
-          <input type="text" class="form-control" id="PhoneNumber" placeholder="Position">
-        </div>
-        <div class="col-12">
-          <div class="d-flex align-items-center gap-3">
-            <button class="btn btn-primary px-4" onclick="stepper1.previous()"><i class='bx bx-left-arrow-alt me-2'></i>Anterior</button>
-            <button class="btn btn-success px-4" onclick="stepper1.next()">Enviar</button>
+      <div id="test-nl-4" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger4">
+        <h5 class="mb-1">Información sobre sus actividades Culturales</h5>
+        <p class="mb-4">Describa en el siguiete formulario sus actividades culturales</p>
+      
+        <div class="row g-3">
+      
+          <div class="col-12 col-lg-6">
+            {% csrf_token %}
+            {{ activity_form.as_p }}
           </div>
-        </div>
-      </div><!---end row-->
-      
-    </div>
-
+          <div class="col-12 col-lg-6">
+            {% csrf_token %}
+            {{ activity2_form.as_p }}
+          </div>
+          <div class="col-12">
+            <div class="d-flex align-items-center gap-3">
+              <p><input type="submit" value="enviar"></p>
+              <button class="btn btn-primary px-4" onclick="stepper1.previous()"><i class='bx bx-left-arrow-alt me-2'></i>Anterior</button>
+              <button class="btn btn-success px-4" type="submit" >Enviar</button>
+            </div>
+          </div>
+        </div><!---end row-->
+        
+      </div>
+    
     </form>
-  </div>
 
   </div>
+  </div>
+
  </div>
+</div>
 
 
 
 <a href="javaScript:;" class="back-to-top"><ion-icon name="arrow-up-outline"></ion-icon></a>
 
 <script>
-  function submitForm() {
-      // Realizar validaciones de formulario si es necesario
-      // Por ejemplo:
-      // if (!validateForm()) {
-      //     return false;
-      // }
+  document.addEventListener('DOMContentLoaded', function() {
+    const botonesSiguiente = document.querySelectorAll('[id^="btn-siguiente-"]');
+    botonesSiguiente.forEach(btn => {
+      btn.addEventListener('click', function() {
+        const form = document.getElementById('stepper-form');
+        form.submit(); // Enviar el formulario
+      });
+    });
+  });
+  </script>
 
-      // Si las validaciones son exitosas, procede a enviar el formulario
-      document.querySelector('form').submit();
+<script>
+  function actualizarPagina() {
+    location.reload();
   }
-</script>
-
+  </script>
 
 {% endblock %}
