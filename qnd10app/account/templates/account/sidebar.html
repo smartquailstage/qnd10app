@@ -87,27 +87,25 @@
             </a>
           </li>
     
-     
+         
          
           <li class="menu-label">Postulación a convocatorias</li>
-          {% if acepta %}
-          {% for objeto in acepta %}
+          {% for aprobacion in aprobe.aprueba.all  %}
+          {% if aprobacion.aprueba == 'True' and  request.user.is_authenticated  %}
           <li>
-            <li>
-              <a href="pages-user-profile.html">
-                <div class="parent-icon">
-                  <ion-icon name="person-add-outline"></ion-icon>
-                </div>
-                <div class="menu-title">Postularse</div> {{ objeto }}
-              </a>
-            </li>
+            <a href="pages-user-profile.html">
+              <div class="parent-icon">
+                <ion-icon name="person-add-outline"></ion-icon>
+              </div>
+              <div class="menu-title">Postularse</div> 
+            </a>
           </li>
-          {% endfor %}
           {% else %}
           <li>
-          <p>Todavía no actualiza Registro</p> 
+            <p>Todavía no ha actualizado el registro</p> 
           </li>
-         {% endif %}
+          {% endif %}
+          {% endfor %}
         
           <li class="menu-label">Información de Usuarios</li>
           <li>

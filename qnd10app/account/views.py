@@ -36,7 +36,7 @@ def user_login(request):
 def dashboard(request):
     return render(request,
                   'account/dashboard.html',
-                  {'section': 'dashboard'})
+                  {'section': 'account:dashboard'})
 
 
 def register(request):
@@ -198,13 +198,21 @@ def edit_terms(request):
 @login_required
 def aprobacion(request):
     # Lógica del manejador de objetos en la vista
-    acepta = terms.objects.filter(agree=True)
+    acepta = terms.objects.filter(agree=agree)
     
     # Hacer algo con el queryset, como pasarlo al contexto para renderizarlo en la plantilla
     context = {
         'acepta': acepta
     }
     return render(request, 'account/sidebar.html', context)
+
+@login_required
+def aprobacion(request, id):
+    aprobe = get_object_or_404(terms, id=id)
+    return render(request,
+                  'account/sidebar.html',
+                  {'section': 'aprobe',
+                   'aprobe': aprobe})
 
 @login_required
 def user_profile(request, username):
