@@ -34,9 +34,16 @@ def user_login(request):
 
 @login_required
 def dashboard(request):
-    return render(request,
+    if request.user.is_authenticated:
+        usuario = request.user.profile 
+        contacto= request.user.contacto
+        terminos = request.user.terms 
+        
+        return render(request,
                   'account/dashboard.html',
-                  {'section': 'account:dashboard'})
+                  {'section': 'account:dashboard','usuario': usuario,'contacto': contacto,'terminos':terminos})
+    else:
+        return render(request, 'account/dashboard.html', {'mensaje': 'Debes iniciar sesión para ver tu perfil'})
 
 
 def register(request):
@@ -52,6 +59,11 @@ def register(request):
             new_user.save()
             # Create the user profile
             Profile.objects.create(user=new_user)
+            contacto.objects.create(user=new_user)
+            legal.objects.create(user=new_user)
+            contacto_legal.objects.create(user=new_user)
+            activity.objects.create(user=new_user)
+            terms.objects.create(user=new_user)
             return render(request,
                           'account/register_done.html',
                           {'new_user': new_user})
@@ -60,6 +72,8 @@ def register(request):
     return render(request,
                   'account/register.html',
                   {'user_form': user_form})
+
+
 
 
 @login_required
@@ -89,7 +103,7 @@ def edit(request):
 @login_required
 def edit_contact(request):
     if request.method == 'POST':
-        contact_form = ContactEditForm(instance=request.user.contacto ,
+        contact_form = ContactEditForm(instance=request.user.contacto,
                                        data=request.POST,
                                        files=request.FILES)
         contact2_form = Contact2EditForm(instance=request.user.contacto,
@@ -120,10 +134,10 @@ def edit_legal(request):
         legal_form = LegalEditForm(instance=request.user.legal,
                                        data=request.POST,
                                        files=request.FILES)
-        legal_contact_form = ContactLegalEditForm(instance=request.user.legal_contact,
+        legal_contact_form = ContactLegalEditForm(instance=request.user.contacto_legal,
                                        data=request.POST,
                                        files=request.FILES)
-        legal_contact2_form = ContactLegal2EditForm(instance=request.user.legal_contact2,
+        legal_contact2_form = ContactLegal2EditForm(instance=request.user.contacto_legal,
                                        data=request.POST,
                                        files=request.FILES)
       
@@ -139,8 +153,8 @@ def edit_legal(request):
             messages.error(request, 'Error updating your profile')
     else:
         legal_form = ContactLegalEditForm(instance=request.user.legal)
-        legal_contact_form = Contact2EditForm(instance=request.user.legal_contact)
-        legal_contact2_form = ContactLegal2EditForm(instance=request.user.legal_contact2)
+        legal_contact_form = Contact2EditForm(instance=request.contacto_legal)
+        legal_contact2_form = ContactLegal2EditForm(instance=request.contacto_legal)
  
     return render(request,
                   'account/edit_profiles/edit_legal_profile.html',
@@ -151,10 +165,10 @@ def edit_legal(request):
 @login_required
 def edit_activity(request):
     if request.method == 'POST':
-        activity_form = ActivityEditForm(instance=request.user.profile,
+        activity_form = ActivityEditForm(instance=request.user.activity,
                                        data=request.POST,
                                        files=request.FILES)
-        activity2_form = Activity2EditForm(instance=request.user.profile,
+        activity2_form = Activity2EditForm(instance=request.user.activity,
                                        data=request.POST,
                                        files=request.FILES)
       
@@ -169,8 +183,8 @@ def edit_activity(request):
         else:
             messages.error(request, 'Error updating your profile')
     else:
-        activity_form = ActivityEditForm(instance=request.user.profile)
-        activity2_form = Activity2EditForm(instance=request.user.profile)
+        activity_form = ActivityEditForm(instance=request.user.activity)
+        activity2_form = Activity2EditForm(instance=request.user.activity)
 
  
     return render(request,
@@ -181,7 +195,7 @@ def edit_activity(request):
 @login_required
 def edit_terms(request):
     if request.method == 'POST':
-        terms_form = TermsEditForm(instance=request.user.profile,
+        terms_form = TermsEditForm(instance=request.user.terms,
                                        data=request.POST,
                                        files=request.FILES)
         if  terms_form.is_valid():
@@ -190,22 +204,12 @@ def edit_terms(request):
         else:
             messages.error(request, 'Error updating your profile')
     else:
-        terms_form = TermsEditForm(instance=request.user.profile)
+        terms_form = TermsEditForm(instance=request.user.terms)
 
     return render(request,
                   'account/edit_profiles/edit_terms_profile.html',
                   {'terms_form':terms_form})
 
-
-@login_required
-def usuario_terms(request):
-    # Verificar si el usuario está autenticado
-    if request.user.is_authenticated :
-        usuario_terms = request.user.terms  # Suponiendo que el perfil de usuario está relacionado con el modelo de usuario
-        return render(request, 'account/sidebar.html', {'usuario_terms': usuario_terms})
-    else:
-        # Redirigir al usuario a la página de inicio de sesión o mostrar un mensaje de error
-        return render(request, 'account/sidebar.html', {'mensaje': 'Debes iniciar sesión para ver tu perfil'})
 
 
 @login_required
@@ -213,11 +217,22 @@ def perfil_usuario(request):
     # Verificar si el usuario está autenticado
     if request.user.is_authenticated:
         usuario = request.user.profile 
-        contacto= request.user.contacto  # Suponiendo que el perfil de usuario está relacionado con el modelo de usuario
-        return render(request, 'account/profile/profile.html', {'usuario': usuario,'contacto': contacto})
+        contacto= request.user.contacto
+        terminos = request.user.terms  # Suponiendo que el perfil de usuario está relacionado con el modelo de usuario
+        return render(request, 'account/profile/profile.html','account/dashboard.html', {'usuario': usuario,'contacto': contacto,'terminos':terminos})
     else:
         # Redirigir al usuario a la página de inicio de sesión o mostrar un mensaje de error
         return render(request, 'account/profile/profile.html', {'mensaje': 'Debes iniciar sesión para ver tu perfil'})
+    
+@login_required
+def terminos_usuario(request):
+    # Verificar si el usuario está autenticado
+    if request.user.is_authenticated:
+        terminos = request.user.terms  # Suponiendo que el perfil de usuario está relacionado con el modelo de usuario
+        return render(request, 'account/sidebar.html', {'terminos':terminos})
+    else:
+        # Redirigir al usuario a la página de inicio de sesión o mostrar un mensaje de error
+        return render(request, 'account/sidebar.html', {'mensaje': 'Debes iniciar sesión para ver tu perfil'})
     
 
 @login_required

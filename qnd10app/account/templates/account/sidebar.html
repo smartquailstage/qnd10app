@@ -70,43 +70,74 @@
             </ul>
           </li>
           <li class="menu-label">Creación de convocatorias</li>
+
           <li>
-            <a href="pages-user-profile.html">
+            <a href="javascript:;" class="has-arrow">
               <div class="parent-icon">
                 <ion-icon name="add-circle-outline"></ion-icon>
               </div>
-              <div class="menu-title">Crear Convocatoria</div>
+              <div class="menu-title">Crear Convocatorias</div>
             </a>
+            <ul>
+              <li> <a href="widgets-static-widgets.html">
+                  <ion-icon name="ellipse-outline"></ion-icon>Editorial y Literaría
+                </a>
+              </li>
+
           </li>
+            </ul>
+          </li>
+
           <li>
-            <a href="pages-edit-profile.html">
+            <a href="javascript:;" class="has-arrow">
               <div class="parent-icon">
                 <ion-icon name="create-outline"></ion-icon>
               </div>
-              <div class="menu-title">Editar Convocatoria </div>
+              <div class="menu-title">Editar Convocatorias</div>
             </a>
+            <ul>
+              <li> <a href="widgets-static-widgets.html">
+                  <ion-icon name="ellipse-outline"></ion-icon>Editorial y Literaría
+                </a>
+              </li>
+
           </li>
-    
-         
-         
+            </ul>
+          </li>
+            
           <li class="menu-label">Postulación a convocatorias</li>
        
-          {% if usuario_terms.agree == 'True' and request.user.is_authenticated %}
+          {% if terminos.agree %}
           <li>
-            <a href="pages-user-profile.html">
+            <a href="javascript:;" class="has-arrow">
               <div class="parent-icon">
-                <ion-icon name="person-add-outline"></ion-icon>
+                <ion-icon name="newspaper-outline"></ion-icon>
               </div>
-              <div class="menu-title">Postularse</div> 
+              <div class="menu-title">Líneas de Fomento</div>
             </a>
+            <ul>
+              <li> <a href="widgets-static-widgets.html">
+                  <ion-icon name="ellipse-outline"></ion-icon>Editorial y Literaría
+                </a>
+              </li>
+
           </li>
+            </ul>
+          </li>
+    
         {% else %}
-          <li>
-            <p>Todavía no ha actualizado el registro o no ha iniciado sesión</p> 
-          </li>
+        <li>
+          <a href="pages-user-profile.html">
+            <div class="parent-icon">
+              <ion-icon name="reload-circle-outline"></ion-icon>
+            </div>
+            <div class="menu-title">Actualizar Registro</div>
+          </a>
+        </li>
+
         {% endif %}
-       
-          
+        
+          {% if terminos.agree  %}
           <li class="menu-label">Información de Usuarios</li>
           <li>
             <li>
@@ -118,15 +149,13 @@
                 <div class="menu-title">Perfil de Usuario</div>
               </a>
             </li>
-            <li>
-              <a href="pages-user-profile.html">
-                <div class="parent-icon">
-                  <ion-icon name="reload-circle-outline"></ion-icon>
-                </div>
-                <div class="menu-title">Actualizar Registro</div>
-              </a>
-            </li>
+            
           </li>
+          {% else %}
+          <li>
+
+          </li>
+          {% endif %}
           <li class="menu-label">Herramientas</li>
           <li>
             <li>

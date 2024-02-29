@@ -458,7 +458,7 @@ class contacto(models.Model):
         ),
         # Otras parroquias de Imbabura aquí
     )
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,null=True)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     provincia =  models.CharField(choices=PROVINCIA, max_length=200,null=True)
     canton1 = models.CharField(choices=CANTONES_AZUAY, max_length=200,null=True)
     canton2 = models.CharField(choices=CANTONES_BOLIVAR, max_length=200,null=True)
@@ -541,7 +541,7 @@ class legal(models.Model):
     ]
 
     
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,null=True)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     ruc = models.IntegerField(blank=True, null=True, verbose_name = "¿Usted dispone de R.U.C?")
     natu_juri =  models.CharField(choices=LEGAL, max_length=200,null=True, verbose_name = "¿En que estado legal desea realizar su registro?")
     tipo_jury =  models.CharField(choices=LEGAL2, max_length=200,null=True, verbose_name = "Tipo de personería jurídica")
@@ -974,7 +974,7 @@ class contacto_legal(models.Model):
         ),
         # Otras parroquias de Imbabura aquí
     )
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,null=True)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     provincia =  models.CharField(choices=PROVINCIA, max_length=200,null=True)
     canton1 = models.CharField(choices=CANTONES_AZUAY, max_length=200,null=True)
     canton2 = models.CharField(choices=CANTONES_BOLIVAR, max_length=200,null=True)
@@ -1028,7 +1028,7 @@ class activity(models.Model):
         ('MUSEOLOGÍA', 'MUSEOLOGÍA'),
         ('MEMORIA SOCIAL Y PATRIMONIO INTANGIBLE', 'MEMORIA SOCIAL Y PATRIMONIO INTANGIBLE'),      # Agrega más parroquias según sea necesario
     )
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,null=True)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     diciplina = models.CharField(choices=DICIPLINAS_ARTISTICAS, max_length=200,null=True, verbose_name = "¿EN QUÉ DISCIPLINA/S ARTÍSTCA/S ENMARCA SUS ACTIVIDADES?")
     experiencia= RichTextField( verbose_name = "DESCRIBA DE MANERA SUCINTA SU EXPERIENCIA EN EL ÁMBITO CULTURAL")
     cv = models.ImageField(upload_to='users/%Y/%m/%d/', blank=True, verbose_name = "Adjunte su curriculum vitale")
@@ -1048,7 +1048,7 @@ class activity(models.Model):
     
 
 class terms(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,null=True)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     agree = models.BooleanField(default=False, verbose_name = "Estoy deacuerdo con los términos y condiciones del contrato.") 
    
     class Meta:
