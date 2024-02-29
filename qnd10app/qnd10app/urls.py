@@ -29,17 +29,13 @@ from django.contrib.auth import views as auth_views
 def UserAdmin(user):
     return  user.is_staff
 
-
-
-
-
 urlpatterns = [
   
     path('login/', admin.site.urls),  
    # path('analytics/', admin.site.urls),
     path('account/', include('account.urls')),
-    path('editorial/login/', auth_views.LoginView.as_view(), name='login'),
-    path('editorial/logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('account/login/', auth_views.LoginView.as_view(), name='login'),
+    path('account/logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('baton/', include('baton.urls')),
     path('social-auth/', include('social_django.urls', namespace='social')),
     path('rosetta/', include('rosetta.urls')),

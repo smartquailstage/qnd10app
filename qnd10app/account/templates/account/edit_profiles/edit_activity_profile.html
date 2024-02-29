@@ -2,7 +2,7 @@
 {% load static %}
 {% load widget_tweaks %}
 
-{% block title %}Completar registro{% endblock %}
+{% block title %}<ion-icon name="reload-circle-outline"></ion-icon> Actualización de Registro{% endblock %}
 
 {% block content %}
 
@@ -12,7 +12,7 @@
 
       
 <!--start stepper two--> 
-<h6 class="text-uppercase">Registro de usuario</h6>
+<h6 class="text-uppercase">Actualización de Registro: Información Actividad Cultural</h6>
 <hr>
 <div id="stepper1" class="bs-stepper">
 <div class="card">
@@ -122,16 +122,21 @@
               {% endif %}
             {% endfor %}
             {% csrf_token %}
+            
             </div>
-    
     
             <div class="col-12">
-              <div class="d-flex align-items-center gap-3">
-                <button class="btn btn-primary px-4" onclick="stepper1.previous()"><i class='bx bx-left-arrow-alt me-2'></i>Anterior</button>
-                <button class="btn btn-success px-4" type="submitForm" onclick="stepper1.next()">Enviar</button>
+              <div class="d-flex align-items-center gap-1">
+                <a class="btn btn-outline-secondary px-2" href="{% url "account:edit_legal" %}"><i class='bx bx-left-arrow-alt me-2'></i>Anterior</a>
+                <button class="btn btn-success px-2" onclick="stepper1.next()">Actualizar <ion-icon name="reload-circle-outline"></ion-icon></button>
+                <a class="btn btn-primary px-2" href="{% url "account:edit_terms" %}" >Siguiente<i class='bx bx-right-arrow-alt ms-2'></i></a>
               </div>
+           
             </div>
-          </div><!
+
+            </div>
+
+          </div>
     
     </form>
 

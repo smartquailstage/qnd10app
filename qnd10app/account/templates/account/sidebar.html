@@ -83,15 +83,15 @@
               <div class="parent-icon">
                 <ion-icon name="create-outline"></ion-icon>
               </div>
-              <div class="menu-title">Editar Convocatoria</div>
+              <div class="menu-title">Editar Convocatoria </div>
             </a>
           </li>
     
          
          
           <li class="menu-label">Postulación a convocatorias</li>
-          {% for aprobacion in aprobe.aprueba.all  %}
-          {% if aprobacion.aprueba == 'True' and  request.user.is_authenticated  %}
+       
+          {% if usuario_terms.agree == 'True' and request.user.is_authenticated %}
           <li>
             <a href="pages-user-profile.html">
               <div class="parent-icon">
@@ -100,13 +100,13 @@
               <div class="menu-title">Postularse</div> 
             </a>
           </li>
-          {% else %}
+        {% else %}
           <li>
-            <p>Todavía no ha actualizado el registro</p> 
+            <p>Todavía no ha actualizado el registro o no ha iniciado sesión</p> 
           </li>
-          {% endif %}
-          {% endfor %}
-        
+        {% endif %}
+       
+          
           <li class="menu-label">Información de Usuarios</li>
           <li>
             <li>
@@ -114,6 +114,7 @@
                 <div class="parent-icon">
                   <ion-icon name="person-circle-outline"></ion-icon>
                 </div>
+               
                 <div class="menu-title">Perfil de Usuario</div>
               </a>
             </li>

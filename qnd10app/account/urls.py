@@ -26,4 +26,5 @@ urlpatterns = [
     path('edit_legal/', views.edit_legal, name='edit_legal'),
     path('edit_activity/', views.edit_activity, name='edit_activity'),
     path('terms/', views.edit_terms, name='edit_terms'),
+    path('profile/', views.perfil_usuario, name='user_profile'),
 ]

@@ -2,7 +2,7 @@
 {% load static %}
 {% load widget_tweaks %}
 
-{% block title %}Completar registro{% endblock %}
+{% block title %}<ion-icon name="reload-circle-outline"></ion-icon> Actualización de Registro{% endblock %}
 
 {% block content %}
 
@@ -12,7 +12,7 @@
 
       
 <!--start stepper two--> 
-<h6 class="text-uppercase">Registro de usuario</h6>
+<h6 class="text-uppercase">Actualización de Registro: Información Estatus Legal</h6>
 <hr>
 <div id="stepper1" class="bs-stepper">
 <div class="card">
@@ -71,20 +71,87 @@
         <p class="mb-4">Escriba la personaría jurñidica al cual desea registrarse</p>
       
         <div class="row g-3">
-          <div class="col-12 col-lg-6 ">
-            {% csrf_token %}
-            {{ legal_form.as_p }}
+          <div class="col-12 col-lg-6">
+  
+            {% if legal_form.non_field_errors %}
+            <div class="alert alert-danger" role="alert">
+            {% for error in legal_form.non_field_errors %}
+              {{ error }}
+            {% endfor %}
+            </div>
+          {% endif %}
+  
+          {% for field in legal_form.visible_fields %}
+          <p></p>
+          <label for="user" class="label">{{ field.label_tag }}</label>
+          
+          {% if legal_form.is_bound %}
+          {% if field.errors %}
+          {% render_field field class="form-control is-invalid input" %}
+          {% else %}
+              {% render_field field class="form-control  is-valid " %}
+          {% endif %}
+          {% else %}
+              {% render_field field class="form-control  input" %}
+            {% endif %}
+      {% endfor %}
+      {% csrf_token %}
           </div>
           <div class="col-12 col-lg-6">
-            {% csrf_token %}
-            {{ legal_contact_form.as_p }}
-            {{ legal_contact2_form.as_p }}
+            {% if legal_contact_form.non_field_errors %}
+            <div class="alert alert-danger" role="alert">
+            {% for error in legal_contact_form.non_field_errors %}
+              {{ error }}
+            {% endfor %}
+            </div>
+          {% endif %}
+  
+          {% for field in legal_contact_form.visible_fields %}
+          <p></p>
+          <label for="user" class="label">{{ field.label_tag }}</label>
+          
+          {% if legal_contact_form.is_bound %}
+          {% if field.errors %}
+          {% render_field field class="form-control is-invalid input" %}
+          {% else %}
+              {% render_field field class="form-control  is-valid " %}
+          {% endif %}
+          {% else %}
+              {% render_field field class="form-control  input" %}
+            {% endif %}
+      {% endfor %}
+      {% csrf_token %}
+
+      {% if legal_contact2_form.non_field_errors %}
+      <div class="alert alert-danger" role="alert">
+      {% for error in legal_contact2_form.non_field_errors %}
+        {{ error }}
+      {% endfor %}
+      </div>
+    {% endif %}
+
+    {% for field in legal_contact2_form.visible_fields %}
+    <p></p>
+    <label for="user" class="label">{{ field.label_tag }}</label>
+    
+    {% if legal_contact2_form.is_bound %}
+    {% if field.errors %}
+    {% render_field field class="form-control is-invalid input" %}
+    {% else %}
+        {% render_field field class="form-control  is-valid " %}
+    {% endif %}
+    {% else %}
+        {% render_field field class="form-control  input" %}
+      {% endif %}
+    {% endfor %}
+    {% csrf_token %}
           </div>
       
           <div class="col-12">
             <div class="d-flex align-items-center gap-3">
-              <button class="btn btn-outline-secondary px-4" onclick="stepper1.previous()"><i class='bx bx-left-arrow-alt me-2'></i>Anterior</button>
-              <button class="btn btn-primary px-4" onclick="stepper1.next()">Siguiente<i class='bx bx-right-arrow-alt ms-2'></i></button>
+              <a class="btn btn-outline-secondary px-2" href="{% url "account:edit_contact" %}""><i class='bx bx-left-arrow-alt me-2'></i>Anterior</a>
+              <a class="btn btn-success px-2" onclick="stepper1.next()">Actualizar <ion-icon name="reload-circle-outline"></ion-icon></a>
+              <a class="btn btn-primary px-2" href="{% url "account:edit_activity" %}" onclick="stepper1.next()" >Siguiente<i class='bx bx-right-arrow-alt ms-2'></i></a>
             </div>
           </div>
         </div><!---end row-->

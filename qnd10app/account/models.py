@@ -1050,7 +1050,7 @@ class activity(models.Model):
 class terms(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,null=True)
     agree = models.BooleanField(default=False, verbose_name = "Estoy deacuerdo con los términos y condiciones del contrato.") 
-    aprueba = models.BooleanField(default=False, verbose_name = "El postulante aprobó la declaratoria") 
+   
     class Meta:
         verbose_name = 'Validaciones de declaratorías del los postulantes'
         verbose_name_plural = 'Validación de declaratoría del postulante'
@@ -1058,10 +1058,6 @@ class terms(models.Model):
     def __str__(self):
         return 'Declaratoría del postulante: {}'.format(self.user.get_full_name)
     
-    def save(self, *args, **kwargs):
-        if  self.agree is True:
-            self.agree = self.aprueba
-        super(terms, self).save(*args, **kwargs)
     
     def get_absolute_url(self):
             return reverse('account:aprobe', args=[self.id, self.aprueba])

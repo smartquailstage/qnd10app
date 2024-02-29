@@ -11,12 +11,12 @@
   justify-content: start;
   gap: 1rem;
   padding: 16px 0px;
-  color: #6c757d;
+  color: #222222;
   text-decoration: none;
   white-space: nowrap;
   vertical-align: middle;
   user-select: none;
-  background-color: rgb(246 246 246 / 0%);
+  background-color: #ffffff;
   border: none;
   border-radius: .25rem;
   transition: background-color .15s ease-out, color .15s ease-out;
@@ -74,8 +74,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #969595;
-  background-color: #f0f0f0;
+  color: #e0dede;
+  background-color: #080f85;
   border-radius: 50%;
 }
 

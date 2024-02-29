@@ -2,7 +2,7 @@
 {% load static %}
 {% load widget_tweaks %}
 
-{% block title %}Completar registro{% endblock %}
+{% block title %}<ion-icon name="reload-circle-outline"></ion-icon> Actualización de Registro{% endblock %}
 
 {% block content %}
 
@@ -12,7 +12,7 @@
 
       
 <!--start stepper two--> 
-<h6 class="text-uppercase">Registro de usuario</h6>
+<h6 class="text-uppercase">Declaratoría</h6>
 <hr>
 <div id="stepper1" class="bs-stepper">
 <div class="card">
@@ -21,47 +21,66 @@
     <div class="d-lg-flex flex-lg-row align-items-lg-center justify-content-lg-between" role="tablist">
       <div class="step" data-target="#test-nl-1">
       <div class="step-trigger" role="tab" id="stepper1trigger1" aria-controls="test-nl-1">
-        <div class="bs-stepper-circle"><i class='bx bx-user fs-4'></i></div>
+        <div class="bs-stepper-circle"> <ion-icon name="lock-open-outline"></ion-icon></div>
         <div class="">
-          <h5 class="mb-0 steper-title">Información Personal</h5>
-          <p class="mb-0 steper-sub-title">Datos de Usuario</p>
+          <h5 class="mb-0 steper-title">Aprobación de Declaratoria</h5>
+          <p class="mb-0 steper-sub-title">Fin de actualización de registro</p>
         </div>
       </div>
       </div>
     </div>
   </div>
-
+ 
   <div class="card-body">
   <div class="bs-stepper-content">
 
     <form action="." method="post" enctype="multipart/form-data">
       <div id="test-nl-1" role="tabpanel" aria-labelledby="stepper2trigger1">
-        <h5 class="mb-1">{{ user.get_full_name }}</h5>
-        <p class="mb-4">Actualize su registro al sistema, llenando el siguiente formulario:</p>
+  
+        <div class="card radius-10">
+          <div class="card-body">
+              <h4>Declaración de validación de registro </h4>
+              <p>Yo, {{ user.get_full_name }} con número de cédula, CI: {{ user.profile.numero_cedula}} , declaro lo siguiente:</p>
+              <p> - El proyecto postulado y quien suscribe no se encuentra inmerso en ninguna de las inhabilidades
+                expuestas en las presentes bases de postulación de este concurso.</p>
+                <p> - Declaro hacerme responsable por la veracidad de mis declaraciones, que toda la información entregada
+                es verdadera y que resulta conforme con la normativa vigente, particularmente con las bases de postulación
+                de este concurso, la he leído, entiendo y aceptado.</p>
+                <p> Exonerado en cualquier tipo de responsabilidad a la Secretaria de Cultura por información falsa,
+                defectuosa o errónea que, dolosa, le haya suministrado.</p>
+            
+
+              <div class="row g-3">
+                <div class="col-12 col-lg-6">
+                 
+                {% for field in terms_form.visible_fields %}
+                <p></p>
+                <label for="user" class="label">{{ field.label_tag }}</label>
+                
+                {% if terms_form.is_bound %}
+                {% if field.errors %}
+                {% render_field field class="form-control form-check-input  is-invalid input" %}
+                {% else %}
+                    {% render_field field class="form-control form-check-input  is-valid " %}
+                {% endif %}
+                {% else %}
+                    {% render_field field class="form-control form-check-input  input" %}
+                  {% endif %}
+            {% endfor %}
+            {% csrf_token %}
+            </div>
+          </div>
+        </div>
         
-        <div class="row g-3">
-          <div class="col-12 col-lg-6">
-           
-          {% for field in terms_form.visible_fields %}
-          <p></p>
-          <label for="user" class="label">{{ field.label_tag }}</label>
-          
-          {% if terms_form.is_bound %}
-          {% if field.errors %}
-          {% render_field field class="form-control form-check-input  is-invalid input" %}
-          {% else %}
-              {% render_field field class="form-control form-check-input  is-valid " %}
-          {% endif %}
-          {% else %}
-              {% render_field field class="form-control form-check-input  input" %}
-            {% endif %}
-      {% endfor %}
-      {% csrf_token %}
-      </div>
+      
   
         </div>
-          <div class="col-12 col-lg-6">
-            <button class="btn btn-primary px-4" onclick="stepper1.next()">Aceptar<i class='bx bx-right-arrow-alt ms-2'></i></button>
+          <div class="col-12">
+            <div class="d-flex align-items-center gap-3">
+            <a class="btn btn-outline-secondary px-2" href="{% url "account:edit_activity" %}""><i class='bx bx-left-arrow-alt me-2'></i>Anterior</a>
+            <button class="btn btn-warning px-2" type="submit" onclick="stepper1.next()">Firmar<ion-icon name="pencil-outline"></ion-icon></button>
+            <a class="btn btn-primary px-2" href="{% url "account:edit_contact" %}" onclick="stepper1.next()"> Finalizar<ion-icon name="exit-outline"></ion-icon></a>
+          </div>
           </div>
           
       </div><!---end row-->
