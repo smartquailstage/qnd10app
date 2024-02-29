@@ -134,33 +134,18 @@ def edit_legal(request):
         legal_form = LegalEditForm(instance=request.user.legal,
                                        data=request.POST,
                                        files=request.FILES)
-        legal_contact_form = ContactLegalEditForm(instance=request.user.contacto_legal,
-                                       data=request.POST,
-                                       files=request.FILES)
-        legal_contact2_form = ContactLegal2EditForm(instance=request.user.contacto_legal,
-                                       data=request.POST,
-                                       files=request.FILES)
-      
-        
-        if  legal_form.is_valid() and legal_contact_form.is_valid() and legal_contact_form.is_valid() :
+        if  legal_form.is_valid():
             legal_form.save()
-            legal_contact_form.save()
-            legal_contact2_form.save()
-
-
             messages.success(request, 'Profile updated successfully')
         else:
             messages.error(request, 'Error updating your profile')
     else:
-        legal_form = ContactLegalEditForm(instance=request.user.legal)
-        legal_contact_form = Contact2EditForm(instance=request.contacto_legal)
-        legal_contact2_form = ContactLegal2EditForm(instance=request.contacto_legal)
+        legal_form = LegalEditForm(instance=request.user.legal)
+      
  
     return render(request,
                   'account/edit_profiles/edit_legal_profile.html',
-                  {'legal_form': legal_form,
-                   'legal_contact_form': legal_contact_form,
-                   'legal_contact2_form': legal_contact2_form,})
+                  {'legal_form': legal_form,})
 
 @login_required
 def edit_activity(request):
