@@ -55,7 +55,22 @@ class Profile(models.Model):
     class Meta:
         verbose_name = 'Perfil de Postulantes'
         verbose_name_plural = 'Perfiles de postulantes'
-    
+
+class Contact_Profile(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    provincia =  models.CharField(max_length=200,null=True)
+    canton = models.CharField(max_length=200,null=True)
+    parroquia = models.CharField(max_length=200,null=True)
+    direccion = models.CharField( max_length=200,null=True)
+    telefono = PhoneNumberField(null=True)
+
+    def __str__(self):
+        return 'Contacto de usuario {}'.format(self.user.get_full_name)
+    class Meta:
+        verbose_name = 'Información de contacto de Postulante'
+        verbose_name_plural = 'Información de contactos de Postulantes'
+
+
 class contacto(models.Model):
     PROVINCIA = [
         ('Azuay','Azuay'),
@@ -544,16 +559,16 @@ class legal(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     ruc = models.IntegerField(blank=True, null=True, verbose_name = "¿Usted dispone de R.U.C?")
     natu_juri =  models.CharField(choices=LEGAL, max_length=200,null=True, verbose_name = "¿En que estado legal desea realizar su registro?")
-    tipo_jury =  models.CharField(choices=LEGAL2, max_length=200,null=True, verbose_name = "Tipo de personería jurídica")
-    lucro_jury =   models.CharField( choices=opciones, max_length=200,null=True, verbose_name = "¿ La personería jurídica tiene fines de lucro ?a")
-    activity_jury =  models.CharField(max_length=200,null=True, verbose_name = "ACTIVIDAD PRINCIPAL A LA QUE SE DEDICA LA EMPRESA")
-    numero_cedula = models.CharField(max_length=10,  verbose_name="Número de cedula del representante legal",null=True)
-    dactilar =  models.CharField(max_length=9,  verbose_name="Código Dactilar del representante legal",null=True)
-    nacionalidad = models.CharField(max_length=125,  verbose_name="Nacionalidad del representante legal",null=True)
-    fecha_nacimiento = models.DateField(null=True, verbose_name="Fecha de nacimiento del representante legal")
+    tipo_jury =  models.CharField(choices=LEGAL2, max_length=200,null=True,blank=True, verbose_name = "Tipo de personería jurídica")
+    lucro_jury =   models.CharField( choices=opciones, max_length=200,null=True,blank=True, verbose_name = "¿ La personería jurídica tiene fines de lucro ?a")
+    activity_jury =  models.CharField(max_length=200,null=True,blank=True, verbose_name = "ACTIVIDAD PRINCIPAL A LA QUE SE DEDICA LA EMPRESA")
+    numero_cedula = models.CharField(max_length=10,null=True,blank=True,  verbose_name="Número de cedula del representante legal")
+    dactilar =  models.CharField(max_length=9,blank=True, verbose_name="Código Dactilar del representante legal",null=True)
+    nacionalidad = models.CharField(max_length=125,  verbose_name="Nacionalidad del representante legal",null=True,blank=True)
+    fecha_nacimiento = models.DateField(null=True,blank=True, verbose_name="Fecha de nacimiento del representante legal")
     edad = models.IntegerField(blank=True, null=True,verbose_name="Edad del representante legal")
-    autoidenty_etnica =  models.CharField(choices=ETNICA, max_length=200,null=True, verbose_name="Autoidentificación Etnica del representante legal")
-    genero = models.CharField(choices=GENERO, max_length=200,null=True,verbose_name="Autoidentificación Género del representante legal")
+    autoidenty_etnica =  models.CharField(choices=ETNICA, max_length=200,null=True,blank=True, verbose_name="Autoidentificación Etnica del representante legal")
+    genero = models.CharField(choices=GENERO, max_length=200,null=True,blank=True,verbose_name="Autoidentificación Género del representante legal")
 
     def calcular_edad(self):
         if self.fecha_nacimiento:

@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from .forms import LoginForm, UserRegistrationForm, \
-                   UserEditForm, ProfileEditForm,ContactEditForm,Contact2EditForm,LegalEditForm,ContactLegalEditForm,ContactLegal2EditForm,ActivityEditForm,Activity2EditForm,TermsEditForm
+                   UserEditForm, ProfileEditForm,Contact2EditForm,LegalEditForm,LegalEdit2Form,ContactLegalEditForm,ContactLegal2EditForm,ActivityEditForm,Activity2EditForm,TermsEditForm
 from .models import Profile,contacto,legal,contacto_legal,activity,terms
 
 
@@ -100,40 +100,15 @@ def edit(request):
                   {'user_form': user_form,
                    'profile_form': profile_form})
 
-@login_required
-def edit_contact(request):
-    if request.method == 'POST':
-        contact_form = ContactEditForm(instance=request.user.contacto,
-                                       data=request.POST,
-                                       files=request.FILES)
-        contact2_form = Contact2EditForm(instance=request.user.contacto,
-                                       data=request.POST,
-                                       files=request.FILES)
-      
-        
-        if  contact_form.is_valid() and contact2_form.is_valid() :
-            contact_form.save()
-            contact2_form.save()
 
-
-            messages.success(request, 'Profile updated successfully')
-        else:
-            messages.error(request, 'Error updating your profile')
-    else:
-        contact_form = ContactEditForm(instance=request.user.contacto)
-        contact2_form = Contact2EditForm(instance=request.user.contacto)
- 
-    return render(request,
-                  'account/edit_profiles/edit_contact_profile.html',
-                  {'contact_form': contact_form,
-                   'contact2_form': contact2_form,})
 
 @login_required
-def edit_legal(request):
-    if request.method == 'POST':
+def edit_legal(request): 
+    if request.method == 'POST' and request.user.is_authenticated:
         legal_form = LegalEditForm(instance=request.user.legal,
                                        data=request.POST,
                                        files=request.FILES)
+        legal_profile = request.user.legal 
         if  legal_form.is_valid():
             legal_form.save()
             messages.success(request, 'Profile updated successfully')
@@ -141,11 +116,33 @@ def edit_legal(request):
             messages.error(request, 'Error updating your profile')
     else:
         legal_form = LegalEditForm(instance=request.user.legal)
+        legal_profile = request.user.legal
+    return render(request,
+                  'account/edit_profiles/edit_legal_profile.html',
+                  {'legal_form': legal_form,'legal_profile':legal_profile})
+    
+
+
+@login_required
+def edit2_legal(request):
+    if request.method == 'POST':
+        legal2_form = LegalEdit2Form(instance=request.user.legal,
+                                       data=request.POST,
+                                       files=request.FILES)
+        if  legal2_form.is_valid():
+            legal2_form.save()
+            messages.success(request, 'Profile updated successfully')
+        else:
+            messages.error(request, 'Error updating your profile')
+    else:
+        legal2_form = LegalEdit2Form(instance=request.user.legal)
       
  
     return render(request,
-                  'account/edit_profiles/edit_legal_profile.html',
-                  {'legal_form': legal_form,})
+                  'account/edit_profiles/edit_legal_contact.html',
+                  {'legal2_form': legal2_form,})
+
+
 
 @login_required
 def edit_activity(request):
@@ -158,7 +155,7 @@ def edit_activity(request):
                                        files=request.FILES)
       
         
-        if   activity_form.is_valid() and activity2_form.is_valid()  :
+        if  activity_form.is_valid() and activity2_form.is_valid()  :
             activity_form.save()
             activity2_form.save()
           
@@ -203,11 +200,23 @@ def perfil_usuario(request):
     if request.user.is_authenticated:
         usuario = request.user.profile 
         contacto= request.user.contacto
+        legal_profile = request.user.legal 
         terminos = request.user.terms  # Suponiendo que el perfil de usuario está relacionado con el modelo de usuario
-        return render(request, 'account/profile/profile.html','account/dashboard.html', {'usuario': usuario,'contacto': contacto,'terminos':terminos})
+        return render(request, 'account/profile/profile.html', {'usuario': usuario,'contacto': contacto,'terminos':terminos, 'legal_profile':legal_profile,})
     else:
         # Redirigir al usuario a la página de inicio de sesión o mostrar un mensaje de error
         return render(request, 'account/profile/profile.html', {'mensaje': 'Debes iniciar sesión para ver tu perfil'})
+    
+@login_required
+def perfil_legal(request):
+    # Verificar si el usuario está autenticado
+    if request.user.is_authenticated:
+       usuario = request.user.profile
+       legal_profile = request.user.legal  # Suponiendo que el perfil de usuario está relacionado con el modelo de usuario
+       return render(request, 'account/edit_profiles/edit_legal_profile.html', {'legal_profile': legal_profile, 'usuario': usuario })
+    else:
+        # Redirigir al usuario a la página de inicio de sesión o mostrar un mensaje de error
+        return render(request, 'account/edit_profiles/edit_legal_profile.html', {'mensaje': 'Debes iniciar sesión para ver tu perfil'})
     
 @login_required
 def terminos_usuario(request):
