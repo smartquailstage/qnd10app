@@ -61,6 +61,8 @@ class Contact_Profile(models.Model):
     provincia =  models.CharField(max_length=200,null=True)
     canton = models.CharField(max_length=200,null=True)
     parroquia = models.CharField(max_length=200,null=True)
+    canton1 = models.CharField(max_length=200,null=True)
+    parroquia1 = models.CharField(max_length=200,null=True)
     direccion = models.CharField( max_length=200,null=True)
     telefono = PhoneNumberField(null=True)
 

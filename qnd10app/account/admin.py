@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profile,contacto,legal,contacto_legal,activity,terms
+from .models import Profile,Contact_Profile,legal,contacto_legal,activity,terms
 
 
 @admin.register(Profile)
@@ -9,9 +9,9 @@ class ProfileAdmin(admin.ModelAdmin):
         verbose_name = 'Perfil de Postulantes'
         verbose_name_plural = 'Perfiles de postulantes'
 
-@admin.register(contacto)
-class contactoAdmin(admin.ModelAdmin):
-    list_display = ['user', 'provincia', 'canton1','direccion']
+@admin.register(Contact_Profile)
+class contactoprofileAdmin(admin.ModelAdmin):
+    list_display = ['user', 'provincia', 'canton','direccion']
     verbose_name = 'Información de contacto de Postulante'
     verbose_name_plural = 'Información de contactos de Postulantes'
 

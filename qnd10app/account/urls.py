@@ -22,7 +22,7 @@ urlpatterns = [
     # path('', include('django.contrib.auth.urls')),
     path('register/', views.register, name='register'),
     path('edit/', views.edit, name='edit'),
-    #path('edit_contact/', views.edit_contact, name='edit_contact'),
+    path('edit_contact/', views.edit_contact, name='edit_contact'),
     path('edit_legal/', views.edit_legal, name='edit_legal'),
     path('edit_representante_legal/', views.edit2_legal,name='edit_legal2'),
     path('edit_activity/', views.edit_activity, name='edit_activity'),

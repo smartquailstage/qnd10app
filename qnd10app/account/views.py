@@ -6,8 +6,8 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from .forms import LoginForm, UserRegistrationForm, \
-                   UserEditForm, ProfileEditForm,Contact2EditForm,LegalEditForm,LegalEdit2Form,ContactLegalEditForm,ContactLegal2EditForm,ActivityEditForm,Activity2EditForm,TermsEditForm
-from .models import Profile,contacto,legal,contacto_legal,activity,terms
+                   UserEditForm, ProfileEditForm,ContactEditForm,Contact2EditForm,LegalEditForm,LegalEdit2Form,ContactLegalEditForm,ContactLegal2EditForm,ActivityEditForm,Activity2EditForm,TermsEditForm
+from .models import Profile,Contact_Profile,contacto,legal,contacto_legal,activity,terms
 
 
 def user_login(request):
@@ -59,11 +59,11 @@ def register(request):
             new_user.save()
             # Create the user profile
             Profile.objects.create(user=new_user)
-            contacto.objects.create(user=new_user)
             legal.objects.create(user=new_user)
             contacto_legal.objects.create(user=new_user)
             activity.objects.create(user=new_user)
             terms.objects.create(user=new_user)
+            Contact_Profile.objects.create(user=new_user)
             return render(request,
                           'account/register_done.html',
                           {'new_user': new_user})
@@ -100,6 +100,21 @@ def edit(request):
                   {'user_form': user_form,
                    'profile_form': profile_form})
 
+
+def edit_contact(request):
+    if request.method == 'POST':
+        contact_form =  ContactEditForm(instance=request.user.contact_profile,
+                                 data=request.POST)       
+        if contact_form .is_valid() :
+            contact_form.save()
+            messages.success(request, 'Profile updated successfully')
+        else:
+            messages.error(request, 'Error updating your profile')
+    else:
+        contact_form =ContactEditForm(instance=request.user.contact_profile) 
+    return render(request,
+                  'account/edit_profiles/edit_contact_profile.html',
+                  {'contact_form': contact_form })
 
 
 @login_required

@@ -91,9 +91,8 @@ class ContactProfileForm(forms.ModelForm):
 
 class ContactEditForm(forms.ModelForm):
 
-    class Meta:
-    PROVINCIA = [
-        ('Azuay','Azuay'),
+    PROVINCIA_CHOICES = [
+        ('1','Azuay'),
         ('Bolívar','Bolívar'),
         ('Cañar','Cañar'),
         ('Carchi','Carchi'),
@@ -164,25 +163,82 @@ class ContactEditForm(forms.ModelForm):
         ('Victoria del Portete (Irquis)', 'Victoria del Portete (Irquis)'),
         ('Zhucay', 'Zhucay'),
     )
-    
-        model = Contact_Profile
-        fields = ('provincia','canton','parroquia' )
-        widgets = {
-            'provincia' : forms.ChoiceField(choices=PROVINCIA),
-            'canton' : forms.ChoiceField(choices=CANTONES_AZUAY),  
-            'parroquia' : forms.ChoiceField(choices=PARROQUIAS_AZUAY,),       
-        }
 
-        def __init__(self, *args, **kwargs):
-            super(contacto, self).__init__(*args, **kwargs)
-            
-            if 'provincia' in self.data:
-                provincia= self.data.get('provincia')
-                if  provincia== 'Azuay':
-                    self.fields['canton'].widget.attrs['style'] = 'display:block'
-            elif provincia== 'Azuay':
-                self.fields['parroquia'].widget.attrs['style'] = 'display:none'
-                
+    CANTONES_PICHINCHA = (
+        ('Quito', 'Quito'),
+        ('Cayambe', 'Cayambe'),
+        ('Mejía', 'Mejía'),
+        ('Pedro Moncayo', 'Pedro Moncayo'),
+        ('Rumiñahui', 'Rumiñahui'),
+        ('San Miguel de los Bancos', 'San Miguel de los Bancos'),
+        ('Pedro Vicente Maldonado', 'Pedro Vicente Maldonado'),
+        ('Puerto Quito', 'Puerto Quito'),
+    )
+
+    PARROQUIAS_PICHINCHA = (
+        ('Carapungo', 'Carapungo'),
+        ('San Antonio de Pichincha', 'San Antonio de Pichincha'),
+        ('Calderón', 'Calderón'),
+        ('San José de Minas', 'San José de Minas'),
+        ('Pomasqui', 'Pomasqui'),
+        ('Quito', 'Quito'),
+        ('Nayón', 'Nayón'),
+        ('Cumbayá', 'Cumbayá'),
+        ('Tumbaco', 'Tumbaco'),
+        ('Pifo', 'Pifo'),
+        ('Puembo', 'Puembo'),
+        ('Guangopolo', 'Guangopolo'),
+        ('Tababela', 'Tababela'),
+        ('Yaruquí', 'Yaruquí'),
+        ('Alangasí', 'Alangasí'),
+        ('Pintag', 'Pintag'),
+        ('Conocoto', 'Conocoto'),
+        ('Chillogallo', 'Chillogallo'),
+        ('Guamaní', 'Guamaní'),
+        ('La Ecuatoriana', 'La Ecuatoriana'),
+        ('La Mena', 'La Mena'),
+        ('Quitumbe', 'Quitumbe'),
+        ('Turubamba', 'Turubamba'),
+        ('Chilibulo', 'Chilibulo'),
+        ('Guangalá', 'Guangalá'),
+        ('La Argelia', 'La Argelia'),
+        ('La Ferroviaria', 'La Ferroviaria'),
+        ('La Libertad', 'La Libertad'),
+        ('Lloa', 'Lloa'),
+        ('Mindo', 'Mindo'),
+        ('Nanegal', 'Nanegal'),
+        ('Nanegalito', 'Nanegalito'),
+        ('Nayón', 'Nayón'),
+        ('Nono', 'Nono'),
+        ('Pacto', 'Pacto'),
+        ('Pedro Vicente Maldonado', 'Pedro Vicente Maldonado'),
+        ('Perucho', 'Perucho'),
+        ('Puerto Quito', 'Puerto Quito'),
+        ('Puembo', 'Puembo'),
+        ('San Antonio', 'San Antonio'),
+        ('San José de Minas', 'San José de Minas'),
+        ('Tababela', 'Tababela'),
+        ('Tambillo', 'Tambillo'),
+        ('Tumbaco', 'Tumbaco'),
+        ('Yaruquí', 'Yaruquí'),
+    )
+
+    provincia = forms.ChoiceField(choices=PROVINCIA_CHOICES, widget=forms.Select(attrs={'id': 'provincia_select'}))
+    canton = forms.ChoiceField(choices=CANTONES_AZUAY, required=False, widget=forms.Select(attrs={'id': 'canton_select'}))
+    canton1 = forms.ChoiceField(choices=CANTONES_PICHINCHA, required=False, widget=forms.Select(attrs={'id': 'canton1_select'}))
+    parroquia = forms.ChoiceField(choices=PARROQUIAS_AZUAY, required=False, widget=forms.Select(attrs={'id': 'parroquia_select'}))
+    parroquia1 = forms.ChoiceField(choices=PARROQUIAS_PICHINCHA, required=False, widget=forms.Select(attrs={'id': 'parroquia1_select'}))
+
+    class Meta:
+        model = Contact_Profile
+        fields = ('provincia', 'canton', 'canton1', 'parroquia', 'parroquia1')
+
+    def __init__(self, *args, **kwargs):
+        super(ContactEditForm, self).__init__(*args, **kwargs)
+        self.fields['canton'].widget.attrs['style'] = 'display:none'
+        self.fields['canton1'].widget.attrs['style'] = 'display:none'
+        self.fields['parroquia'].widget.attrs['style'] = 'display:none'
+        self.fields['parroquia1'].widget.attrs['style'] = 'display:none'
 class Contact2EditForm(forms.ModelForm):
     class Meta:
         model = contacto
