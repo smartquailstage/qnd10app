@@ -1083,3 +1083,22 @@ class terms(models.Model):
 
 
 
+class Provincia(models.Model):
+    nombre = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.nombre
+
+class Canton(models.Model):
+    nombre = models.CharField(max_length=100)
+    provincia = models.ForeignKey(Provincia, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.nombre
+
+class Parroquia(models.Model):
+    nombre = models.CharField(max_length=100)
+    canton = models.ForeignKey(Canton, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.nombre

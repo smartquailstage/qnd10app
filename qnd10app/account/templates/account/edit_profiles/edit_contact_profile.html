@@ -45,40 +45,34 @@
                             <p class="mb-4">Escriba información sobre su Localidad domiciliaria y contacto</p>
                             
                             <div class="row g-3">
-                                <div class="col-12 col-lg-6">
-                                    <label for="id_provincia" class="form-label">Provincia:</label>
-                                    <select class="form-select" id="id_provincia" name="provincia" aria-label="Provincia">
-                                        <option value="" selected>---</option>
-                                        {% for value, label in contact_form.provincia.field.choices %}
-                                            <option value="{{ value }}">{{ label }}</option>
-                                        {% endfor %}
-                                    </select>
-
-                                    <select class="form-select" id="id_canton_azuay" name="canton_azuay" aria-label="Provincia">
+                              <div class="col-12 col-lg-6">
+                                  <label for="id_provincia" class="form-label">Provincia:</label>
+                                  <select class="form-select" id="id_provincia" name="provincia" aria-label="Provincia">
                                       <option value="" selected>---</option>
                                       {% for value, label in contact_form.provincia.field.choices %}
                                           <option value="{{ value }}">{{ label }}</option>
                                       {% endfor %}
                                   </select>
-
- 
-                                    <div id="id_canton_azuay" class="canton-parroquia" style="display: none">
-                                        <label for="id_canton_azuay" class="form-label">Cantón:</label>
-                                        <select class="form-select" id="id_canton_azuay" name="canton_azuay" aria-label="Cantón"></select>
-                                        
-                                        <label for="id_parroquia_azuay" class="form-label">Parroquia:</label>
-                                        <select class="form-select" id="id_parroquia_azuay" name="parroquia_azuay" aria-label="Parroquia"></select>
-                                    </div>
-                                    
-                                    <div id="id_canton_pichincha" class="canton-parroquia" style="display: none">
-                                        <label for="id_canton_pichincha" class="form-label">Cantón:</label>
-                                        <select class="form-select" id="id_canton_pichincha" name="canton_pichincha" aria-label="Cantón"></select>
-                                        
-                                        <label for="id_parroquia_pichincha" class="form-label">Parroquia:</label>
-                                        <select class="form-select" id="id_parroquia_pichincha" name="parroquia_pichincha" aria-label="Parroquia"></select>
-                                    </div>
-                                </div>
-                            </div>
+                                  
+                                  <div id="cantones-parroquias" style="display: none;">
+                                      <label for="id_canton" class="form-label">Cantón</label>
+                                      <select class="form-select" id="id_canton" name="canton" aria-label="Cantón">
+                                          <option value="" selected>---</option>
+                                          {% for value, label in contact_form.canton.field.choices %}
+                                              <option value="{{ value }}">{{ label }}</option>
+                                          {% endfor %}
+                                      </select>
+                                      <label for="id_parroquia" class="form-label">Parroquia:</label>
+                                      <select class="form-select" id="id_parroquia" name="parroquia" aria-label="Parroquia">
+                                          <option value="" selected>---</option>
+                                          {% for value, label in contact_form.parroquia.field.choices %}
+                                              <option value="{{ value }}">{{ label }}</option>
+                                          {% endfor %}
+                                      </select>
+                                  </div>
+                              </div>
+                          </div>
+                          
                             
                             {% csrf_token %}
                             <div class="col-12 ">
@@ -97,28 +91,6 @@
 
     <a href="javascript:;" class="back-to-top"><ion-icon name="arrow-up-outline"></ion-icon></a>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-      $(document).ready(function() {
-          // Cuando cambia el valor del campo 'provincia'
-          $('#{{ contact_form.provincia.id_for_label }}').change(function() {
-              // Obtener el valor seleccionado
-              var selectedProvincia = $(this).val();
-              
-              // Ocultar todos los campos de cantón y parroquia
-              $('.canton-parroquia').hide();
-              
-              // Mostrar los campos de cantón y parroquia correspondientes al valor seleccionado de provincia
-              if (selectedProvincia === 'Azuay') {
-                  $('#{{ contact_form.canton.id_for_label }}').show();
-                  $('#{{ contact_form.parroquia.id_for_label }}').show();
-              } else if (selectedProvincia === 'Pichincha') {
-                  $('#{{ contact_form.canton1.id_for_label }}').show();
-                  $('#{{ contact_form.parroquia1.id_for_label }}').show();
-              }
-              // Agrega más condiciones para otras provincias si es necesario
-          });
-      });
-    </script>
+  
     
 {% endblock %}
