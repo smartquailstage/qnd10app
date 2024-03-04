@@ -29,7 +29,7 @@ class contacto_legalAdmin(admin.ModelAdmin):
 
 @admin.register(activity)
 class activityAdmin(admin.ModelAdmin):
-    list_display = ['diciplina', 'ruac', 'agremiacion']
+    list_display = ['diciplina',]
     verbose_name = 'actividad cultural del Postulante'
     verbose_name_plural = 'actividades culturales del Postulante'
 

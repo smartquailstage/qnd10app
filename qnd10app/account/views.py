@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from .forms import LoginForm, UserRegistrationForm, \
-                   UserEditForm, ProfileEditForm,ContactEditForm,Contact2EditForm,LegalEditForm,LegalEdit2Form,ContactLegalEditForm,ContactLegal2EditForm,ActivityEditForm,Activity2EditForm,TermsEditForm
+                   UserEditForm, ProfileEditForm,ContactEditForm,Contact2EditForm,LegalEditForm,LegalEdit2Form,ContactLegalEditForm,ContactLegal2EditForm,ActivityEditForm,TermsEditForm
 from .models import Profile,Contact_Profile,contacto,legal,contacto_legal,activity,terms
 
 
@@ -36,7 +36,7 @@ def user_login(request):
 def dashboard(request):
     if request.user.is_authenticated:
         usuario = request.user.profile 
-        contacto= request.user.contacto
+        contacto= request.user.contact_profile
         terminos = request.user.terms 
         
         return render(request,
@@ -123,9 +123,12 @@ def edit_legal(request):
         legal_form = LegalEditForm(instance=request.user.legal,
                                        data=request.POST,
                                        files=request.FILES)
+        
         legal_profile = request.user.legal 
         if  legal_form.is_valid():
+            
             legal_form.save()
+            
             messages.success(request, 'Profile updated successfully')
         else:
             messages.error(request, 'Error updating your profile')
@@ -144,18 +147,23 @@ def edit2_legal(request):
         legal2_form = LegalEdit2Form(instance=request.user.legal,
                                        data=request.POST,
                                        files=request.FILES)
-        if  legal2_form.is_valid():
+        legal_contact = ContactLegalEditForm(instance=request.user.contacto_legal,
+                                       data=request.POST,
+                                       files=request.FILES)
+        if  legal2_form.is_valid() and legal_contact.is_valid() :
             legal2_form.save()
+            legal_contact.save()
             messages.success(request, 'Profile updated successfully')
         else:
             messages.error(request, 'Error updating your profile')
     else:
         legal2_form = LegalEdit2Form(instance=request.user.legal)
+        legal_contact = ContactLegalEditForm(instance=request.user.contacto_legal)
       
  
     return render(request,
                   'account/edit_profiles/edit_legal_contact.html',
-                  {'legal2_form': legal2_form,})
+                  {'legal2_form': legal2_form, 'legal_contact':legal_contact})
 
 
 
@@ -165,29 +173,17 @@ def edit_activity(request):
         activity_form = ActivityEditForm(instance=request.user.activity,
                                        data=request.POST,
                                        files=request.FILES)
-        activity2_form = Activity2EditForm(instance=request.user.activity,
-                                       data=request.POST,
-                                       files=request.FILES)
-      
-        
-        if  activity_form.is_valid() and activity2_form.is_valid()  :
+        if  activity_form.is_valid():
             activity_form.save()
-            activity2_form.save()
-          
-
-
             messages.success(request, 'Profile updated successfully')
         else:
             messages.error(request, 'Error updating your profile')
     else:
         activity_form = ActivityEditForm(instance=request.user.activity)
-        activity2_form = Activity2EditForm(instance=request.user.activity)
-
- 
     return render(request,
                   'account/edit_profiles/edit_activity_profile.html',
-                  {'activity_form': activity_form,
-                   'activity2_form': activity2_form})
+                  {'activity_form': activity_form})
+
 
 @login_required
 def edit_terms(request):

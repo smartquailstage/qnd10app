@@ -13,37 +13,55 @@
         <div class="card">
             <div class="card-header">
                 <div class="d-lg-flex flex-lg-row align-items-lg-center justify-content-lg-between" role="tablist">
-                    <div class="step" data-target="#test-nl-1">
-                        <div class="step-trigger" role="tab" id="stepper1trigger1" aria-controls="test-nl-1">
-                            <div class="bs-stepper-circle"><i class='bx bx-user fs-4'></i></div>
-                            <div class="">
-                                <h5 class="mb-0 steper-title">Información Personal</h5>
-                                <p class="mb-0 steper-sub-title">Datos de Usuario</p>
-                            </div>
-                        </div>
+                  <div class="step" data-target="#test-nl-1">
+                  <div class="step-trigger" role="tab" id="stepper1trigger1" aria-controls="test-nl-1">
+                    <div class="bs-stepper-circle"><i class='bx bx-user fs-4'></i></div>
+                    <div class="">
+                      <h5 class="mb-0 steper-title">Información Personal</h5>
+                      <p class="mb-0 steper-sub-title">Datos de Usuario</p>
                     </div>
-                    <div class="bs-stepper-line"></div>
-                    <div class="step" data-target="#test-nl-2">
-                        <div class="step-trigger" role="tab" id="stepper1trigger2" aria-controls="test-nl-2">
-                            <div class="bs-stepper-circle"><i class='bx bxs-contact fs-4'></i></div>
-                            <div class="">
-                                <h5 class="mb-0 steper-title">Información de Contacto</h5>
-                                <p class="mb-0 steper-sub-title">Datos Localidad & Contacto</p>
-                            </div>
-                        </div>
+                  </div>
+                  </div>
+                  <div class="bs-stepper-line"></div>
+                  <div class="step" data-target="#test-nl-2">
+                    <div class="step-trigger" role="tab" id="stepper1trigger2" aria-controls="test-nl-2">
+                    <div class="bs-stepper-circle"><i class='bx bxs-contact fs-4'></i></div>
+                    <div class="">
+                      <h5 class="mb-0 steper-title">Información de Contacto</h5>
+                      <p class="mb-0 steper-sub-title"> Datos Localidad & Contacto</p>
                     </div>
-                    <div class="bs-stepper-line"></div>
-                    <!-- Add other steps here -->
+                    </div>
+                  </div>
+                  <div class="bs-stepper-line"></div>
+                  <div class="step" data-target="#test-nl-3">
+                    <div class="step-trigger" role="tab" id="stepper1trigger3" aria-controls="test-nl-3">
+                    <div class="bs-stepper-circle"><i class='bx bx-file fs-4'></i></div>
+                    <div class="">
+                      <h5 class="mb-0 steper-title">Información Legal</h5>
+                      <p class="mb-0 steper-sub-title">Datos Personaría Jurídica/Natural</p>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="bs-stepper-line"></div>
+                    <div class="step" data-target="#test-nl-4">
+                      <div class="step-trigger" role="tab" id="stepper1trigger4" aria-controls="test-nl-4">
+                      <div class="bs-stepper-circle"><i class='bx bxs-film fs-4'></i></div>
+                      <div class="">
+                        <h5 class="mb-0 steper-title">Actividad</h5>
+                        <p class="mb-0 steper-sub-title">Descripción de actividades </p>
+                      </div>
+                      </div>
+                    </div>
                 </div>
-            </div>
+              </div>
 
             <div class="card-body">
                 <div class="bs-stepper-content">
-                    <form action="." method="post" enctype="multipart/form-data" id="stepper-form">  
+                    <form action="." method="post" enctype="multipart/form-data" id="stepper-form" action="{% url 'account:edit_contact' %}">  
+                        {% csrf_token %}
                         <div id="test-nl-2" role="tabpanel" aria-labelledby="stepper1trigger2">
                             <h5 class="mb-1">Información de Localidad y contacto</h5>
-                            <p class="mb-4">Escriba información sobre su Localidad domiciliaria y contacto</p>
-                            
+                            <p class="mb-4">Escriba información sobre su Localidad domiciliaria y contacto</p> 
                             <div class="row g-3">
                               <div class="col-12 col-lg-6">
                                   <label for="id_provincia" class="form-label">Provincia:</label>
@@ -53,35 +71,59 @@
                                           <option value="{{ value }}">{{ label }}</option>
                                       {% endfor %}
                                   </select>
-                                  
-                                  <div id="cantones-parroquias" style="display: none;">
                                       <label for="id_canton" class="form-label">Cantón</label>
-                                      <select class="form-select" id="id_canton" name="canton" aria-label="Cantón">
+                                      <select class="form-select" id="id_canton1" name="canton" aria-label="Cantón">
                                           <option value="" selected>---</option>
                                           {% for value, label in contact_form.canton.field.choices %}
                                               <option value="{{ value }}">{{ label }}</option>
                                           {% endfor %}
                                       </select>
-                                      <label for="id_parroquia" class="form-label">Parroquia:</label>
+                                      <label for="id_parroquia1" class="form-label">Parroquia:</label>
                                       <select class="form-select" id="id_parroquia" name="parroquia" aria-label="Parroquia">
                                           <option value="" selected>---</option>
                                           {% for value, label in contact_form.parroquia.field.choices %}
                                               <option value="{{ value }}">{{ label }}</option>
                                           {% endfor %}
-                                      </select>
-                                  </div>
+                                      </select>   
                               </div>
-                          </div>
+
+                              <div class="col-12 col-lg-6">
+                                <div class="card-body">
+                                    <div class="input-group flex-nowrap">
+                                        <span class="input-group-text" id="addon-wrapping"><ion-icon name="call-outline"></ion-icon></span>
+                                        {{ contact_form.telefono }}
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="input-group flex-nowrap">
+                                        <span class="input-group-text" id="addon-wrapping"><ion-icon name="location-outline"></ion-icon></span>
+                                        {{ contact_form.direccion }}
+                                    </div>
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="input-group flex-nowrap"> <span class="input-group-text" id="addon-wrapping"><ion-icon name="business-outline"></ion-icon></span>
+                                        {{ contact_form.georeferencia }}
+                                    </div>
+                                  </div>
+                                <div class="card-body">
+                                    <div class="input-group flex-nowrap"> <span class="input-group-text" id="addon-wrapping"><ion-icon name="share-social-outline"></ion-icon></span>
+                                        {{ contact_form.social }}
+                                    </div>
+                                  </div>
+                            </div>
+
                           
                             
-                            {% csrf_token %}
-                            <div class="col-12 ">
+                              <div class="col-12 ">
                                 <div class="d-flex align-items-center gap-2">
                                     <a class="btn btn-outline-secondary px-2" href="{% url "account:edit" %}"><i class='bx bx-left-arrow-alt me-2'></i>Anterior</a>
-                                    <button class="btn btn-success px-4" onclick="stepper1.next()">Actualizar <ion-icon name="reload-circle-outline"></ion-icon></button>
+                                    <button class="btn btn-success px-4" type="submit"  onclick="stepper1.next()">Actualizar <ion-icon name="reload-circle-outline"></ion-icon></button>
                                     <a class="btn btn-primary px-2" href="{% url "account:edit_legal" %}" onclick="stepper1.next()">Siguiente<i class='bx bx-right-arrow-alt ms-2'></i></a>
                                 </div>
                             </div>
+
+                          </div> 
                         </div>
                     </form>
                 </div>
