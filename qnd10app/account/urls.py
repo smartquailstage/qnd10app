@@ -26,6 +26,7 @@ urlpatterns = [
     path('edit_legal/', views.edit_legal, name='edit_legal'),
     path('edit_representante_legal/', views.edit2_legal,name='edit_legal2'),
     path('edit_activity/', views.edit_activity, name='edit_activity'),
+    path('edit_done/', views.edit_done, name='edit_done'),
     path('terms/', views.edit_terms, name='edit_terms'),
     path('profile/', views.perfil_usuario, name='user_profile'),
 ]

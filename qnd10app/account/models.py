@@ -648,26 +648,13 @@ class terms(models.Model):
     def get_absolute_url(self):
             return reverse('account:aprobe', args=[self.id, self.aprueba])
  
+class edit_profile_done(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    nombre_tech = models.CharField(max_length=200,null=True, blank=True, verbose_name = "Nombre del Tecnico a cargo")
+    telefono = PhoneNumberField(null=True,blank=True,verbose_name = " Telefono de contacto del Tecnico a cargo")
+    email = models.EmailField(unique=True, verbose_name = "correo electrónico del Tecnico a cargo")
+    class Meta:
+        verbose_name = 'Información de tecnico'
+        verbose_name_plural = 'Información de tecnico'
 
 
-
-
-class Provincia(models.Model):
-    nombre = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.nombre
-
-class Canton(models.Model):
-    nombre = models.CharField(max_length=100)
-    provincia = models.ForeignKey(Provincia, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.nombre
-
-class Parroquia(models.Model):
-    nombre = models.CharField(max_length=100)
-    canton = models.ForeignKey(Canton, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.nombre

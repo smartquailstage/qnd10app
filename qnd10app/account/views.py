@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from .forms import LoginForm, UserRegistrationForm, \
                    UserEditForm, ProfileEditForm,ContactEditForm,Contact2EditForm,LegalEditForm,LegalEdit2Form,ContactLegalEditForm,ContactLegal2EditForm,ActivityEditForm,TermsEditForm
-from .models import Profile,Contact_Profile,contacto,legal,contacto_legal,activity,terms
+from .models import Profile,Contact_Profile,contacto,legal,contacto_legal,activity,terms,edit_profile_done
 
 
 def user_login(request):
@@ -64,6 +64,7 @@ def register(request):
             activity.objects.create(user=new_user)
             terms.objects.create(user=new_user)
             Contact_Profile.objects.create(user=new_user)
+            edit_profile_done.objects.create(user=new_user)
             return render(request,
                           'account/register_done.html',
                           {'new_user': new_user})
@@ -203,14 +204,14 @@ def edit_terms(request):
                   'account/edit_profiles/edit_terms_profile.html',
                   {'terms_form':terms_form})
 
-
+#MANEJADORES
 
 @login_required
 def perfil_usuario(request):
     # Verificar si el usuario está autenticado
     if request.user.is_authenticated:
         usuario = request.user.profile 
-        contacto= request.user.contacto
+        contacto= request.user.contact_profile
         legal_profile = request.user.legal 
         terminos = request.user.terms  # Suponiendo que el perfil de usuario está relacionado con el modelo de usuario
         return render(request, 'account/profile/profile.html', {'usuario': usuario,'contacto': contacto,'terminos':terminos, 'legal_profile':legal_profile,})
@@ -229,6 +230,29 @@ def perfil_legal(request):
         # Redirigir al usuario a la página de inicio de sesión o mostrar un mensaje de error
         return render(request, 'account/edit_profiles/edit_legal_profile.html', {'mensaje': 'Debes iniciar sesión para ver tu perfil'})
     
+@login_required
+def perfil_activity(request):
+    # Verificar si el usuario está autenticado
+    if request.user.is_authenticated:
+       usuario = request.user.profile
+       activity_profile = request.user.legal  # Suponiendo que el perfil de usuario está relacionado con el modelo de usuario
+       return render(request, 'account/edit_profiles/edit_activity_profile.html', {'activity_profile': activity_profile, 'usuario': usuario })
+    else:
+        # Redirigir al usuario a la página de inicio de sesión o mostrar un mensaje de error
+        return render(request, 'account/edit_profiles/edit_activity_profile.html', {'mensaje': 'Debes iniciar sesión para ver tu perfil'})
+    
+@login_required
+def edit_done(request):
+    # Verificar si el usuario está autenticado
+    if request.user.is_authenticated:
+       profile_edit_done = request.user.edit_profile_done
+       # Suponiendo que el perfil de usuario está relacionado con el modelo de usuario
+       return render(request, 'account/edit_profiles/edit_done.html', {'profile_edit_done': profile_edit_done })
+    else:
+        # Redirigir al usuario a la página de inicio de sesión o mostrar un mensaje de error
+        return render(request, 'account/edit_profiles/edit_done.html', {'mensaje': 'Debes iniciar sesión para ver tu perfil'})
+    
+
 @login_required
 def terminos_usuario(request):
     # Verificar si el usuario está autenticado

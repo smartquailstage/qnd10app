@@ -220,15 +220,29 @@
 
           {% csrf_token %}
         
-  
+          {% if activity_profile.natu_juri == 'Natural'  %}
 
-          <div class="col-12">
-            <div class="d-flex align-items-center gap-3">
-            <button class="btn btn-success px-4" onclick="stepper1.next()">Actualizar <ion-icon name="reload-circle-outline"></ion-icon></button>
-            <a class="btn btn-primary px-4" href="{% url "account:edit_contact" %}"  >Siguiente<i class='bx bx-right-arrow-alt ms-2'></i></a>
-          </div>
+          <div class="col-12 ">
+            <div class="d-flex align-items-center gap-2">
+                <a class="btn btn-outline-secondary px-2" href="{% url "account:edit_legal2" %}"><i class='bx bx-left-arrow-alt me-2'></i>Anterior</a>
+                <button class="btn btn-success px-4" type="submit"  onclick="stepper1.next()">Actualizar <ion-icon name="reload-circle-outline"></ion-icon></button>
+                <a class="btn btn-primary px-2" href="{% url "account:edit_terms" %}" onclick="stepper1.next()">Siguiente<i class='bx bx-right-arrow-alt ms-2'></i></a>
+            </div>
         </div>
+
           
+      {% else %}
+
+      <div class="col-12">
+        <div class="d-flex align-items-center gap-3">
+          <a class="btn btn-outline-secondary px-2" href="{% url "account:edit_legal" %}"><i class='bx bx-left-arrow-alt me-2'></i>Anterior</a>
+          <button class="btn btn-success px-4" onclick="stepper1.next()">Actualizar <ion-icon name="reload-circle-outline"></ion-icon></button>
+          <a class="btn btn-primary px-2" href="{% url "account:edit_terms" %}" onclick="stepper1.next()" >Siguiente<i class='bx bx-right-arrow-alt ms-2'></i></a>
+        </div>
+      </div>
+          
+      {% endif %}  
+
         </div>
        
          
