@@ -32,7 +32,7 @@
                     {% endthumbnail %}
                     <div class="">
                       <h6 class="mb-0 dropdown-user-name">{{ user.first_name }}</h6>
-                      <small class="mb-0 dropdown-user-designation text-secondary">QuitoCultura </small>
+                      <small class="mb-0 dropdown-user-designation text-secondary">Secretaría de Cultura </small>
                     </div>
                   </div>
                 </a>
@@ -41,7 +41,7 @@
                 <hr class="dropdown-divider">
               </li>
               <li>
-                <a class="dropdown-item" href="javascript:;">
+                <a class="dropdown-item" href="{% url "account:user_profile" %}">
                   <div class="d-flex align-items-center">
                     <div class="">
                       <ion-icon name="person-outline"></ion-icon>
@@ -51,17 +51,7 @@
                 </a>
               </li>
               <li>
-                <a class="dropdown-item" href="javascript:;">
-                  <div class="d-flex align-items-center">
-                    <div class="">
-                      <ion-icon name="settings-outline"></ion-icon>
-                    </div>
-                    <div class="ms-3"><span>Registro</span></div>
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="javascript:;">
+                <a class="dropdown-item" href="{% url "account:dashboard" %}">
                   <div class="d-flex align-items-center">
                     <div class="">
                       <ion-icon name="speedometer-outline"></ion-icon>
@@ -75,7 +65,7 @@
                 <hr class="dropdown-divider">
               </li>
               <li>
-                <a class="dropdown-item" href="javascript:;">
+                <a class="dropdown-item" href="{% url "account:logout" %}">
                   <div class="d-flex align-items-center">
                     <div class="">
                       <ion-icon name="log-out-outline"></ion-icon>

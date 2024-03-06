@@ -14,7 +14,7 @@
         <!--navigation-->
         <ul class="metismenu" id="menu">
           <li>
-            <a href="index.html">
+            <a href="{% url "account:dashboard" %}">
               <div class="parent-icon">
                 <ion-icon name="home-outline"></ion-icon>
               </div>
@@ -22,52 +22,6 @@
             </a>
           </li> 
           <li>
-            <ul>
-              <li><a href="ecommerce-shop-grid-view.html">
-                  <ion-icon name="ellipse-outline"></ion-icon>Product Grid
-                </a>
-              </li>
-              <li><a href="ecommerce-shop-list-view.html">
-                  <ion-icon name="ellipse-outline"></ion-icon>Product List
-                </a>
-              </li>
-              <li><a href="ecommerce-shop-grid-view-top-filter.html">
-                  <ion-icon name="ellipse-outline"></ion-icon>Product Top Filters
-                </a>
-              </li>
-              <li><a href="ecommerce-product-details.html">
-                  <ion-icon name="ellipse-outline"></ion-icon>Product Details
-                </a>
-              </li>
-              <li><a href="ecommerce-product-comparison.html">
-                  <ion-icon name="ellipse-outline"></ion-icon>Product Comparison
-                </a>
-              </li>
-              <li><a href="ecommerce-shop-cart.html">
-                  <ion-icon name="ellipse-outline"></ion-icon>Shoping Cart
-                </a>
-              </li>
-              <li><a href="ecommerce-checkout-details.html">
-                  <ion-icon name="ellipse-outline"></ion-icon>Checkout
-                </a>
-              </li>
-              <li><a href="ecommerce-checkout-shipping.html">
-                  <ion-icon name="ellipse-outline"></ion-icon>Shipping
-                </a>
-              </li>
-              <li><a href="ecommerce-checkout-payment.html">
-                  <ion-icon name="ellipse-outline"></ion-icon>Payment
-                </a>
-              </li>
-              <li><a href="ecommerce-checkout-review.html">
-                  <ion-icon name="ellipse-outline"></ion-icon>Review Cart
-                </a>
-              </li>
-              <li><a href="ecommerce-checkout-complete.html">
-                  <ion-icon name="ellipse-outline"></ion-icon>Order Complete
-                </a>
-              </li>
-            </ul>
           </li>
           <li class="menu-label">Creación de convocatorias</li>
 
@@ -127,11 +81,11 @@
     
         {% else %}
         <li>
-          <a href="pages-user-profile.html">
+          <a href="{% url "account:detalle_manual" %}">
             <div class="parent-icon">
-              <ion-icon name="reload-circle-outline"></ion-icon>
+              <ion-icon name="document-text-outline"></ion-icon>
             </div>
-            <div class="menu-title">Actualizar Registro</div>
+            <div class="menu-title">Inscripción</div>
           </a>
         </li>
 
@@ -141,15 +95,13 @@
           <li class="menu-label">Información de Usuarios</li>
           <li>
             <li>
-              <a href="pages-user-profile.html">
+              <a href="{% url "account:user_profile" %}">
                 <div class="parent-icon">
                   <ion-icon name="person-circle-outline"></ion-icon>
                 </div>
-               
                 <div class="menu-title">Perfil de Usuario</div>
               </a>
-            </li>
-            
+            </li>       
           </li>
           {% else %}
           <li>
@@ -176,7 +128,7 @@
               </a>
             </li>
             <li>
-              <a href="pages-user-profile.html">
+              <a href="{% url "account:logout" %}">
                 <div class="parent-icon">
                   <ion-icon name="exit-outline"></ion-icon>
                 </div>

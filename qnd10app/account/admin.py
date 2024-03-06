@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profile,Contact_Profile,legal,contacto_legal,activity,terms
+from .models import Profile,Contact_Profile,legal,contacto_legal,activity,terms,edit_profile_done,Manual_inscripcion
 
 
 @admin.register(Profile)
@@ -38,3 +38,15 @@ class termsAdmin(admin.ModelAdmin):
     list_display = ['user', 'agree']
     verbose_name = 'Declaratoria de postulante'
     verbose_name_plural = 'Declaratorias de postulantes'
+
+@admin.register(edit_profile_done)
+class edit_profile_doneAdmin(admin.ModelAdmin):
+    list_display = ['nombre_tech', 'telefono','email']
+    verbose_name = 'Información de Tecnicos'
+    verbose_name_plural = 'Información de Tecnicos'
+
+@admin.register(Manual_inscripcion)
+class Manual_inscripcionAdmin(admin.ModelAdmin):
+    list_display = ['paso1',]
+    verbose_name = 'Manual de usuario'
+    verbose_name_plural = 'Manual de usuario'

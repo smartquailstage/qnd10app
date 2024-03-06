@@ -7,7 +7,8 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from .forms import LoginForm, UserRegistrationForm, \
                    UserEditForm, ProfileEditForm,ContactEditForm,Contact2EditForm,LegalEditForm,LegalEdit2Form,ContactLegalEditForm,ContactLegal2EditForm,ActivityEditForm,TermsEditForm
-from .models import Profile,Contact_Profile,contacto,legal,contacto_legal,activity,terms,edit_profile_done
+from .models import Profile,Contact_Profile,contacto,legal,contacto_legal,activity,terms,edit_profile_done,Manual_inscripcion
+
 
 
 def user_login(request):
@@ -219,6 +220,18 @@ def perfil_usuario(request):
         # Redirigir al usuario a la página de inicio de sesión o mostrar un mensaje de error
         return render(request, 'account/profile/profile.html', {'mensaje': 'Debes iniciar sesión para ver tu perfil'})
     
+def sidebar(request):
+    # Verificar si el usuario está autenticado
+    if request.user.is_authenticated:
+        usuario = request.user.profile 
+        contacto= request.user.contact_profile
+        legal_profile = request.user.legal 
+        terminos = request.user.terms  # Suponiendo que el perfil de usuario está relacionado con el modelo de usuario
+        return render(request, 'account/header.html', {'usuario': usuario,'contacto': contacto,'terminos':terminos, 'legal_profile':legal_profile,})
+    else:
+        # Redirigir al usuario a la página de inicio de sesión o mostrar un mensaje de error
+        return render(request, 'account/header.html', {'mensaje': 'Debes iniciar sesión para ver tu perfil'})
+    
 @login_required
 def perfil_legal(request):
     # Verificar si el usuario está autenticado
@@ -273,5 +286,13 @@ def user_detail(request, username):
                   'account/profile/profile.html',
                   {'section': 'user',
                    'user': user})
+
+@login_required
+def detalle_manual(request):
+    # Obtener el objeto del manual de inscripción
+    manual = Manual_inscripcion.objects.first()  # Suponiendo que solo hay un manual, ajusta esto según tus necesidades
+
+    # Renderizar la plantilla con los detalles del manual
+    return render(request, 'account/edit_profiles/detalle_manual.html', {'manual': manual})
 
 
