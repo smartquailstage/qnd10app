@@ -8,6 +8,12 @@ from django.contrib.auth.models import User
 from .forms import LoginForm, UserRegistrationForm, \
                    UserEditForm, ProfileEditForm,ContactEditForm,Contact2EditForm,LegalEditForm,LegalEdit2Form,ContactLegalEditForm,ContactLegal2EditForm,ActivityEditForm,TermsEditForm
 from .models import Profile,Contact_Profile,contacto,legal,contacto_legal,activity,terms,edit_profile_done,Manual_inscripcion
+from django.template.loader import render_to_string
+import weasyprint
+from django.contrib.admin.views.decorators import staff_member_required
+from django.urls import reverse
+from django.utils.safestring import mark_safe
+
 
 
 
@@ -76,6 +82,68 @@ def register(request):
                   {'user_form': user_form})
 
 
+
+@staff_member_required
+def admin_profile_pdf(request, perfil_id):
+    perfil = get_object_or_404(Profile, id=perfil_id)
+    html = render_to_string('account/admin_profile_pdf/profile_pdf.html',
+                            {'perfil': perfil})
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'filename=order_{}.pdf"'.format(perfil.id)
+    weasyprint.HTML(string=html,  base_url=request.build_absolute_uri() ).write_pdf(response,stylesheets=[weasyprint.CSS('account/static/css/profile.css')], presentational_hints=True)
+    return response
+
+@staff_member_required
+def admin_contact_pdf(request,contacto_id):
+    contacto = get_object_or_404(Contact_Profile, id=contacto_id)
+    html = render_to_string('account/admin_profile_pdf/contact_pdf.html',
+                            {'contacto':contacto})
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'filename=order_{}.pdf"'.format(contacto.id)
+    weasyprint.HTML(string=html,  base_url=request.build_absolute_uri() ).write_pdf(response,stylesheets=[weasyprint.CSS('account/static/css/profile.css')], presentational_hints=True)
+    return response
+
+@staff_member_required
+def admin_legal_pdf(request,info_legal_id):
+    info_legal = get_object_or_404(legal, id=info_legal_id)
+    html = render_to_string('account/admin_profile_pdf/legal_pdf.html',
+                            {'info_legal':info_legal})
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'filename=order_{}.pdf"'.format(info_legal.id)
+    weasyprint.HTML(string=html,  base_url=request.build_absolute_uri() ).write_pdf(response,stylesheets=[weasyprint.CSS('account/static/css/profile.css')], presentational_hints=True)
+    return response
+
+
+
+@staff_member_required
+def admin_contact_legal_pdf(request,contactolegal_id):
+    contactolegal = get_object_or_404(contacto_legal, id=contactolegal_id)
+    html = render_to_string('account/admin_profile_pdf/contact_legal_pdf.html',
+                            {'contactolegal':contactolegal})
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'filename=order_{}.pdf"'.format(contactolegal.id)
+    weasyprint.HTML(string=html,  base_url=request.build_absolute_uri() ).write_pdf(response,stylesheets=[weasyprint.CSS('account/static/css/profile.css')], presentational_hints=True)
+    return response
+
+@staff_member_required
+def admin_activity_pdf(request,actividad_id):
+    actividad = get_object_or_404(activity, id=actividad_id)
+    html = render_to_string('account/admin_profile_pdf/contact_legal_pdf.html',
+                            {'actividad':actividad})
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'filename=order_{}.pdf"'.format(activity.id)
+    weasyprint.HTML(string=html,  base_url=request.build_absolute_uri() ).write_pdf(response,stylesheets=[weasyprint.CSS('account/static/css/profile.css')], presentational_hints=True)
+    return response
+
+@staff_member_required
+def admin_terms_pdf(request,terms_id):
+    terminos = get_object_or_404(terms, id=terms_id)
+    html = render_to_string('account/admin_profile_pdf/contact_legal_pdf.html',
+                            {'terminos':terminos})
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'filename=order_{}.pdf"'.format(terminos.id)
+    weasyprint.HTML(string=html,  base_url=request.build_absolute_uri() ).write_pdf(response,stylesheets=[weasyprint.CSS('account/static/css/profile.css')], presentational_hints=True)
+    return response
 
 
 @login_required

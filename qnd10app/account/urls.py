@@ -7,8 +7,7 @@ app_name = 'account'
 urlpatterns = [
     # previous login view
     # path('login/', views.user_login, name='login'),
-    path('login/', auth_views.LoginView.as_view(), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+  
     path('dashboard', views.dashboard, name='dashboard'),
     # change password urls
 
@@ -24,4 +23,10 @@ urlpatterns = [
     path('edit_done/', views.edit_done, name='edit_done'),
     path('terms/', views.edit_terms, name='edit_terms'),
     path('profile/', views.perfil_usuario, name='user_profile'),
+    path('admin/profile/<int:perfil_id>/pdf/', views.admin_profile_pdf, name='admin_profile_pdf'),
+    path('admin/contacto/<int:contacto_id>/pdf/', views.admin_contact_pdf, name='admin_contact_pdf'),
+    path('admin/legal/<int:info_legal_id>/pdf/', views.admin_legal_pdf, name='admin_legal_pdf'),
+    path('admin/contacto_lega/<int:contactolegal_id>/pdf/', views.admin_contact_legal_pdf, name='admin_contact_legal_pdf'),
+    path('admin/actividad_cultural/<int:actividad_id>/pdf/', views.admin_activity_pdf, name='admin_activity_pdf'),
+    path('admin/declaratoria/<int:terms_id>/pdf/', views.admin_terms_pdf, name='admin_terms_pdf'),
 ]

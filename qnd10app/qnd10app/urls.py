@@ -33,16 +33,17 @@ urlpatterns = [
   
     path('login/', admin.site.urls),  
    # path('analytics/', admin.site.urls),
+     path('account/login/', auth_views.LoginView.as_view(), name='login'),
+    path('account/logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('account/', include('account.urls')),
     path('account/password_change/', auth_views.PasswordChangeView.as_view(), name='password_change'),
     path('account/password_change/done/', auth_views.PasswordChangeDoneView.as_view(), name='password_change_done'),
     # reset password urls
-    path('account/password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
-    path('account/password_reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
-    path('account/reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
-    path('account/reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
-    path('account/login/', auth_views.LoginView.as_view(), name='login'),
-    path('account/logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
+    path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+
     path('baton/', include('baton.urls')),
     path('social-auth/', include('social_django.urls', namespace='social')),
     path('rosetta/', include('rosetta.urls')),
