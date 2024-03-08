@@ -41,7 +41,6 @@ django-rosetta
 wagtail-localize
 wagtailmenus
 weasyprint==60.2
-xlwt==0.7.3
 botocore==1.29.27
 boto3==1.26.27
 #System HOST
