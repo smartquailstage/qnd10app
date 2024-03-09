@@ -672,4 +672,63 @@ class Manual_inscripcion(models.Model):
         verbose_name = 'Manual de Inscripcion'
         verbose_name_plural = 'Manual de Inscripcion'
 
+class Manual_lineasfomento_editorial(models.Model):
+    introduccion =  RichTextField( verbose_name = "Introducción")
+    paso1 =  RichTextField( verbose_name = "caracteristicas del app de inscripciones")
+    paso2 =  RichTextField( verbose_name = "paso1- informacion de usuario ")
+    paso3 =  RichTextField( verbose_name = "paso2 -informacion de contacto")
+    paso4 =  RichTextField( verbose_name = "paso3-informacion de legal",null = True)
+    paso5 =  RichTextField( verbose_name = "paso4-informacion de legal-natural",null = True)
+    paso6 =  RichTextField( verbose_name = "paso5-informacion de legal-juridico",null = True)
+    paso7 =  RichTextField( verbose_name = "paso6-informacion de actividades",null = True)
+    paso8 =  RichTextField( verbose_name = "paso7-informacion de actividades",null = True)
+    paso9 =  RichTextField( verbose_name = "paso7-declaratoria",null = True)
+    class Meta:
+        verbose_name = 'Manual de línea de fomento editorial'
+        verbose_name_plural = 'Manuales de línea de fomento editorial'
 
+
+class Manual_creacion_convocatoria_fomento(models.Model):
+    introduccion =  RichTextField( verbose_name = "Introducción")
+    paso1 =  RichTextField( verbose_name = "caracteristicas del app de inscripciones")
+    paso2 =  RichTextField( verbose_name = "paso1- informacion de usuario ")
+    paso3 =  RichTextField( verbose_name = "paso2 -informacion de contacto")
+    paso4 =  RichTextField( verbose_name = "paso3-informacion de legal",null = True)
+    paso5 =  RichTextField( verbose_name = "paso4-informacion de legal-natural",null = True)
+    paso6 =  RichTextField( verbose_name = "paso5-informacion de legal-juridico",null = True)
+    paso7 =  RichTextField( verbose_name = "paso6-informacion de actividades",null = True)
+    paso8 =  RichTextField( verbose_name = "paso7-informacion de actividades",null = True)
+    paso9 =  RichTextField( verbose_name = "paso7-declaratoria",null = True)
+    class Meta:
+        verbose_name = 'Manual crear convocatoria línea de fomento editorial'
+        verbose_name_plural = 'Manual crear convocatoria línea de fomento editorial'
+
+class Manual_editar_convocatoria_fomento(models.Model):
+    introduccion =  RichTextField( verbose_name = "Introducción")
+    paso1 =  RichTextField( verbose_name = "caracteristicas del app de inscripciones")
+    paso2 =  RichTextField( verbose_name = "paso1- informacion de usuario ")
+    paso3 =  RichTextField( verbose_name = "paso2 -informacion de contacto")
+    paso4 =  RichTextField( verbose_name = "paso3-informacion de legal",null = True)
+    paso5 =  RichTextField( verbose_name = "paso4-informacion de legal-natural",null = True)
+    paso6 =  RichTextField( verbose_name = "paso5-informacion de legal-juridico",null = True)
+    paso7 =  RichTextField( verbose_name = "paso6-informacion de actividades",null = True)
+    paso8 =  RichTextField( verbose_name = "paso7-informacion de actividades",null = True)
+    paso9 =  RichTextField( verbose_name = "paso7-declaratoria",null = True)
+    class Meta:
+        verbose_name = 'Manual editar convocatoria línea de fomento editorialn'
+        verbose_name_plural = 'Manual editar convocatoria línea de fomento editorialn'
+
+class Manual_editar_configuracion(models.Model):
+    introduccion =  RichTextField( verbose_name = "Introducción")
+    paso1 =  RichTextField( verbose_name = "caracteristicas del app de inscripciones")
+    paso2 =  RichTextField( verbose_name = "paso1- informacion de usuario ")
+    paso3 =  RichTextField( verbose_name = "paso2 -informacion de contacto")
+    paso4 =  RichTextField( verbose_name = "paso3-informacion de legal",null = True)
+    paso5 =  RichTextField( verbose_name = "paso4-informacion de legal-natural",null = True)
+    paso6 =  RichTextField( verbose_name = "paso5-informacion de legal-juridico",null = True)
+    paso7 =  RichTextField( verbose_name = "paso6-informacion de actividades",null = True)
+    paso8 =  RichTextField( verbose_name = "paso7-informacion de actividades",null = True)
+    paso9 =  RichTextField( verbose_name = "paso7-declaratoria",null = True)
+    class Meta:
+        verbose_name = 'Manual configuracion'
+        verbose_name_plural = 'Manual configuracion'

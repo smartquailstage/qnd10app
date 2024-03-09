@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from .forms import LoginForm, UserRegistrationForm, \
                    UserEditForm, ProfileEditForm,ContactEditForm,Contact2EditForm,LegalEditForm,LegalEdit2Form,ContactLegalEditForm,ContactLegal2EditForm,ActivityEditForm,TermsEditForm
-from .models import Profile,Contact_Profile,contacto,legal,contacto_legal,activity,terms,edit_profile_done,Manual_inscripcion
+from .models import Profile,Contact_Profile,contacto,legal,contacto_legal,activity,terms,edit_profile_done,Manual_inscripcion, Manual_lineasfomento_editorial,Manual_creacion_convocatoria_fomento,Manual_editar_convocatoria_fomento,Manual_editar_configuracion
 from django.template.loader import render_to_string
 import weasyprint
 from django.contrib.admin.views.decorators import staff_member_required
@@ -305,8 +305,9 @@ def perfil_legal(request):
     # Verificar si el usuario está autenticado
     if request.user.is_authenticated:
        usuario = request.user.profile
-       legal_profile = request.user.legal  # Suponiendo que el perfil de usuario está relacionado con el modelo de usuario
-       return render(request, 'account/edit_profiles/edit_legal_profile.html', {'legal_profile': legal_profile, 'usuario': usuario })
+       legal_profile = request.user.legal 
+       terminos = request.user.terms # Suponiendo que el perfil de usuario está relacionado con el modelo de usuario
+       return render(request, 'account/edit_profiles/edit_legal_profile.html', {'legal_profile': legal_profile, 'usuario': usuario, 'terminos':terminos })
     else:
         # Redirigir al usuario a la página de inicio de sesión o mostrar un mensaje de error
         return render(request, 'account/edit_profiles/edit_legal_profile.html', {'mensaje': 'Debes iniciar sesión para ver tu perfil'})
@@ -316,8 +317,10 @@ def perfil_activity(request):
     # Verificar si el usuario está autenticado
     if request.user.is_authenticated:
        usuario = request.user.profile
-       activity_profile = request.user.legal  # Suponiendo que el perfil de usuario está relacionado con el modelo de usuario
-       return render(request, 'account/edit_profiles/edit_activity_profile.html', {'activity_profile': activity_profile, 'usuario': usuario })
+       activity_profile = request.user.legal 
+       terminos = request.user.terms
+        # Suponiendo que el perfil de usuario está relacionado con el modelo de usuario
+       return render(request, 'account/edit_profiles/edit_activity_profile.html', {'activity_profile': activity_profile, 'usuario': usuario,'terminos':terminos })
     else:
         # Redirigir al usuario a la página de inicio de sesión o mostrar un mensaje de error
         return render(request, 'account/edit_profiles/edit_activity_profile.html', {'mensaje': 'Debes iniciar sesión para ver tu perfil'})
@@ -327,8 +330,9 @@ def edit_done(request):
     # Verificar si el usuario está autenticado
     if request.user.is_authenticated:
        profile_edit_done = request.user.edit_profile_done
+       terminos = request.user.terms
        # Suponiendo que el perfil de usuario está relacionado con el modelo de usuario
-       return render(request, 'account/edit_profiles/edit_done.html', {'profile_edit_done': profile_edit_done })
+       return render(request, 'account/edit_profiles/edit_done.html', {'profile_edit_done': profile_edit_done, 'terminos':terminos })
     else:
         # Redirigir al usuario a la página de inicio de sesión o mostrar un mensaje de error
         return render(request, 'account/edit_profiles/edit_done.html', {'mensaje': 'Debes iniciar sesión para ver tu perfil'})
@@ -357,10 +361,47 @@ def user_detail(request, username):
 
 @login_required
 def detalle_manual(request):
+    if request.user.is_authenticated:
+        terminos = request.user.terms 
+        manual = Manual_inscripcion.objects.first()
+        return render(request, 'account/manuales/detalle_manual.html', {'manual': manual, 'terminos':terminos})
+    else:
+        # Redirigir al usuario a la página de inicio de sesión o mostrar un mensaje de error
+        return render(request, 'account/manuales/detalle_manual.html', {'mensaje': 'Debes iniciar sesión para ver tu perfil'})
+
+@login_required
+def detalle_manual_lineafomento(request):
+    if request.user.is_authenticated:
+        terminos = request.user.terms 
+        manual= Manual_lineasfomento_editorial.objects.first()  # Suponiendo que solo hay un manual, ajusta esto según tus necesidades
+        return render(request, 'account/manuales/detalle_manual_lineafomento.html', {'manual': manual, 'terminos': terminos})
+    else:
+        # Redirigir al usuario a la página de inicio de sesión o mostrar un mensaje de error
+        return render(request, 'account/manuales/detalle_manual_lineafomento.html', {'mensaje': 'Debes iniciar sesión para ver tu perfil'})
+
+@login_required
+def detalle_manual_creacion_convocatoria_fomento(request):
     # Obtener el objeto del manual de inscripción
-    manual = Manual_inscripcion.objects.first()  # Suponiendo que solo hay un manual, ajusta esto según tus necesidades
+    manual = Manual_creacion_convocatoria_fomento.objects.first()  # Suponiendo que solo hay un manual, ajusta esto según tus necesidades
 
     # Renderizar la plantilla con los detalles del manual
-    return render(request, 'account/edit_profiles/detalle_manual.html', {'manual': manual})
+    return render(request, 'account/manuales/detalle_manual_creacion_convocatoria_fomento.html', {'manual': manual})
+
+@login_required
+def detalle_manual_editar_convocatoria_fomento(request):
+    # Obtener el objeto del manual de inscripción
+    manual = Manual_editar_convocatoria_fomento.objects.first()  # Suponiendo que solo hay un manual, ajusta esto según tus necesidades
+
+    # Renderizar la plantilla con los detalles del manual
+    return render(request, 'account/manuales/detalle_manual_editar_convocatoria_fomento.html', {'manual': manual})
+
+@login_required
+def detalle_manual_editar_configuracion(request):
+    # Obtener el objeto del manual de inscripción
+    manual = Manual_editar_configuracion.objects.first()  # Suponiendo que solo hay un manual, ajusta esto según tus necesidades
+
+    # Renderizar la plantilla con los detalles del manual
+    return render(request, 'account/manuales/detalle_manual_editar_configuracion.html', {'manual': manual})
+
 
 

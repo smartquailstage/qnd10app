@@ -33,7 +33,7 @@
               <div class="menu-title">Crear Convocatorias</div>
             </a>
             <ul>
-              <li> <a href="widgets-static-widgets.html">
+              <li> <a href="{% url "account:detalle_manual_creacion_convocatoria_fomento" %}">
                   <ion-icon name="ellipse-outline"></ion-icon>Editorial y Literaría
                 </a>
               </li>
@@ -50,7 +50,7 @@
               <div class="menu-title">Editar Convocatorias</div>
             </a>
             <ul>
-              <li> <a href="widgets-static-widgets.html">
+              <li> <a href="{% url "account:detalle_manual_editar_convocatoria_fomento" %}">
                   <ion-icon name="ellipse-outline"></ion-icon>Editorial y Literaría
                 </a>
               </li>
@@ -70,7 +70,7 @@
               <div class="menu-title">Líneas de Fomento</div>
             </a>
             <ul>
-              <li> <a href="widgets-static-widgets.html">
+              <li>  <a href="{% url "account:detalle_manual_lineafomento" %}">
                   <ion-icon name="ellipse-outline"></ion-icon>Editorial y Literaría
                 </a>
               </li>
@@ -111,9 +111,9 @@
           <li class="menu-label">Herramientas</li>
           <li>
             <li>
-              <a href="pages-user-profile.html">
+              <a href="{% url "account:detalle_manual_editar_configuracion" %}">
                 <div class="parent-icon">
-                  <ion-icon name="person-circle-outline"></ion-icon>
+                  <ion-icon name="settings"></ion-icon>
                 </div>
                 <div class="menu-title">Configuración</div>
               </a>
