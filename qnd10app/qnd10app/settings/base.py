@@ -89,7 +89,7 @@ INSTALLED_APPS = [
     'social_django',
     
     'wagtail',
-    'editorial',
+    #'editorial',
     'agenda_cultural_participativa',
 
     'modelcluster',
@@ -99,6 +99,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'sorl.thumbnail',
     'phonenumber_field',
+    'announ',
     'baton.autodiscover',
     
 ]

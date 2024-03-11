@@ -45,6 +45,7 @@ urlpatterns = [
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 
     path('baton/', include('baton.urls')),
+    path('announ/',include('announ.urls')),
     path('social-auth/', include('social_django.urls', namespace='social')),
     path('rosetta/', include('rosetta.urls')),
     re_path(r'^businessmedia/', include(wagtailadmin_urls),name='wagtail'),
