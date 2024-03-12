@@ -1,15 +1,17 @@
 from django.urls import reverse_lazy
-from django.views.generic.list import ListView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, View
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import redirect, get_object_or_404
-from django.views.generic.base import TemplateResponseMixin, View
+from django.views.generic.base import TemplateResponseMixin
 from django.forms.models import modelform_factory
 from django.apps import apps
 from braces.views import CsrfExemptMixin, JsonRequestResponseMixin
 from .models import announ_linea_fomento_editorial, bases_linea_fomento_editorial, contenido_bases_linea_fomento_editorial
 from .forms import ModuleFormSet
+from django.forms import DateInput
 
+
+ 
 class OwnerAnnounMixin(LoginRequiredMixin):
     def get_queryset(self):
         return super().get_queryset().filter(owner=self.request.user)
@@ -21,13 +23,19 @@ class OwnerEditAnnounMixin(object):
 
 class OwnerAnnounCreateMixin(OwnerAnnounMixin, OwnerEditAnnounMixin):
     model = announ_linea_fomento_editorial
-    fields = ['portada','categoria', 'title', 'slug', 'overview']
-    success_url = reverse_lazy('manage_announ_list')
+    fields = ['portada', 'categoria', 'title', 'slug', 'fecha_inicio', 'fecha_vencimiento', 'overview', 'actividad']
+    success_url = reverse_lazy('announ:manage_announ_list')
+    widgets = {
+        'fecha_inicio': DateInput(attrs={'type': 'datetime-local'})
+    }
 
 class OwnerAnnounEditMixin(OwnerAnnounMixin, OwnerEditAnnounMixin):
-    fields = ['portada','categoria', 'title', 'slug', 'overview']
-    success_url = reverse_lazy('manage_announ_list')
+    fields = ['portada', 'categoria', 'title', 'slug', 'fecha_inicio', 'fecha_vencimiento', 'overview', 'actividad']
+    success_url = reverse_lazy('announ:manage_announ_list')
     template_name = 'announces/manage/announ/form.html'
+    widgets = {
+        'fecha_inicio': DateInput(attrs={'type': 'datetime-local'})
+    }
 
 class ManageAnnounListView(OwnerAnnounMixin, ListView):
     template_name = 'announces/manage/announ/list.html'
@@ -36,20 +44,21 @@ class ManageAnnounListView(OwnerAnnounMixin, ListView):
         return announ_linea_fomento_editorial.objects.filter(owner=self.request.user)
 
 class AnnounCreateView(PermissionRequiredMixin, OwnerAnnounCreateMixin, CreateView):
+    model = announ_linea_fomento_editorial 
     permission_required = 'announ.add_announ'
-    
 
 class AnnounUpdateView(PermissionRequiredMixin, OwnerAnnounEditMixin, UpdateView):
+    model = announ_linea_fomento_editorial 
     permission_required = 'announ.change_announ'
 
-
 class AnnounDeleteView(PermissionRequiredMixin, OwnerAnnounMixin, DeleteView):
+    model = announ_linea_fomento_editorial 
     template_name = 'announces/manage/announ/delete.html'
-    success_url = reverse_lazy('manage_announ_list')
+    success_url = reverse_lazy('announ:manage_announ_list')
     permission_required = 'announ.delete_announ'
 
 class AnnounBasesUpdateView(TemplateResponseMixin, View):
-    template_name = 'announces/manage/module/formset.html'
+    template_name = 'announces/manage/base/formset.html'
 
     def get_formset(self, data=None):
         return ModuleFormSet(instance=self.announ, data=data)
@@ -66,7 +75,7 @@ class AnnounBasesUpdateView(TemplateResponseMixin, View):
         formset = self.get_formset(data=request.POST)
         if formset.is_valid():
             formset.save()
-            return redirect('manage_announ_list')
+            return redirect('announ:manage_announ_list')
         return self.render_to_response({'announ': self.announ, 'formset': formset})
 
 class ContenidoCreateUpdateView(TemplateResponseMixin, View):
@@ -100,7 +109,7 @@ class ContenidoCreateUpdateView(TemplateResponseMixin, View):
             obj.save()
             if not id:
                 contenido_bases_linea_fomento_editorial.objects.create(base=self.base, item=obj)
-            return redirect('base_contenido_list', self.base.id)
+            return redirect('announ:base_contenido_list', self.base.id)
         return self.render_to_response({'form': form, 'object': self.obj})
 
 class ContenidoDeleteView(View):
@@ -109,13 +118,13 @@ class ContenidoDeleteView(View):
         base = contenido.base
         contenido.item.delete()
         contenido.delete()
-        return redirect('bases_contenido_list', base.id)
+        return redirect('announ:bases_contenido_list', base.id)
 
 class BaseContenidoListView(TemplateResponseMixin, View):
     template_name = 'announces/manage/base/contenido_list.html'
 
     def get(self, request, base_id):
-        base = get_object_or_404(bases_linea_fomento_editorial, id=base_id, announ__owner=request.user)
+        base = get_object_or_404(bases_linea_fomento_editorial, id=base_id, base__owner=request.user)
         return self.render_to_response({'base': base})
 
 class BaseOrderView(CsrfExemptMixin, JsonRequestResponseMixin, View):

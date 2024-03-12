@@ -1,98 +1,63 @@
-{% extends "base.html" %}
-{% load course %}
+{% extends "base_dash.html" %}
+{% load static %}
+{% load widget_tweaks %}
 
 {% block title %}
-  Module {{ module.order|add:1 }}: {{ module.title }}
+  Base legal {{ base.order|add:1 }}: {{ base.title }}
 {% endblock %}
 
 {% block content %}
-  {% with course=module.course %}
-    <h1>Course "{{ course.title }}"</h1>
+  {% with announ=base.announ %}
+    <h1>Convocatoria "{{ announ.title }}"</h1>
     <div class="contents">
-      <h3>Modules</h3>
+      <h3>Bases legales</h3>
       <ul id="modules">
-        {% for m in course.modules.all %}
-          <li data-id="{{ m.id }}" {% if m == module %}class="selected"{% endif %}>
-            <a href="{% url "module_content_list" m.id %}">
+        {% for m in announ.bases.all %}
+          <li data-id="{{ m.id }}" {% if m == base %}class="selected"{% endif %}>
+            <a href="{% url "announ:base_contenido_list" m.id %}">
               <span>
-                Module <span class="order">{{ m.order|add:1 }}</span>
+                Módulo <span class="order">{{ m.order|add:1 }}</span>
               </span>
               <br>
               {{ m.title }}
             </a>
           </li>
         {% empty %}
-          <li>No modules yet.</li>
+          <li>No ha escrito una base legal todavía.</li>
         {% endfor %}
       </ul>
-      <p><a href="{% url "course_module_update" course.id %}">Edit modules</a></p>
+      <p><a href="{% url "announ:announ_base_update" base.id %}">Editar Bases de convocatoria</a></p>
     </div>
     <div class="module">
-      <h2>Module {{ module.order|add:1 }}: {{ module.title }}</h2>
-      <h3>Module contents:</h3>
+      <h2>Bases {{ base.order|add:1 }}: {{ base.title }}</h2>
+      <h3>Base de contenidos:</h3>
 
       <div id="module-contents">
-        {% for content in module.contents.all %}
+        {% for content in base.contenidos.all %}
           <div data-id="{{ content.id }}">
             {% with item=content.item %}
               <p>{{ item }} ({{ item|model_name }})</p>
-              <a href="{% url "module_content_update" module.id item|model_name item.id %}">Edit</a>
-              <form action="{% url "module_content_delete" content.id %}" method="post">
-                <input type="submit" value="Delete">
+              <a href="{% url "announ:base_contenido_update" base.id item|model_name item.id %}">Editar</a>
+              <form action="{% url "announ:base_contenido_delete" base.id %}" method="post">
+                <input type="submit" value="Eliminar">
                 {% csrf_token %}
               </form>
             {% endwith %}
           </div>
         {% empty %}
-          <p>This module has no contents yet.</p>
+          <p>Este módulo aún no tiene contenidos.</p>
         {% endfor %}
       </div>
-      <h3>Add new content:</h3>
+      <h3>Agregar nuevo contenido:</h3>
       <ul class="content-types">
-        <li><a href="{% url "module_content_create" module.id "text" %}">Text</a></li>
-        <li><a href="{% url "module_content_create" module.id "image" %}">Image</a></li>
-        <li><a href="{% url "module_content_create" module.id "video" %}">Video</a></li>
-        <li><a href="{% url "module_content_create" module.id "file" %}">File</a></li>
+        <li><a href="{% url "announ:base_contenido_create" base.id "text" %}">Texto</a></li>
+        <li><a href="{% url "announ:base_contenido_create" base.id "image" %}">Imagen</a></li>
+        <li><a href="{% url "announ:base_contenido_create" base.id "video" %}">Video</a></li>
+        <li><a href="{% url "announ:base_contenido_create" base.id "file" %}">Archivo</a></li>
       </ul>
     </div>
   {% endwith %}
 {% endblock %}
 
 {% block domready %}
-  $('#modules').sortable({
-      stop: function(event, ui) {
-          modules_order = {};
-          $('#modules').children().each(function(){
-              // update the order field
-              $(this).find('.order').text($(this).index() + 1);
-              // associate the module's id with its order
-              modules_order[$(this).data('id')] = $(this).index();
-          });
-          $.ajax({
-              type: 'POST',
-              url: '{% url "module_order" %}',
-              contentType: 'application/json; charset=utf-8',
-              dataType: 'json',
-                 data: JSON.stringify(modules_order)
-             });
-      }
-  });
-
-  $('#module-contents').sortable({
-      stop: function(event, ui) {
-          contents_order = {};
-          $('#module-contents').children().each(function(){
-              // associate the module's id with its order
-              contents_order[$(this).data('id')] = $(this).index();
-          });
-
-          $.ajax({
-              type: 'POST',
-              url: '{% url "content_order" %}',
-              contentType: 'application/json; charset=utf-8',
-              dataType: 'json',
-              data: JSON.stringify(contents_order),
-          });
-      }
-  });
 {% endblock %}
