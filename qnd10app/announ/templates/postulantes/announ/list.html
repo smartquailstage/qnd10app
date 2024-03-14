@@ -1,0 +1,21 @@
+{% extends "base_dash.html" %}
+
+{% block title %}My courses{% endblock %}
+
+{% block content %}
+    <h1>My courses</h1>
+
+    <div class="module">
+        {% for announ in object_list %}
+            <div class="course-info">
+                <h3>{{ announ.title }}</h3>
+                <p><a href="{% url "announ:postulante_announ_detail" announ.id %}">Access contents</a></p>
+            </div>
+        {% empty %}
+            <p>
+                You are not enrolled in any courses yet.
+                <a href="{% url "announ_list" %}">Browse courses</a> to enroll in a course. 
+            </p>
+        {% endfor %}
+    </div>
+{% endblock %}

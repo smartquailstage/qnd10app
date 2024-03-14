@@ -71,7 +71,7 @@ def register(request):
             activity.objects.create(user=new_user)
             terms.objects.create(user=new_user)
             Contact_Profile.objects.create(user=new_user)
-            edit_profile_done.objects.create(user=new_user)
+
             return render(request,
                           'account/register_done.html',
                           {'new_user': new_user})

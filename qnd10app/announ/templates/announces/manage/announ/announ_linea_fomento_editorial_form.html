@@ -24,7 +24,7 @@
       <div class="bs-stepper-circle"><ion-icon name="add-outline"></ion-icon></div>
       <div class="">
         <h5 class="mb-0 steper-title">Nueva convocatoria</h5>
-        <p class="mb-0 steper-sub-title">Editorial & literaria</p>
+        <p class="mb-0 steper-sub-title">Editorial & lteraria</p>
       </div>
       </div>
     </div>
@@ -44,7 +44,7 @@
 
         <div class="col-12 col-lg-6">
             {% for field in form.visible_fields %}
-            {% if  field.name == 'categorias' %}
+            {% if  field.name == 'categoria' %}
                 <p></p>
                 <label for="{{ field.id_for_label }}" class="form-label">{{ field.label_tag }}</label>
                 {% if form.is_bound %}
@@ -58,22 +58,6 @@
                 {% endif %}
             {% endif %}
         {% endfor %}
-
-        {% for field in form.visible_fields %}
-        {% if  field.name == 'fomento' %}
-            <p></p>
-            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label_tag }}</label>
-            {% if form.is_bound %}
-                {% if field.errors %}
-                    {% render_field field class="form-control is-invalid input" %}
-                {% else %}
-                    {% render_field field class="form-control is-valid" %}
-                {% endif %}
-            {% else %}
-                {% render_field field class="form-control input" %}
-            {% endif %}
-        {% endif %}
-    {% endfor %}
   
         {% for field in form.visible_fields %}
         {% if  field.name == 'title'  %}

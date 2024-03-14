@@ -1,14 +1,18 @@
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, View
+from django.views.generic import ListView, DetailView,CreateView, UpdateView, DeleteView, View
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import redirect, get_object_or_404
 from django.views.generic.base import TemplateResponseMixin
 from django.forms.models import modelform_factory
 from django.apps import apps
 from braces.views import CsrfExemptMixin, JsonRequestResponseMixin
-from .models import announ_linea_fomento_editorial, bases_linea_fomento_editorial, contenido_bases_linea_fomento_editorial
-from .forms import ModuleFormSet
+from .models import announ_linea_fomento_editorial, bases_linea_fomento_editorial, contenido_bases_linea_fomento_editorial,Categorias_linea_fomento_editorial
+from .forms import ModuleFormSet,AnnounEnrollForm
 from django.forms import DateInput
+from django.views.generic.list import ListView
+from django.views.generic.edit import FormView
+from django.core.cache import cache
+from django.db.models import Count
 
 
  
@@ -23,14 +27,15 @@ class OwnerEditAnnounMixin(object):
 
 class OwnerAnnounCreateMixin(OwnerAnnounMixin, OwnerEditAnnounMixin):
     model = announ_linea_fomento_editorial
-    fields = ['portada', 'categoria', 'title', 'slug', 'fecha_inicio', 'fecha_vencimiento', 'overview', 'actividad']
+    fields = ['portada', 'fomento','categorias','title', 'slug', 'fecha_inicio', 'fecha_vencimiento', 'overview', 'actividad']
     success_url = reverse_lazy('announ:manage_announ_list')
     widgets = {
-        'fecha_inicio': DateInput(attrs={'type': 'datetime-local'})
+        'fecha_inicio': DateInput(attrs={'type': 'datetime-local'}),
+        'fecha_vencimiento': DateInput(attrs={'type': 'datetime-local'})
     }
 
 class OwnerAnnounEditMixin(OwnerAnnounMixin, OwnerEditAnnounMixin):
-    fields = ['portada', 'categoria', 'title', 'slug', 'fecha_inicio', 'fecha_vencimiento', 'overview', 'actividad']
+    fields = ['portada', 'fomento','categorias','title', 'slug', 'fecha_inicio', 'fecha_vencimiento', 'overview', 'actividad']
     success_url = reverse_lazy('announ:manage_announ_list')
     template_name = 'announces/manage/announ/form.html'
     widgets = {
@@ -59,13 +64,14 @@ class AnnounDeleteView(PermissionRequiredMixin, OwnerAnnounMixin, DeleteView):
 
 class AnnounBasesUpdateView(TemplateResponseMixin, View):
     template_name = 'announces/manage/base/formset.html'
+    announ = None
 
     def get_formset(self, data=None):
         return ModuleFormSet(instance=self.announ, data=data)
 
     def dispatch(self, request, pk):
         self.announ = get_object_or_404(announ_linea_fomento_editorial, id=pk, owner=request.user)
-        return super().dispatch(request, pk)
+        return super(AnnounBasesUpdateView, self).dispatch(request, pk)
 
     def get(self, request, *args, **kwargs):
         formset = self.get_formset()
@@ -79,6 +85,9 @@ class AnnounBasesUpdateView(TemplateResponseMixin, View):
         return self.render_to_response({'announ': self.announ, 'formset': formset})
 
 class ContenidoCreateUpdateView(TemplateResponseMixin, View):
+    base = None
+    model = None
+    obj = None
     template_name = 'announces/manage/content/form.html'
 
     def get_model(self, model_name):
@@ -91,11 +100,19 @@ class ContenidoCreateUpdateView(TemplateResponseMixin, View):
         return Form(*args, **kwargs)
 
     def dispatch(self, request, base_id, model_name, id=None):
-        self.base = get_object_or_404(bases_linea_fomento_editorial, id=base_id, announ__owner=request.user)
+        self.base = get_object_or_404(bases_linea_fomento_editorial,
+                                       id=base_id,
+                                       announ__owner=request.user)
         self.model = self.get_model(model_name)
         if id:
-            self.obj = get_object_or_404(self.model, id=id, owner=request.user)
-        return super().dispatch(request, base_id, model_name, id)
+            self.obj = get_object_or_404(self.model,
+                                         id=id,
+                                         owner=request.user)
+        return super(ContenidoCreateUpdateView,
+           self).dispatch(request, base_id, model_name, id)
+
+    
+  
 
     def get(self, request, base_id, model_name, id=None):
         form = self.get_form(self.model, instance=self.obj)
@@ -138,3 +155,92 @@ class ContenidoOrderView(CsrfExemptMixin, JsonRequestResponseMixin, View):
         for id, order in self.request_json.items():
             contenido_bases_linea_fomento_editorial.objects.filter(id=id, base__announ__owner=request.user).update(order=order)
         return self.render_json_response({'saved': 'OK'})
+
+
+class AnnounListView(TemplateResponseMixin, View):
+    model = announ_linea_fomento_editorial 
+    template_name = 'announces/announ/list.html'
+
+    def get(self, request, categoria=None):
+        categorias = cache.get('all_categorias')
+        if not categorias :
+            categorias  = Categorias_linea_fomento_editorial.objects.annotate(
+                           total_announces=Count('announces'))
+            cache.set('all_categorias_obj', categorias)
+        all_announces = announ_linea_fomento_editorial.objects.annotate(
+                                   total_bases=Count('bases'))
+        if categoria:
+            categoria = get_object_or_404(Categorias_linea_fomento_editorial, slug=categoria)
+            key = 'categoria_{}_announces'.format(categoria.id)
+            announces = cache.get(key)
+            if not announces:
+                announces = all_announces.filter(categoria=categoria)
+                cache.set(key, announces)
+        else:
+            announces = cache.get('all_announces')
+            if not announces:
+                announces = all_announces
+                cache.set('all_announces', announces)
+        return self.render_to_response({'categorias': categorias,
+                                        'categoria': categoria,
+                                        'announces': announces})
+
+
+class AnnounDetailView(DetailView):
+    model = announ_linea_fomento_editorial 
+    template_name = 'announces/announ/detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(AnnounDetailView,
+                        self).get_context_data(**kwargs)
+        context['enroll_form'] = AnnounEnrollForm(
+                                   initial={'announ':self.object})
+        return context
+
+
+
+class PostulantesEnrollAnnounView(LoginRequiredMixin, FormView):
+    announ = None
+    form_class = AnnounEnrollForm
+
+    def form_valid(self, form):
+        self.announ = form.cleaned_data['announ']
+        self.announ.postulantes.add(self.request.user)
+        return super(PostulantesEnrollAnnounView,
+                     self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('postulante_announ_detail',
+                            args=[self.announ.id])
+
+
+class PostulantesAnnounListView(LoginRequiredMixin, ListView):
+    model = announ_linea_fomento_editorial
+    template_name = 'postulantes/announ/list.html'
+
+    def get_queryset(self):
+        qs = super(PostulantesAnnounListView, self).get_queryset()
+        return qs.filter(postulantes__in=[self.request.user])
+
+
+class PostulantesAnnounDetailView(DetailView):
+    model = announ_linea_fomento_editorial
+    template_name = 'postulantes/announ/detail.html'
+
+    def get_queryset(self):
+        qs = super(PostulantesAnnounDetailView, self).get_queryset()
+        return qs.filter(postulantes__in=[self.request.user])
+
+    def get_context_data(self, **kwargs):
+        context = super(PostulantesAnnounDetailView,
+                        self).get_context_data(**kwargs)
+        # get course object
+        announ = self.get_object()
+        if 'announ_id' in self.kwargs:
+            # get current module
+            context['base'] = announ.bases.get(
+                                    id=self.kwargs['base_id'])
+        else:
+            # get first module
+            context['base'] = announ.bases.all()[0]
+        return context

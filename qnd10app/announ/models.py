@@ -18,6 +18,16 @@ class Categoria_linea_fomento_editorial(models.Model):
 
     def __str__(self):
         return self.title
+    
+class Categorias_linea_fomento_editorial(models.Model):
+    title = models.CharField(max_length=200, verbose_name="Nombre de categoria de la linea de fomento editorial")
+    slug = models.SlugField(max_length=200, unique=True)
+
+    class Meta:
+        ordering = ['title']
+
+    def __str__(self):
+        return self.title
 
 
 class announ_linea_fomento_editorial(models.Model):
@@ -25,10 +35,14 @@ class announ_linea_fomento_editorial(models.Model):
                               related_name='announ_created',
                               on_delete=models.CASCADE)
     portada = models.FileField(upload_to='documentos/portadas/', null=True, blank=True)
-    categoria = models.ForeignKey(Categoria_linea_fomento_editorial,
-                                  related_name='announces',
+    fomento = models.ForeignKey(Categoria_linea_fomento_editorial,
+                                  related_name='fomento',
                                   on_delete=models.CASCADE,
-                                  verbose_name="Nombre de Categoría de la convocatoria")
+                                  verbose_name="Nombre de Línea de fomento")
+    categoria = models.ForeignKey(Categorias_linea_fomento_editorial,
+                                  related_name='announces',
+                                  on_delete=models.CASCADE,null=True, blank=True,
+                                  verbose_name="Categoria en la Línea de fomento editorial")
     title = models.CharField(max_length=200, verbose_name="Nombre de convocatoria")
     slug = models.SlugField(max_length=200, unique=True)
     overview = models.TextField(verbose_name="Descripción de Convocatoria")
@@ -44,6 +58,7 @@ class announ_linea_fomento_editorial(models.Model):
     minutos_diferencia_activacion = models.IntegerField(default=0,null=True, blank=True)
     segundos_diferencia_activacion = models.IntegerField(default=0,null=True, blank=True)
     actividad = models.BooleanField(null=True, blank=True, verbose_name="Estado de la actividad de la convocatoría")
+    postulantes = models.ManyToManyField(User,related_name="announces_joined", blank=True)
 
     class Meta:
         ordering = ['-created']
@@ -117,6 +132,7 @@ class bases_linea_fomento_editorial(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
     order = OrderField(blank=True, for_fields=['base'])
+    created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     class Meta:
             ordering = ['order']

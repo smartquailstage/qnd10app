@@ -24,6 +24,7 @@ from wagtail.admin import urls as wagtailadmin_urls
 from wagtail import urls as wagtail_urls
 from wagtail import urls as wagtaildocs_urls
 from django.contrib.auth import views as auth_views
+from announ.views import AnnounListView
 
 
 def UserAdmin(user):
@@ -33,8 +34,9 @@ urlpatterns = [
   
     path('login/', admin.site.urls),  
    # path('analytics/', admin.site.urls),
-     path('account/login/', auth_views.LoginView.as_view(), name='login'),
+    path('account/login/', auth_views.LoginView.as_view(), name='login'),
     path('account/logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('Lista_de_convocatorias/',AnnounListView.as_view(), name='announ_list'),
     path('account/', include('account.urls')),
     path('account/password_change/', auth_views.PasswordChangeView.as_view(), name='password_change'),
     path('account/password_change/done/', auth_views.PasswordChangeDoneView.as_view(), name='password_change_done'),
