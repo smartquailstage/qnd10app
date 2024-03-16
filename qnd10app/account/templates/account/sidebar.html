@@ -23,6 +23,7 @@
           </li> 
           <li>
           </li>
+   {% if request.user.is_staff %}     
           <li class="menu-label">Creación de convocatorias</li>
 
           <li>
@@ -58,10 +59,11 @@
        
             </ul>
           </li>
-            
+          {% else %}
+          {% endif %}  
          
-       
-          {% if terminos.agree %}
+
+          {% if terminos.agree  %}
           
           <li class="menu-label">Postulación a convocatorias</li>
           <li>
@@ -69,7 +71,7 @@
               <div class="parent-icon">
                 <ion-icon name="megaphone-outline"></ion-icon>
               </div>
-              <div class="menu-title">Convocatorias / {{ terminos.agree }}</div>
+              <div class="menu-title">Convocatorias</div>
             </a>
             <ul>
               <li>  <a href="{% url "announ_list" %}">
