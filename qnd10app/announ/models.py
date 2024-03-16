@@ -7,6 +7,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from datetime import timedelta
 from django.utils import timezone
+from ckeditor.fields import RichTextField
 
 
 class Categoria_linea_fomento_editorial(models.Model):
@@ -185,3 +186,19 @@ class Image(ItemBase):
 
 class Video(ItemBase):
     url = models.URLField()
+
+
+class postulantes(models.Model):
+    owner = models.ForeignKey(User,
+                              related_name='postulante_created',
+                              on_delete=models.CASCADE)
+    title = models.CharField(max_length=200, verbose_name="Título del proyecto que desea postular")
+    provincia = models.CharField(max_length=200, verbose_name="Provincia donde se desarolla el proyecto",null=True,blank=True)
+    ciudad = models.CharField(max_length=200, verbose_name="Ciudad donde se desarolla el proyecto",null=True,blank=True)
+    sector = models.CharField(max_length=200, verbose_name="Sector donde se desarolla el proyecto",null=True,blank=True)
+    agregar_nombre = models.CharField(max_length=200, verbose_name="Agregar nombre completo de participante de su proyecto",null=True,blank=True)
+    resumen = RichTextField( verbose_name = "Escriba un breve resumen de su proyecto y verifique si responde las siguientes interrogantes: ¿Cuál es el contexto del proyecto? ¿Quién es el público objetivo? ¿Cómo se va a desarrollar?",null=True,blank=True)
+    objetivo = RichTextField( verbose_name = "Escriba un obtivo principal del proyecto (el objetivo resume los resultados)",null=True,blank=True)
+
+    def __str__(self):
+        return self.title

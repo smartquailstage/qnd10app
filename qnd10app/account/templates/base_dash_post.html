@@ -37,8 +37,86 @@
 
 <body>
     
+    <header class="top-header">
+        <nav class="navbar navbar-expand gap-3">
+          <div class="toggle-icon">
+            <ion-icon name="menu-outline"></ion-icon>
+          </div>
+         
+    
+          <div class="top-navbar-right ms-auto">
+    
+            <ul class="navbar-nav align-items-center">
+             
+           
+              <li class="nav-item dropdown dropdown-user-setting">
+                <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="javascript:;" data-bs-toggle="dropdown">
+                  <div class="user-setting">
+                    {% thumbnail user.profile.photo "180x180" crop="100%" as im %}
+                    <img src="{{ im.url }}" class="user-img" alt="">
+                    {% endthumbnail %}
+                  </div>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li>
+                    <a class="dropdown-item" href="javascript:;">
+                      <div class="d-flex flex-row align-items-center gap-2">
+                        {% thumbnail user.profile.photo "180x180" crop="100%" as im %}
+                        <img src="{{ im.url }}" alt="" class="rounded-circle" width="54" height="54">
+                        {% endthumbnail %}
+                        <div class="">
+                          <h6 class="mb-0 dropdown-user-name">{{ user.profile.get_full_name }} </h6>
+                          <small class="mb-0 dropdown-user-designation text-secondary">Secretaría de Cultura </small>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="{% url "account:user_profile" %}">
+                      <div class="d-flex align-items-center">
+                        <div class="">
+                          <ion-icon name="person-outline"></ion-icon>
+                        </div>
+                        <div class="ms-3"><span>Perfils</span></div>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="{% url "account:dashboard" %}">
+                      <div class="d-flex align-items-center">
+                        <div class="">
+                          <ion-icon name="speedometer-outline"></ion-icon>
+                        </div>
+                        <div class="ms-3"><span>Inicio</span></div>
+                      </div>
+                    </a>
+                  </li>
+             
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="{% url "logout" %}">
+                      <div class="d-flex align-items-center">
+                        <div class="">
+                          <ion-icon name="log-out-outline"></ion-icon>
+                        </div>
+                        <div class="ms-3"><span>Salir</span></div>
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+    
+            </ul>
+    
+          </div>
+        </nav>
+      </header>
 
-  {% include "account/header.html" %}
   <!--start wrapper-->
   <div class="wrapper">
     {% include "account/sidebar.html" %}
@@ -47,14 +125,18 @@
       <!-- start page content-->
       <div class="page-content">
         <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-            <div class="breadcrumb-title pe-3">Plataforma de gestión cultural del distrito metropolitano de Quito </div>
+            <div class="breadcrumb-title pe-3">Plataforma de gestión cultural del distrito metropolitano de Quito</div>
             <div class="ps-3">
               <nav aria-label="breadcrumb">
-               {% block title %}{% endblock %}
+                <ol class="breadcrumb mb-0 p-0 align-items-center">
+                  <li class="breadcrumb-item"><a href="{% url "account:dashboard" %}"><ion-icon name="home-outline"></ion-icon></a>
+                  </li>
+                  <li class="breadcrumb-item active" aria-current="page">{% block title %}{% endblock %}</li>
+                </ol>
               </nav>
             </div>
-       
-          </div> 
+            
+          </div>
         {% block content %}
         {% endblock %}
       </div>

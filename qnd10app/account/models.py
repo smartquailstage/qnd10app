@@ -4,6 +4,7 @@ from datetime import datetime
 from phonenumber_field.modelfields import PhoneNumberField
 from ckeditor.fields import RichTextField
 from django.urls import reverse
+from announ.models import Categoria_linea_fomento_editorial, Categorias_linea_fomento_editorial
 
 class Profile(models.Model):
     ETNICA = [
@@ -656,6 +657,29 @@ class edit_profile_done(models.Model):
     class Meta:
         verbose_name = 'Información de tecnico'
         verbose_name_plural = 'Información de tecnico'
+
+class postulantes_lineas_fomentos(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)                
+    title = models.CharField(max_length=200, verbose_name="Título del proyecto que desea postular")
+    provincia = models.CharField(max_length=200, verbose_name="Provincia donde se desarolla el proyecto")
+    ciudad = models.CharField(max_length=200, verbose_name="Ciudad donde se desarolla el proyecto")
+    sector = models.CharField(max_length=200, verbose_name="Sector donde se desarolla el proyecto")
+    agregar_nombre = models.CharField(max_length=200, verbose_name="Agregar nombre completo de participante de su proyecto",null=True,blank=True)
+    resumen = RichTextField( verbose_name = "Escriba un breve resumen de su proyecto y verifique si responde las siguientes interrogantes: ¿Cuál es el contexto del proyecto? ¿Quién es el público objetivo? ¿Cómo se va a desarrollar?",null=True,blank=True)
+    objetivo = RichTextField( verbose_name = "Escriba un obtivo principal del proyecto (el objetivo resume los resultados)",null=True,blank=True)
+
+    
+    
+    class Meta:
+        verbose_name = 'Información del postulante'
+        verbose_name_plural = 'Información del postulante'
+
+class fomento_categorias(models.Model):
+    fomento = models.OneToOneField(Categoria_linea_fomento_editorial,
+                              related_name='announ_created',
+                              on_delete=models.CASCADE)
+    categoria = models.OneToOneField(Categorias_linea_fomento_editorial,related_name='announ_categoria_created',
+                              on_delete=models.CASCADE)
 
 class Manual_inscripcion(models.Model):
     introduccion =  RichTextField( verbose_name = "Introducción")

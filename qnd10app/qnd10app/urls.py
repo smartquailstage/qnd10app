@@ -36,7 +36,7 @@ urlpatterns = [
    # path('analytics/', admin.site.urls),
     path('account/login/', auth_views.LoginView.as_view(), name='login'),
     path('account/logout/', auth_views.LogoutView.as_view(), name='logout'),
-    path('Lista_de_convocatorias/',AnnounListView.as_view(), name='announ_list'),
+    path('convocatorias_abiertas/',AnnounListView.as_view(), name='announ_list'),
     path('account/', include('account.urls')),
     path('account/password_change/', auth_views.PasswordChangeView.as_view(), name='password_change'),
     path('account/password_change/done/', auth_views.PasswordChangeDoneView.as_view(), name='password_change_done'),

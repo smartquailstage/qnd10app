@@ -11,3 +11,4 @@ ModuleFormSet = inlineformset_factory(announ_linea_fomento_editorial,
 class AnnounEnrollForm(forms.Form):
     announ = forms.ModelChoiceField(queryset=announ_linea_fomento_editorial.objects.all(),
                                     widget=forms.HiddenInput)
+    

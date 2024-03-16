@@ -78,16 +78,17 @@
   <div class="card-body">
   <div class="bs-stepper-content">
 
-    <form action="." method="post" enctype="multipart/form-data">
+   
+    <form   action="." method="post" enctype="multipart/form-data">
       <div id="test-nl-1" role="tabpanel" aria-labelledby="stepper2trigger1">
-        <h5 class="mb-1">Actividades Artísticas</h5>
-        <p class="mb-4">Información de actividades artisticas del usuario</p>
+        <h5 class="mb-1">Perfil de Postulante</h5>
+        <p class="mb-4">Información del proyecto que desea postular</p>
         
         <div class="row g-3">
           <div class="col-12 col-lg-6">
            
-            {% for field in activity_form.visible_fields %}
-            {% if field.name == 'diciplina' %}
+            {% for field in postulantes_form.visible_fields %}
+            {% if field.name == 'title' %}
             <label for="{{ field.id_for_label }}" class="form-label">{{ field.label_tag }}</label>
                 {% if activity_form.is_bound %}
                     {% if field.errors %}
@@ -101,11 +102,26 @@
             {% endif %}
         {% endfor %}
 
-            {% for field in activity_form.visible_fields %}
-            {% if  field.name == 'experiencia' %}
+        {% for field in postulantes_form.visible_fields %}
+        {% if field.name == 'ciudad' %}
+        <label for="{{ field.id_for_label }}" class="form-label">{{ field.label_tag }}</label>
+            {% if activity_form.is_bound %}
+                {% if field.errors %}
+                    {% render_field field class="form-select is-invalid input" %}
+                {% else %}
+                    {% render_field field class="form-select is-valid" %}
+                {% endif %}
+            {% else %}
+                {% render_field field class="form-select input" %}
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+
+            {% for field in postulantes_form.visible_fields %}
+            {% if  field.name == 'agregar_nombre' %}
                 <p></p>
                 <label for="{{ field.id_for_label }}" class="form-label">{{ field.label_tag }}</label>
-                {% if activity_form.is_bound %}
+                {% if postulantes_form.is_bound %}
                     {% if field.errors %}
                         {% render_field field class="form-control is-invalid input" %}
                     {% else %}
@@ -117,11 +133,28 @@
             {% endif %}
         {% endfor %}
 
-        {% for field in activity_form.visible_fields %}
-        {% if  field.name == 'cv'  %}
+        {% for field in postulantes_form.visible_fields %}
+            {% if  field.name == 'agregar_nombre' %}
+                <p></p>
+                <label for="{{ field.id_for_label }}" class="form-label">{{ field.label_tag }}</label>
+                {% if postulantes_form.is_bound %}
+                    {% if field.errors %}
+                        {% render_field field class="form-control is-invalid input" %}
+                    {% else %}
+                        {% render_field field class="form-control is-valid" %}
+                    {% endif %}
+                {% else %}
+                    {% render_field field class="form-control input" %}
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+
+
+        {% for field in postulantes_form.visible_fields %}
+        {% if  field.name == 'ciudad'  %}
             <p></p>
             <label for="{{ field.id_for_label }}" class="form-label">{{ field.label_tag }}</label>
-            {% if activity_form.is_bound %}
+            {% if postulantes_form.is_bound %}
                 {% if field.errors %}
                     {% render_field field class="form-control is-invalid input" %}
                 {% else %}
@@ -133,8 +166,8 @@
         {% endif %}
     {% endfor %}
 
-            {% for field in activity_form.visible_fields %}
-            {% if field.name == 'ruac' or field.name == 'agremiacion'  %}
+            {% for field in postulantes_form.visible_fields %}
+            {% if field.name == 'sector' or field.name == 'agremiacion'  %}
                 <p></p>
                 <label for="{{ field.id_for_label }}" class="form-check-label">{{ field.label_tag }}</label>
                 {% if activity_form.is_bound %}
@@ -226,7 +259,7 @@
             <div class="d-flex align-items-center gap-2">
                 <a class="btn btn-outline-secondary px-2" href="{% url "account:edit_legal2" %}"><i class='bx bx-left-arrow-alt me-2'></i>Anterior</a>
                 <button class="btn btn-success px-4" type="submit"  onclick="stepper1.next()">Guardar <ion-icon name="save"></ion-icon></button>
-                <a class="btn btn-primary px-2" href="{% url "account:user_postulantes_profiles" %}" onclick="stepper1.next()">Siguiente<i class='bx bx-right-arrow-alt ms-2'></i></a>
+                <a class="btn btn-primary px-2" href="{% url "account:edit_terms" %}" onclick="stepper1.next()">Siguiente<i class='bx bx-right-arrow-alt ms-2'></i></a>
             </div>
         </div>
 
@@ -245,7 +278,8 @@
 
         </div>
        
-         
+     
+    
           
       </div>
       
@@ -266,6 +300,7 @@
 
 
 <a href="javaScript:;" class="back-to-top"><ion-icon name="arrow-up-outline"></ion-icon></a>
+
 
 
 

@@ -6,6 +6,10 @@ from django.views.decorators.cache import cache_page
 app_name = 'announ'
 
 urlpatterns = [
+    #URLS CONVOCATORIAS
+
+    path('dashboard/',views.dashboard , name ='dashboard'),
+
     path('admin_linea_fomento/',
          views.ManageAnnounListView.as_view(),
          name='manage_announ_list'),
@@ -56,11 +60,13 @@ urlpatterns = [
          views.AnnounDetailView.as_view(),
          name='announ_detail'),
 
-     path('announ/<pk>/',
-         cache_page(60 * 15)(views.PostulantesAnnounDetailView.as_view()),
+     path('convocatoria/<pk>/',
+          views.PostulantesEnrollAnnounView.as_view(),
          name='postulante_announ_detail'),
 
-     path('announ/<pk>/<base_id>/',
-         cache_page(60 * 15)(views.PostulantesAnnounDetailView.as_view()),
+     path('convocatoria/<pk>/<base_id>/',
+         views.PostulantesAnnounListView.as_view(),
          name='postulante_announ_detail_base'),
+
 ]
+

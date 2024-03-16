@@ -55,31 +55,105 @@
                 </a>
               </li>
 
-          </li>
+       
             </ul>
           </li>
             
-          <li class="menu-label">Postulación a convocatorias</li>
+         
        
           {% if terminos.agree %}
+          
+          <li class="menu-label">Postulación a convocatorias</li>
           <li>
             <a href="javascript:;" class="has-arrow">
               <div class="parent-icon">
-                <ion-icon name="newspaper-outline"></ion-icon>
+                <ion-icon name="megaphone-outline"></ion-icon>
               </div>
-              <div class="menu-title">Líneas de Fomento</div>
+              <div class="menu-title">Convocatorias / {{ terminos.agree }}</div>
             </a>
             <ul>
-              <li>  <a href="{% url "announ:postulante_announ_list" %}">
+              <li>  <a href="{% url "announ_list" %}">
                   <ion-icon name="ellipse-outline"></ion-icon>Editorial y Literaría
                 </a>
               </li>
 
           </li>
+          
             </ul>
-          </li>
+
+            <li>
+              <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon">
+                  <ion-icon name="file-tray-full-outline"></ion-icon>
+                </div>
+                <div class="menu-title">Mis Postulaciones</div>
+              </a>
+              <ul>
+                <li>  <a href="{% url "announ_list" %}">
+                    <ion-icon name="ellipse-outline"></ion-icon>Editorial y Literaría
+                  </a>
+                </li>
+  
+            </li>
+            
+              </ul>
+
+            <li class="menu-label">Proyectos para ser postulados</li>
+
+            <li>
+              <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon">
+                  <ion-icon name="add-circle-outline"></ion-icon>
+                </div>
+                <div class="menu-title">Crear Proyecto </div>
+              </a>
+              <ul>
+                <li>  <a href="{% url "announ_list" %}">
+                    <ion-icon name="ellipse-outline"></ion-icon>Editorial y Literaría
+                  </a>
+                </li>
+  
+            </li>
+            
+              </ul>
+              <li>
+                <a href="javascript:;" class="has-arrow">
+                  <div class="parent-icon">
+                    <ion-icon name="create-outline"></ion-icon>
+                  </div>
+                  <div class="menu-title">Editar Proyecto </div>
+                </a>
+                <ul>
+                  <li>  <a href="{% url "announ_list" %}">
+                      <ion-icon name="ellipse-outline"></ion-icon>Editorial y Literaría
+                    </a>
+                  </li>
+    
+              </li>
+              
+                </ul>
+
+                <li>
+                  <a href="javascript:;" class="has-arrow">
+                    <div class="parent-icon">
+                      <ion-icon name="file-tray-full-outline"></ion-icon>
+                    </div>
+                    <div class="menu-title">Mis Proyectos </div>
+                  </a>
+                  <ul>
+                    <li>  <a href="{% url "announ_list" %}">
+                        <ion-icon name="ellipse-outline"></ion-icon>Editorial y Literaría
+                      </a>
+                    </li>
+      
+                </li>
+                
+                  </ul>
+
+       
     
         {% else %}
+        <li class="menu-label">Inscripción para postular</li>
         <li>
           <a href="{% url "account:detalle_manual" %}">
             <div class="parent-icon">
@@ -88,6 +162,7 @@
             <div class="menu-title">Inscripción</div>
           </a>
         </li>
+
 
         {% endif %}
         

@@ -27,6 +27,7 @@ urlpatterns = [
     path('edit_done/', views.edit_done, name='edit_done'),
     path('terms/', views.edit_terms, name='edit_terms'),
     path('profile/', views.perfil_usuario, name='user_profile'),
+   # path('postulantes_profile/', views.edit_postulantes, name='user_postulantes_profile'),
     path('admin/profile/<int:perfil_id>/pdf/', views.admin_profile_pdf, name='admin_profile_pdf'),
     path('admin/contacto/<int:contacto_id>/pdf/', views.admin_contact_pdf, name='admin_contact_pdf'),
     path('admin/legal/<int:info_legal_id>/pdf/', views.admin_legal_pdf, name='admin_legal_pdf'),

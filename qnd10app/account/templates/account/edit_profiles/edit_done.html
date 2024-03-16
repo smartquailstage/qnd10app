@@ -36,9 +36,8 @@
     <div class="card">
         <div class="card-body text-center">
           <h2 class="h4 pb-3"> ¡Gracias por utilizar nuestro sistema de inscripciones para las convocatorias de líneas de fomento y ordenamiento de propuestas para la agenda de la Dirección de Espacio Público!</h2>
-          <p class="fs-sm mb-2"> Su participación es fundamental para nosotros. <p>
-            <p class="fs-sm mb-2">  Para más información, no dude en contactar a {{ profile_edit_done.nombre_tech }}, nuestra especialista técnica,</p>
-            <span class="fw-medium">al número <a href="https://api.whatsapp.com/send?phone={{ profile_edit_done.telefono }} ">{{ profile_edit_done.telefono }}</a>.</span> o por correo electrónico a <a href="mailto:{{ profile_edit_done.email }}"></a>{{ profile_edit_done.email }}</p>
+          <p class="fs-sm mb-2"> Su participación es fundamental para nosotros. {{ tecnico.nombre_tech }}, nuestra especialista técnica,</p>
+            <span class="fw-medium">al número <a href="https://api.whatsapp.com/send?phone={{ profile_edit_done.telefono }} ">{{ tecnico.telefono }}</a>.</span> o por correo electrónico a <a href="mailto:{{ profile_edit_done.email }}">{{ tecnico.email }}</a></p>
             <p class="fs-sm">Desde este instante, usted se encuentra habilitado para realizar propuestas para actividades culturales y a su vez, para postularse a las distintas convacatorias de las líneas de fomento cultural, que tiene la secretaria de cultura habilitadas para usted.</p>
      
           <a class="btn btn-primary mt-3" href="{% url "account:dashboard" %}">Ir a inicio</a>

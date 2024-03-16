@@ -1,5 +1,5 @@
 {% extends "base_dash.html" %}
-{% load cache %}
+
 
 {% block title %}
     {{ object.title }}
@@ -7,16 +7,17 @@
 
 {% block content %}
     <h1>
-        {{ module.title }}
+      {{ announ.title }}  {{ base.title }}ss
     </h1>
     <div class="contents">
-        <h3>Modules</h3>
+        <h3>Modules  asadas</h3>
         <ul id="modules">
-        {% for m in object.modules.all %}
-            <li data-id="{{ m.id }}" {% if m == module %}class="selected"{% endif %}>
+        {% for m in object.bases.all %}
+        {{ m.id }}
+            <li data-id="{{ m.id }}" {% if m == base %}class="selected"{% endif %}>
                 <a href="{% url "student_course_detail_module" object.id m.id %}">
                     <span>
-                        Module <span class="order">{{ m.order|add:1 }}</span>
+                        <span class="order">{{ m.order|add:1 }}</span>
                     </span>
                     <br>
                     {{ m.title }}
@@ -28,13 +29,12 @@
         </ul>
     </div>
     <div class="module">
-        {% cache 600 module_contents module %}
-            {% for content in module.contents.all %}
-                {% with item=content.item %}
+            {% for contenido in base.contenidos.all %}
+                {% with item=contenido.item %}
                     <h2>{{ item.title }}</h2>
                     {{ item.render }}
                 {% endwith %}
             {% endfor %}
-        {% endcache %}
     </div>
+
 {% endblock %}

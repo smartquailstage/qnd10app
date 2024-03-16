@@ -1,20 +1,32 @@
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView,CreateView, UpdateView, DeleteView, View
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.base import TemplateResponseMixin
 from django.forms.models import modelform_factory
 from django.apps import apps
 from braces.views import CsrfExemptMixin, JsonRequestResponseMixin
-from .models import announ_linea_fomento_editorial, bases_linea_fomento_editorial, contenido_bases_linea_fomento_editorial,Categorias_linea_fomento_editorial
+from .models import announ_linea_fomento_editorial, bases_linea_fomento_editorial, contenido_bases_linea_fomento_editorial,Categorias_linea_fomento_editorial,postulantes
 from .forms import ModuleFormSet,AnnounEnrollForm
 from django.forms import DateInput
 from django.views.generic.list import ListView
 from django.views.generic.edit import FormView
 from django.core.cache import cache
 from django.db.models import Count
+from account.models import terms
+from django.contrib.auth.decorators import login_required
 
 
+
+@login_required
+def dashboard(request):
+    if request.user.is_authenticated:
+        terminos = request.user.terms       
+        return render(request,
+                  'dashboard.html',
+                  {'section': 'announ:dashboard','terminos':terminos})
+    else:
+        return render(request, 'dashboard.html', {'mensaje': 'Debes iniciar sesión para ver tu perfil'})
  
 class OwnerAnnounMixin(LoginRequiredMixin):
     def get_queryset(self):
@@ -27,7 +39,7 @@ class OwnerEditAnnounMixin(object):
 
 class OwnerAnnounCreateMixin(OwnerAnnounMixin, OwnerEditAnnounMixin):
     model = announ_linea_fomento_editorial
-    fields = ['portada', 'fomento','categorias','title', 'slug', 'fecha_inicio', 'fecha_vencimiento', 'overview', 'actividad']
+    fields = ['portada', 'fomento','categoria','title', 'slug', 'fecha_inicio', 'fecha_vencimiento', 'overview', 'actividad']
     success_url = reverse_lazy('announ:manage_announ_list')
     widgets = {
         'fecha_inicio': DateInput(attrs={'type': 'datetime-local'}),
@@ -35,7 +47,7 @@ class OwnerAnnounCreateMixin(OwnerAnnounMixin, OwnerEditAnnounMixin):
     }
 
 class OwnerAnnounEditMixin(OwnerAnnounMixin, OwnerEditAnnounMixin):
-    fields = ['portada', 'fomento','categorias','title', 'slug', 'fecha_inicio', 'fecha_vencimiento', 'overview', 'actividad']
+    fields = ['portada', 'fomento','categoria','title', 'slug', 'fecha_inicio', 'fecha_vencimiento', 'overview', 'actividad']
     success_url = reverse_lazy('announ:manage_announ_list')
     template_name = 'announces/manage/announ/form.html'
     widgets = {
@@ -157,70 +169,71 @@ class ContenidoOrderView(CsrfExemptMixin, JsonRequestResponseMixin, View):
         return self.render_json_response({'saved': 'OK'})
 
 
+
+
 class AnnounListView(TemplateResponseMixin, View):
-    model = announ_linea_fomento_editorial 
-    template_name = 'announces/announ/list.html'
+    model = announ_linea_fomento_editorial, terms
+    template_name = 'announces/announ/list.html'  # Agrega el nombre de tu plantilla aquí
 
     def get(self, request, categoria=None):
         categorias = cache.get('all_categorias')
-        if not categorias :
-            categorias  = Categorias_linea_fomento_editorial.objects.annotate(
-                           total_announces=Count('announces'))
-            cache.set('all_categorias_obj', categorias)
-        all_announces = announ_linea_fomento_editorial.objects.annotate(
-                                   total_bases=Count('bases'))
+        if not categorias and  request.user.is_authenticated:
+            terminos = request.user.terms 
+            categorias = Categorias_linea_fomento_editorial.objects.annotate(
+                total_announces=Count('announces'))
+        announces = announ_linea_fomento_editorial.objects.annotate(
+            total_bases=Count('bases'))
+
         if categoria:
             categoria = get_object_or_404(Categorias_linea_fomento_editorial, slug=categoria)
-            key = 'categoria_{}_announces'.format(categoria.id)
-            announces = cache.get(key)
-            if not announces:
-                announces = all_announces.filter(categoria=categoria)
-                cache.set(key, announces)
-        else:
-            announces = cache.get('all_announces')
-            if not announces:
-                announces = all_announces
-                cache.set('all_announces', announces)
+            announces = announces.filter(categoria=categoria)
+
         return self.render_to_response({'categorias': categorias,
                                         'categoria': categoria,
-                                        'announces': announces})
+                                        'announces': announces, 'terminos':terminos})
 
 
-class AnnounDetailView(DetailView):
-    model = announ_linea_fomento_editorial 
+class AnnounDetailView(LoginRequiredMixin, DetailView):
+    model = announ_linea_fomento_editorial
     template_name = 'announces/announ/detail.html'
 
     def get_context_data(self, **kwargs):
-        context = super(AnnounDetailView,
-                        self).get_context_data(**kwargs)
-        context['enroll_form'] = AnnounEnrollForm(
-                                   initial={'announ':self.object})
+        context = super().get_context_data(**kwargs)
+        context['enroll_form'] = AnnounEnrollForm(initial={'announ': self.object})
+        if self.request.user.is_authenticated:
+            terminos = self.request.user.terms
+            context['terminos'] = terminos
         return context
 
-
+  
+    
 
 class PostulantesEnrollAnnounView(LoginRequiredMixin, FormView):
     announ = None
+    template_name = 'postulantes/announ/detail.html'
     form_class = AnnounEnrollForm
+
 
     def form_valid(self, form):
         self.announ = form.cleaned_data['announ']
         self.announ.postulantes.add(self.request.user)
-        return super(PostulantesEnrollAnnounView,
-                     self).form_valid(form)
+        return super(PostulantesEnrollAnnounView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('postulante_announ_detail',
-                            args=[self.announ.id])
+        return reverse_lazy('announ:postulante_announ_detail', args=[self.announ.id])
 
 
 class PostulantesAnnounListView(LoginRequiredMixin, ListView):
+
     model = announ_linea_fomento_editorial
     template_name = 'postulantes/announ/list.html'
+  
 
+    
     def get_queryset(self):
-        qs = super(PostulantesAnnounListView, self).get_queryset()
+        qs = super(PostulantesAnnounListView,self).get_queryset()
         return qs.filter(postulantes__in=[self.request.user])
+
 
 
 class PostulantesAnnounDetailView(DetailView):
@@ -229,18 +242,15 @@ class PostulantesAnnounDetailView(DetailView):
 
     def get_queryset(self):
         qs = super(PostulantesAnnounDetailView, self).get_queryset()
-        return qs.filter(postulantes__in=[self.request.user])
+        return qs.filter(postulantes=self.request.user)
 
     def get_context_data(self, **kwargs):
-        context = super(PostulantesAnnounDetailView,
-                        self).get_context_data(**kwargs)
-        # get course object
+        context = super(PostulantesAnnounDetailView, self).get_context_data(**kwargs)
         announ = self.get_object()
-        if 'announ_id' in self.kwargs:
-            # get current module
-            context['base'] = announ.bases.get(
-                                    id=self.kwargs['base_id'])
+        if 'base_id' in self.kwargs:
+            context['base'] = announ.bases.get(id=self.kwargs['base_id'])
         else:
-            # get first module
-            context['base'] = announ.bases.all()[0]
+            context['base'] = announ.bases.first()  # Use first() instead of all()[0]
         return context
+    
+

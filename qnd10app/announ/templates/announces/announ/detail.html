@@ -5,15 +5,23 @@
 {% endblock %}
 
 {% block content %}
-    {% with categorias_obj=announ.categoria %}
+    {% with categoria=announ.categoria %}
 
         <h1>
             {{ object.title }}
+            {{ object.categoria }}
+            {{ object.fomento }}
+            {{ object.owner.get_full_name }}
         </h1>
         <div class="module">
             <h2>Overview</h2>
             <p>
-                <a href="{% url "announ:announ_list_categoria" categoria.slug %}">{{ s.title }}</a>.
+                {% if categoria %}
+                <a href="{% url 'announ_list_categoria' categoria.slug %}">{{ categoria.title }}</a>
+            {% else %}
+                <!-- Manejo alternativo si categoria es None o vacío -->
+                Sin Categoría
+            {% endif %}
                 {{ announ.bases.count }} bases.
                 Instructor: {{ announ.owner.get_full_name }}
             </p>
@@ -32,4 +40,6 @@
         </div>
       
     {% endwith %}
+
+    
 {% endblock %}

@@ -1,13 +1,13 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from .forms import LoginForm, UserRegistrationForm, \
-                   UserEditForm, ProfileEditForm,ContactEditForm,Contact2EditForm,LegalEditForm,LegalEdit2Form,ContactLegalEditForm,ContactLegal2EditForm,ActivityEditForm,TermsEditForm
-from .models import Profile,Contact_Profile,contacto,legal,contacto_legal,activity,terms,edit_profile_done,Manual_inscripcion, Manual_lineasfomento_editorial,Manual_creacion_convocatoria_fomento,Manual_editar_convocatoria_fomento,Manual_editar_configuracion
+                   UserEditForm, ProfileEditForm,ContactEditForm,Contact2EditForm,LegalEditForm,LegalEdit2Form,ContactLegalEditForm,ContactLegal2EditForm,ActivityEditForm,TermsEditForm,PostulantesEditForm,CategoriasFomentoEditForm
+from .models import Profile,Contact_Profile,contacto,legal,contacto_legal,activity,terms,edit_profile_done,Manual_inscripcion, Manual_lineasfomento_editorial,Manual_creacion_convocatoria_fomento,Manual_editar_convocatoria_fomento,Manual_editar_configuracion,postulantes_lineas_fomentos
 from django.template.loader import render_to_string
 import weasyprint
 from django.contrib.admin.views.decorators import staff_member_required
@@ -148,9 +148,16 @@ def admin_terms_pdf(request,terms_id):
 
 @login_required
 def edit(request):
-    if request.method == 'POST':
+    if request.user.is_authenticated:
+        usuario = request.user.profile 
+        contacto= request.user.contact_profile
+        legal_profile = request.user.legal 
+        terminos = request.user.terms
+    if request.method  == 'POST' and request.user.is_authenticated :
+        terminos = request.user.terms
         user_form = UserEditForm(instance=request.user,
                                  data=request.POST)
+        
         profile_form = ProfileEditForm(instance=request.user.profile,
                                        data=request.POST,
                                        files=request.FILES)        
@@ -167,7 +174,8 @@ def edit(request):
  
     return render(request,
                   'account/edit_profiles/edit_profile.html',
-                  {'user_form': user_form,
+                  {'terminos': terminos,
+                   'user_form': user_form,
                    'profile_form': profile_form})
 
 
@@ -288,6 +296,8 @@ def perfil_usuario(request):
         # Redirigir al usuario a la página de inicio de sesión o mostrar un mensaje de error
         return render(request, 'account/profile/profile.html', {'mensaje': 'Debes iniciar sesión para ver tu perfil'})
     
+
+    
 def sidebar(request):
     # Verificar si el usuario está autenticado
     if request.user.is_authenticated:
@@ -299,6 +309,8 @@ def sidebar(request):
     else:
         # Redirigir al usuario a la página de inicio de sesión o mostrar un mensaje de error
         return render(request, 'account/header.html', {'mensaje': 'Debes iniciar sesión para ver tu perfil'})
+    
+    
     
 @login_required
 def perfil_legal(request):
@@ -329,10 +341,10 @@ def perfil_activity(request):
 def edit_done(request):
     # Verificar si el usuario está autenticado
     if request.user.is_authenticated:
-       profile_edit_done = request.user.edit_profile_done
        terminos = request.user.terms
+       tecnico = edit_profile_done.objects.all()[0]
        # Suponiendo que el perfil de usuario está relacionado con el modelo de usuario
-       return render(request, 'account/edit_profiles/edit_done.html', {'profile_edit_done': profile_edit_done, 'terminos':terminos })
+       return render(request, 'account/edit_profiles/edit_done.html', {'terminos':terminos, 'tecnico':tecnico })
     else:
         # Redirigir al usuario a la página de inicio de sesión o mostrar un mensaje de error
         return render(request, 'account/edit_profiles/edit_done.html', {'mensaje': 'Debes iniciar sesión para ver tu perfil'})

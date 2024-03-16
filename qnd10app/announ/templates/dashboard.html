@@ -1,0 +1,16 @@
+{% extends "base_dash.html" %}
+{% load thumbnail %}
+{% load widget_tweaks %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+{% thumbnail user.profile.photo "180x180" crop="100%" as im %}
+<img src="{{ im.url }}" class="user-img" style="width: 100px;border-radius: 50% ;" alt="">
+{% endthumbnail %}
+  <h1> 
+    {{ user.get_full_name}}
+   </h1>
+  <h3>Al partir de este momento, usted es parte de los datos de inscripción del sistema integral de información del Municipio de Quito.</h3>
+  <p>Para iniciar sus procesos de postulación a convocatorias y suscripción a actividades culturales, es necesario que <a href="{% url "account:edit" %}">Complete ahora su registro</a> .</p>
+{% endblock %}
