@@ -21,6 +21,9 @@ ENV_FILE_PATH = BASE_DIR / ".env_stage"
 load_dotenv(str(ENV_FILE_PATH))
 
 
+from django.urls import reverse_lazy
+LOGIN_REDIRECT_URL = reverse_lazy('student_course_list')
+
 
 
 
@@ -99,7 +102,11 @@ INSTALLED_APPS = [
     'ckeditor',
     'sorl.thumbnail',
     'phonenumber_field',
-    'announ',
+    #'announ',
+    #'courses',
+
+    'Fomento_Editorial',
+    
     'baton.autodiscover',
     
 ]

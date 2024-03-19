@@ -4,7 +4,7 @@ from datetime import datetime
 from phonenumber_field.modelfields import PhoneNumberField
 from ckeditor.fields import RichTextField
 from django.urls import reverse
-from announ.models import Categoria_linea_fomento_editorial, Categorias_linea_fomento_editorial
+#from announ.models import Categoria_linea_fomento_editorial, Categorias_linea_fomento_editorial
 
 class Profile(models.Model):
     ETNICA = [
@@ -674,12 +674,7 @@ class postulantes_lineas_fomentos(models.Model):
         verbose_name = 'Información del postulante'
         verbose_name_plural = 'Información del postulante'
 
-class fomento_categorias(models.Model):
-    fomento = models.OneToOneField(Categoria_linea_fomento_editorial,
-                              related_name='announ_created',
-                              on_delete=models.CASCADE)
-    categoria = models.OneToOneField(Categorias_linea_fomento_editorial,related_name='announ_categoria_created',
-                              on_delete=models.CASCADE)
+
 
 class Manual_inscripcion(models.Model):
     introduccion =  RichTextField( verbose_name = "Introducción")

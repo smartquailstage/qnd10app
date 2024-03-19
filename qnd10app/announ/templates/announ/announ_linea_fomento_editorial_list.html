@@ -1,0 +1,86 @@
+{% extends "base_dash.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}
+<ol class="breadcrumb mb-0 p-0 align-items-center">
+  <li class="breadcrumb-item"><a href="javascript:;"><ion-icon name="add-circle-outline"></ion-icon> Crear Convocatorias</a></li>
+  <li style="color:rgb(46, 46, 122)" class="breadcrumb-item active" aria-current="page"><ion-icon name="clipboard-outline"></ion-icon> Editorial & Literaria</li>
+</ol>
+{% endblock %}
+
+{% block content %}
+
+  <h4  >Convocatorias para la línea de fomento: <ion-icon name="clipboard-outline"></ion-icon> Editorial & Literaria </h4>
+  
+  <div class="row row-cols-1 row-cols-lg-3">
+    {% for announ in object_list %}
+        {% if announ.bases.count > 0 %}
+    <div class="col">
+      <div class="card">
+        {% if announ.portada %}
+        <img src="{{ announ.portada.url }}" class="card-img-top" alt="...">
+        {% else %}
+        <img src="{% static 'assets/images/icons/no-image-icon-md.png' %}" alt="Image" style="width: 300px; border-radius: 50%;">
+        {% endif %}
+        <div class="card-body border-bottom">
+          <p>Fecha de última Actualización: {{ announ.created |date:'Y-m-d' }}</p>
+          <h5 class="card-title">{{ announ.title }}</h5>
+          <p class="card-text">{{ announ.overview }}</p>
+          <p>Creado por: {{ announ.owner }}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li style="color:rgb(46, 46, 122)" class="list-group-item"><ion-icon name="clipboard-outline"></ion-icon> Línea de fomento: {{ announ.categoria }}</li>
+          <li style="color:rgb(101, 98, 99)" class="list-group-item"><ion-icon name="clipboard-outline"></ion-icon>  {{ announ.categorias }}</li>
+          <li class="list-group-item"><ion-icon name="calendar-outline"></ion-icon> Fecha de creación: {{ announ.created }}</li>
+          <li class="list-group-item"><ion-icon name="calendar-outline"></ion-icon> Fecha de Inicio de convocatoria:<p>{{ announ.fecha_inicio }}</p> </li>
+          <li class="list-group-item"><ion-icon name="calendar-outline"></ion-icon> Fecha de vencimiento de convocatoria: <p>{{ announ.fecha_vencimiento }}</p></li>
+          <li class="list-group-item">
+            <ion-icon name="hourglass-outline"></ion-icon> Tiempo restante para su desactivación: {{ announ.dias_diferencia }} Días.
+          </li>
+          <li class="list-group-item">
+            <ion-icon name="hourglass-outline"></ion-icon> Tiempo restante para su activación: {{ announ.dias_diferencia_activacion }} Días.
+          </li>
+          <li class="list-group-item">
+            {% if announ.actividad == True %}
+            Activo
+            <div class="form-check-danger form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="flexSwitchCheckCheckedDanger" checked >
+            </div>
+            {% else %}
+            Inactivo
+           <div class="form-check-danger form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="flexSwitchCheckCheckedDanger"  >
+          </div>
+            {% endif %}
+            
+          </li>
+          <li class="list-group-item"><ion-icon name="people-circle-outline"></ion-icon> Postulantes activos: {{ announ.numero }}</li>
+        </ul>
+        <div class="col">
+          <div class="card-body border-top">
+            <div class="btn-group">
+              <a href="{% url 'announ:announ_edit' announ.id %}" type="button" class="btn btn-primary"><ion-icon name="create-outline"></ion-icon></a>
+              <a href="{% url 'announ:announ_delete' announ.id %}" type="button" class="btn btn-danger"><ion-icon name="trash-outline"></ion-icon></a>
+
+              <a href="{% url 'announ:announ_create' %}" type="button" class="btn btn-success"><ion-icon name="add-circle-outline"></ion-icon></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% empty %}
+    <div class="card-body border-bottom">
+      <div class="card">
+      <div class="card-body text-center">
+        <h2 class="h4 pb-3"> Usted no ha realizado ninguna convocatoria aún.</h2>
+        <p class="fs-sm mb-2"> Haga click en el siguiente boton, para crear una nueva convocatoria  <p>
+        <a class="btn btn-primary mt-3" href="{% url 'announ:announ_create' %}">Crear nueva convocatoría</a>
+      </div>
+    </div>
+  </div>
+    {% endfor %}
+  </div>
+  
+{% endblock %}

@@ -15,6 +15,8 @@ from django.core.cache import cache
 from django.db.models import Count
 from account.models import terms
 from django.contrib.auth.decorators import login_required
+from django.template.response import TemplateResponse
+from .forms import CourseEnrollForm
 
 
 
@@ -27,17 +29,32 @@ def dashboard(request):
                   {'section': 'announ:dashboard','terminos':terminos})
     else:
         return render(request, 'dashboard.html', {'mensaje': 'Debes iniciar sesión para ver tu perfil'})
- 
-class OwnerAnnounMixin(LoginRequiredMixin):
-    def get_queryset(self):
-        return super().get_queryset().filter(owner=self.request.user)
 
-class OwnerEditAnnounMixin(object):
+
+# Aca empieza la app de creacion de convocatorias
+    
+class OwnerMixin(object):
+    def get_queryset(self):
+        qs = super(OwnerMixin, self ).get_queryset()
+        return qs.filter(owner=self.request.user)
+    
+class OwnerEditMixin(object):
     def form_valid(self, form):
         form.instance.owner = self.request.user
         return super().form_valid(form)
+    
+class OwnerAnnounMixin(OwnerMixin, LoginRequiredMixin):
+    model = announ_linea_fomento_editorial
+    fields = ['fomento','categoria','title', 'slug', 'overview']
+    sucess_url = reverse_lazy('announ:manage_announ_list')
 
-class OwnerAnnounCreateMixin(OwnerAnnounMixin, OwnerEditAnnounMixin):
+
+class OwnerAnnounEditMixin(OwnerAnnounMixin, OwnerEditMixin):
+    fields = ['fomento','categoria', 'title', 'slug', 'overview']
+    sucess_url = reverse_lazy('announ:manage_announ_list')
+    template_name = 'announces/manage/announ/form.html'
+
+class OwnerAnnounCreateMixin(OwnerAnnounMixin, OwnerAnnounEditMixinOwnerAnnounEditMixin):
     model = announ_linea_fomento_editorial
     fields = ['portada', 'fomento','categoria','title', 'slug', 'fecha_inicio', 'fecha_vencimiento', 'overview', 'actividad']
     success_url = reverse_lazy('announ:manage_announ_list')
@@ -46,13 +63,7 @@ class OwnerAnnounCreateMixin(OwnerAnnounMixin, OwnerEditAnnounMixin):
         'fecha_vencimiento': DateInput(attrs={'type': 'datetime-local'})
     }
 
-class OwnerAnnounEditMixin(OwnerAnnounMixin, OwnerEditAnnounMixin):
-    fields = ['portada', 'fomento','categoria','title', 'slug', 'fecha_inicio', 'fecha_vencimiento', 'overview', 'actividad']
-    success_url = reverse_lazy('announ:manage_announ_list')
-    template_name = 'announces/manage/announ/form.html'
-    widgets = {
-        'fecha_inicio': DateInput(attrs={'type': 'datetime-local'})
-    }
+
 
 class ManageAnnounListView(OwnerAnnounMixin, ListView):
     template_name = 'announces/manage/announ/list.html'
@@ -171,16 +182,16 @@ class ContenidoOrderView(CsrfExemptMixin, JsonRequestResponseMixin, View):
 
 
 
-class AnnounListView(TemplateResponseMixin, View):
-    model = announ_linea_fomento_editorial, terms
-    template_name = 'announces/announ/list.html'  # Agrega el nombre de tu plantilla aquí
+class AnnounListView(View):
+    model = announ_linea_fomento_editorial
+    template_name = 'announces/announ/list.html'
 
-    def get(self, request, categoria=None):
-        categorias = cache.get('all_categorias')
-        if not categorias and  request.user.is_authenticated:
+    def get(self, request, categoria=None): 
+        terminos = None
+        if request.user.is_authenticated:
             terminos = request.user.terms 
-            categorias = Categorias_linea_fomento_editorial.objects.annotate(
-                total_announces=Count('announces'))
+        categorias = Categorias_linea_fomento_editorial.objects.annotate(
+            total_announces=Count('announces'))
         announces = announ_linea_fomento_editorial.objects.annotate(
             total_bases=Count('bases'))
 
@@ -188,10 +199,9 @@ class AnnounListView(TemplateResponseMixin, View):
             categoria = get_object_or_404(Categorias_linea_fomento_editorial, slug=categoria)
             announces = announces.filter(categoria=categoria)
 
-        return self.render_to_response({'categorias': categorias,
+        return TemplateResponse(request, self.template_name, {'categorias': categorias,
                                         'categoria': categoria,
                                         'announces': announces, 'terminos':terminos})
-
 
 class AnnounDetailView(LoginRequiredMixin, DetailView):
     model = announ_linea_fomento_editorial
@@ -253,4 +263,7 @@ class PostulantesAnnounDetailView(DetailView):
             context['base'] = announ.bases.first()  # Use first() instead of all()[0]
         return context
     
+
+
+
 

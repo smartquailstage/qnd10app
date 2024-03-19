@@ -58,6 +58,21 @@
                 {% endif %}
             {% endif %}
         {% endfor %}
+
+        {% if  field.name == 'fomento' %}
+                <p></p>
+                <label for="{{ field.id_for_label }}" class="form-label">{{ field.label_tag }}</label>
+                {% if form.is_bound %}
+                    {% if field.errors %}
+                        {% render_field field class="form-control is-invalid input" %}
+                    {% else %}
+                        {% render_field field class="form-control is-valid" %}
+                    {% endif %}
+                {% else %}
+                    {% render_field field class="form-control input" %}
+                {% endif %}
+            {% endif %}
+        {% endfor %}
   
         {% for field in form.visible_fields %}
         {% if  field.name == 'title'  %}

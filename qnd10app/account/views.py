@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from .forms import LoginForm, UserRegistrationForm, \
-                   UserEditForm, ProfileEditForm,ContactEditForm,Contact2EditForm,LegalEditForm,LegalEdit2Form,ContactLegalEditForm,ContactLegal2EditForm,ActivityEditForm,TermsEditForm,PostulantesEditForm,CategoriasFomentoEditForm
+                   UserEditForm, ProfileEditForm,ContactEditForm,Contact2EditForm,LegalEditForm,LegalEdit2Form,ContactLegalEditForm,ContactLegal2EditForm,ActivityEditForm,TermsEditForm,PostulantesEditForm
 from .models import Profile,Contact_Profile,contacto,legal,contacto_legal,activity,terms,edit_profile_done,Manual_inscripcion, Manual_lineasfomento_editorial,Manual_creacion_convocatoria_fomento,Manual_editar_convocatoria_fomento,Manual_editar_configuracion,postulantes_lineas_fomentos
 from django.template.loader import render_to_string
 import weasyprint

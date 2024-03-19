@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Profile, contacto,contacto_legal, legal,activity,terms,Contact_Profile,Contact_Profile,postulantes_lineas_fomentos,fomento_categorias
+from .models import Profile, contacto,contacto_legal, legal,activity,terms,Contact_Profile,Contact_Profile,postulantes_lineas_fomentos
 from ckeditor.widgets import CKEditorWidget
 from phonenumber_field.formfields import PhoneNumberField
 from phonenumber_field.widgets import PhoneNumberPrefixWidget
@@ -470,10 +470,7 @@ class PostulantesEditForm(forms.ModelForm):
         model = postulantes_lineas_fomentos
         fields = ('title','provincia','agregar_nombre','resumen','objetivo')
        
-class CategoriasFomentoEditForm(forms.ModelForm):
-    class Meta:
-        model = fomento_categorias
-        fields = ('fomento','categoria')
+
 
 class TermsEditForm(forms.ModelForm):
     class Meta:
