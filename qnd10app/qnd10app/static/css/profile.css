@@ -152,4 +152,26 @@
     width: 18cm;
     }
     
-    
+    .profile {
+        width: 80%;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+    }
+    .profile h1 {
+        text-align: center;
+    }
+    .profile img {
+        display: block;
+        margin: 0 auto;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    .profile-info {
+        margin-top: 20px;
+    }
+    .profile-info p {
+        margin: 5px 0;
+    }

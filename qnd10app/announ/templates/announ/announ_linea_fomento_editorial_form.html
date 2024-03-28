@@ -44,7 +44,7 @@
 
         <div class="col-12 col-lg-6">
             {% for field in form.visible_fields %}
-            {% if  field.name == 'categorias' %}
+            {% if  field.name == 'subject' %}
                 <p></p>
                 <label for="{{ field.id_for_label }}" class="form-label">{{ field.label_tag }}</label>
                 {% if form.is_bound %}

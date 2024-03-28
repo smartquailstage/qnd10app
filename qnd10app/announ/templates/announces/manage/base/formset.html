@@ -35,16 +35,9 @@
             <p class="mb-4">Usted se encunetra editando las bases legales de la convocatoria </p>
             <div class="row g-3">
               <div class="col-12 col-lg-6">
-                {% if formset.non_form_errors %}
-                  <div class="alert alert-danger" role="alert">
-                    {% for error in formset.non_form_errors %}
-                      {{ error }}
-                    {% endfor %}
-                  </div>
-                {% endif %}
-                {% for form in formset.forms %}
+               
                   <div class="formset-row">
-                    {% for field in form.visible_fields %}
+                    {% for field in formset.visible_fields %}
                       <div class="form-group">
                         <label for="{{ field.id_for_label }}" class="label">{{ field.label_tag }}</label>
                         {% if field.field.widget.input_type == 'checkbox' %}
@@ -57,10 +50,7 @@
                             {{ error }}
                           </div>
                         {% endfor %}
-                      </div>
-                    {% endfor %}
-                  </div>
-                {% endfor %}
+
               </div>
             </div>
             <div class="col-12">

@@ -1,19 +1,74 @@
-{% extends "base.html" %}
+{% extends "base_dash.html" %}
 {% load static %}
+{% load widget_tweaks %}
 
 {% block title %}
-  Edit "{{ course.title }}"
+<ion-icon name="create-outline"></ion-icon> Editar bases ténicas de convocatoria {{ course.title }}.
 {% endblock %}
 
 {% block content %}
-  <h1>Edit "{{ course.title }}"</h1>
-  <div class="module">
-    <h2>Course modules</h2>
-    <form action="" method="post">
-      {{ formset }}
-      {{ formset.management_form }}
-      {% csrf_token %}
-      <input type="submit" class="button" value="Save modules">
-    </form>
+  <h6 class="text-uppercase">Edición bases legales de convocatorias para la línea de fomento Editorial & Literaria</h6>
+  <hr>
+  <div id="stepper1" class="bs-stepper">
+    <div class="card">
+      <div class="card-header">
+        <div class="d-lg-flex flex-lg-row align-items-lg-center justify-content-lg-between" role="tablist">
+          <div class="step" data-target="#test-l-1">
+            <div class="step-trigger" role="tab" id="stepper1trigger1" aria-controls="test-l-1">
+              <div class="bs-stepper-circle"><ion-icon name="create-outline"></ion-icon></div>
+              <div class="">
+                <h5 class="mb-0 steper-title">Editar Bases</h5>
+                <h5 class="mb-0 steper-title">Convocatoria: {{ course.title }} </h5>
+                <p class="mb-0 steper-sub-title">Fomento: {{ course.fomento }} </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="bs-stepper-content">
+          <form action="." method="post" enctype="multipart/form-data">
+            <div id="test-l-1" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger1">
+              <h5 class="mb-1">Editar base legal de convocatoria </h5>
+              <p class="mb-4"> {{ course.title }}</p>
+              <div class="row g-3">
+                <div class="col-12 col-lg-6">
+                  {% if formset.non_form_errors %}
+                    <div class="alert alert-danger" role="alert">
+                      {% for error in formset.non_form_errors %}
+                        {{ error }}
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+                  {% for form in formset.forms %}
+                    <div class="formset-row">
+                      {% for field in form.visible_fields %}
+                        <div class="form-group">
+                          <label for="{{ field.id_for_label }}" class="label">{{ field.label_tag }}</label>
+                          {% render_field field class="form-control" %}
+                          {% for error in field.errors %}
+                            <div class="invalid-feedback">
+                              {{ error }}
+                            </div>
+                          {% endfor %}
+                        </div>
+                      {% endfor %}
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+              {{ formset.management_form }}
+              <div class="col-12">
+                <div class="d-flex align-items-center gap-3">
+                  <button class="btn btn-success px-4" type="submit">Guardar <ion-icon name="save"></ion-icon></button>
+                </div>
+              </div>
+            </div>
+            {% csrf_token %}
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
+  <a href="javaScript:;" class="back-to-top"><ion-icon name="arrow-up-outline"></ion-icon></a>
 {% endblock %}

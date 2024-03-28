@@ -1,26 +1,26 @@
-django==4.2.6
-django-dotenv
+Django
+#django>=3.2,<4.0
 django-baton
-
-wagtail==5.2.1
+#Wagtail
+wagtail==6.0.1
 
 django-social-share
 wagtailgmaps
-wagalytics==1.3
-
+#wagalytics==1.3
+XlsxWriter
 requests
-celery==5.3.6
+celery
 #gunicorn
-uWSGI==2.0.23
+uWSGI==2.0.24
 redis
 django-dotenv
 psycopg2-binary
 django-storages
+django-contrib-comments
 
 #Django Web App dependencies
 django-social-auth
 social-auth-app-django
-django-ckeditor
 sorl-thumbnail
 django-widget-tweaks
 django-phone-field
@@ -32,20 +32,21 @@ django-jquery
 django-embed-video
 django-ckeditor
 django-qr-code
+django-braces
 
-kombu==5.3.4
+kombu==5.2.2
 django-parler
 django-localflavor
 django-rosetta
 wagtail-localize
-wagtailmenus
-weasyprint==60.2
-XlsxWriter==3.2.0 
 
-botocore==1.29.27
-boto3==1.26.27
+
+boto3
 #System HOST
 PyOpenSSL
 python-dotenv==0.21.0
 
+#Ecommerce
 braintree
+weasyprint
+wagtailmenus

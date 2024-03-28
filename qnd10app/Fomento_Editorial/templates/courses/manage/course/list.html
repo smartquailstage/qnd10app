@@ -1,29 +1,84 @@
-{% extends "base.html" %}
+{% extends "base_dash.html" %}
 {% load static %}
+{% load widget_tweaks %}
 
 {% block title %}My courses{% endblock %}
 
 {% block content %}
-  <h1>My courses</h1>
 
-  <div class="module">
-    {% for course in object_list %}
-      <div class="course-info">
-        <h3>{{ course.title }}</h3>
-        <p>
-          <a href="{% url "course_edit" course.id %}">Edit</a>
-          <a href="{% url "course_delete" course.id %}">Delete</a>
-          <a href="{% url "course_module_update" course.id %}">Edit modules</a>
-          {% if course.modules.count > 0 %}
-            <a href="{% url "module_content_list" course.modules.first.id %}">Manage contents</a>
-          {% endif %}
-        </p>
+<h4  >Convocatorias para la línea de fomento: <ion-icon name="clipboard-outline"></ion-icon> Editorial & Literaria </h4>
+  
+<div class="row row-cols-1 row-cols-lg-3">
+  {% for course in object_list %}
+  <div class="col">
+    <div class="card">
+      {% if course.portada %}
+      <img src="{{ course.portada.url }}" class="card-img-top" alt="...">
+      {% else %}
+      <img src="{% static 'assets/images/icons/no-image-icon-md.png' %}" alt="Image" style="width: 300px; border-radius: 50%;">
+      {% endif %}
+      <div class="card-body border-bottom">
+        <p>Fecha de última Actualización: {{course.created |date:'Y-m-d' }}</p>
+        <h5 class="card-title">{{ course.title }}</h5>
+        <p class="card-text">{{ course.overview }}</p>
+        <p>Creado por: {{ course.owner }}</p>
       </div>
-    {% empty %}
-      <p>You haven't created any courses yet.</p>
-    {% endfor %}
-    <p>
-      <a href="{% url "course_create" %}" class="button">Create new course</a>
-    </p>
+      <ul class="list-group list-group-flush">
+        <li style="color:rgb(46, 46, 122)" class="list-group-item"><ion-icon name="clipboard-outline"></ion-icon> Línea de fomento:{{ course.fomento }} </li>
+        <li style="color:rgb(101, 98, 99)" class="list-group-item"><ion-icon name="clipboard-outline"></ion-icon> Categoría para convocatoria: {{ course.subject }} </li>
+        <li class="list-group-item"><ion-icon name="calendar-outline"></ion-icon> Fecha de creación: {{ course.created }}</li>
+        <li class="list-group-item"><ion-icon name="calendar-outline"></ion-icon> Fecha de Inicio de convocatoria:<p>{{ course.fecha_inicio }}</p> </li>
+        <li class="list-group-item"><ion-icon name="calendar-outline"></ion-icon> Fecha de vencimiento de convocatoria: <p>{{ course.fecha_vencimiento }}</p></li>
+        <li class="list-group-item">
+          <ion-icon name="hourglass-outline"></ion-icon> días restantes para su desactivación: {{ course.calcular_diferencia_dias}} Días.
+        </li>
+        <li class="list-group-item">
+          <ion-icon name="hourglass-outline"></ion-icon> Tiempo restante para su activación: {{ announ.dias_diferencia_activacion }} Días.
+        </li>
+        <li class="list-group-item">
+          {% if course.actividad == True %}
+          Activo
+          <div class="form-check-danger form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="flexSwitchCheckCheckedDanger" checked >
+          </div>
+          {% else %}
+          Inactivo
+         <div class="form-check-danger form-check form-switch">
+          <input class="form-check-input" type="checkbox" id="flexSwitchCheckCheckedDanger"  >
+        </div>
+          {% endif %}
+          
+        </li>
+        <li class="list-group-item"><ion-icon name="people-circle-outline"></ion-icon> Postulantes activos: {{ announ.numero }}</li>
+      </ul>
+      <div class="col">
+        <div class="card-body border-top">
+          <div class="btn-group">
+            <a href="{% url "course_edit" course.id %}" type="button" class="btn btn-primary"><ion-icon name="create-outline"></ion-icon></a>
+            <a href="{% url "course_delete" course.id %}" type="button" class="btn btn-danger"><ion-icon name="trash-outline"></ion-icon></a>
+            <a href="{% url "course_module_update" course.id %}" type="button" class="btn btn-dark"><ion-icon name="bag-check-sharp"></ion-icon></a>
+            {% if course.modules.count > 0 %}
+            <a href="{% url "module_content_list" course.modules.first.id %}" type="button" class="btn btn-warning"><ion-icon name="file-tray-outline"></ion-icon></a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+  {% empty %}
+  <div class="card-body border-bottom">
+    <div class="card">
+    <div class="card-body text-center">
+      <h2 class="h4 pb-3"> Usted no ha realizado ninguna convocatoria aún.</h2>
+      <p class="fs-sm mb-2"> Haga click en el siguiente boton, para crear una nueva convocatoria  <p>
+      <a class="btn btn-primary mt-3" href="{% url 'nueva_convocatoria' %}">Crear nueva convocatoría</a>
+    </div>
+  </div>
+</div>
+  {% endfor %}
+</div>
 {% endblock %}
+
+
+
+

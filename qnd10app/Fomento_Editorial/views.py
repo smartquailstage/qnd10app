@@ -18,6 +18,7 @@ from django.core.cache import cache
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import FormView
 from django.http import HttpResponseRedirect
+from django import forms
 
 
 class OwnerMixin(object):
@@ -34,14 +35,19 @@ class OwnerEditMixin(object):
 
 class OwnerCourseMixin(OwnerMixin, LoginRequiredMixin):
     model = Course
-    fields = ['subject', 'title', 'slug', 'overview']
+    fields = ['fomento','subject', 'title', 'slug', 'overview','portada', 'fecha_inicio', 'fecha_vencimiento','actividad']
     success_url = reverse_lazy('manage_course_list')
 
 
 class OwnerCourseEditMixin(OwnerCourseMixin, OwnerEditMixin):
-    fields = ['subject', 'title', 'slug', 'overview']
+    fields = ['fomento','subject', 'title', 'slug', 'overview','portada', 'fecha_inicio', 'fecha_vencimiento','actividad']
     success_url = reverse_lazy('manage_course_list')
     template_name = 'courses/manage/course/form.html'
+    widgets = {
+            'actividad': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'fecha_inicio': forms.DateInput(attrs={'type': 'date'}),
+            'fecha_vencimiento': forms.DateInput(attrs={'type': 'date'}),
+        }
 
 
 class ManageCourseListView(OwnerCourseMixin, ListView):

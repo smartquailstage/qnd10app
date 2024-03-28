@@ -31,6 +31,7 @@
 
   <div class="bs-stepper-content">
   <form action="." method="post" enctype="multipart/form-data">
+    {% csrf_token %}
     <div id="test-l-1" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger1">
     <h5 class="mb-1">Eliminar: Convocatoria línea de fomento editorial & literaria</h5>
     <p class="mb-4">¿ Desea eliminar la siguiente convocatoria ? </p>
@@ -88,7 +89,7 @@
    
         </div>
 
-        {% csrf_token %}
+        
       
 
 
