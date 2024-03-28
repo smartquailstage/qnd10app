@@ -32,6 +32,7 @@ django-jquery
 django-embed-video
 django-ckeditor
 django-qr-code
+django-braces
 
 kombu==5.2.2
 django-parler
