@@ -1,6 +1,6 @@
 server {
     listen         443 ssl;
-    server_name    ${DOMAIN} quitocultura.${DOMAIN}  144.126.221.213 127.0.0.1;
+    server_name    ${DOMAIN} quitocultura.${DOMAIN}  164.90.153.177 127.0.0.1;
 
     ssl_certificate     /etc/letsencrypt/live/${DOMAIN}/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/${DOMAIN}/privkey.pem;
