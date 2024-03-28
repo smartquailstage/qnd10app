@@ -295,5 +295,5 @@ MEDIAFILES_DIRS = [
     BASE_DIR / "mediafiles"
 ]
 
-from .cdn.conf import * # noqa
+
 
