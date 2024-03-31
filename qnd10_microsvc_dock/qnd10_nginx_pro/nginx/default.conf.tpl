@@ -1,6 +1,6 @@
 server {
     listen 80;
-    server_name ${DOMAIN} www.${DOMAIN} quitocultura.${DOMAIN}  144.126.221.213 ;
+    server_name ${DOMAIN} quitocultura.${DOMAIN}  164.90.153.177 ;
 
     location /.well-known/acme-challenge/ {
         root /vol/www/;
@@ -23,7 +23,7 @@ server {
 
 server {
     listen 80;
-    server_name  www.${DOMAIN}  quitocultura.${DOMAIN} 144.126.221.213 ;
+    server_name   quitocultura.${DOMAIN} 164.90.153.177 ;
 
     location /.well-known/acme-challenge/ {
         root /vol/www/;
