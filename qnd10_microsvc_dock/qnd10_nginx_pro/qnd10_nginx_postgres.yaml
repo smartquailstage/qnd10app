@@ -10,16 +10,13 @@ services:
       - .env
     depends_on:
       - smartquaildb
-    #  - redis
-    #  - "worker"
     expose:
       - 9000
     ports:
       - "9000:9000"
     volumes:
-      - static-data-qnd10:/qnd10app/qnd10app/staticfiles
-      - static-data-qnd10:/qnd10app/qnd10app/media
-   # command: sh -c "chmod +x /scripts/migrations.sh && sh /scripts/migrations.sh && sh /scripts/run.sh"
+      - static-data-qnd10:/qnd10app/qnd10app/qnd10app/staticfiles
+      - static-data-qnd10:/qnd10app/qnd10app/qnd10app/media
     networks: 
       - lansmartquail
 
@@ -29,8 +26,6 @@ services:
       - .env
     restart: always
     command: -p 5432
-    ports:
-      - "5432:5432"
     expose:
      - 5432
     volumes:
@@ -48,19 +43,16 @@ services:
     depends_on:
       - qnd10app
     ports:
-      - 80:80
-      - 443:443  
+      - "80:80"
+      - "443:443"  
     volumes:
-      - static-data-qnd10:/qnd10app/qnd10app/staticfiles
-      - static-data-qnd10:/qnd10app/qnd10app/media
+      - static-data-qnd10:/qnd10app/qnd10app/qnd10app/staticfiles
+      - static-data-qnd10:/qnd10app/qnd10app/qnd10app/media
       - certbot-web_2:/vol/www
       - proxy-dhparams_2:/vol/proxy
       - letsencrypt_certs:/etc/letsencrypt/
     networks: 
       - lansmartquail
-
-
-
 
 volumes:
   certbot-web_2:
@@ -70,5 +62,5 @@ volumes:
   smartquaildb_data-qnode10:
 
 networks: 
-   lansmartquail:
-       driver: bridge
+  lansmartquail:
+    driver: bridge
