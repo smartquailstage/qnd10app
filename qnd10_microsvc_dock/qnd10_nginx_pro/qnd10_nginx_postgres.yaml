@@ -15,8 +15,8 @@ services:
     ports:
       - "9000:9000"
     volumes:
-      - static-data-qnd10:qnd10app/qnd10app/staticfiles
-      - static-data-qnd10:qnd10app/qnd10app/media
+      - static-data-qnd10:/qnd10app/qnd10app/staticfiles
+      - static-data-qnd10:/qnd10app/qnd10app/media
     networks: 
       - lansmartquail
 
@@ -46,8 +46,8 @@ services:
       - "80:80"
       - "443:443"  
     volumes:
-      - static-data-qnd10:qnd10app/qnd10app/staticfiles
-      - static-data-qnd10:qnd10app/qnd10app/media
+      - static-data-qnd10:/qnd10app/qnd10app/staticfiles
+      - static-data-qnd10:/qnd10app/qnd10app/media
       - certbot-web_2:/vol/www
       - proxy-dhparams_2:/vol/proxy
       - letsencrypt_certs:/etc/letsencrypt/
