@@ -21,6 +21,6 @@ qndname = "QNDNAME"
 
 load_dotenv(str(ENV_FILE_PATH))
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'qnd20app.settings.stage')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'qnd10app.settings.stage')
 
 application = get_wsgi_application()
