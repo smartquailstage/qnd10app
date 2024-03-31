@@ -25,9 +25,9 @@ RUN mkdir -p /qnd10app/qnd10app/qnd10app/staticfiles && \
     mkdir -p /qnd10app/qnd10app/qnd10app/static && \
     chmod 755 /qnd10app/qnd10app/qnd10app/static 
 
-VOLUME /qnd30app/qnd10app/qnd10app/staticfiles
-VOLUME /qnd30app/qnd10app/qnd10app/mediafiles
-VOLUME /qnd30app/qnd10app/qnd10app/static
+VOLUME /qnd10app/qnd10app/qnd10app/staticfiles
+VOLUME /qnd10app/qnd10app/qnd10app/mediafiles
+VOLUME /qnd10app/qnd10app/qnd10app/static
 VOLUME /vol/www
 VOLUME /vol/proxy
 VOLUME /etc/letsencrypt

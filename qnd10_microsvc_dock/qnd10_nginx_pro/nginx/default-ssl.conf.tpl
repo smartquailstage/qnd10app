@@ -1,6 +1,6 @@
 server {
     listen         443 ssl;
-    server_name    ${DOMAIN}   127.0.0.1;
+    server_name    ${DOMAIN} 164.90.153.177  127.0.0.1  164.90.153.177:9000;
 
     ssl_certificate     /etc/letsencrypt/live/${DOMAIN}/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/${DOMAIN}/privkey.pem;
@@ -15,7 +15,7 @@ server {
          alias /qnd10app/qnd10app/qnd10app/staticfiles;
          client_max_body_size    1000M;
     }
-    
+
     location /media {
     alias /qnd10app/qnd10app/qnd10app/media;
     client_max_body_size    1000M;
@@ -30,11 +30,9 @@ server {
 }
 
 
-
-
 server {
     listen         443 ssl;
-    server_name    quitocultura.${DOMAIN}.com  164.90.153.177 ;
+    server_name    quitocultura.${DOMAIN} 127.0.0.1 164.90.153.177:9000;
 
     ssl_certificate     /etc/letsencrypt/live/quitocultura.${DOMAIN}/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/quitocultura.${DOMAIN}/privkey.pem;
@@ -49,7 +47,7 @@ server {
          alias /qnd10app/qnd10app/qnd10app/staticfiles;
          client_max_body_size    1000M;
     }
-    
+
     location /media {
         alias /qnd10app/qnd10app/qnd10app/media;
         client_max_body_size    1000M;
