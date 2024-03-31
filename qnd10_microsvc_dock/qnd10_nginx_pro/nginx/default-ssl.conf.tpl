@@ -1,6 +1,6 @@
 server {
     listen         443 ssl;
-    server_name    ${DOMAIN} 164.90.153.177 ;
+    server_name    ${DOMAIN} 164.90.153.177  127.0.0.1;
 
     ssl_certificate     /etc/letsencrypt/live/${DOMAIN}/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/${DOMAIN}/privkey.pem;
@@ -12,12 +12,12 @@ server {
     add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
 
     location /static {
-         alias /qnd10app/qnd10app/staticfiles;
+         alias /qnd10app/qnd10app/qnd10app/static;
          client_max_body_size    1000M;
     }
 
     location /media {
-    alias /qnd10app/qnd10app//media;
+    alias /qnd10app/qnd10app/qnd10app/media;
     client_max_body_size    1000M;
     }
 
@@ -44,12 +44,12 @@ server {
     add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
 
     location /static {
-         alias /qnd10app/qnd10app/staticfiles;
+         alias /qnd10app/qnd10app/qnd10app/static;
          client_max_body_size    1000M;
     }
 
     location /media {
-        alias /qnd10app/qnd10app/media;
+        alias /qnd10app/qnd10app/qnd10app/media;
         client_max_body_size    1000M;
     }
 
