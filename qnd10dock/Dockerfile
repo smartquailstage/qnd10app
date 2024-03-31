@@ -34,9 +34,9 @@ RUN python3.11 -m venv /py && \
     mkdir -p /${NODE_VERSION}/${NODE_APP_NAME}/media && \
     chmod -R 755 /${NODE_VERSION}/${NODE_APP_NAME}/media  && \
     chown -R ${USER}:${USER} /${NODE_VERSION}/${NODE_APP_NAME}/media && \
-    mkdir -p /${NODE_VERSION}/${NODE_APP_NAME}/${NODE_APP_NAME}/staticfiles && \
-    chmod -R 755 /${NODE_VERSION}/${NODE_APP_NAME}/${NODE_APP_NAME}/staticfiles  && \
-    chown -R ${USER}:${USER} /${NODE_VERSION}/${NODE_APP_NAME}/${NODE_APP_NAME}/staticfiles && \
+    mkdir -p /${NODE_APP_NAME}/${NODE_APP_NAME}/staticfiles && \
+    chmod -R 755 /${NODE_APP_NAME}/${NODE_APP_NAME}/staticfiles  && \
+    chown -R ${USER}:${USER} /${NODE_APP_NAME}/${NODE_APP_NAME}/staticfiles && \
     chown -R ${USER}:${USER} /${NODE_VERSION}/${NODE_APP_NAME}/static && \
     mkdir -p /var/log/uwsgi/ && \
     chown -R ${USER}:${USER} /var/log/uwsgi/ && \
