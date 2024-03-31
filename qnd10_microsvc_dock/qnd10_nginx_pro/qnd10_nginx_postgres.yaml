@@ -12,6 +12,12 @@ services:
       - smartquaildb
     expose:
       - 9000
+    ports:
+      - "9000:9000"
+    volumes:
+      - static-data-qnd10:/qnd10app/qnd10app/qnd10app/staticfiles
+      - static-data-qnd10:/qnd10app/qnd10app/qnd10app/media
+      - static-data-qnd10:/qnd10app/qnd10app/qnd10app/static
     networks: 
       - lansmartquail
 
@@ -22,7 +28,7 @@ services:
     restart: always
     command: -p 5432
     expose:
-      - 5432
+     - 5432
     volumes:
       - smartquaildb_data-qnode10:/var/lib/postgresql/data/
     networks: 
@@ -49,6 +55,13 @@ services:
       - letsencrypt_certs:/etc/letsencrypt/
     networks: 
       - lansmartquail
+
+volumes:
+  certbot-web_2:
+  proxy-dhparams_2:
+  letsencrypt_certs:
+  static-data-qnd10:
+  smartquaildb_data-qnode10:
 
 networks: 
   lansmartquail:
