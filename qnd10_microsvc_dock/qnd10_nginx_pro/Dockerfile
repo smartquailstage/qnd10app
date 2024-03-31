@@ -21,7 +21,7 @@ RUN chmod +x /run.sh
 RUN mkdir -p qnd10app/qnd10app/qnd10app/staticfiles && \
     chmod 755 qnd10app/qnd10app/qnd10app/staticfiles && \
     mkdir -p qnd10app/qnd10app/qnd10app/media && \
-    chmod 755 qnd10app/qnd10app/qnd10app/edia && \
+    chmod 755 qnd10app/qnd10app/qnd10app/media && \
     mkdir -p qnd10app/qnd10app/qnd10app/static && \
     chmod 755 qnd10app/qnd10app/qnd10app/static 
 
