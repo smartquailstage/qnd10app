@@ -21,9 +21,6 @@ ENV_FILE_PATH = BASE_DIR / ".env_stage"
 load_dotenv(str(ENV_FILE_PATH))
 
 
-from django.urls import reverse_lazy
-LOGIN_REDIRECT_URL = reverse_lazy('student_course_list')
-
 
 
 
@@ -35,7 +32,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG")
-ALLOWED_HOSTS = [os.environ.get("ENV_ALLOWED_HOST")]
+ALLOWED_HOSTS = ["*"]
 
 
 #Nombre del sitio web
@@ -60,8 +57,7 @@ Configuration.configure(
 # Application definition
 
 INSTALLED_APPS = [
-    'account',
-    'baton',
+    
     'widget_tweaks',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -92,26 +88,15 @@ INSTALLED_APPS = [
     'social_django',
     
     'wagtail',
-    #'editorial',
-    'agenda_cultural_participativa',
 
     'modelcluster',
     'taggit',
     'rosetta',
     'qr_code',
-    'ckeditor',
-    'sorl.thumbnail',
-    'phonenumber_field',
-    #'announ',
-    #'courses',
-
-    'Fomento_Editorial',
-    
+    'baton',
     'baton.autodiscover',
     
 ]
-
-#AUTH_USER_MODEL = 'smartquail'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -119,12 +104,10 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    #'qnd10app.settings.middleware.GroupAccessMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
     'django.middleware.locale.LocaleMiddleware',
-   # 'auto_auth.AutoAuthMiddleware',
 ]
 
 ROOT_URLCONF = 'qnd10app.urls'
@@ -182,15 +165,11 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTHENTICATION_BACKENDS = [
-    
-    'social_core.backends.linkedin.LinkedinOAuth2',
-    'social_core.backends.instagram.InstagramOAuth2',
-    'account.authentication.EmailAuthBackend',
-    'social_core.backends.linkedin.LinkedinOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+   # 'account.authentication.EmailAuthBackend',
     'social_core.backends.facebook.FacebookOAuth2',
     'social_core.backends.twitter.TwitterOAuth',
     'social_core.backends.google.GoogleOAuth2',
-    'django.contrib.auth.backends.ModelBackend',
 ]
 
 CART_SESSION_ID = 'cart'
@@ -199,8 +178,6 @@ SBACART_SESSION_ID = 'cart'
 SBTCART_SESSION_ID = 'cart'
 SBMCART_SESSION_ID = 'cart'
 
-
-EMAIL_BACKEND= 'django.core.mail.backends.console.EmailBackend'
 
 
 
@@ -247,9 +224,6 @@ USE_L10N = True
 USE_TZ = True
 
 
-LOGIN_REDIRECT_URL = 'account:dashboard'
-LOGIN_URL = 'account:login'
-LOGOUT_URL = 'account:logout'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
