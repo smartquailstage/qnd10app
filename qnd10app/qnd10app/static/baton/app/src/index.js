@@ -8,7 +8,6 @@ import Footer from './core/Footer'
 import Menu from './core/Menu'
 import ActionResult from './core/ActionResult'
 import PasswordChange from './core/PasswordChange'
-import Analytics from './core/Analytics'
 import Tabs from './core/Tabs'
 import ChangeList from './core/ChangeList'
 import ChangeForm from './core/ChangeForm'
@@ -53,7 +52,7 @@ window.Baton = {
     } else if (page === 'changelist') {
       ChangeList.init(config)
     } else if (page === 'add_form' || page === 'change_form') {
-      ChangeForm.init(config)
+      ChangeForm.init(config, Dispatcher)
     } else if (page === 'admindocs') {
       AdminDocs.init()
     } else if (page === 'filer') {
@@ -113,7 +112,6 @@ window.Baton = {
       return 'default'
     }
   },
-  Analytics: Analytics,
   Dispatcher: Dispatcher,
   Modal: Modal,
   jQuery: jQuery,

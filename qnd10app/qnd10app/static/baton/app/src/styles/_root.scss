@@ -193,7 +193,7 @@
   --#{$prefix}baton-search-field-input-border-color: #1c2429;
   --#{$prefix}baton-search-field-color: #000;
   --#{$prefix}baton-search-field-datalist-bg: #1c2429;
-  --#{$prefix}baton-search-field-icon-color: #bf283a;
+  --#{$prefix}baton-search-field-icon-color: #a5b200;
   --#{$prefix}baton-search-field-link-color: #fff;
   --#{$prefix}baton-search-field-selected-bg: #4f6875;
   --#{$prefix}baton-search-field-selected-color: #fff;
@@ -248,6 +248,7 @@
   --#{$prefix}baton-changeform-selector-chooser-bg: #eee;
   --#{$prefix}baton-changeform-selector-button-bg: #eee;
   --#{$prefix}baton-changeform-selector-button-color: #000;
+  --#{$prefix}baton-changeform-submit-row-bg: #2d3538;
 
   // changehistory
   --#{$prefix}baton-changehistory-bg: #fff;
@@ -270,10 +271,6 @@
   --#{$prefix}baton-modal-back-btn-bg: #007eed;
   --#{$prefix}baton-modal-back-btn-color: #fff;
 
-  // analytics
-  --#{$prefix}baton-analytics-chart-bg: #fff;
-  --#{$prefix}baton-analytics-chart-border-color: #fff;
-
   // admindocs
   --#{$prefix}baton-admindocs-module-bg: #fff;
   --#{$prefix}baton-admindocs-module-header-bg: #f6f6f6;
@@ -286,7 +283,7 @@
   // footer
   --#{$prefix}baton-footer-bg: #1c2429;
   --#{$prefix}baton-footer-color: #fff;
-  --#{$prefix}baton-footer-border-color: #fff;
+  // --#{$prefix}baton-footer-border-color: #fff;
   --#{$prefix}baton-footer-link-color: #b3c100;
   --#{$prefix}baton-footer-link-hover-color: #848e00;
   --#{$prefix}baton-footer-support-color: #1c2429;
@@ -472,6 +469,7 @@
     --#{$prefix}baton-changeform-selector-chooser-bg: #222;
     --#{$prefix}baton-changeform-selector-button-bg: #111;
     --#{$prefix}baton-changeform-selector-button-color: #fff;
+  --#{$prefix}baton-changeform-submit-row-bg: #1c2429;
 
     // changehistory
     --#{$prefix}baton-changehistory-bg: #222;
@@ -494,11 +492,6 @@
     --#{$prefix}baton-modal-back-btn-bg: #007eed;
     --#{$prefix}baton-modal-back-btn-color: #fff;
 
-    // analytics
-    --#{$prefix}baton-analytics-chart-bg: #000;
-    --#{$prefix}baton-analytics-chart-border-color: #000;
-
-
     // admindocs
     --#{$prefix}baton-admindocs-module-bg: #222;
     --#{$prefix}baton-admindocs-module-header-bg: #333;
@@ -511,7 +504,7 @@
     // footer
     --#{$prefix}baton-footer-bg: #1e1e1e;
     --#{$prefix}baton-footer-color: #fff;
-    --#{$prefix}baton-footer-border-color: #222;
+    // --#{$prefix}baton-footer-border-color: #222;
     --#{$prefix}baton-footer-link-color: #b3c100;
     --#{$prefix}baton-footer-link-hover-color: #848e00;
     --#{$prefix}baton-footer-support-color: #fff;

@@ -16,7 +16,9 @@ const Navbar = {
     if (!this.menuAlwaysCollapsed) {
       $('#header').addClass('expand')
     } else {
+      $('body').addClass('baton-menu-always-collapsed')
       $('#header').addClass('menu-always-collapsed')
+      $('#content').css('min-height', `calc(100vh - ${$('#header').outerHeight()}px)`)
     }
     // insert burger
     $('#branding').before(
