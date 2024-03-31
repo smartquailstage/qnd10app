@@ -18,16 +18,16 @@ USER root
 RUN apk add --no-cache openssl bash
 RUN chmod +x /run.sh
 
-RUN mkdir -p /qnd10app/qnd10app/qnd10app/staticfiles && \
-    chmod 755 /qnd10app/qnd10app/qnd10app/staticfiles && \
-    mkdir -p /qnd10app/qnd10app/qnd10app/media && \
-    chmod 755 /qnd10app/qnd10app/qnd10app/edia && \
-    mkdir -p /qnd10app/qnd10app/qnd10app/static && \
-    chmod 755 /qnd10app/qnd10app/qnd10app/static 
+RUN mkdir -p qnd10app/qnd10app/qnd10app/staticfiles && \
+    chmod 755 qnd10app/qnd10app/qnd10app/staticfiles && \
+    mkdir -p qnd10app/qnd10app/qnd10app/media && \
+    chmod 755 qnd10app/qnd10app/qnd10app/edia && \
+    mkdir -p qnd10app/qnd10app/qnd10app/static && \
+    chmod 755 qnd10app/qnd10app/qnd10app/static 
 
-VOLUME /qnd10app/qnd10app/qnd10app/staticfiles
-VOLUME /qnd10app/qnd10app/qnd10app/mediafiles
-VOLUME /qnd10app/qnd10app/qnd10app/static
+VOLUME qnd10app/qnd10app/qnd10app/staticfiles
+VOLUME qnd10app/qnd10app/qnd10app/mediafiles
+VOLUME qnd10app/qnd10app/qnd10app/static
 VOLUME /vol/www
 VOLUME /vol/proxy
 VOLUME /etc/letsencrypt
