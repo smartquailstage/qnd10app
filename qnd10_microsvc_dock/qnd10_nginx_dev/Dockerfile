@@ -9,26 +9,26 @@ COPY ./run.sh /run.sh
 
 
 ENV LISTEN_PORT=80
-ENV NGINX_PROXY=http://qnd30_app_stg:9000
-ENV APP_HOST=qnd30_app_stg
+ENV NGINX_PROXY=http://qnd10app:9000
+ENV APP_HOST=qnd10app
 ENV APP_PORT=9000
 
 USER root
 
-RUN mkdir -p /qnd30_app_stg/qnd30_app_stg/qnd30_app_stg/staticfiles && \
-    chmod 755 /qnd30_app_stg/qnd30_app_stg/qnd30_app_stg/staticfiles && \
-    mkdir -p /qnd30_app_stg/qnd30_app_stg/qnd30_app_stg/media && \
-    chmod 755 /qnd30_app_stg/qnd30_app_stg/qnd30_app_stg/media && \
-    mkdir -p /qnd30_app_stg/qnd30_app_stg/qnd30_app_stg/static && \
-    chmod 755 /qnd30_app_stg/qnd30_app_stg/qnd30_app_stg/static && \
+RUN mkdir -p /qnd10app/qnd10app/qnd10app/staticfiles && \
+    chmod 755 /qnd10app/qnd10app/qnd10app/staticfiles && \
+    mkdir -p /qnd10app/qnd10app/qnd10app/media && \
+    chmod 755 /qnd10app/qnd10app/qnd10app/media && \
+    mkdir -p /qnd10app/qnd10app/qnd10app/static && \
+    chmod 755 /qnd10app/qnd10app/qnd10app/static && \
 
     touch /etc/nginx/conf.d/default.conf && \
     chown nginx:nginx /etc/nginx/conf.d/default.conf && \
     chmod +x /run.sh
 
-VOLUME /qnd30_app_stg/qnd30_app_stg/qnd30_app_stg/staticfiles
-VOLUME /qnd30_app_stg/qnd30_app_stg/qnd30_app_stg/mediafiles
-VOLUME /qnd30_app_stg/qnd30_app_stg/qnd30_app_stg/static
+VOLUME /qnd10app/qnd10app/qnd10app/staticfiles
+VOLUME /qnd10app/qnd10app/qnd10app/mediafiles
+VOLUME /qnd10app/qnd10app/qnd10app/static
 
 USER nginx
 #ENTRYPOINT [ "/entrypoint.sh" ]

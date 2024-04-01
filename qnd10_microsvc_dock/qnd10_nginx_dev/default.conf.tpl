@@ -1,6 +1,6 @@
 server {
     listen                     ${LISTEN_PORT};
-    server_name                127.0.0.1 localhost 0.0.0.0; 
+    server_name                127.0.0.1 localhost 164.90.153.177 0.0.0.0; 
     
 location /static {
     alias /qnd30_app_stg/qnd30_app_stg/qnd30_app_stg/staticfiles;
