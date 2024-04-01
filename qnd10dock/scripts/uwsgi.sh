@@ -20,7 +20,7 @@ python manage.py collectstatic --settings=$NODE_NAME.settings.stage --noinput
 #python django-admin compilemessages 
 
 
-uwsgi --http :9000 --workers 9 --master --enable-threads --module $NODE_NAME.wsgi  --ini uwsgi_stage.ini
+uwsgi  --workers 9 --master --enable-threads --module $NODE_NAME.wsgi  --ini uwsgi_stage.ini
 
 #python manage.py listen_port25 --noinput
 
