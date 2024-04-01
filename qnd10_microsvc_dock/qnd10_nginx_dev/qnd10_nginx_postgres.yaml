@@ -33,7 +33,7 @@ services:
 
 
   proxy:
-    image: smartquail/qnode12_nginx:dev
+    image: smartquail/qnd10_nginx:dev
     restart: unless-stopped
     env_file:
       - .env
@@ -45,10 +45,8 @@ services:
       - "80:80"
       - "443:443"  
     volumes:
-      - static-data-qnd10:/qnd10app/qnd10app/static
-      - static-data-qnd10:/qnd10app/qnd10app/media
-    networks: 
-      - lansmartquail
+      - static-data-qnd10:/qnd10app/qnd10app/qnd10app/static
+      - static-data-qnd10:/qnd10app/qnd10app/qnd10app/media
 
 
 volumes:
