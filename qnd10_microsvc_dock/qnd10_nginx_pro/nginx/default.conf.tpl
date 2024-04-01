@@ -1,5 +1,5 @@
 server {
-    listen 80;
+    listen       ${LISTEN_PORT};
     server_name  164.90.153.177;
 
     location /.well-known/acme-challenge/ {

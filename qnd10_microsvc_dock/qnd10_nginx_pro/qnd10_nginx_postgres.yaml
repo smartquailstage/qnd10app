@@ -18,8 +18,7 @@ services:
       - static-data-qnd10:/qnd10app/qnd10app/qnd10app/staticfiles
       - static-data-qnd10:/qnd10app/qnd10app/qnd10app/media
       - static-data-qnd10:/qnd10app/qnd10app/qnd10app/static
-    networks: 
-      - lansmartquail
+ 
 
   smartquaildb:
     image: postgres:13-alpine
@@ -31,8 +30,7 @@ services:
      - 5432
     volumes:
       - smartquaildb_data-qnode10:/var/lib/postgresql/data/
-    networks: 
-      - lansmartquail
+
 
   nginx:
     image: smartquail/qnd10_nginx:prod
@@ -53,8 +51,7 @@ services:
       - certbot-web_2:/vol/www
       - proxy-dhparams_2:/vol/proxy
       - letsencrypt_certs:/etc/letsencrypt/
-    networks: 
-      - lansmartquail
+
 
 volumes:
   certbot-web_2:
@@ -63,6 +60,3 @@ volumes:
   static-data-qnd10:
   smartquaildb_data-qnode10:
 
-networks: 
-  lansmartquail:
-    driver: bridge
