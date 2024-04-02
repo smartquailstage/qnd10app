@@ -94,6 +94,7 @@ INSTALLED_APPS = [
     'taggit',
     'rosetta',
     'qr_code',
+    'webapp_v10',
     'baton.autodiscover',
     
 ]
