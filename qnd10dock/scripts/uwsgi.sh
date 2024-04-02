@@ -19,8 +19,7 @@ python manage.py collectstatic --settings=$NODE_NAME.settings.stage --noinput
 #python django-admin makemessages --all
 #python django-admin compilemessages 
 
-
-uwsgi  --workers 9 --master --enable-threads --module $NODE_NAME.wsgi  --ini uwsgi_stage.ini
+uwsgi  --workers 9 --master --enable-threads --module $NODE_NAME.wsgi  --ini uwsgi_stage.ini --static-map /static=/qnd10app/qnd10app/qnd10app/static/
 
 #python manage.py listen_port25 --noinput
 
