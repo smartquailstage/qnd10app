@@ -1,25 +1,35 @@
 from .base import *
 
-from dotenv import load_dotenv
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 ENV_FILE_PATH = BASE_DIR / ".env_stage"
 load_dotenv(str(ENV_FILE_PATH))
 
-DEBUG=1
 
-#ALLOWED_HOST=["127.0.0.1,localhost, https://smartquail.io, 164.90.153.177,  https://quitocultura.smartquail.io"]
-#ALLOWED_HOSTS = [os.environ.get("ENV_ALLOWED_HOST")]
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
+
+# SECURITY WARNING: don't run with debug turned on in production!
+#DEBUG = os.environ.get("DEBUG")
+ALLOWED_HOSTS = [os.environ.get("ENV_ALLOWED_HOST")]
+
+WAGTAILADMIN_BASE_URL = os.environ.get("WAGTAILADMIN_BASE_URL")  
+#Nombre del sitio web
+WAGTAIL_SITE_NAME =os.environ.get("WAGTAIL_SITE_NAME")  
+
+WAGTAILIMAGES_MAX_UPLOAD_SIZE = 30 * 1024 * 1024   # 15mb
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+ROOT_URLCONF = 'qnd10app.urls'
+
 
 BATON = {
-    'SITE_HEADER': '<a href="#"><img src="https://qnd20app-bucket.nyc3.digitaloceanspaces.com/static/img/m2.png" height="26px"></a>',
+    'SITE_HEADER': '<a href="#"><img src="https://qnd41appk8s-bucket.nyc3.digitaloceanspaces.com/static/img/m2.png" height="26px"></a>',
     'SITE_TITLE': '',
     'INDEX_TITLE': 'BUSINESS ANALITYCS PLATFORM ',
     'SUPPORT_HREF': '#',
-    'COPYRIGHT': '<a href="#"><img src="https://qnd20app-bucket.nyc3.digitaloceanspaces.com/static/img/m2.png" height="18px"></a>&nbsp;&nbsp; copyright © 2022', # noqa
-    'POWERED_BY': '<a href="#"><img src="https://qnd20app-bucket.nyc3.digitaloceanspaces.com/static/img/logo_smartquailgray.png" height="13px"</a>',
+    'COPYRIGHT': '<a href="#"><img src="https://qnd41appk8s-bucket.nyc3.digitaloceanspaces.com/static/img/m2.png" height="18px"></a>&nbsp;&nbsp; copyright © 2022', # noqa
+    'POWERED_BY': '<a href="#"><img src="https://qnd41appk8s-bucket.nyc3.digitaloceanspaces.com/static/img/logo_smartquailgray.png" height="13px"</a>',
     'CONFIRM_UNSAVED_CHANGES': True,
     'SHOW_MULTIPART_UPLOADING': True,
     'ENABLE_IMAGES_PREVIEW': True,
@@ -30,7 +40,7 @@ BATON = {
     'MENU_TITLE': 'Todo en Orden',
     'MESSAGES_TOASTS': False,
     'GRAVATAR_DEFAULT_IMG': 'retro',
-    'LOGIN_SPLASH': 'https://qnd20app-bucket.nyc3.digitaloceanspaces.com/static/img/login_splash.jpg',
+    'LOGIN_SPLASH': 'https://qnd41appk8s-bucket.nyc3.digitaloceanspaces.com/static/img/login_splash.jpg',
     'SEARCH_FIELD': {
         'label': 'Search contents...',
          'url': '/search/',
@@ -272,7 +282,7 @@ if DB_IS_AVIAL and POSTGRES_READY:
     }
 }
     
-SITE_ID = 1
+#SITE_ID = 1
 
 
 REDIS_HOST=os.environ.get('REDIS_HOST')
@@ -293,8 +303,6 @@ EMAIL_USE_SSL       = False
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-ROOT_URLCONF = 'qnd10app.urls'
-
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / "static"
 
@@ -308,5 +316,5 @@ MEDIAFILES_DIRS = [
     BASE_DIR / "mediafiles"
 ]
 
-#from .cdn.conf import * # noqa
+
 

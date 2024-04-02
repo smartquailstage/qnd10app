@@ -3,7 +3,7 @@ from .base import *
 ENV_FILE_PATH = BASE_DIR / ".env_dev"
 load_dotenv(str(ENV_FILE_PATH))
 
-DEBUG = True
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -16,7 +16,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 #DEBUG = os.environ.get("DEBUG")
 ALLOWED_HOSTS = [os.environ.get("ENV_ALLOWED_HOST")]
 
-WAGTAILADMIN_BASE_URL = "businessmedia"
+WAGTAILADMIN_BASE_URL = os.environ.get("WAGTAILADMIN_BASE_URL")  
 #Nombre del sitio web
 WAGTAIL_SITE_NAME =os.environ.get("WAGTAIL_SITE_NAME")  
 
@@ -156,12 +156,12 @@ CELERY_BROKER_URL = 'redis://localhost:6379/0'
 
 
 EMAIL_HOST= "smtp.gmail.com"
-EMAIL_PORT=  "443"
-#EMAIL_USE_TLS=  "True"
-EMAIL_HOST_USER= "smartquail.info@gmail.com"
-EMAIL_HOST_PASSWORD= "pzmblsxbqyvdzuxz"
-DEFAULT_FROM_EMAIL= "EMAIL_HOST_USER"
-EMAIL_BACKEND= "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_PORT=  587
+EMAIL_USE_TLS=  True
+EMAIL_HOST_USER= "smartquail.stage@gmail.com"
+EMAIL_HOST_PASSWORD= "rtth ixot shkh tdmq" 
+DEFAULT_FROM_EMAIL= "Smartquail Test"
+#EMAIL_BACKEND= "django.core.mail.backends.smtp.EmailBackend"
 #EMAIL_USE_TLS       = "True"
 #EMAIL_USE_SSL= "False"
 
