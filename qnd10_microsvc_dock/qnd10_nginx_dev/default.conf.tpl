@@ -1,3 +1,8 @@
+upstream django {
+    # server unix:///path/to/your/mysite/mysite.sock; # for a file socket
+    server qnd10app:9000; # for a web port socket (we'll use this first)
+}
+
 server {
     listen ${LISTEN_PORT};
     server_name 127.0.0.1 localhost 164.90.153.177;
