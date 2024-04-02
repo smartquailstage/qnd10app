@@ -1,4 +1,4 @@
-FROM nginxinc/nginx-unprivileged:1-alpine
+FROM nginx:1.24.0-alpine-slim
 LABEL maintainer="smartquail.io"
 
 #COPY ./ssl/qnode41_app.crt /etc/nginx/ssl/qnode0_app.crt
