@@ -42,7 +42,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 #DEBUG = str(os.environ.get('DEBUG')) == "1"
 #ENV_ALLOWED_HOST = os.environ.get("ENV_ALLOWED_HOST")
-ALLOWED_HOSTS = ['quitocultura.smartquail.io','164.90.153.177']
+ALLOWED_HOSTS = ['quitocultura.smartquail.io', '*.smartquail.io', '164.90.153.177']
 #if ENV_ALLOWED_HOST:
 #     ALLOWED_HOSTS = [ ENV_ALLOWED_HOST ]
 
