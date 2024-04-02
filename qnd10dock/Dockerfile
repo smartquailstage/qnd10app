@@ -19,7 +19,7 @@ RUN git clone https://github.com/smartquailstage/${NODE_VERSION}.git
 COPY ./12012023.txt /12012023.txt
 COPY ./scripts /scripts
 COPY ./uwsgi_stage.ini /${NODE_VERSION}/${NODE_APP_NAME}/uwsgi_stage.ini
-COPY ./baton.min.js /${NODE_VERSION}/${NODE_APP_NAME}/baton.min.js
+COPY ./baton.min.js /${NODE_VERSION}/${NODE_APP_NAME}/${NODE_APP_NAME}/baton.min.js
 #COPY ./baton.min.js /${NODE_VERSION}/${NODE_APP_NAME}/${NODE_APP_NAME}/staticfiles/baton/app/baton/baton.min.js
 
 COPY ./qnode_ascii-art.txt /${NODE_VERSION}/${NODE_APP_NAME}/qnode_art.txt
@@ -95,7 +95,7 @@ RUN python3.11 -m venv /py && \
     chmod -R u+x /scripts/uwsgi.sh &&\
     chmod -R +x /scripts && \
     rm /py/lib/python3.11/site-packages/baton/static/baton/app/dist/baton.min.js && \
-    cp /${NODE_VERSION}/${NODE_APP_NAME}/baton.min.js  /py/lib/python3.11/site-packages/baton/static/baton/app/dist/ 
+    cp /${NODE_VERSION}/${NODE_APP_NAME}/${NODE_APP_NAME}/baton.min.js  /py/lib/python3.11/site-packages/baton/static/baton/app/dist/ 
 
 
 
