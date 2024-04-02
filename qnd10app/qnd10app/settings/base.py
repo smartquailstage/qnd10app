@@ -88,7 +88,7 @@ INSTALLED_APPS = [
     'wagtail.contrib.settings',
     'wagtail.contrib.routable_page',
     'social_django',
-    
+    'corsheaders',
     'wagtail',
     'modelcluster',
     'taggit',
@@ -106,9 +106,15 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    'https://quitocultura.smartquail.io',
+    # Otros orígenes permitidos si los hay
 ]
 
 ROOT_URLCONF = 'qnd10app.urls'

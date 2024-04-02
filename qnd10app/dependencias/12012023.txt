@@ -18,6 +18,7 @@ psycopg2-binary
 django-storages
 django-social-share
 django-contrib-comments
+django-cors-headers
 
 #Django Web App dependencies
 django-social-auth
