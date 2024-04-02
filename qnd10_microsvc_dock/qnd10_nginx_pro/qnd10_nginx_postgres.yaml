@@ -6,7 +6,6 @@ services:
     restart: unless-stopped
     environment:
       - PORT=9000
-      - ENV_ALLOWED_HOST=127.0.0.1,localhost, https://smartquail.io, 164.90.153.177,  https://quitocultura.smartquail.io
     env_file:
       - .env
     depends_on:
