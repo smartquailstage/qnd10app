@@ -12,6 +12,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 ENV_FILE_PATH = BASE_DIR / ".env_stage"
 load_dotenv(str(ENV_FILE_PATH))
 
+CORS_ALLOWED_ORIGINS = [
+    'https://quitocultura.smartquail.io',
+    # Otros orígenes permitidos si los hay
+]
+
 DJANGO_SECRET_KEY= os.environ.get('DJANGO_SECRET_KEY')
 
 
@@ -65,6 +70,7 @@ INSTALLED_APPS = [
     #'django_comments',
     #Wagtail Inicials
     'core',
+    'corsheaders',
     #'wagtail',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
@@ -136,6 +142,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.sites.middleware.CurrentSiteMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     #'wagtail.core.middleware.SiteMiddleware',
     #'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]
