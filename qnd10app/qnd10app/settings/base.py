@@ -30,8 +30,9 @@ load_dotenv(str(ENV_FILE_PATH))
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-ALLOWED_HOSTS = ["127.0.0.1,localhost, https://smartquail.io, 164.90.153.177,  https://quitocultura.smartquail.io"]
+
+ALLOWED_HOST=["127.0.0.1,localhost, https://smartquail.io, 164.90.153.177,  https://quitocultura.smartquail.io"]
+#ALLOWED_HOSTS = [os.environ.get("ENV_ALLOWED_HOST")]
 
 
 #Nombre del sitio web
@@ -93,7 +94,7 @@ INSTALLED_APPS = [
     'taggit',
     'rosetta',
     'qr_code',
-    'webapp_0',
+    #'webapp_0',
     'baton.autodiscover',
     
 ]

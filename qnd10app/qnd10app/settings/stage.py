@@ -8,8 +8,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 ENV_FILE_PATH = BASE_DIR / ".env_stage"
 load_dotenv(str(ENV_FILE_PATH))
 
+DEBUG=1
 
-ALLOWED_HOSTS = [os.environ.get("ENV_ALLOWED_HOST")]
+#ALLOWED_HOST=["127.0.0.1,localhost, https://smartquail.io, 164.90.153.177,  https://quitocultura.smartquail.io"]
+#ALLOWED_HOSTS = [os.environ.get("ENV_ALLOWED_HOST")]
 
 BATON = {
     'SITE_HEADER': '<a href="#"><img src="https://qnd20app-bucket.nyc3.digitaloceanspaces.com/static/img/m2.png" height="26px"></a>',
@@ -290,6 +292,8 @@ EMAIL_USE_SSL       = False
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+ROOT_URLCONF = 'qnd10app.urls'
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / "static"
