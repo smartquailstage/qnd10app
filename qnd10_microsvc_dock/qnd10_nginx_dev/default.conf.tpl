@@ -1,3 +1,7 @@
+upstream qnd10app {
+        server qnd10app:9000;
+    }
+
 server {
     listen ${LISTEN_PORT};
     server_name 127.0.0.1 localhost 164.90.153.177;
@@ -18,3 +22,4 @@ server {
         client_max_body_size 1000M;
     }
 }
+
