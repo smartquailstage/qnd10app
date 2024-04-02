@@ -88,7 +88,7 @@ INSTALLED_APPS = [
     'social_django',
     
     'wagtail',
-
+    'core',
     'modelcluster',
     'taggit',
     'rosetta',
