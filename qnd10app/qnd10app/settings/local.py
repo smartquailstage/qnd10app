@@ -16,7 +16,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 #DEBUG = os.environ.get("DEBUG")
 ALLOWED_HOSTS = [os.environ.get("ENV_ALLOWED_HOST")]
 
-WAGTAILADMIN_BASE_URL = os.environ.get("WAGTAILADMIN_BASE_URL")  
+WAGTAILADMIN_BASE_URL = "businessmedia"
 #Nombre del sitio web
 WAGTAIL_SITE_NAME =os.environ.get("WAGTAIL_SITE_NAME")  
 
