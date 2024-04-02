@@ -12,6 +12,10 @@ services:
       - smartquaildb
     expose:
       - 9000
+    volumes:
+      - static-data-qnd10:/qnd10app/qnd10app/qnd10app/static
+      - static-data-qnd10:/qnd10app/qnd10app/qnd10app/media
+      - static-data-qnd10:/qnd10app/qnd10app/qnd10app/staticfiles
     networks: 
       - lansmartquail
 
