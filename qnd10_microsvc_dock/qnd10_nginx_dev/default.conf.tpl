@@ -17,6 +17,11 @@ server {
         client_max_body_size 1000M;
     }
 
+    location /staticfiles {
+        alias /qnd10app/qnd10app/qnd10app/staticfiles;
+        client_max_body_size 1000M;
+    }
+
     location / {
         uwsgi_pass qnd10app:9000;
         include /etc/nginx/uwsgi_params;
