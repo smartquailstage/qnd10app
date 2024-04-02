@@ -58,6 +58,7 @@ Configuration.configure(
 
 INSTALLED_APPS = [
     'baton',
+    'core',
     'widget_tweaks',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -88,7 +89,7 @@ INSTALLED_APPS = [
     'social_django',
     
     'wagtail',
-    'core',
+    
     'modelcluster',
     'taggit',
     'rosetta',
