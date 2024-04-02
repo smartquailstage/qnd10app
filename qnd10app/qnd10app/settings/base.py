@@ -31,12 +31,12 @@ load_dotenv(str(ENV_FILE_PATH))
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG")
-ALLOWED_HOSTS = ["*"]
+DEBUG = True
+ALLOWED_HOSTS = ["127.0.0.1,localhost, https://smartquail.io, 164.90.153.177,  https://quitocultura.smartquail.io"]
 
 
 #Nombre del sitio web
-WAGTAIL_SITE_NAME =os.environ.get("WAGTAIL_SITE_NAME")  
+WAGTAIL_SITE_NAME ="/businessmedia/"
 
 WAGTAILIMAGES_MAX_UPLOAD_SIZE = 30 * 1024 * 1024   # 15mb
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
