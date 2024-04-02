@@ -37,8 +37,8 @@ services:
       - 80:80
       - 443:443  
     volumes:
-      - static-data-qnd10:/qnd10app/qnd10app/staticfiles
-      - static-data-qnd10:/qnd10app/qnd10app/media
+      - static-data-qnd10:/qnd10app/qnd10app/qnd10app/static
+      - static-data-qnd10:/qnd10app/qnd10app/qnd10app/media
     networks: 
       - lansmartquail
 
