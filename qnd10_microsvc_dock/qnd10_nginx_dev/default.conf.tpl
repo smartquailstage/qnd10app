@@ -1,5 +1,5 @@
 upstream qnd10app {
-        server qnd10app;  # Aquí no se especifica el puerto 9000
+        server qnd10app:9000;  # Aquí no se especifica el puerto 9000
     }
 
 server {
