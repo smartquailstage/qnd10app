@@ -1,4 +1,4 @@
-FROM nginx:1.24.0-alpine-slim
+FROM nginxinc/nginx-unprivileged:1.24.0-alpine-slim
 LABEL maintainer="smartquail.io"
 
 #COPY ./ssl/qnode41_app.crt /etc/nginx/ssl/qnode0_app.crt
@@ -26,9 +26,9 @@ RUN mkdir -p /qnd10app/qnd10app/staticfiles && \
     chown nginx:nginx /etc/nginx/conf.d/default.conf && \
     chmod +x /run.sh
 
-VOLUME /qnd10app/qnd10app/staticfiles
-VOLUME /qnd10app/qnd10app/mediafiles
-VOLUME /qnd10app/qnd10app/static
+VOLUME qnd10app/qnd10app/staticfiles
+VOLUME qnd10app/qnd10app/mediafiles
+VOLUME /qnd10app/qnd10app/qnd10app/static
 
 USER nginx
 #ENTRYPOINT [ "/entrypoint.sh" ]
