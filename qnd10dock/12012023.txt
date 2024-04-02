@@ -16,6 +16,7 @@ redis
 django-dotenv
 psycopg2-binary
 django-storages
+django-social-share
 django-contrib-comments
 
 #Django Web App dependencies

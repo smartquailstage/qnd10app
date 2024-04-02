@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'django_social_share',
     'wagtailmenus',
     "wagtail_localize",
     "wagtail_localize.locales",
@@ -89,7 +90,6 @@ INSTALLED_APPS = [
     'social_django',
     
     'wagtail',
-    
     'modelcluster',
     'taggit',
     'rosetta',

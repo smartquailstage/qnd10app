@@ -1,3 +1,8 @@
+upstream django {
+    # server unix:///path/to/your/mysite/mysite.sock; # for a file socket
+    server qnd10app:9000; # for a web port socket (we'll use this first)
+}
+
 server {
     listen         443 ssl;
     server_name    ${DOMAIN} 164.90.153.177  127.0.0.1;
@@ -11,7 +16,7 @@ server {
 
     add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
 
-    location /static {
+    location /staticfiles {
         alias /qnd10app/qnd10app/qnd10app/staticfiles;
         client_max_body_size    1000M;
     }
@@ -21,9 +26,14 @@ server {
         client_max_body_size    1000M;
     }
 
+    location /static {
+        alias /qnd10app/qnd10app/qnd10app/static;
+        client_max_body_size 1000M;
+    }
+
     location / {
-        uwsgi_pass           ${APP_HOST}:${APP_PORT};
-        include              /etc/nginx/uwsgi_params;
+        uwsgi_pass qnd10app:9000;
+        include /etc/nginx/uwsgi_params;
         client_max_body_size 1000M;
     }
 }
@@ -41,8 +51,14 @@ server {
 
     add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
 
-    location /static {
+
+    location /staticfiles {
         alias /qnd10app/qnd10app/qnd10app/staticfiles;
+        client_max_body_size    1000M;
+    }
+
+    location /static {
+        alias /qnd10app/qnd10app/qnd10app/static;
         client_max_body_size    1000M;
     }
 
@@ -52,8 +68,8 @@ server {
     }
 
     location / {
-        uwsgi_pass           ${APP_HOST}:${APP_PORT};
-        include              /etc/nginx/uwsgi_params;
+        uwsgi_pass qnd10app:9000;
+        include /etc/nginx/uwsgi_params;
         client_max_body_size 1000M;
     }
 }
