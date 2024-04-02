@@ -1,4 +1,4 @@
-FROM nginx:1.23.0-alpine
+FROM FROM nginx:1.24.0-alpine-slim
 
 COPY ./nginx/* /etc/nginx/
 COPY ./ssl-certs-smartquail/* /etc/nginx/
