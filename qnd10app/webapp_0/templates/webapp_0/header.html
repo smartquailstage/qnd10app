@@ -1,0 +1,56 @@
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load social_share %}
+{% load static %}
+{% load menu_tags %}
+
+
+
+<header class="main-header">
+    <!-- logo   -->
+    
+    <a href="{% slugurl 'home' %}" class="logo-holder"><img src="{% static '/img/LOGO65.png'%}" style="width: 90px;" alt=""></a>  
+    
+    <!-- logo end  -->		
+    <!-- search -->				
+    
+    <!-- search end  -->
+    <div class="sb-button"></div>
+    <div class="share-btn showshare"><i class="fal fa-megaphone"></i><span>Share</span></div>
+    <!-- mobile nav -->
+    <div class="nav-button-wrap">
+        <div class="nav-button"><span></span><span></span><span></span></div>
+    </div>
+    <!-- mobile nav end-->				
+    <!--  navigation -->
+    <div class="nav-holder main-menu">
+        <nav>
+            <ul>
+                <li>
+                    <a href="{% slugurl 'home' %}" class="act-link">Home</a>
+                    <!--second level -->
+                </li>
+                <li>
+                    <a href="#">Portfolio </a>
+                    <!--second level -->
+                    <ul>
+                        {% for item in menu_items %}
+                        <li><a href="{{ item.href }}"> {{ item.text }}</a></li>
+                        {% endfor %}
+                    </ul>
+                    <!--second level end-->
+                </li>
+                <li>
+                    <a href="{% slugurl 'mywork' %}"> <ion-icon name="barcode"></ion-icon> <i class="fal fa-ios-infinite"></i>Juan Silva</a>
+                </li>
+                <li>
+                    <a href="{% url 'wagtailadmin_home' %}"> <i class="fal fa-users"></i></a>
+                </li>
+                
+            </ul>
+        </nav>
+    </div>
+    <!-- navigation  end -->               
+</header>
+
+
