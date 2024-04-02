@@ -15,19 +15,19 @@ ENV APP_PORT=9000
 
 USER root
 
-RUN mkdir -p /qnd10app/qnd10app/staticfiles && \
-    chmod 755 /qnd10app/qnd10app/staticfiles && \
-    mkdir -p /qnd10app/qnd10app/media && \
-    chmod 755 /qnd10app/qnd10app/media && \
-    mkdir -p /qnd10app/qnd10app/static && \
-    chmod 755 /qnd10app/qnd10app/static && \
+RUN mkdir -p /qnd10app/qnd10app/qnd10app/staticfiles && \
+    chmod 755 /qnd10app/qnd10app/qnd10app/staticfiles && \
+    mkdir -p /qnd10app/qnd10app/qnd10app/media && \
+    chmod 755 /qnd10app/qnd10app/qnd10app/media && \
+    mkdir -p /qnd10app/qnd10app/qnd10app/static && \
+    chmod 755 /qnd10app/qnd10app/qnd10app/static && \
 
     touch /etc/nginx/conf.d/default.conf && \
     chown nginx:nginx /etc/nginx/conf.d/default.conf && \
     chmod +x /run.sh
 
-VOLUME qnd10app/qnd10app/staticfiles
-VOLUME qnd10app/qnd10app/mediafiles
+VOLUME /qnd10app/qnd10app/qnd10app/staticfiles
+VOLUME /qnd10app/qnd10app/qnd10app/mediafiles
 VOLUME /qnd10app/qnd10app/qnd10app/static
 
 USER nginx
