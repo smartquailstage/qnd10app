@@ -17,7 +17,7 @@ CORS_ALLOWED_ORIGINS = [
     # Otros orígenes permitidos si los hay
 ]
 
-CSRF_COOKIE_DOMAIN = '.smartquail.io'
+#CSRF_COOKIE_DOMAIN = '.smartquail.io'
 
 DJANGO_SECRET_KEY= os.environ.get('DJANGO_SECRET_KEY')
 
@@ -134,7 +134,7 @@ INSTALLED_APPS = [
 
 
 MIDDLEWARE = [
-    #'django.contrib.sites.middleware.CurrentSiteMiddleware',
+    'django.contrib.sites.middleware.CurrentSiteMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     #'django.middleware.cache.UpdateCacheMiddleware',

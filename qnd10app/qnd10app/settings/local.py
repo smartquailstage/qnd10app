@@ -36,8 +36,8 @@ Configuration.configure(
     BRAINTREE_PRIVATE_KEY
 )
 
-ROOT_URLCONF = os.environ.get("ROOT_URLCONF")
-WSGI_APPLICATION = os.environ.get("WSGI_APPLICATION")
+
+WSGI_APPLICATION = 'qnd10app.wsgi.application'
 
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale/'),
@@ -132,9 +132,7 @@ BATON = {
 
 
 
-ADMINS= (
-    ('SILVA MAU', 'smartquail.dev@gmail.com')
-)
+
 
 ALLOWED_HOSTS = ['*']
 
