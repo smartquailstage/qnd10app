@@ -36,13 +36,14 @@
 
   <!--start wrapper-->
   <div class="wrapper">
- 
+    {% include 'registration/header_login.html' %} 
     <div class="container">
+     
       {% block content %}
       {% endblock %}
      
     </div>
-
+    {% include 'registration/footer_login.html' %} 
   </div>
   <!--end wrapper-->
 

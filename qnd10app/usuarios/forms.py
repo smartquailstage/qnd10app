@@ -4,8 +4,8 @@ from .models import Profile
 
 
 class LoginForm(forms.Form):
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput)
+    username = forms.CharField(label="Nombre de Usuario")
+    password = forms.CharField(widget=forms.PasswordInput,label="Contraseña")
 
 
 class UserRegistrationForm(forms.ModelForm):

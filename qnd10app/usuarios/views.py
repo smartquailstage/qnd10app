@@ -14,7 +14,7 @@ def user_login(request):
         if form.is_valid():
             cd = form.cleaned_data
             user = authenticate(request,
-                                username=cd['username'],
+                                username=cd['Nombre de Usuario'],
                                 password=cd['password'])
             if user is not None:
                 if user.is_active:
@@ -33,7 +33,7 @@ def user_login(request):
 @login_required
 def dashboard(request):
     return render(request,
-                  'account/dashboard.html',
+                  'usuarios/dashboard.html',
                   {'section': 'dashboard'})
 
 
@@ -51,12 +51,12 @@ def register(request):
             # Create the user profile
             Profile.objects.create(user=new_user)
             return render(request,
-                          'account/register_done.html',
+                          'usuarios/register_done.html',
                           {'new_user': new_user})
     else:
         user_form = UserRegistrationForm()
     return render(request,
-                  'account/register.html',
+                  'usuarios/register.html',
                   {'user_form': user_form})
 
 
@@ -78,6 +78,6 @@ def edit(request):
         user_form = UserEditForm(instance=request.user)
         profile_form = ProfileEditForm(instance=request.user.profile)
     return render(request,
-                  'account/edit.html',
+                  'usuarios/edit.html',
                   {'user_form': user_form,
                    'profile_form': profile_form})
