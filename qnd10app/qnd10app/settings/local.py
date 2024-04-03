@@ -4,7 +4,7 @@ ENV_FILE_PATH = BASE_DIR / ".env_dev"
 load_dotenv(str(ENV_FILE_PATH))
 
 
-
+DEBUG = True
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
