@@ -17,6 +17,8 @@ CORS_ALLOWED_ORIGINS = [
     # Otros orígenes permitidos si los hay
 ]
 
+CSRF_COOKIE_DOMAIN = '.smartquail.io'
+
 DJANGO_SECRET_KEY= os.environ.get('DJANGO_SECRET_KEY')
 
 
@@ -151,7 +153,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'qnd10app.urls'
 WAGTAILADMIN_BASE_URL ='app.smartquail.io'
 
-CSRF_COOKIE_DOMAIN = '.smartquail.io'
+
 
 #WAGTAIL SETUPS
 WAGTAILSEARCH_BACKENDS = {
