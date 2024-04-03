@@ -151,6 +151,8 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'qnd10app.urls'
 WAGTAILADMIN_BASE_URL ='app.smartquail.io'
 
+CSRF_COOKIE_DOMAIN = '.smartquail.io'
+
 #WAGTAIL SETUPS
 WAGTAILSEARCH_BACKENDS = {
     'default': {
