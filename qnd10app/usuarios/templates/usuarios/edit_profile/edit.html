@@ -85,6 +85,26 @@
 
           <div class="row g-3">
             <div class="col-12 col-lg-6">
+
+              {% for field in profile_form.visible_fields %}
+              {% if field.name == 'photo' %}
+                <label for="{{ field.id }}" class="form-label">Foto de Perfil</label>
+                {% if field.errors %}
+                  {% render_field field class="form-control is-invalid" %}
+                  {% for error in field.errors %}
+                    <div class="invalid-feedback">
+                      {{ error }}
+                    </div>
+                  {% endfor %}
+                {% else %}
+                  {% render_field field class="form-control is-valid"  %}
+                {% endif %}
+                {% if field.help_text %}
+                  <small class="form-text text-muted">{{ field.help_text }}</small>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+            
               {% for field in user_form.visible_fields %}
                 {% if field.name == 'first_name' %}
                   <label for="{{ field.id }}" class="form-label">{{ field.label_tag }}</label>
@@ -103,6 +123,8 @@
                   {% endif %}
                 {% endif %}
               {% endfor %}
+
+              
           
               {% for field in user_form.visible_fields %}
                 {% if field.name == 'last_name' %}
@@ -142,11 +164,37 @@
                 {% endif %}
               {% endfor %}
             </div>
+
+            <div class="col-12 col-lg-6">
+              {% for field in profile_form.visible_fields %}
+                {% if field.name == 'date_of_birth' %}
+                  <label for="{{ field.id }}" class="form-label">Fecha de Nacimiento</label>
+                  {% if field.errors %}
+                    {% render_field field class="form-control datepicker is-valid" %}
+                    {% for error in field.errors %}
+                      <div class="invalid-feedback">
+                        {{ error }}
+                      </div>
+                    {% endfor %}
+                  {% else %}
+                    {% render_field field class="form-control datepicker is-valid" %}
+                  {% endif %}
+                  {% if field.help_text %}
+                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+          
+          
+            
+            </div>
+
             {% csrf_token %}
             <div class="col-12">
               <div class="d-flex align-items-center gap-3">
-                <button class="btn btn-primary px-4" onclick="stepper1.previous()"><i class='bx bx-left-arrow-alt me-2'></i>Previous</button>
-               <button class="btn btn-primary px-4"  type="submit" value="Save changes"><i class='bx bx-left-arrow-alt me-2'></i>Guardar</button>
+                <button class="btn btn-secondary px-4"  type="submit" value="Save changes"><i class='bx bx-save me-2'></i>Guardar</button>
+                <button href ="{% url 'usuarios:register' %}" class="btn btn-primary px-4" onclick="stepper1.previous()"><i class='bx bx-right-arrow-alt me-2'></i>Siguiente</button>
+               
               </div>
             </div>
           </div>

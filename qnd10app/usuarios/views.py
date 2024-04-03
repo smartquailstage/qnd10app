@@ -30,11 +30,6 @@ def user_login(request):
     return render(request, 'account/login.html', {'form': form})
 
 
-@login_required
-def dashboard(request):
-    return render(request,
-                  'usuarios/dashboard.html',
-                  {'section': 'dashboard'})
 
 
 def register(request):
@@ -78,6 +73,36 @@ def edit(request):
         user_form = UserEditForm(instance=request.user)
         profile_form = ProfileEditForm(instance=request.user.profile)
     return render(request,
-                  'usuarios/edit.html',
+                  'usuarios/edit_profile/edit.html',
                   {'user_form': user_form,
                    'profile_form': profile_form})
+
+
+
+
+
+@login_required
+def dashboard(request):
+    perfil = Profile.objects.get(user=request.user)
+    return render(request,
+                  'usuarios/dashboard.html',
+                  {'section': 'dashboard', 'profile':'profile'})
+
+@login_required
+def nav_bar(request):
+    profile = Profile.objects.get(user=request.user)
+    return render(request,
+                  'usuarios/header.html',
+                  {'profile':'profile'})
+
+@login_required
+def profile_view(request):
+    # Obtener el perfil del usuario actualmente autenticado
+    profile = Profile.objects.get(user=request.user)
+    return render(request, 'usuarios/profile.html', {'profile': profile})
+
+@login_required
+def config_view(request):
+    # Obtener el perfil del usuario actualmente autenticado
+    profile = Profile.objects.get(user=request.user)
+    return render(request, 'usuarios/config.html', {'profile': profile})

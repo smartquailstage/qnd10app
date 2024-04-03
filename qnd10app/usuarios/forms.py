@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth.models import User
 from .models import Profile
-
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 class LoginForm(forms.Form):
     username = forms.CharField(label="Nombre de Usuario")
@@ -35,3 +36,12 @@ class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('date_of_birth', 'photo')
+        widgets = {
+            'date_of_birth': forms.DateInput(attrs={'type': 'datepicker'}),
+        }
+
+@login_required
+def profile_view(request):
+    # Obtener el perfil del usuario actualmente autenticado
+    profile = Profile.objects.get(user=request.user)
+    return render(request, 'usuarios/profile.html', {'profile': profile})
