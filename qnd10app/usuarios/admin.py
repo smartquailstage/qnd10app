@@ -72,8 +72,6 @@ export_to_excel.short_description = 'Exportar a Excel'
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ['user', 'date_of_birth', profile_pdf]
     actions = [ export_to_csv, export_to_excel]
-
-    class Meta:
-        verbose_name = "Información de perfil de usuario"
-        verbose_name_plural = "Información de perfil de usuario"
+    verbose_name = "Información de perfil de usuario"
+    verbose_name_plural = "Información de perfil de usuario"
     
