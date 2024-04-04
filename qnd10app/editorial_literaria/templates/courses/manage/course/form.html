@@ -21,7 +21,7 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb mb-0 p-0 align-items-center">
             <li class="breadcrumb-item"><a href="javascript:;">
-                <ion-icon name="home-outline"></ion-icon>
+                <ion-icon name="add-outline"></ion-icon>
               </a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">{% block title %}
@@ -46,43 +46,14 @@
         <div class="d-lg-flex flex-lg-row align-items-lg-center justify-content-lg-between" role="tablist">
           <div class="step" data-target="#test-nl-1">
           <div class="step-trigger" role="tab" id="stepper1trigger1" aria-controls="test-nl-1">
-            <div class="bs-stepper-circle"><i class='bx bx-user fs-4'></i></div>
+            <div class="bs-stepper-circle"><i class='bx bx-plus fs-4'></i></div>
             <div class="">
-              <h5 class="mb-0 steper-title">Perfil de usuario</h5>
-              <p class="mb-0 steper-sub-title">Perfil de usuario</p>
+              <h5 class="mb-0 steper-title">Crear Nueva Convocatoria</h5>
+                <p class="mb-0 steper-sub-title">Con este formulario, usted esta creando una convocatoria en la línea de fomento: Editorial & literaria.</p>
             </div>
           </div>
           </div>
-          <div class="bs-stepper-line"></div>
-          <div class="step" data-target="#test-nl-2">
-            <div class="step-trigger" role="tab" id="stepper2trigger2" aria-controls="test-nl-2">
-            <div class="bs-stepper-circle"><i class='bx bx-file fs-4'></i></div>
-            <div class="">
-              <h5 class="mb-0 steper-title">Account Details</h5>
-              <p class="mb-0 steper-sub-title">Setup Account Details</p>
-            </div>
-            </div>
-          </div>
-          <div class="bs-stepper-line"></div>
-          <div class="step" data-target="#test-nl-3">
-            <div class="step-trigger" role="tab" id="stepper2trigger3" aria-controls="test-nl-3">
-            <div class="bs-stepper-circle"><i class='bx bxs-graduation fs-4'></i></div>
-            <div class="">
-              <h5 class="mb-0 steper-title">Education</h5>
-              <p class="mb-0 steper-sub-title">Education Details</p>
-            </div>
-            </div>
-          </div>
-          <div class="bs-stepper-line"></div>
-            <div class="step" data-target="#test-nl-4">
-              <div class="step-trigger" role="tab" id="stepper2trigger4" aria-controls="test-nl-4">
-              <div class="bs-stepper-circle"><i class='bx bx-briefcase fs-4'></i></div>
-              <div class="">
-                <h5 class="mb-0 steper-title">Perfil de usuario</h5>
-                <p class="mb-0 steper-sub-title">Edite/ingrese su información de perfil de usuario</p>
-              </div>
-              </div>
-            </div>
+
         </div>
       </div>
       <div class="card-body">
@@ -93,9 +64,9 @@
           <div class="row g-3">
             <div class="col-12 col-lg-6">
 
-              {% for field in profile_form.visible_fields %}
-              {% if field.name == 'photo' %}
-                <label for="{{ field.id }}" class="form-label">Foto de Perfil</label>
+              {% for field in form.visible_fields %}
+              {% if field.name == 'subject' %}
+                <label for="{{ field.id }}" class="form-label">Categoría de convocatoría en Fomento Editorial y Literaría</label>
                 {% if field.errors %}
                   {% render_field field class="form-control is-invalid" %}
                   {% for error in field.errors %}
@@ -112,9 +83,9 @@
               {% endif %}
             {% endfor %}
             
-              {% for field in user_form.visible_fields %}
-                {% if field.name == 'first_name' %}
-                  <label for="{{ field.id }}" class="form-label">{{ field.label_tag }}</label>
+              {% for field in form.visible_fields %}
+                {% if field.name == 'title' %}
+                  <label for="{{ field.id }}" class="form-label">Título de Convocatoria</label>
                   {% if field.errors %}
                     {% render_field field class="form-control is-invalid" %}
                     {% for error in field.errors %}
@@ -133,9 +104,9 @@
 
               
           
-              {% for field in user_form.visible_fields %}
-                {% if field.name == 'last_name' %}
-                  <label for="{{ field.id }}" class="form-label">Apellidos</label>
+              {% for field in form.visible_fields %}
+                {% if field.name == 'overview' %}
+                  <label for="{{ field.id }}" class="form-label">Resumen de convocatoria:</label>
                   {% if field.errors %}
                     {% render_field field class="form-control is-invalid" %}
                     {% for error in field.errors %}
