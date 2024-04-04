@@ -4,7 +4,7 @@ from .base import *
 ENV_FILE_PATH = BASE_DIR / ".env_stage"
 load_dotenv(str(ENV_FILE_PATH))
 
-DEBUG=  "0"
+DEBUG=  "1"
 
 
 
