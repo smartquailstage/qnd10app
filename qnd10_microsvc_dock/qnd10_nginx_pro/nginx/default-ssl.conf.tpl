@@ -33,6 +33,7 @@ server {
 
     location / {
         uwsgi_pass qnd10app:9000;
+
         proxy_set_header X-Forwarded-Proto https;
 
         include /etc/nginx/uwsgi_params;
@@ -71,6 +72,7 @@ server {
 
     location / {
         uwsgi_pass qnd10app:9000;
+        add_header 'Access-Control-Allow-Origin' 'https://quitocultura.smartquail.io';
         proxy_set_header X-Forwarded-Proto https;
 
         include /etc/nginx/uwsgi_params;
