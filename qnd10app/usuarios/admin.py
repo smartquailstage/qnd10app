@@ -12,7 +12,7 @@ from django.utils.safestring import mark_safe
 
 
 def profile_pdf(obj):
-    return mark_safe('<a href="{}">PDF</a>'.format(
+    return mark_safe('<a href="{}">ver perfil</a>'.format(
         reverse('usuarios:admin_profile_pdf', args=[obj.id])))
 profile_pdf.short_description = 'Perfil de usuario'
 
