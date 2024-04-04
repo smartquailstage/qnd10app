@@ -32,6 +32,7 @@ urlpatterns = [
     path('social-auth/', include('social_django.urls', namespace='social')),
     path('rosetta/', include('rosetta.urls')),
     path('account/', include('usuarios.urls')),
+    path('editorial_literaria/', include('editorial_literaria.urls')),
     path('login/', auth_views.LoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('password_change/', auth_views.PasswordChangeView.as_view(), name='password_change'),

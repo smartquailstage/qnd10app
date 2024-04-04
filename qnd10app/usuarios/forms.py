@@ -40,8 +40,3 @@ class ProfileEditForm(forms.ModelForm):
             'date_of_birth': forms.DateInput(attrs={'type': 'datepicker'}),
         }
 
-@login_required
-def profile_view(request):
-    # Obtener el perfil del usuario actualmente autenticado
-    profile = Profile.objects.get(user=request.user)
-    return render(request, 'usuarios/profile.html', {'profile': profile})

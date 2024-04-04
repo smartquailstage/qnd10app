@@ -96,7 +96,7 @@ INSTALLED_APPS = [
     'wagtailmenus',
     'django_social_share',
     'taggit',
-    
+    'editorial_literaria',
     'webapp_0',
     'streams',
     'widget_tweaks',
@@ -152,7 +152,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'qnd10app.urls'
 WAGTAILADMIN_BASE_URL ='app.smartquail.io'
-
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
 #WAGTAIL SETUPS
