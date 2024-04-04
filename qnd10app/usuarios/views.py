@@ -6,7 +6,11 @@ from django.contrib import messages
 from .forms import LoginForm, UserRegistrationForm, \
                    UserEditForm, ProfileEditForm
 from .models import Profile
-
+from django.shortcuts import get_object_or_404
+from django.conf import settings
+from django.template.loader import render_to_string
+from django.contrib.admin.views.decorators import staff_member_required
+import weasyprint
 
 def user_login(request):
     if request.method == 'POST':
@@ -106,3 +110,14 @@ def config_view(request):
     # Obtener el perfil del usuario actualmente autenticado
     profile = Profile.objects.get(user=request.user)
     return render(request, 'usuarios/config.html', {'profile': profile})
+
+
+@staff_member_required
+def admin_profile_pdf(request, profile_id):
+    profile = get_object_or_404(Profile, id=profile_id)
+    html = render_to_string('usuarios/pdf_profiles/pdf.html',
+                            {'profile': profile})
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'filename=order_{}.pdf"'.format(profile.id)
+    weasyprint.HTML(string=html,  base_url=request.build_absolute_uri() ).write_pdf(response,stylesheets=[weasyprint.CSS('static/assets/css/profiles.css')], presentational_hints=True)
+    return response

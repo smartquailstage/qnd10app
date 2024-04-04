@@ -17,4 +17,5 @@ urlpatterns = [
     # path('', include('django.contrib.auth.urls')),
     path('register/', views.register, name='register'),
     path('edit/', views.edit, name='edit'),
+    path('admin/profile/<int:profile_id>/pdf/', views.admin_profile_pdf, name='admin_profile_pdf'),
 ]
