@@ -5,30 +5,75 @@
 {% load widget_tweaks %}
 {% load static %}
 {% load menu_tags %}
+{% load thumbnail %}
 
 {% block title %}My courses{% endblock %}
 
 {% block content %}
-  <h1>My courses</h1>
 
-  <div class="module">
-    {% for course in object_list %}
-      <div class="course-info">
-        <h3>{{ course.title }}</h3>
-        <p>
-          <a href="{% url "editorial_literaria:course_edit" course.id %}">Edit</a>
-          <a href="{% url "editorial_literaria:course_delete" course.id %}">Delete</a>
-          <a href="{% url "editorial_literaria:course_module_update" course.id %}">Edit modules</a>
-          {% if course.modules.count > 0 %}
-            <a href="{% url "editorial_literaria:module_content_list" course.modules.first.id %}">Manage contents</a>
-          {% endif %}
-        </p>
+<div class="page-content-wrapper">
+  <!-- start page content-->
+ <div class="page-content">
+
+     <!--start breadcrumb-->
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+      <div class="breadcrumb-title pe-3">Inicio</div>
+      <div class="ps-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb mb-0 p-0 align-items-center">
+            <li class="breadcrumb-item"><a href="javascript:;"><ion-icon name="home-outline"></ion-icon></a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Convocatorias para línea de fomento Editorial y Literaria</li>
+          </ol>
+        </nav>
       </div>
-    {% empty %}
-      <p>You haven't created any courses yet.</p>
-    {% endfor %}
-    <p>
-      <a href="{% url "editorial_literaria:course_create" %}" class="button">Create new course</a>
-    </p>
-  </div>
+      <div class="ms-auto">
+     
+      </div>
+    </div>
+
+    <div class="demo-seprater">
+      <h6 class="mb-0 text-uppercase">Editar convocatorias</h6>
+      <div class="my-3 border-bottom"></div>
+    </div>
+    
+    <div class="row row-cols-1 row-cols-lg-3">
+      {% for course in object_list %}
+       <div class="col">
+        
+        <div class="card">
+          {% thumbnail course.portada "300x200" crop="center" as p %}
+          <img src="{{ p.url }}" class="card-img-top" alt="...">
+           {% endthumbnail %}
+          <div class="card-body">
+            <h5 class="card-title">{{ course.title }}</h5>
+            <p class="card-text">{{ course.overview }}</p>
+            <div class="dropdown">
+              <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><ion-icon name="settings"></ion-icon>Configuración</button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{% url "editorial_literaria:course_edit" course.id %}"> Editar convocatoria</a>
+                </li>
+                <li><a class="dropdown-item" href="{% url "editorial_literaria:course_delete" course.id %}"> Eliminar convocatoria </a>
+                </li>
+                <li><a class="dropdown-item" href="{% url "editorial_literaria:course_module_update" course.id %}"> Bases tecnicas</a>
+                </li>
+                {% if course.modules.count > 0 %}
+                <li><a class="dropdown-item"  href="{% url "editorial_literaria:module_content_list" course.modules.first.id %}"> Crear contenidos Bases tecnicas</a>
+                </li>
+                {% endif %}
+              </ul>
+            </div>
+        
+          </div>
+        </div>
+       
+       </div>
+       {% empty %}
+       <p>You haven't created any courses yet.</p>
+         {% endfor %}
+      
+
+</div>
+</div>
+
 {% endblock %}

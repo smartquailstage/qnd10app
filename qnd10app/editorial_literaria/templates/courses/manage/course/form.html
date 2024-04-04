@@ -82,6 +82,26 @@
                 {% endif %}
               {% endif %}
             {% endfor %}
+
+              
+            {% for field in form.visible_fields %}
+            {% if field.name == 'portada' %}
+              <label for="{{ field.id }}" class="form-label">Ingrese una foto de la portada de la convocatoria</label>
+              {% if field.errors %}
+                {% render_field field class="form-control is-invalid" %}
+                {% for error in field.errors %}
+                  <div class="invalid-feedback">
+                    {{ error }}
+                  </div>
+                {% endfor %}
+              {% else %}
+                {% render_field field class="form-control is-valid" %}
+              {% endif %}
+              {% if field.help_text %}
+                <small class="form-text text-muted">{{ field.help_text }}</small>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
             
               {% for field in form.visible_fields %}
                 {% if field.name == 'title' %}
@@ -102,68 +122,52 @@
                 {% endif %}
               {% endfor %}
 
+              {% for field in form.visible_fields %}
+                {% if field.name == 'slug' %}
+                  <label for="{{ field.id }}" class="form-label">re-scriba el titulo de la convocatoria, en minusculas y los espacios reemplaze con - </label>
+                  {% if field.errors %}
+                    {% render_field field class="form-control datepicker is-valid" %}
+                    {% for error in field.errors %}
+                      <div class="invalid-feedback">
+                        {{ error }}
+                      </div>
+                    {% endfor %}
+                  {% else %}
+                    {% render_field field class="form-control datepicker is-valid" %}
+                  {% endif %}
+                  {% if field.help_text %}
+                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+
               
           
-              {% for field in form.visible_fields %}
-                {% if field.name == 'overview' %}
-                  <label for="{{ field.id }}" class="form-label">Resumen de convocatoria:</label>
-                  {% if field.errors %}
-                    {% render_field field class="form-control is-invalid" %}
-                    {% for error in field.errors %}
-                      <div class="invalid-feedback">
-                        {{ error }}
-                      </div>
-                    {% endfor %}
-                  {% else %}
-                    {% render_field field class="form-control is-valid" %}
-                  {% endif %}
-                  {% if field.help_text %}
-                    <small class="form-text text-muted">{{ field.help_text }}</small>
-                  {% endif %}
-                {% endif %}
-              {% endfor %}
-          
-              {% for field in user_form.visible_fields %}
-                {% if field.name == 'email' %}
-                  <label for="{{ field.id }}" class="form-label">Correo Electrónico</label>
-                  {% if field.errors %}
-                    {% render_field field class="form-control is-invalid" %}
-                    {% for error in field.errors %}
-                      <div class="invalid-feedback">
-                        {{ error }}
-                      </div>
-                    {% endfor %}
-                  {% else %}
-                    {% render_field field class="form-control is-valid" %}
-                  {% endif %}
-                  {% if field.help_text %}
-                    <small class="form-text text-muted">{{ field.help_text }}</small>
-                  {% endif %}
-                {% endif %}
-              {% endfor %}
+           
+        
             </div>
 
             <div class="col-12 col-lg-6">
-              {% for field in profile_form.visible_fields %}
-                {% if field.name == 'date_of_birth' %}
-                  <label for="{{ field.id }}" class="form-label">Fecha de Nacimiento</label>
-                  {% if field.errors %}
-                    {% render_field field class="form-control datepicker is-valid" %}
-                    {% for error in field.errors %}
-                      <div class="invalid-feedback">
-                        {{ error }}
-                      </div>
-                    {% endfor %}
-                  {% else %}
-                    {% render_field field class="form-control datepicker is-valid" %}
-                  {% endif %}
-                  {% if field.help_text %}
-                    <small class="form-text text-muted">{{ field.help_text }}</small>
-                  {% endif %}
+              
+          
+              {% for field in form.visible_fields %}
+              {% if field.name == 'overview' %}
+                <label for="{{ field.id }}" class="form-label">Resumen de convocatoria:</label>
+                {% if field.errors %}
+                  {% render_field field class="form-control is-invalid" %}
+                  {% for error in field.errors %}
+                    <div class="invalid-feedback">
+                      {{ error }}
+                    </div>
+                  {% endfor %}
+                {% else %}
+                  {% render_field field class="form-control is-valid" %}
                 {% endif %}
-              {% endfor %}
-          
-          
+                {% if field.help_text %}
+                  <small class="form-text text-muted">{{ field.help_text }}</small>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
             
             </div>
 
@@ -188,19 +192,5 @@
     
   </div>
 
-  <h1>
-    {% if object %}
-      Edit course "{{ object.title }}"
-    {% else %}
-      Create a new course
-    {% endif %}
-  </h1>
-  <div class="module">
-    <h2>Course info</h2>
-    <form action="." method="post">
-      {{ form.as_p }}
-      {% csrf_token %}
-      <p><input type="submit" value="Save course"></p>
-    </form>
-  </div>
+
 {% endblock %}
