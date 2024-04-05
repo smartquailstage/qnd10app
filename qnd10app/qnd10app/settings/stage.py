@@ -4,7 +4,7 @@ from .base import *
 ENV_FILE_PATH = BASE_DIR / ".env_stage"
 load_dotenv(str(ENV_FILE_PATH))
 
-DEBUG=  "1"
+DEBUG=True
 
 CSRF_COOKIE_DOMAIN=".smartquail.io"
 CSRF_COOKIE_SECURE = True
