@@ -6,15 +6,196 @@
 {% load static %}
 {% load menu_tags %}
 
-{% block title %}
-  {% if object %}
-    Edit content "{{ object.title }}"
-  {% else %}
-    Add a new content
-  {% endif %}
-{% endblock %}
+
 
 {% block content %}
+
+<div class="page-content-wrapper">
+  <!-- start page content-->
+ <div class="page-content">
+
+  <!--start breadcrumb-->
+  <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <div class="breadcrumb-title pe-3">eCommerce</div>
+    <div class="ps-3">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0 p-0 align-items-center">
+          <li class="breadcrumb-item"><a href="javascript:;"><ion-icon name="home-outline"></ion-icon></a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">Product Details</li>
+        </ol>
+      </nav>
+    </div>
+
+  </div>
+  <!--end breadcrumb-->
+
+  {% with course=module.course %}
+  <section class="shop-page">
+    <div class="shop-container">
+
+      <div class="card shadow-sm border-0">
+        <div class="card-body">
+           
+          <div class="product-detail-card">
+            <div class="product-detail-body">
+              <div class="row g-0">
+              
+                <div class="col-12 col-lg-7">
+                  <div class="product-info-section p-3">
+                    <h3 class="mt-3 mt-lg-0 mb-0">{{ course.title }}</h3>
+                    <div class="product-rating d-flex align-items-center mt-2">
+                    </div>
+                    <div class="d-flex align-items-center mt-3 gap-2">
+                      <h4 class="mb-0">Categoría: {{course.subject }}</h4>
+                    </div>
+                    <div class="mt-3">
+                      <h6>Resumen de la convocatoria:</h6>
+                      <p class="mb-0">{{ course.overview }}</p>
+                    </div>
+                    <dl class="row mt-3">	<dt class="col-sm-3">Fecha de creación: </dt>
+                      <dd class="col-sm-9">{{ course.created }}</dd>	
+                      <dt class="col-sm-3">Fecha de vencimiento:</dt>
+                      <dd class="col-sm-9">{{ course.vencimiento }}</dd>
+                      <dt class="col-sm-3">Creado por:</dt>
+                      <dd class="col-sm-9">{{ course.owner }}</dd>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+              <!--end row-->
+            </div>
+          </div>
+
+
+
+         
+          <div class="product-more-info mt-4">
+            <h3>Crear contenidos de base técnica </h3>
+            <ul class="nav nav-tabs mb-0" role="tablist">
+              <li class="nav-item" role="presentation">
+                <a class="nav-link"  href="{% url "editorial_literaria:module_content_create" module.id "text" %}" role="tab" aria-selected="true">
+                  <div class="d-flex align-items-center">
+                    <div class="tab-title text-uppercase fw-500">Escribir contenido </div>
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item" role="presentation">
+                <a class="nav-link"  href="{% url "editorial_literaria:module_content_create" module.id "image" %}" role="tab" aria-selected="false">
+                  <div class="d-flex align-items-center">
+                    <div class="tab-title text-uppercase fw-500">Subir una imagen.</div>
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item" role="presentation">
+                <a class="nav-link"  href="{% url "editorial_literaria:module_content_create" module.id "video" %}" role="tab" aria-selected="false">
+                  <div class="d-flex align-items-center">
+                    <div class="tab-title text-uppercase fw-500">Subir un video </div>
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item" role="presentation">
+                <a class="nav-link active"  href="{% url "editorial_literaria:module_content_create" module.id "file" %}" role="tab" aria-selected="false">
+                  <div class="d-flex align-items-center">
+                    <div class="tab-title text-uppercase fw-500">Subir un archivo pdf </div>
+                  </div>
+                </a>
+              </li>
+            </ul>
+            
+            <div class="tab-content pt-3">
+              <div class="tab-pane fade" id="discription" role="tabpanel">
+                <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi.</p>
+                <ul>
+                  <li>Not just for commute</li>
+                  <li>Branded tongue and cuff</li>
+                  <li>Super fast and amazing</li>
+                  <li>Lorem sed do eiusmod tempor</li>
+                </ul>
+                <p class="mb-1">Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone.</p>
+                <p class="mb-1">Seitan aliquip quis cardigan american apparel, butcher voluptate nisi.</p>
+              </div>
+              <div class="tab-pane fade" id="more-info" role="tabpanel">
+                <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+              </div>
+              <div class="tab-pane fade" id="tags" role="tabpanel">
+                <div class="tags-box w-50">	<a href="javascript:;" class="tag-link">Cloths</a>
+                  <a href="javascript:;" class="tag-link">Electronis</a>
+                  <a href="javascript:;" class="tag-link">Furniture</a>
+                  <a href="javascript:;" class="tag-link">Sports</a>
+                  <a href="javascript:;" class="tag-link">Men Wear</a>
+                  <a href="javascript:;" class="tag-link">Women Wear</a>
+                  <a href="javascript:;" class="tag-link">Laptops</a>
+                  <a href="javascript:;" class="tag-link">Formal Shirts</a>
+                  <a href="javascript:;" class="tag-link">Topwear</a>
+                  <a href="javascript:;" class="tag-link">Headphones</a>
+                  <a href="javascript:;" class="tag-link">Bottom Wear</a>
+                  <a href="javascript:;" class="tag-link">Bags</a>
+                  <a href="javascript:;" class="tag-link">Sofa</a>
+                  <a href="javascript:;" class="tag-link">Shoes</a>
+                </div>
+              </div>
+             
+              <div class="tab-pane fade show active" id="reviews" role="tabpanel">
+                <div class="row">
+                  <div class="col col-lg-8">
+                    <div class="product-review">
+                      <h5 class="mb-4"> {% for content in module.contents.all %}
+                        {% empty %}
+                        <p>This module has no contents yet.</p>
+                      {% endfor %}</h5>
+                      <div class="review-list">
+                        {% for content in module.contents.all %}
+                        <div class="d-flex align-items-start">
+                          <div class="review-user">
+                            <img src="assets/images/avatars/01.png" width="65" height="65" class="rounded-circle" alt="" />
+                          </div>
+                          <div class="review-content ms-3">
+                            <div class="rates cursor-pointer fs-6">	<i class="bx bxs-star text-warning"></i>
+                              <i class="bx bxs-star text-warning"></i>
+                              <i class="bx bxs-star text-warning"></i>
+                              <i class="bx bxs-star text-warning"></i>
+                              <i class="bx bxs-star"></i>
+                            </div>
+                            <div class="d-flex align-items-center mb-2">
+                              <h6 class="mb-0">Base tecnica: {{ m.title }} {{ m.order|add:1 }}</h6>
+                              <p class="mb-0 ms-auto">February 16, 2021</p>
+                            </div>
+                            <p>Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan</p>
+                          </div>
+                        </div>
+                        <hr/>
+                        {% empty %}
+                        <p>This module has no contents yet.</p>
+                      {% endfor %}
+                      </div>
+                    </div>
+                  </div>
+ 
+                </div>
+                <!--end row-->
+              </div>
+            </div>
+          </div>
+      <!--end product more info-->
+
+      <!--start similar products-->
+             
+           
+          <!--end similar products-->
+          
+        </div>
+      </div>
+    
+  </div>
+</section>
+{% endwith %}
+<!--end product detail-->
+
+
+  </div>
+  <!-- end page content-->
+ </div>
   <h1>
     {% if object %}
       Edit content "{{ object.title }}"

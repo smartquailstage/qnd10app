@@ -100,7 +100,7 @@ class ContentCreateUpdateView(TemplateResponseMixin, View):
 
     def get_model(self, model_name):
         if model_name in ['text', 'video', 'image', 'file']:
-            return apps.get_model(app_label='courses',
+            return apps.get_model(app_label='editorial_literaria',
                                   model_name=model_name)
         return None
 
@@ -156,7 +156,7 @@ class ContentDeleteView(View):
         module = content.module
         content.item.delete()
         content.delete()
-        return redirect('module_content_list', module.id)
+        return redirect('editorial_literaria:module_content_list', module.id)
 
 
 class ModuleContentListView(TemplateResponseMixin, View):

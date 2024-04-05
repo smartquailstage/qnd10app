@@ -1,3 +1,7 @@
+{% load wagtailimages_tags wagtailcore_tags menu_tags %}
+{% load widget_tweaks %}
+{% load static %}
+
 <footer class="my-5">
     <div class="container">
       <div class="d-flex align-items-center gap-4 fs-5 justify-content-center social-login-footer">
@@ -18,7 +22,7 @@
         </a>
       </div>
       <div class="text-center">
-        <p class="my-4">Copyright © 2021 UI Admin by Codervent.</p>
+        <p class="my-4">Copyright © 2024. Soportado por <a href="https://smartquail.io"><image src="{% static '/assets/images/SQLogo.png' %}" width="120px">.</p></a>
       </div>
     </div>
   </footer>
