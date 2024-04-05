@@ -126,8 +126,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'ckeditor',
     #'js_blog_app',
-    'baton.autodiscover',
-   
+    'baton.autodiscover',   
 ]
 
 
