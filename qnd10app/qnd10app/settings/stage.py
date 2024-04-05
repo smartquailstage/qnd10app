@@ -6,7 +6,8 @@ load_dotenv(str(ENV_FILE_PATH))
 
 DEBUG=  "1"
 
-
+CSRF_COOKIE_DOMAIN=.smartquail.io
+CSRF_COOKIE_SECURE = True
 
 BATON = {
     'SITE_HEADER': '<a href="#"><img src="/static/img/m2.png" height="26px"></a>',
