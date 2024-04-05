@@ -8,6 +8,7 @@ DEBUG=  "1"
 
 CSRF_COOKIE_DOMAIN=".smartquail.io"
 CSRF_COOKIE_SECURE = True
+CSRF_TRUSTED_ORIGINS = ['https://quitocultura.smartquail.io']
 
 BATON = {
     'SITE_HEADER': '<a href="#"><img src="/static/img/m2.png" height="26px"></a>',
