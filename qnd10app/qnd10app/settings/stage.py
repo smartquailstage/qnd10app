@@ -6,7 +6,7 @@ load_dotenv(str(ENV_FILE_PATH))
 
 DEBUG=  "1"
 
-CSRF_COOKIE_DOMAIN=.smartquail.io
+CSRF_COOKIE_DOMAIN=".smartquail.io"
 CSRF_COOKIE_SECURE = True
 
 BATON = {
