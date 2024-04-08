@@ -7,10 +7,7 @@
 
 <header class="main-header">
     <!-- logo   -->
-    {%for item in page.galleria_6.all %}
-     {% image item.logo width-110 format-png as logo %}
-    <a href="{% slugurl 'home' %}" class="logo-holder"><img src="{{logo.url}}" alt=""></a>  
-    {% endfor %}
+    <a href="{% slugurl 'home' %}" class="logo-holder"><img src="{% static '/img/LOGO65.png'%}" style="width: 170px;" alt=""></a> 
     <!-- logo end  -->		
     <!-- search -->				
     <!-- search end  -->
@@ -23,30 +20,39 @@
     <!-- mobile nav end-->				
     <!--  navigation -->
     <div class="nav-holder main-menu">
-        <nav>
-            <ul>
-                <li>
-                    <a href="{% slugurl 'home' %}" class="act-link">Home</a>
-                    <!--second level -->
-                </li>
-                <li>
-                    <a href="#">Portfolio </a>
-                    <!--second level -->
-                    <ul>
+      <nav>
+          <ul>
+              <li>
+                  <a href="{% slugurl 'home' %}" class="act-link">Home</a>
+                  <!--second level -->
+              </li>
+              <li>
+                  <a href="#">Portfolio </a>
+                  <!--second level -->
+                  <ul>
                       {% for item in menu_items %}
                       <li><a href="{{ item.href }}"> {{ item.text }}</a></li>
                       {% endfor %}
                   </ul>
-                </li>
-                <li>
-                    <a href="{% url 'wagtailadmin_home' %}">Customers</a>
-                </li>
-                <li>
-                    <a href="{% slugurl 'shootingnow' %}">Shooting now</a>
-                </li>               
-            </ul>
-        </nav>
-    </div>
+                  <!--second level end-->
+              </li>
+              {% wheretowatch_menu as menus %}
+              <li>
+                  
+                  {% for menu in menus %}
+                  <a href="{% slugurl 'wheretowatch' %}">{{menu.heading}}</a>
+                    {% flat_menu menu.handle template="webapp_0/wheretowatch.html" %}
+                  
+                 
+              </li>
+              {% endfor %}
+              <li>
+                  <a href="{% url 'wagtailadmin_home' %}"> <i class="fal fa-users"></i></a>
+              </li>
+              
+          </ul>
+      </nav>
+  </div>
     <!-- navigation  end -->               
 </header>
 

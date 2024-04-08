@@ -267,7 +267,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'qnd10app.wsgi.application'
 
 WAGTAILADMIN_BASE_URL =  os.environ.get('DOMAINS')
-
+WAGTAILIMAGES_MAX_UPLOAD_SIZE = 5 * 1024 * 1024 * 1024  # 5 GB en bytes
+WAGTAILIMAGES_MAX_IMAGE_PIXELS = 1000000000  # 1 millardo de píxeles (1 Gb)
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases

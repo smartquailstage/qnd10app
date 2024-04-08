@@ -29,6 +29,7 @@ from wagtail import blocks
 
 
 
+
     
 
 
@@ -545,7 +546,6 @@ class Productos(AbstractEmailForm):
         FieldPanel('Ad_agency', classname="full"),
         FieldPanel('Ad_camera', classname="full"),
         FieldPanel('Ad_link', classname="full"),
-       
         FieldPanel('consulta', classname="full"),
         InlinePanel('galleria_3', label="Imagen de Fondo Barner"),
         InlinePanel('form_fields', label="consultas"),
@@ -557,6 +557,7 @@ class Productos(AbstractEmailForm):
             ]),
             FieldPanel('subject'),
         ], "Email"),
+
     ]  
 
 

@@ -25,7 +25,7 @@
         <nav>
             <ul>
                 <li>
-                    <a href="{% slugurl 'index' %}" class="act-link">Home</a>
+                    <a href="{% slugurl 'home' %}" class="act-link">Home</a>
                     <!--second level -->
                 </li>
                 <li>
@@ -36,15 +36,20 @@
                         <li><a href="{{ item.href }}"> {{ item.text }}</a></li>
                         {% endfor %}
                     </ul>
+                    <!--second level end-->
                 </li>
+                {% wheretowatch_menu as menus %}
                 <li>
-                    <a href="{% url 'wagtailadmin_home' %}">Customers</a>
+                    
+                    {% for menu in menus %}
+                    <a href="{% slugurl 'wheretowatch' %}">{{menu.heading}}</a>
+                      {% flat_menu menu.handle template="webapp_0/wheretowatch.html" %}
+                    
+                   
                 </li>
+                {% endfor %}
                 <li>
-                    <a href="{% slugurl 'shootingnow' %}">Shooting now</a>
-                </li>
-                <li>
-                    <a href="{% slugurl 'about' %}">About me</a>
+                    <a href="{% url 'wagtailadmin_home' %}"> <i class="fal fa-users"></i></a>
                 </li>
                 
             </ul>

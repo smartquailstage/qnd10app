@@ -1,6 +1,7 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 {% load social_share %}
+{% load webapp_0_tags %}
 {% load static %}
 {% load menu_tags %}
 
@@ -9,7 +10,7 @@
 <header class="main-header">
     <!-- logo   -->
     
-    <a href="{% slugurl 'home' %}" class="logo-holder"><img src="{% static '/img/LOGO65.png'%}" style="width: 90px;" alt=""></a>  
+    <a href="{% slugurl 'home' %}" class="logo-holder"><img src="{% static '/img/LOGO65.png'%}" style="width: 170px;" alt=""></a>  
     
     <!-- logo end  -->		
     <!-- search -->				
@@ -40,9 +41,16 @@
                     </ul>
                     <!--second level end-->
                 </li>
+                {% wheretowatch_menu as menus %}
                 <li>
-                    <a href="{% slugurl 'mywork' %}"> <ion-icon name="barcode"></ion-icon> <i class="fal fa-ios-infinite"></i>Juan Silva</a>
+                    
+                    {% for menu in menus %}
+                    <a href="{% slugurl 'wheretowatch' %}">{{menu.heading}}</a>
+                      {% flat_menu menu.handle template="webapp_0/wheretowatch.html" %}
+                    
+                   
                 </li>
+                {% endfor %}
                 <li>
                     <a href="{% url 'wagtailadmin_home' %}"> <i class="fal fa-users"></i></a>
                 </li>

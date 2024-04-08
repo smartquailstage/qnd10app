@@ -1,5 +1,9 @@
 from django import template
 from django.template.loader import get_template
+from django.template.defaultfilters import stringfilter
+from wagtailmenus.models import FlatMenu
+register = template.Library()
+ 
 
 register = template.Library()
  
@@ -114,3 +118,7 @@ class footerNode(template.Node):
     def render(self, context):
         output = self.nodelist.render(context)
         return output
+    
+@register.simple_tag
+def wheretowatch_menu():
+    return FlatMenu.objects.filter(handle__endswith='wheretowatch')
