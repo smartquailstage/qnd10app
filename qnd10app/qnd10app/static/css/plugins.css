@@ -307,26 +307,32 @@ source {
 }
 
 .lg-sub-html {
-  background-color: rgba(0, 0, 0, 0.45);
-  bottom: 0;
+  background-color: rgba(47, 42, 42, 0.45);
+  bottom: 45px;
   color: #EEE;
-  font-size: 16px;
-  left: 0;
+  font-size: 18px;
+  left: 538px;
   padding: 10px 40px;
   position: fixed;
   right: 0;
   text-align: center;
   z-index: 1080;
+  width: 523px;
+}
 }
 .lg-sub-html h4 {
   margin: 0;
   font-size: 13px;
   font-weight: bold;
+  text-align: left;
 }
 .lg-sub-html p {
-  font-size: 12px;
+  font-size: 14px;
   margin: 5px 0 0;
+  text-align: center;
+  color: #d2d2d2;
 }
+
 
 #lg-counter {
   color: #fff;
@@ -856,6 +862,12 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
   width: auto !important;
   height: auto !important;
 }
+
+.caption {
+  display: table-caption;
+  text-align: left;
+}
+
 .lg-outer.lg-show-after-load .lg-item .lg-object, .lg-outer.lg-show-after-load .lg-item .lg-video-play {
   opacity: 0;
   -webkit-transition: opacity 0.15s ease 0s;
@@ -1005,4 +1017,56 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
 }
 .share-icon-stumbleupon:before {
     content: "stumbleupon";
+}
+
+@media only screen and (max-width: 1365px) {
+
+  .lg-sub-html {
+		background-color: rgba(0, 0, 0, 0.45);
+		bottom: 215px;
+		color: #EEE;
+		font-size: 16px;
+		left: 0;
+		padding: 10px 40px;
+		position: fixed;
+		right: 0;
+		text-align: center;
+		z-index: 1080;
+		}
+
+}
+
+@media only screen and (max-width: 768px) {
+
+  .lg-sub-html {
+		background-color: rgba(0, 0, 0, 0.45);
+		bottom: 215px;
+		color: #EEE;
+		font-size: 16px;
+		left: 0;
+		padding: 10px 40px;
+		position: fixed;
+		right: 0;
+		text-align: center;
+		z-index: 1080;
+		}
+
+}
+
+@media only screen and (max-width: 640px) {
+
+  .lg-sub-html {
+		background-color: rgba(77, 72, 72, 0.34);
+bottom: 89px;
+color: #EEE;
+font-size: 16px;
+left: 50px;
+padding: 10px 40px;
+position: fixed;
+right: 0;
+text-align: center;
+z-index: 1080;
+width: 323px;
+		}
+
 }

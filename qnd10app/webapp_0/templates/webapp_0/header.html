@@ -10,14 +10,14 @@
 <header class="main-header">
     <!-- logo   -->
     
-    <a href="{% slugurl 'home' %}" class="logo-holder"><img src="{% static '/img/LOGO65.png'%}" style="width: 170px;" alt=""></a>  
+    <a href="{% slugurl 'home' %}" class="logo-holder"><img src="{% static '/img/logocultura.png' %}" style="width: 170px;" alt=""></a>  
     
     <!-- logo end  -->		
     <!-- search -->				
     
     <!-- search end  -->
     <div class="sb-button"></div>
-    <div class="share-btn showshare"><i class="fal fa-megaphone"></i><span>Share</span></div>
+    <div class="share-btn showshare"><i class="fal fa-megaphone"></i><span>Compartir</span></div>
     <!-- mobile nav -->
     <div class="nav-button-wrap">
         <div class="nav-button"><span></span><span></span><span></span></div>
@@ -26,36 +26,7 @@
     <!--  navigation -->
     <div class="nav-holder main-menu">
         <nav>
-            <ul>
-                <li>
-                    <a href="{% slugurl 'home' %}" class="act-link">Home</a>
-                    <!--second level -->
-                </li>
-                <li>
-                    <a href="#">Portfolio </a>
-                    <!--second level -->
-                    <ul>
-                        {% for item in menu_items %}
-                        <li><a href="{{ item.href }}"> {{ item.text }}</a></li>
-                        {% endfor %}
-                    </ul>
-                    <!--second level end-->
-                </li>
-                {% wheretowatch_menu as menus %}
-                <li>
-                    
-                    {% for menu in menus %}
-                    <a href="{% slugurl 'wheretowatch' %}">{{menu.heading}}</a>
-                      {% flat_menu menu.handle template="webapp_0/wheretowatch.html" %}
-                    
-                   
-                </li>
-                {% endfor %}
-                <li>
-                    <a href="{% url 'wagtailadmin_home' %}"> <i class="fal fa-users"></i></a>
-                </li>
-                
-            </ul>
+         
         </nav>
     </div>
     <!-- navigation  end -->               
