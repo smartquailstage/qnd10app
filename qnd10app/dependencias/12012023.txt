@@ -19,6 +19,7 @@ django-storages
 django-social-share
 django-contrib-comments
 django-cors-headers
+django-countries
 
 #Django Web App dependencies
 django-social-auth

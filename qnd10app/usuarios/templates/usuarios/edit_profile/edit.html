@@ -184,6 +184,67 @@
                   {% endif %}
                 {% endif %}
               {% endfor %}
+
+             
+                {% for field in profile_form.visible_fields %}
+                  {% if field.name == 'nacionalidad' %}
+                    <label for="{{ field.id }}" class="form-label">Nacionalidad</label>
+                    {% if field.errors %}
+                      {% render_field field class="form-control datepicker is-valid" %}
+                      {% for error in field.errors %}
+                        <div class="invalid-feedback">
+                          {{ error }}
+                        </div>
+                      {% endfor %}
+                    {% else %}
+                      {% render_field field class="form-control datepicker is-valid" %}
+                    {% endif %}
+                    {% if field.help_text %}
+                      <small class="form-text text-muted">{{ field.help_text }}</small>
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+
+             
+                  {% for field in profile_form.visible_fields %}
+                    {% if field.name == 'autoidentificacion' %}
+                      <label for="{{ field.id }}" class="form-label">Nacionalidad</label>
+                      {% if field.errors %}
+                        {% render_field field class="form-control datepicker is-valid" %}
+                        {% for error in field.errors %}
+                          <div class="invalid-feedback">
+                            {{ error }}
+                          </div>
+                        {% endfor %}
+                      {% else %}
+                        {% render_field field class="form-control datepicker is-valid" %}
+                      {% endif %}
+                      {% if field.help_text %}
+                        <small class="form-text text-muted">{{ field.help_text }}</small>
+                      {% endif %}
+                    {% endif %}
+                  {% endfor %}
+
+                 
+                    {% for field in profile_form.visible_fields %}
+                      {% if field.name == 'genero' %}
+                        <label for="{{ field.id }}" class="form-label">Nacionalidad</label>
+                        {% if field.errors %}
+                          {% render_field field class="form-control datepicker is-valid" %}
+                          {% for error in field.errors %}
+                            <div class="invalid-feedback">
+                              {{ error }}
+                            </div>
+                          {% endfor %}
+                        {% else %}
+                          {% render_field field class="form-control datepicker is-valid" %}
+                        {% endif %}
+                        {% if field.help_text %}
+                          <small class="form-text text-muted">{{ field.help_text }}</small>
+                        {% endif %}
+                      {% endif %}
+                    {% endfor %}
+              
           
           
             

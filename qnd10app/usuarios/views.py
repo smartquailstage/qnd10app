@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import LoginForm, UserRegistrationForm, \
                    UserEditForm, ProfileEditForm
-from .models import Profile
+from .models import Profile, Contacts, Legal,Activity,DeclaracionVeracidad
 from django.shortcuts import get_object_or_404
 from django.conf import settings
 from django.template.loader import render_to_string
@@ -49,6 +49,10 @@ def register(request):
             new_user.save()
             # Create the user profile
             Profile.objects.create(user=new_user)
+            Contacts.objects.create(user=new_user)
+            Legal.objects.create(user=new_user)
+            Activity.objects.create(user=new_user)
+            DeclaracionVeracidad.objects.create(user=new_user)
             return render(request,
                           'usuarios/register_done.html',
                           {'new_user': new_user})
@@ -80,6 +84,8 @@ def edit(request):
                   'usuarios/edit_profile/edit.html',
                   {'user_form': user_form,
                    'profile_form': profile_form})
+
+
 
 
 
