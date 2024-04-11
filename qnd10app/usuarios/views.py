@@ -4,7 +4,11 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import LoginForm, UserRegistrationForm, \
-                   UserEditForm, ProfileEditForm
+                   UserEditForm, ProfileEditForm,Contact1EditForm, \
+                    Contact2EditForm,Contact3EditForm,Contact4EditForm, \
+                    LegalEditForm,Legal2EditForm, \
+                    ActivityEditForm, DeclaratoriaEditForm
+                    
 from .models import Profile, Contacts, Legal,Activity,DeclaracionVeracidad
 from django.shortcuts import get_object_or_404
 from django.conf import settings
@@ -85,8 +89,142 @@ def edit(request):
                   {'user_form': user_form,
                    'profile_form': profile_form})
 
+@login_required
+def edit_contact(request):
+    contact = Contacts.objects.all()
+    if request.method == 'POST':
+        contact1_form = Contact1EditForm(instance=request.user, data=request.POST)
+        if contact1_form.is_valid():
+            contact1_form.save()
+            messages.success(request, 'Profile updated successfully')
+        else:
+            messages.error(request, 'Error updating your profile')
+    else:
+        contact1_form = Contact1EditForm(instance=request.user)
+    return render(request, 'usuarios/edit_profile/edit_contact1.html', {'contact1_form': contact1_form, 'contact': contact})
 
 
+
+@login_required
+def edit_contact2(request):
+    if request.method == 'POST':
+        contact2_form = Contact2EditForm(instance=request.user,
+                                 data=request.POST)
+        if contact2_form.is_valid():
+            contact2_form.save()
+            messages.success(request, 'Profile updated successfully')
+        else:
+            messages.error(request, 'Error updating your profile')
+    else:
+        contact2_form = Contact2EditForm(instance=request.user)
+    return render(request,
+                  'usuarios/edit_profile/edit_contact2.html',
+                  {'contact2_form': contact2_form})
+
+@login_required
+def edit_contact3(request):
+    if request.method == 'POST':
+        contact3_form = Contact3EditForm(instance=request.user,
+                                 data=request.POST)
+        if contact3_form.is_valid():
+            contact3_form.save()
+            messages.success(request, 'Profile updated successfully')
+        else:
+            messages.error(request, 'Error updating your profile')
+    else:
+        contact3_form = Contact3EditForm(instance=request.user)
+    return render(request,
+                  'usuarios/edit_profile/edit_contact3.html',
+                  {'contact3_form': contact3_form})
+
+@login_required
+def edit_contact4(request):
+    if request.method == 'POST':
+        contact4_form = Contact4EditForm(instance=request.user,
+                                 data=request.POST)
+        if contact4_form.is_valid():
+            contact4_form.save()
+            messages.success(request, 'Profile updated successfully')
+        else:
+            messages.error(request, 'Error updating your profile')
+    else:
+        contact4_form = Contact4EditForm(instance=request.user)
+    return render(request,
+                  'usuarios/edit_profile/edit_contact4.html',
+                  {'contact4_form': contact4_form})
+
+@login_required
+def edit_legal(request):
+    if request.method == 'POST':
+        legal1_form =  LegalEditForm(instance=request.user,
+                                 data=request.POST)
+        if legal1_form.is_valid():
+            legal1_form.save()
+            messages.success(request, 'Profile updated successfully')
+        else:
+            messages.error(request, 'Error updating your profile')
+    else:
+        legal1_form = LegalEditForm(instance=request.user)
+    return render(request,
+                  'usuarios/edit_profile/edit_legal1.html',
+                  {'legal1_form': legal1_form})
+
+@login_required
+def edit_legal2(request):
+    if request.method == 'POST':
+        legal2_form =  Legal2EditForm(instance=request.user,
+                                 data=request.POST)
+        if legal2_form.is_valid():
+            legal2_form.save()
+            messages.success(request, 'Profile updated successfully')
+        else:
+            messages.error(request, 'Error updating your profile')
+    else:
+        legal2_form = LegalEditForm(instance=request.user)
+    return render(request,
+                  'usuarios/edit_profile/edit_legal2.html',
+                  {'legal2_form': legal2_form})
+
+@login_required
+def edit_activity(request):
+    if request.method == 'POST':
+        activity_form =  ActivityEditForm(instance=request.user,
+                                 data=request.POST)
+        if activity_form.is_valid():
+            activity_form.save()
+            messages.success(request, 'Profile updated successfully')
+        else:
+            messages.error(request, 'Error updating your profile')
+    else:
+        activity_form = ActivityEditForm(instance=request.user)
+    return render(request,
+                  'usuarios/edit_profile/edit_activity.html',
+                  {'activity_form':  activity_form })
+
+@login_required
+def edit_declaratoria(request):
+    if request.method == 'POST':
+        declaratoria_form =  DeclaratoriaEditForm(instance=request.user,
+                                 data=request.POST)
+        if declaratoria_form.is_valid():
+            declaratoria_form.save()
+            messages.success(request, 'Profile updated successfully')
+        else:
+            messages.error(request, 'Error updating your profile')
+    else:
+        declaratoria_form = DeclaratoriaEditForm(instance=request.user)
+    return render(request,
+                  'usuarios/edit_profile/edit_declaratoria.html',
+                  {'declaratoria_form':   declaratoria_form })
+
+
+
+@login_required
+def contact_profile(request):
+    contact = Contacts.objects.get(user=request.user)
+    return render(request,
+                  'usuarios/edit_profile/edit_contact1.html',
+                  {'contact': 'contact'})
 
 
 

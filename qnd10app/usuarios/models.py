@@ -9,7 +9,7 @@ class Profile(models.Model):
     date_of_birth = models.DateField(blank=True, null=True, verbose_name="Fecha de Nacimiento")
     photo = models.ImageField(upload_to='users/%Y/%m/%d/', blank=True, verbose_name="Foto de Perfil")
     nacionalidad = models.CharField(blank=True, null=True, max_length=100, verbose_name="Nacionalidad")
-    autoidentificacion = models.CharField(blank=True, null=True, max_length=3, choices=[("SI", "Sí"), ("NO", "No")], verbose_name="¿Usted pertenece a un pueblo o nacionalidad indígena, montubio o afro-ecuatoriano?")
+    autoidentificacion = models.CharField(blank=True, null=True, max_length=3, choices=[("SI", "Sí"), ("NO", "No")], verbose_name="¿Usted pertenece a un pueblo o nacionalidad indígena, montubio o afro-ecuatoriano?",help_text="¿Usted pertenece a un pueblo o nacionalidad indígena, montubio o afro-ecuatoriano?")
     genero = models.CharField(blank=True, null=True, max_length=10, choices=[("MASCULINO", "Masculino"), ("FEMENINO", "Femenino"), ("OTRO", "Otro")], verbose_name="Identidad de Género")
 
     def __str__(self):
@@ -20,13 +20,13 @@ from django.conf import settings
 
 class Contacts(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Nombre de Usuario")
-    date_of_birth = models.DateField(blank=True, null=True, verbose_name="Fecha de Nacimiento")
-    photo = models.ImageField(upload_to='users/%Y/%m/%d/', blank=True, verbose_name="Foto de Perfil")
+   # date_of_birth = models.DateField(blank=True, null=True, verbose_name="Fecha de Nacimiento")
+   # photo = models.ImageField(upload_to='users/%Y/%m/%d/', blank=True, verbose_name="Foto de Perfil")
     telefono = models.CharField(max_length=20, verbose_name="Teléfono")
     direccion = models.CharField(max_length=255, blank=True, null=True, verbose_name="Dirección")
     georeferenciacion = models.CharField(max_length=255, blank=True, null=True, verbose_name="Georreferenciación")
     perfil_redes_sociales = models.URLField(blank=True, null=True, verbose_name="Perfil de Redes Sociales")
-    pais_residencia = models.CharField(max_length=100, blank=True, null=True, verbose_name="País de Residencia", default="Ecuador")
+    pais_residencia = CountryField(verbose_name="País de Residencia", default="Ecuador")
     
     PROVINCIAS_CANTONES_CHOICES = (
         ('Azuay', (
@@ -352,7 +352,7 @@ class Contacts(models.Model):
     
 class Legal(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Nombre de Usuario")
-    date_of_birth = models.DateField(blank=True, null=True, verbose_name="Fecha de Nacimiento")
+   # date_of_birth = models.DateField(blank=True, null=True, verbose_name="Fecha de Nacimiento")
     lugar_residencia = CountryField(blank=True, null=True, verbose_name="Lugar de Residencia del Representante Legal")
     representante_legal_nombre = models.CharField(max_length=255, blank=True, null=True, verbose_name="Nombre del Representante Legal")
     representante_legal_apellido = models.CharField(max_length=255, blank=True, null=True, verbose_name="Apellido del Representante Legal")

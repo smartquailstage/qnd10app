@@ -86,9 +86,9 @@
           <div class="row g-3">
             <div class="col-12 col-lg-6">
 
-              {% for field in profile_form.visible_fields %}
-              {% if field.name == 'photo' %}
-                <label for="{{ field.id }}" class="form-label">Foto de Perfil</label>
+              {% for field in activity_form.visible_fields %}
+              {% if field.name == 'disciplina_artistica' %}
+                <label for="{{ field.id }}" class="form-label">Diciplina Artistica a la que se dedica</label>
                 {% if field.errors %}
                   {% render_field field class="form-control is-invalid" %}
                   {% for error in field.errors %}
@@ -105,90 +105,74 @@
               {% endif %}
             {% endfor %}
             
-              {% for field in user_form.visible_fields %}
-                {% if field.name == 'first_name' %}
-                  <label for="{{ field.id }}" class="form-label">{{ field.label_tag }}</label>
-                  {% if field.errors %}
-                    {% render_field field class="form-control is-invalid" %}
-                    {% for error in field.errors %}
-                      <div class="invalid-feedback">
-                        {{ error }}
-                      </div>
-                    {% endfor %}
-                  {% else %}
-                    {% render_field field class="form-control is-valid" %}
-                  {% endif %}
-                  {% if field.help_text %}
-                    <small class="form-text text-muted">{{ field.help_text }}</small>
-                  {% endif %}
-                {% endif %}
-              {% endfor %}
+            {% for field in activity_form.visible_fields %}
+            {% if field.name == 'experiencia_ambito_cultural' %}
+              <label for="{{ field.id }}" class="form-label">Describa aquí su experiencia en el ambito cultural.</label>
+              {% if field.errors %}
+                {% render_field field class="form-control is-invalid" %}
+                {% for error in field.errors %}
+                  <div class="invalid-feedback">
+                    {{ error }}
+                  </div>
+                {% endfor %}
+              {% else %}
+                {% render_field field class="form-control is-valid"  %}
+              {% endif %}
+              {% if field.help_text %}
+                <small class="form-text text-muted">{{ field.help_text }}</small>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+
+          {% for field in activity_form.visible_fields %}
+            {% if field.name == 'portafolio' %}
+              <label for="{{ field.id }}" class="form-label">Pegue aqui la dirección URL de sus trabajos realizados</label>
+              {% if field.errors %}
+                {% render_field field class="form-control is-invalid" %}
+                {% for error in field.errors %}
+                  <div class="invalid-feedback">
+                    {{ error }}
+                  </div>
+                {% endfor %}
+              {% else %}
+                {% render_field field class="form-control is-valid"  %}
+              {% endif %}
+              {% if field.help_text %}
+                <small class="form-text text-muted">{{ field.help_text }}</small>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+
+          {% for field in activity_form.visible_fields %}
+            {% if field.name == 'registro_ruac' %}
+              <label for="{{ field.id }}" class="form-label">¿Tiene registro único de artistas ?</label>
+              {% if field.errors %}
+                {% render_field field class="form-control is-invalid" %}
+                {% for error in field.errors %}
+                  <div class="invalid-feedback">
+                    {{ error }}
+                  </div>
+                {% endfor %}
+              {% else %}
+                {% render_field field class="form-control is-valid"  %}
+              {% endif %}
+              {% if field.help_text %}
+                <small class="form-text text-muted">{{ field.help_text }}</small>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
 
               
-          
-              {% for field in user_form.visible_fields %}
-                {% if field.name == 'last_name' %}
-                  <label for="{{ field.id }}" class="form-label">Apellidos</label>
-                  {% if field.errors %}
-                    {% render_field field class="form-control is-invalid" %}
-                    {% for error in field.errors %}
-                      <div class="invalid-feedback">
-                        {{ error }}
-                      </div>
-                    {% endfor %}
-                  {% else %}
-                    {% render_field field class="form-control is-valid" %}
-                  {% endif %}
-                  {% if field.help_text %}
-                    <small class="form-text text-muted">{{ field.help_text }}</small>
-                  {% endif %}
-                {% endif %}
-              {% endfor %}
-          
-              {% for field in user_form.visible_fields %}
-                {% if field.name == 'email' %}
-                  <label for="{{ field.id }}" class="form-label">Correo Electrónico</label>
-                  {% if field.errors %}
-                    {% render_field field class="form-control is-invalid" %}
-                    {% for error in field.errors %}
-                      <div class="invalid-feedback">
-                        {{ error }}
-                      </div>
-                    {% endfor %}
-                  {% else %}
-                    {% render_field field class="form-control is-valid" %}
-                  {% endif %}
-                  {% if field.help_text %}
-                    <small class="form-text text-muted">{{ field.help_text }}</small>
-                  {% endif %}
-                {% endif %}
-              {% endfor %}
+        
             </div>
 
             <div class="col-12 col-lg-6">
-              {% for field in profile_form.visible_fields %}
-                {% if field.name == 'date_of_birth' %}
-                  <label for="{{ field.id }}" class="form-label">Fecha de Nacimiento</label>
-                  {% if field.errors %}
-                    {% render_field field class="form-control datepicker is-valid" %}
-                    {% for error in field.errors %}
-                      <div class="invalid-feedback">
-                        {{ error }}
-                      </div>
-                    {% endfor %}
-                  {% else %}
-                    {% render_field field class="form-control datepicker is-valid" %}
-                  {% endif %}
-                  {% if field.help_text %}
-                    <small class="form-text text-muted">{{ field.help_text }}</small>
-                  {% endif %}
-                {% endif %}
-              {% endfor %}
+        
 
              
                 {% for field in profile_form.visible_fields %}
-                  {% if field.name == 'nacionalidad' %}
-                    <label for="{{ field.id }}" class="form-label">Nacionalidad</label>
+                  {% if field.name == 'pertenece_agremiacion_colectivo' %}
+                    <label for="{{ field.id }}" class="form-label">¿ Pertenece a una agremiacion o colectivo ?</label>
                     {% if field.errors %}
                       {% render_field field class="form-control datepicker is-valid" %}
                       {% for error in field.errors %}
@@ -207,8 +191,8 @@
 
              
                   {% for field in profile_form.visible_fields %}
-                    {% if field.name == 'autoidentificacion' %}
-                      <label for="{{ field.id }}" class="form-label">Autoidentificacion</label>
+                    {% if field.name == 'nombre_agremiacion' %}
+                      <label for="{{ field.id }}" class="form-label">Escriba el nombre de la agremiación que pertenece.</label>
                       {% if field.errors %}
                         {% render_field field class="form-control datepicker is-valid" %}
                         {% for error in field.errors %}
@@ -226,24 +210,7 @@
                   {% endfor %}
 
                  <div></div>
-                    {% for field in profile_form.visible_fields %}
-                      {% if field.name == 'genero' %}
-                        <label for="{{ field.id }}" class="form-label">Genero</label>
-                        {% if field.errors %}
-                          {% render_field field class="form-control datepicker is-valid" %}
-                          {% for error in field.errors %}
-                            <div class="invalid-feedback">
-                              {{ error }}
-                            </div>
-                          {% endfor %}
-                        {% else %}
-                          {% render_field field class="form-control datepicker is-valid" %}
-                        {% endif %}
-                        {% if field.help_text %}
-                          <small class="form-text text-muted">{{ field.help_text }}</small>
-                        {% endif %}
-                      {% endif %}
-                    {% endfor %}
+                  
               
           
           
@@ -254,7 +221,7 @@
             <div class="col-12">
               <div class="d-flex align-items-center gap-3">
                 <button class="btn btn-secondary px-4"  type="submit" value="Save changes"><i class='bx bx-save me-2'></i>Guardar</button>
-                <a href ="{% url 'usuarios:edit_contact1' %}" class="btn btn-primary px-4" ><i class='bx bx-right-arrow-alt me-2'></i>Siguiente</a>
+                <button href ="{% url 'usuarios:edit_declaratoria' %}" class="btn btn-primary px-4" onclick="stepper1.previous()"><i class='bx bx-right-arrow-alt me-2'></i>Siguiente</button>
                
               </div>
             </div>

@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Profile
+from .models import Profile,Contacts,Legal,Activity,DeclaracionVeracidad
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
@@ -39,4 +39,49 @@ class ProfileEditForm(forms.ModelForm):
         widgets = {
             'date_of_birth': forms.DateInput(attrs={'type': 'datepicker'}),
         }
+
+class Contact1EditForm(forms.ModelForm):
+    class Meta:
+        model = Contacts
+        fields = ('pais_residencia',)
+
+class Contact2EditForm(forms.ModelForm):
+    class Meta:
+        model = Contacts
+        fields = ('provincia_cantones_ecuador',)
+
+
+class Contact3EditForm(forms.ModelForm):
+    class Meta:
+        model = Contacts
+        fields = ('parroquia_quito',)
+
+
+class Contact4EditForm(forms.ModelForm):
+    class Meta:
+        model = Contacts
+        fields = ('telefono','direccion', 'georeferenciacion', 'perfil_redes_sociales')
+
+
+class LegalEditForm(forms.ModelForm):
+    class Meta:
+        model = Legal
+        fields = ('ruc', 'tipo_personeria')
+
+class Legal2EditForm(forms.ModelForm):
+    class Meta:
+        model = Legal
+        fields = ('categoria_personeria','fines_lucro','actividad_principal', 'representante_legal_nombre', 'representante_legal_apellido', 'representante_legal_cedula', 'telefono_contacto','direccion_domicilio','georeferencia', 'pagina_web')
+
+
+class ActivityEditForm(forms.ModelForm):
+    class Meta:
+        model = Activity
+        fields = ('disciplina_artistica','experiencia_ambito_cultural','portafolio', 'registro_ruac', 'pertenece_agremiacion_colectivo', 'nombre_agremiacion')
+
+class DeclaratoriaEditForm(forms.ModelForm):
+    class Meta:
+        model = DeclaracionVeracidad
+        fields = ('acepta_terminos_condiciones',)
+
 
