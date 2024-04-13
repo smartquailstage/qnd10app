@@ -1,5 +1,6 @@
 from django.urls import reverse_lazy
 from django.views.generic.list import ListView
+from django.contrib.auth.decorators import login_required
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, \
                                       DeleteView
@@ -11,10 +12,11 @@ from django.forms.models import modelform_factory
 from django.apps import apps
 from braces.views import CsrfExemptMixin, JsonRequestResponseMixin
 from django.db.models import Count
-from .models import Subject, Course, Module, Content
+from .models import Subject, Course, Module, Content,ManualCreateConvocatoria,ManualEditConvocatoria,ManualMisConvocatoria,ManualInscripcion,ManualMisPostulaciones,ManualCrearProyecto,ManualEditProyecto,ManualMisProyectos 
 from .forms import ModuleFormSet
 #from students.forms import CourseEnrollForm
 from django.core.cache import cache
+from django.shortcuts import render, redirect
 
 
 class OwnerMixin(object):
@@ -230,3 +232,60 @@ class CourseListView(TemplateResponseMixin, View):
 #        context['enroll_form'] = CourseEnrollForm(
 #                                   initial={'course':self.object})
 #        return context
+
+
+@login_required
+def manual_crear_convocatoria(request):
+    manuales = ManualCreateConvocatoria.objects.all()
+    return render(request,
+                  'editorial_literaria/manuales/crear_convocatoria.html',
+                  {'manuales': 'manuales'})
+
+@login_required
+def manual_editar_convocatoria(request):
+    manuales = ManualEditConvocatoria.objects.all()
+    return render(request,
+                 'editorial_literaria/manuales/crear_convocatoria.html',
+                  {'manuales': 'manuales'})
+
+@login_required
+def manual_mis_convocatoria(request):
+    manuales = ManualMisConvocatoria.objects.all()
+    return render(request,
+                  'editorial_literaria/manuales/crear_convocatoria.html',
+                  {'manuales': 'manuales'})
+
+@login_required
+def manual_inscripcion(request):
+    manuales = ManualInscripcion.objects.all()
+    return render(request,
+                   'editorial_literaria/manuales/crear_convocatoria.html',
+                  {'manuales': 'manuales'})
+
+@login_required
+def manual_mis_postulaciones(request):
+    manuales = ManualMisPostulaciones.objects.all()
+    return render(request,
+                   'editorial_literaria/manuales/crear_convocatoria.html',
+                  {'manuales': 'manuales'})
+
+@login_required
+def manual_crear_proyecto(request):
+    manuales = ManualCrearProyecto.objects.all()
+    return render(request,
+                   'editorial_literaria/manuales/crear_convocatoria.html',
+                  {'manuales': 'manuales'})
+
+@login_required
+def manual_editar_proyecto(request):
+    manuales = ManualEditProyecto.objects.all()
+    return render(request,
+                   'editorial_literaria/manuales/crear_convocatoria.html',
+                  {'manuales': 'manuales'})
+
+@login_required
+def manual_mis_proyectos (request):
+    manuales = ManualMisProyectos.objects.all()
+    return render(request,
+                   'editorial_literaria/manuales/crear_convocatoria.html',
+                  {'manuales': 'manuales'})

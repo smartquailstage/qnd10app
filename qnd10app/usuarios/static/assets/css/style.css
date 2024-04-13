@@ -246,9 +246,9 @@ ion-icon {
 .sidebar-wrapper .metismenu a:active,
 .sidebar-wrapper .metismenu a:focus,
 .sidebar-wrapper .metismenu a:hover {
-	color: #923eb9;
-    text-decoration: none;
-    background-color: rgb(146 62 185 / 10%);
+  color: #31408c;
+  text-decoration: none;
+  background-color: rgb(192, 219, 237);
 }
 
 .menu-label {

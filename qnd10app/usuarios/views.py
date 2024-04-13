@@ -10,6 +10,7 @@ from .forms import LoginForm, UserRegistrationForm, \
                     ActivityEditForm, DeclaratoriaEditForm
                     
 from .models import Profile, Contacts, Legal,Activity,DeclaracionVeracidad, Dashboard
+from editorial_literaria.models import ManualCreateConvocatoria
 from django.shortcuts import get_object_or_404
 from django.conf import settings
 from django.template.loader import render_to_string
@@ -267,3 +268,10 @@ def admin_profile_pdf(request, profile_id):
     response['Content-Disposition'] = 'filename=order_{}.pdf"'.format(profile.id)
     weasyprint.HTML(string=html,  base_url=request.build_absolute_uri() ).write_pdf(response,stylesheets=[weasyprint.CSS('static/assets/css/profiles.css')], presentational_hints=True)
     return response
+
+@login_required
+def Manuales(request):
+    manuales = Manual.objects.all()
+    return render(request,
+                  'usuarios/edit_profile/sidebar.html',
+                  {'section': 'sidebar','manuales': 'manuales'})

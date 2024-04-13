@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Subject, Course, Module
+from .models import Subject, Course, Module, ManualCreateConvocatoria
 
 
 @admin.register(Subject)
@@ -19,3 +19,7 @@ class CourseAdmin(admin.ModelAdmin):
     search_fields = ['title', 'overview']
     prepopulated_fields = {'slug': ('title',)}
     inlines = [ModuleInline]
+
+@admin.register(ManualCreateConvocatoria)
+class ManualCreateConvocatoriaAdmin(admin.ModelAdmin):
+    list_display = ['type', 'titulo']

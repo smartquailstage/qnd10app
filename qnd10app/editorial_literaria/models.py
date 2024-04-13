@@ -5,6 +5,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from .fields import OrderField
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
+from ckeditor.fields import RichTextField
 
 
 class Subject(models.Model):
@@ -104,3 +105,131 @@ class Image(ItemBase):
 
 class Video(ItemBase):
     url = models.URLField()
+
+
+#Manuales de uso
+TYPE = [
+        ('Crear Convocatoria', 'Crear Convocatoria'),
+        ('Editar Convocatoria', 'Editar Convocatoria'),
+        ('Mis Convocatorias', 'Mis Convocatorias'),
+        ('inscripción', 'inscripción'),
+        ('Mis Postulaciones', 'Mis Postulaciones'),
+        ('Crear Proyecto', 'Crear Proyecto'),
+        ('Editar Proyecto', 'Editar Proyecto'),
+        ('Mis Proyectos', 'Mis Proyectos'),
+    ]
+class ManualCreateConvocatoria(models.Model):
+     type = models.CharField(max_length=100, choices=TYPE, verbose_name="Selecione el tipo de manual")
+     titulo = models.CharField(max_length=100)
+     informacion_basica = RichTextField()
+     bloque_1 = RichTextField(blank=True, null=True)
+     bloque_2 = RichTextField(blank=True, null=True)
+     bloque_3 = RichTextField(blank=True, null=True)
+     bloque_4 = RichTextField(blank=True, null=True)
+     bloque_5 = RichTextField(blank=True, null=True)
+     link = models.URLField()
+
+     def __str__(self):
+        return self.type
+
+
+class ManualEditConvocatoria(models.Model):
+     type = models.CharField(max_length=100, choices=TYPE, verbose_name="Selecione el tipo de manual")
+     titulo = models.CharField(max_length=100)
+     informacion_basica = RichTextField()
+     bloque_1 = RichTextField(blank=True, null=True)
+     bloque_2 = RichTextField(blank=True, null=True)
+     bloque_3 = RichTextField(blank=True, null=True)
+     bloque_4 = RichTextField(blank=True, null=True)
+     bloque_5 = RichTextField(blank=True, null=True)
+     link = models.URLField()
+
+     def __str__(self):
+        return self.type
+
+class ManualMisConvocatoria(models.Model):
+     type = models.CharField(max_length=100, choices=TYPE, verbose_name="Selecione el tipo de manual")
+     titulo = models.CharField(max_length=100)
+     informacion_basica = RichTextField()
+     bloque_1 = RichTextField(blank=True, null=True)
+     bloque_2 = RichTextField(blank=True, null=True)
+     bloque_3 = RichTextField(blank=True, null=True)
+     bloque_4 = RichTextField(blank=True, null=True)
+     bloque_5 = RichTextField(blank=True, null=True)
+     link = models.URLField()
+
+     def __str__(self):
+        return self.type
+
+class ManualInscripcion(models.Model):
+     type = models.CharField(max_length=100, choices=TYPE, verbose_name="Selecione el tipo de manual")
+     titulo = models.CharField(max_length=100)
+     informacion_basica = RichTextField()
+     bloque_1 = RichTextField(blank=True, null=True)
+     bloque_2 = RichTextField(blank=True, null=True)
+     bloque_3 = RichTextField(blank=True, null=True)
+     bloque_4 = RichTextField(blank=True, null=True)
+     bloque_5 = RichTextField(blank=True, null=True)
+     link = models.URLField()
+
+     def __str__(self):
+        return self.type
+
+class ManualMisPostulaciones(models.Model):
+     type = models.CharField(max_length=100, choices=TYPE, verbose_name="Selecione el tipo de manual")
+     titulo = models.CharField(max_length=100)
+     informacion_basica = RichTextField()
+     bloque_1 = RichTextField(blank=True, null=True)
+     bloque_2 = RichTextField(blank=True, null=True)
+     bloque_3 = RichTextField(blank=True, null=True)
+     bloque_4 = RichTextField(blank=True, null=True)
+     bloque_5 = RichTextField(blank=True, null=True)
+     link = models.URLField()
+
+     def __str__(self):
+        return self.type
+
+class ManualCrearProyecto(models.Model):
+     type = models.CharField(max_length=100, choices=TYPE, verbose_name="Selecione el tipo de manual")
+     titulo = models.CharField(max_length=100)
+     informacion_basica = RichTextField()
+     bloque_1 = RichTextField(blank=True, null=True)
+     bloque_2 = RichTextField(blank=True, null=True)
+     bloque_3 = RichTextField(blank=True, null=True)
+     bloque_4 = RichTextField(blank=True, null=True)
+     bloque_5 = RichTextField(blank=True, null=True)
+     link = models.URLField()
+
+     def __str__(self):
+        return self.type
+
+class ManualEditProyecto(models.Model):
+     type = models.CharField(max_length=100, choices=TYPE, verbose_name="Selecione el tipo de manual")
+     titulo = models.CharField(max_length=100)
+     informacion_basica = RichTextField()
+     bloque_1 = RichTextField(blank=True, null=True)
+     bloque_2 = RichTextField(blank=True, null=True)
+     bloque_3 = RichTextField(blank=True, null=True)
+     bloque_4 = RichTextField(blank=True, null=True)
+     bloque_5 = RichTextField(blank=True, null=True)
+     link = models.URLField()
+
+     def __str__(self):
+        return self.type
+
+class ManualMisProyectos(models.Model):
+     type = models.CharField(max_length=100, choices=TYPE, verbose_name="Selecione el tipo de manual")
+     titulo = models.CharField(max_length=100)
+     informacion_basica = RichTextField()
+     bloque_1 = RichTextField(blank=True, null=True)
+     bloque_2 = RichTextField(blank=True, null=True)
+     bloque_3 = RichTextField(blank=True, null=True)
+     bloque_4 = RichTextField(blank=True, null=True)
+     bloque_5 = RichTextField(blank=True, null=True)
+     link = models.URLField()
+
+     def __str__(self):
+        return self.type
+
+
+     
