@@ -3,7 +3,7 @@ from django.conf import settings
 from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
 from localflavor.ec.forms import ECProvinceSelect
-
+from ckeditor.fields import RichTextField
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Nombre de Usuario")
     date_of_birth = models.DateField(blank=True, null=True, verbose_name="Fecha de Nacimiento")
@@ -414,3 +414,17 @@ class DeclaracionVeracidad(models.Model):
 
     def __str__(self):
         return f"Declaración de veracidad de usuario: {self.user.username}"
+    
+
+class Dashboard(models.Model):
+    titulo = models.CharField(max_length=100)
+    informacion_basica = RichTextField()
+    bloque_1 = RichTextField(blank=True, null=True)
+    bloque_2 = RichTextField(blank=True, null=True)
+    bloque_3 = RichTextField(blank=True, null=True)
+    bloque_4 = RichTextField(blank=True, null=True)
+    bloque_5 = RichTextField(blank=True, null=True)
+    link_soporte_tecnico = models.URLField()
+
+    def __str__(self):
+        return self.titulo

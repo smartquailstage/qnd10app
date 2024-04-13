@@ -5,7 +5,7 @@ import datetime
 import datetime
 from django.contrib import admin
 from django.http import HttpResponse
-from .models import Profile
+from .models import Profile,Dashboard
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 
@@ -74,4 +74,11 @@ class ProfileAdmin(admin.ModelAdmin):
     actions = [ export_to_csv, export_to_excel]
     verbose_name = "Información de perfil de usuario"
     verbose_name_plural = "Información de perfil de usuario"
+
+@admin.register(Dashboard)
+class DashboardAdmin(admin.ModelAdmin):
+    list_display = ['titulo']
+    actions = [ export_to_csv, export_to_excel]
+    verbose_name = "Información de bienvenida al usuario"
+    verbose_name_plural =  "Información de bienvenida al usuario"
     

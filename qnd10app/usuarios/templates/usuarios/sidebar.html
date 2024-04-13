@@ -1,10 +1,22 @@
+
+{% load wagtailimages_tags wagtailcore_tags %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load widget_tweaks %}
+{% load static %}
+{% load menu_tags %}
+
 <aside class="sidebar-wrapper" data-simplebar="true">
     <div class="sidebar-header">
       <div>
-        <img src="assets/images/logo-icon-2.png" class="logo-icon" alt="logo icon">
+        <img src="{% static 'assets/images/escudo.png' %}" class="logo-icon" alt="logo icon">
       </div>
       <div>
-        <h4 class="logo-text">QuitoCultura</h4>
+        <h4 class="logo-text">
+          <div>
+            <img src="{% static 'assets/images/secretaria.png' %}" width="100px"  alt="logo icon">
+          </div>
+        </h4>
       </div>
     </div>
     <!--navigation-->
@@ -66,15 +78,24 @@
       </li>
       <li class="menu-label">Convocatorias</li>
       <li>
+        <a class="nav-link dark-mode-icon" href="{% url 'usuarios:edit' %}">
+          <div class="mode-icon">
+            <ion-icon name="card-outline"></ion-icon>
+          </div>
+          <div class="menu-title">Inscripción</div>
+        </a>
+      </li>
+
+      <li>
         <a class="has-arrow" href="javascript:;">
           <div class="parent-icon">
-            <ion-icon name="newspaper-outline"></ion-icon>
+            <ion-icon name="megaphone-outline"></ion-icon>
           </div>
-          <div class="menu-title">Ver Convocatorias</div>
+          <div class="menu-title">Convocatorias disponibles</div>
         </a>
         <ul>
           <li> <a href="form-elements.html">
-              <ion-icon name="ellipse-outline"></ion-icon>Form Elements
+              <ion-icon name="ellipse-outline"></ion-icon>Editorial y literaria
             </a>
           </li>
     
@@ -83,25 +104,68 @@
       <li>
         <a class="has-arrow" href="javascript:;">
           <div class="parent-icon">
-            <ion-icon name="server-outline"></ion-icon>
+            <ion-icon name="share-outline"></ion-icon>
           </div>
-          <div class="menu-title">Tables</div>
+          <div class="menu-title">Mis Postulaciones</div>
         </a>
         <ul>
           <li> <a href="table-basic-table.html">
-              <ion-icon name="ellipse-outline"></ion-icon>Basic Table
-            </a>
-          </li>
-          <li> <a href="table-advance-tables.html">
-              <ion-icon name="ellipse-outline"></ion-icon>Advance Tables
-            </a>
-          </li>
-          <li> <a href="table-datatable.html">
-              <ion-icon name="ellipse-outline"></ion-icon>Data Table
+            <ion-icon name="ellipse-outline"></ion-icon>Editorial y literaria
             </a>
           </li>
         </ul>
       </li>
+
+      <li class="menu-label">Protectos de usuarios </li>
+
+
+      <li>
+        <a class="has-arrow" href="javascript:;">
+          <div class="parent-icon">
+            <ion-icon name="add-circle-outline"></ion-icon>
+           
+          </div>
+          <div class="menu-title">Crear Proyecto</div>
+        </a>
+        <ul>
+          <li> <a href="form-elements.html">
+              <ion-icon name="ellipse-outline"></ion-icon>Editorial y literaria
+            </a>
+          </li>
+    
+        </ul>
+      </li>
+      <li>
+        <a class="has-arrow" href="javascript:;">
+          <div class="parent-icon">
+            <ion-icon name="create-outline"></ion-icon>
+          </div>
+          <div class="menu-title">Editar Proyecto </div>
+        </a>
+        <ul>
+          <li> <a href="table-basic-table.html">
+            <ion-icon name="ellipse-outline"></ion-icon>Editorial y literaria
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a class="has-arrow" href="javascript:;">
+          <div class="parent-icon">
+            <ion-icon name="list-outline"></ion-icon>
+          </div>
+          <div class="menu-title">Mis Proyectos </div>
+        </a>
+        <ul>
+          <li> <a href="table-basic-table.html">
+            <ion-icon name="ellipse-outline"></ion-icon>Editorial y literaria
+            </a>
+          </li>
+        </ul>
+      </li>
+
+
+
       <li class="menu-label">Configuraciones</li>
     
 

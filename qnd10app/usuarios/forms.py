@@ -1,8 +1,9 @@
 from django import forms
 from django.contrib.auth.models import User
 from .models import Profile,Contacts,Legal,Activity,DeclaracionVeracidad
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+
 
 class LoginForm(forms.Form):
     username = forms.CharField(label="Nombre de Usuario")

@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -9,7 +9,7 @@ from .forms import LoginForm, UserRegistrationForm, \
                     LegalEditForm,Legal2EditForm, \
                     ActivityEditForm, DeclaratoriaEditForm
                     
-from .models import Profile, Contacts, Legal,Activity,DeclaracionVeracidad
+from .models import Profile, Contacts, Legal,Activity,DeclaracionVeracidad, Dashboard
 from django.shortcuts import get_object_or_404
 from django.conf import settings
 from django.template.loader import render_to_string
@@ -91,19 +91,20 @@ def edit(request):
 
 @login_required
 def edit_contact(request):
-    contact = Contacts.objects.all()
-    if request.method == 'POST':
-        contact1_form = Contact1EditForm(instance=request.user, data=request.POST)
+    if request.method == 'POST' :
+        contact1_form = Contact1EditForm(request.POST)
         if contact1_form.is_valid():
-            contact1_form.save()
-            messages.success(request, 'Profile updated successfully')
+            pais_de_residencia = contact1_form.cleaned_data['pais_residencia']
+            if pais_de_residencia == 'Ecuador':
+                return redirect('usuarios:edit_contact2')
+            else:
+                return redirect('usuarios:edit_contact4')
         else:
-            messages.error(request, 'Error updating your profile')
+            messages.error(request, 'Error al procesar el formulario. Por favor, verifica los datos e intenta de nuevo.')
     else:
-        contact1_form = Contact1EditForm(instance=request.user)
-    return render(request, 'usuarios/edit_profile/edit_contact1.html', {'contact1_form': contact1_form, 'contact': contact})
-
-
+        contact1_form = Contact1EditForm()
+    
+    return render(request, 'usuarios/edit_profile/edit_contact1.html', {'contact1_form': contact1_form})
 
 @login_required
 def edit_contact2(request):
@@ -232,9 +233,10 @@ def contact_profile(request):
 @login_required
 def dashboard(request):
     perfil = Profile.objects.get(user=request.user)
+    dashboards = Dashboard.objects.all()
     return render(request,
                   'usuarios/dashboard.html',
-                  {'section': 'dashboard', 'profile':'profile'})
+                  {'section': 'dashboard', 'perfil': perfil, 'dashboards': dashboards})
 
 @login_required
 def nav_bar(request):
