@@ -198,6 +198,27 @@ class ManualInscripcion(models.Model):
      def __str__(self):
         return self.type
 
+
+
+class ManualPostulacion(models.Model):
+     type = models.CharField(max_length=100, choices=TYPE, verbose_name="Selecione el tipo de manual")
+     titulo = models.CharField(max_length=100)
+     informacion_basica = RichTextField()
+     bloque_1 = RichTextField(blank=True, null=True)
+     image_1 = models.ImageField(upload_to='manuales/%Y/%m/%d/', blank=True, null=True, verbose_name="Seleccione una imagen")
+     bloque_2 = RichTextField(blank=True, null=True)
+     image_2 = models.ImageField(upload_to='manuales/%Y/%m/%d/', blank=True, null=True, verbose_name="Seleccione una imagen")
+     bloque_3 = RichTextField(blank=True, null=True)
+     image_3 = models.ImageField(upload_to='manuales/%Y/%m/%d/', blank=True, null=True, verbose_name="Seleccione una imagen")
+     bloque_4 = RichTextField(blank=True, null=True)
+     image_4 = models.ImageField(upload_to='manuales/%Y/%m/%d/', blank=True, null=True, verbose_name="Seleccione una imagen")
+     bloque_5 = RichTextField(blank=True, null=True)
+     image_5 = models.ImageField(upload_to='manuales/%Y/%m/%d/', blank=True, null=True, verbose_name="Seleccione una imagen")
+     link = models.URLField()
+
+
+     def __str__(self):
+        return self.type
 class ManualMisPostulaciones(models.Model):
      type = models.CharField(max_length=100, choices=TYPE, verbose_name="Selecione el tipo de manual")
      titulo = models.CharField(max_length=100)

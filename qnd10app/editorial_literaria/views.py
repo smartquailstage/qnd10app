@@ -12,7 +12,7 @@ from django.forms.models import modelform_factory
 from django.apps import apps
 from braces.views import CsrfExemptMixin, JsonRequestResponseMixin
 from django.db.models import Count
-from .models import Subject, Course, Module, Content,ManualCreateConvocatoria,ManualEditConvocatoria,ManualMisConvocatoria,ManualInscripcion,ManualMisPostulaciones,ManualCrearProyecto,ManualEditProyecto,ManualMisProyectos 
+from .models import Subject, Course, Module, Content,ManualCreateConvocatoria,ManualEditConvocatoria,ManualMisConvocatoria,ManualInscripcion,ManualMisPostulaciones,ManualCrearProyecto,ManualEditProyecto,ManualMisProyectos,ManualPostulacion 
 from .forms import ModuleFormSet
 #from students.forms import CourseEnrollForm
 from django.core.cache import cache
@@ -245,8 +245,8 @@ def manual_crear_convocatoria(request):
 def manual_editar_convocatoria(request):
     manuales = ManualEditConvocatoria.objects.all()
     return render(request,
-                 'editorial_literaria/manuales/crear_convocatoria.html',
-                  {'manuales': 'manuales'})
+                  'editorial_literaria/manuales/edit_convocatoria.html',
+                  {'manuales': manuales})
 
 @login_required
 def manual_mis_convocatoria(request):
@@ -259,8 +259,15 @@ def manual_mis_convocatoria(request):
 def manual_inscripcion(request):
     manuales = ManualInscripcion.objects.all()
     return render(request,
-                   'editorial_literaria/manuales/crear_convocatoria.html',
-                  {'manuales': 'manuales'})
+                  'editorial_literaria/manuales/inscripcion.html',
+                  {'manuales': manuales})
+
+@login_required
+def manual_postulacion(request):
+    manuales = ManualPostulacion.objects.all()
+    return render(request,
+                  'editorial_literaria/manuales/postulacion.html',
+                  {'manuales': manuales})
 
 @login_required
 def manual_mis_postulaciones(request):
