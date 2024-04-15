@@ -34,8 +34,9 @@
         <div class="col-12 col-lg-12 mx-auto">
          
           <div class="text-center">
-         
-            <h5 class="mb-0 text-uppercase">Preguntas Frecuentes para: {{ manuales.type|richtext }}</h5>
+            {% for manual in manuales %}
+            <h5 class="mb-0 text-uppercase">Preguntas Frecuentes para: {{ manual.type|richtext }}</h5>
+            {% endfor %}
           
             <hr/>
           </div>
@@ -45,23 +46,36 @@
             <div class="card-body">
               
               <div class="accordion" id="accordionExample">
-                
+                {% for manual in manuales %}
                 <div class="accordion-item">
                   
                   <h2 class="accordion-header" id="headingOne">
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            Just once I'd like to eat dinner with a celebrity?
+            {{ manual.titulo | richtext }}
             </button>
           </h2>
                   <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                      <p>Yes, if you make it look like an electrical fire. When you do things right, people won't be sure you've done anything at all. I was having the most wonderful dream. Except you were there, and you were there, and you were there! No argument here. Goodbye, cruel world. Goodbye, cruel lamp. Goodbye, cruel velvet drapes, lined with what would appear to be some sort of cruel muslin and the cute little pom-pom curtain pull cords. Cruel though they may be.</p>
-                      <p><strong>Example: </strong>Shut up and get to the point!</p>
+                      <p>{{ manual.bloque_1 | richtext }}</p> 
+                      <img src ="{{ manual.image_1.url }}" class="img-fluid rounded">
+
+                      <p>{{ manual.bloque_2 | richtext }}</p> 
+                      <img src ="{{ manual.image_2.url }}" class="img-fluid rounded">
+
+                      <p>{{ manual.bloque_3 | richtext }}</p> 
+                      <img src ="{{ manual.image_3.url }}" class="img-fluid rounded">
+
+                      <p>{{ manual.bloque_4 | richtext }}</p> 
+                      <img src ="{{ manual.image_4.url }}" class="img-fluid rounded">
+
+                      <p>{{ manual.bloque_5 | richtext }}</p> 
+                      <img src ="{{ manual.image_5.url }}" class="img-fluid rounded">
+                     
                     </div>
                   </div>
                  
                 </div>
-                
+                {% endfor %}
               </div>
               
             </div>

@@ -239,7 +239,7 @@ def manual_crear_convocatoria(request):
     manuales = ManualCreateConvocatoria.objects.all()
     return render(request,
                   'editorial_literaria/manuales/crear_convocatoria.html',
-                  {'manuales': 'manuales'})
+                  {'manuales': manuales})
 
 @login_required
 def manual_editar_convocatoria(request):
