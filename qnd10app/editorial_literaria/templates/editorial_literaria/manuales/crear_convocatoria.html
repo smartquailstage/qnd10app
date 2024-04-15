@@ -48,40 +48,51 @@
               <div class="accordion" id="accordionExample">
                 {% for manual in manuales %}
                 <div class="accordion-item">
-                  
-                  <h2 class="accordion-header" id="headingOne">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            {{ manual.titulo | richtext }}
-            </button>
-          </h2>
-                  <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                      <p>{{ manual.bloque_1 | richtext }}</p> 
-                      <img src ="{{ manual.image_1.url }}" class="img-fluid rounded">
-
-                      <p>{{ manual.bloque_2 | richtext }}</p> 
-                      <img src ="{{ manual.image_2.url }}" class="img-fluid rounded">
-
-                      <p>{{ manual.bloque_3 | richtext }}</p> 
-                      <img src ="{{ manual.image_3.url }}" class="img-fluid rounded">
-
-                      <p>{{ manual.bloque_4 | richtext }}</p> 
-                      <img src ="{{ manual.image_4.url }}" class="img-fluid rounded">
-
-                      <p>{{ manual.bloque_5 | richtext }}</p> 
-                      <img src ="{{ manual.image_5.url }}" class="img-fluid rounded">
-                     
+                    <h2 class="accordion-header" id="heading{{ forloop.counter }}">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="true" aria-controls="collapse{{ forloop.counter }}">
+                            {{ manual.titulo | richtext }}
+                        </button>
+                    </h2>
+                    <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse show" aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <p>{{ manual.bloque_1 | richtext }}</p> 
+                            {% if manual.image_1 %}
+                                <img src ="{{ manual.image_1.url }}" class="img-fluid rounded">
+                            {% endif %}
+            
+                            <p>{{ manual.bloque_2 | richtext }}</p> 
+                            {% if manual.image_2 %}
+                                <img src ="{{ manual.image_2.url }}" class="img-fluid rounded">
+                            {% endif %}
+            
+                            <p>{{ manual.bloque_3 | richtext }}</p> 
+                            {% if manual.image_3 %}
+                                <img src ="{{ manual.image_3.url }}" class="img-fluid rounded">
+                            {% endif %}
+            
+                            <p>{{ manual.bloque_4 | richtext }}</p> 
+                            {% if manual.image_4 %}
+                                <img src ="{{ manual.image_4.url }}" class="img-fluid rounded">
+                            {% endif %}
+            
+                            <p>{{ manual.bloque_5 | richtext }}</p> 
+                            {% if manual.image_5 %}
+                                <img src ="{{ manual.image_5.url }}" class="img-fluid rounded">
+                            {% endif %}
+                        </div>
                     </div>
-                  </div>
-                 
                 </div>
-                {% endfor %}
+               
+            {% endfor %}
+            <a href ="{% url 'editorial_literaria:course_create' %}" type="button" class="btn btn-outline-secondary px-5"> <ion-icon name="add-circle-outline"></ion-icon> Crear Convocatoria</a>
               </div>
               
             </div>
           
+            
+                   
           </div>
-         
+          
         </div>
       </div>
   

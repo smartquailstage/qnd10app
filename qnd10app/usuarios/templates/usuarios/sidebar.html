@@ -34,7 +34,7 @@
       <li>
 
 
-            <a href="{% url 'editorial_literaria:inicio_crear_convocatoria' %}" class="has-arrow">
+            <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon">
                     <ion-icon name="add-circle-outline"></ion-icon>
                 </div>
@@ -42,7 +42,7 @@
             </a>
 
         <ul>
-          <li> <a href="widgets-static-widgets.html">
+          <li> <a href="{% url 'editorial_literaria:inicio_crear_convocatoria' %}">
               <ion-icon name="ellipse-outline"></ion-icon>Editorial & Literaria
             </a>
           </li>
@@ -58,7 +58,7 @@
           <div class="menu-title">Editar convocatorias</div>
         </a>
         <ul>
-          <li> <a href="component-alerts.html">
+          <li> <a href="{% url 'editorial_literaria:inicio_editar_convocatoria' %}">
               <ion-icon name="ellipse-outline"></ion-icon>Editorial & Literaria
             </a>
           </li>
@@ -72,7 +72,7 @@
           <div class="menu-title">Mis Convocatorias</div>
         </a>
         <ul>
-          <li> <a href="icons-line-icons.html">
+          <li> <a href="{% url 'editorial_literaria:inicio_mis_convocatoria' %}">
               <ion-icon name="ellipse-outline"></ion-icon>Editorial & Literaria
             </a>
           </li>
@@ -81,7 +81,7 @@
       </li>
       <li class="menu-label">Convocatorias</li>
       <li>
-        <a class="nav-link dark-mode-icon" href="{% url 'usuarios:edit' %}">
+        <a class="nav-link dark-mode-icon" href="{% url 'editorial_literaria:inicio_inscripcion' %}">
           <div class="mode-icon">
             <ion-icon name="card-outline"></ion-icon>
           </div>
@@ -97,7 +97,7 @@
           <div class="menu-title">Convocatorias disponibles</div>
         </a>
         <ul>
-          <li> <a href="form-elements.html">
+          <li> <a href="{% url 'editorial_literaria:manage_course_list' %}">
               <ion-icon name="ellipse-outline"></ion-icon>Editorial y literaria
             </a>
           </li>
@@ -112,7 +112,7 @@
           <div class="menu-title">Mis Postulaciones</div>
         </a>
         <ul>
-          <li> <a href="table-basic-table.html">
+          <li> <a  href="{% url 'editorial_literaria:inicio_mis_postulaciones' %}">
             <ion-icon name="ellipse-outline"></ion-icon>Editorial y literaria
             </a>
           </li>
@@ -131,7 +131,7 @@
           <div class="menu-title">Crear Proyecto</div>
         </a>
         <ul>
-          <li> <a href="form-elements.html">
+          <li> <a href="{% url 'editorial_literaria:inicio_crear_proyecto' %}">
               <ion-icon name="ellipse-outline"></ion-icon>Editorial y literaria
             </a>
           </li>
@@ -146,7 +146,7 @@
           <div class="menu-title">Editar Proyecto </div>
         </a>
         <ul>
-          <li> <a href="table-basic-table.html">
+          <li> <a href="{% url 'editorial_literaria:inicio_editar_proyecto' %}">
             <ion-icon name="ellipse-outline"></ion-icon>Editorial y literaria
             </a>
           </li>
@@ -160,7 +160,7 @@
           <div class="menu-title">Mis Proyectos </div>
         </a>
         <ul>
-          <li> <a href="table-basic-table.html">
+          <li> <a href="{% url 'editorial_literaria:inicio_mis_proyectos' %}">
             <ion-icon name="ellipse-outline"></ion-icon>Editorial y literaria
             </a>
           </li>
