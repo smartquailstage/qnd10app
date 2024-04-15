@@ -14,6 +14,7 @@ class Subject(models.Model):
 
     class Meta:
         ordering = ['title']
+        verbose_name_plural = "Modulos de Convocatoria" 
 
     def __str__(self):
         return self.title
@@ -37,6 +38,7 @@ class Course(models.Model):
 
     class Meta:
         ordering = ['-created']
+        verbose_name_plural = "Convocatorias" 
 
     def __str__(self):
         return self.title

@@ -39,7 +39,7 @@ class OwnerCourseMixin(OwnerMixin, LoginRequiredMixin):
 
 class OwnerCourseEditMixin(OwnerCourseMixin, OwnerEditMixin):
     fields = ['portada','subject', 'title', 'slug', 'overview']
-    success_url = reverse_lazy('manage_course_list')
+    success_url = reverse_lazy('editorial_literaria:manage_course_list')
     template_name = 'courses/manage/course/form.html'
 
 
@@ -63,7 +63,7 @@ class CourseDeleteView(PermissionRequiredMixin,
                        OwnerCourseMixin,
                        DeleteView):
     template_name = 'courses/manage/course/delete.html'
-    success_url = reverse_lazy('manage_course_list')
+    success_url = reverse_lazy('editorial_literaria:manage_course_list')
     permission_required = 'courses.delete_course'
 
 
@@ -143,7 +143,7 @@ class ContentCreateUpdateView(TemplateResponseMixin, View):
                 # new content
                 Content.objects.create(module=self.module,
                                        item=obj)
-            return redirect('module_content_list', self.module.id)
+            return redirect('editorial_literaria:module_content_list', self.module.id)
 
         return self.render_to_response({'form': form,
                                         'object': self.obj})
@@ -280,15 +280,15 @@ def manual_mis_postulaciones(request):
 def manual_crear_proyecto(request):
     manuales = ManualCrearProyecto.objects.all()
     return render(request,
-                   'editorial_literaria/manuales/crear_convocatoria.html',
-                  {'manuales': 'manuales'})
+                  'editorial_literaria/manuales/crear_proyecto.html',
+                  {'manuales': manuales})
 
 @login_required
 def manual_editar_proyecto(request):
     manuales = ManualEditProyecto.objects.all()
     return render(request,
-                   'editorial_literaria/manuales/crear_convocatoria.html',
-                  {'manuales': 'manuales'})
+                  'editorial_literaria/manuales/edit_proyecto.html',
+                  {'manuales': manuales})
 
 @login_required
 def manual_mis_proyectos (request):
