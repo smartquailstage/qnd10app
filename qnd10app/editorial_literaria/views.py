@@ -89,7 +89,7 @@ class CourseModuleUpdateView(TemplateResponseMixin, View):
         formset = self.get_formset(data=request.POST)
         if formset.is_valid():
             formset.save()
-            return redirect('manage_course_list')
+            return redirect('editorial_literaria:manage_course_list')
         return self.render_to_response({'course': self.course,
                                         'formset': formset})
 
