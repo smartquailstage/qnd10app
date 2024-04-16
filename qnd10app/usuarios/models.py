@@ -11,6 +11,9 @@ class Profile(models.Model):
     nacionalidad = models.CharField(blank=True, null=True, max_length=100, verbose_name="Nacionalidad")
     autoidentificacion = models.CharField(blank=True, null=True, max_length=3, choices=[("SI", "Sí"), ("NO", "No")], verbose_name="¿Usted pertenece a un pueblo o nacionalidad indígena, montubio o afro-ecuatoriano?",help_text="¿Usted pertenece a un pueblo o nacionalidad indígena, montubio o afro-ecuatoriano?")
     genero = models.CharField(blank=True, null=True, max_length=10, choices=[("MASCULINO", "Masculino"), ("FEMENINO", "Femenino"), ("OTRO", "Otro")], verbose_name="Identidad de Género")
+    class Meta:
+        ordering = ['user']
+        verbose_name_plural = "Perfiles de Usuarios"
 
     def __str__(self):
         return 'Perfil de Usuario {}'.format(self.user.username)
@@ -345,6 +348,9 @@ class Contacts(models.Model):
     )
     
     parroquia_quito = models.CharField(max_length=255, blank=True, null=True, verbose_name="Parroquia de Quito", choices=PARROQUIAS_QUITO)
+    class Meta:
+        ordering = ['user']
+        verbose_name_plural = "Contacto de Usuarios"
 
     def __str__(self):
         return 'Perfil de contacto de  Usuario {}'.format(self.user.username)

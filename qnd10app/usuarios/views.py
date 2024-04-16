@@ -76,6 +76,7 @@ def edit(request):
         profile_form = ProfileEditForm(instance=request.user.profile,
                                        data=request.POST,
                                        files=request.FILES)
+        
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
@@ -94,7 +95,14 @@ def edit(request):
 def edit_contact(request):
     if request.method == 'POST' :
         contact1_form = Contact1EditForm(request.POST)
-        if contact1_form.is_valid():
+        contact2_form = Contact2EditForm(instance=request.user,
+                                 data=request.POST)
+        contact3_form = Contact3EditForm(instance=request.user,
+                                 data=request.POST)
+        contact4_form = Contact4EditForm(instance=request.user,
+                                 data=request.POST)
+        
+        if contact1_form.is_valid() and contact2_form.is_valid() and contact3_form.is_valid() and contact4_form.is_valid() :
             pais_de_residencia = contact1_form.cleaned_data['pais_residencia']
             if pais_de_residencia == 'Ecuador':
                 return redirect('usuarios:edit_contact2')
@@ -105,7 +113,7 @@ def edit_contact(request):
     else:
         contact1_form = Contact1EditForm()
     
-    return render(request, 'usuarios/edit_profile/edit_contact1.html', {'contact1_form': contact1_form})
+    return render(request, 'usuarios/edit_profile/edit_contact1.html', {'contact1_form': contact1_form,'contact2_form': contact2_form,'contact3_form': contact3_form,'contact4_form': contact4_form})
 
 @login_required
 def edit_contact2(request):
