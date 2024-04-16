@@ -272,6 +272,10 @@ def admin_profile_pdf(request, profile_id):
 @login_required
 def Manuales(request):
     manuales = Manual.objects.all()
+    user_groups = request.user.groups.all()
+    is_tecnicos_group = any(group.name == 'tecnicos' for group in user_groups)
     return render(request,
                   'usuarios/edit_profile/sidebar.html',
-                  {'section': 'sidebar','manuales': 'manuales'})
+                  {'section': 'sidebar','manuales': 'manuales','is_tecnicos_group': is_tecnicos_group})
+
+
