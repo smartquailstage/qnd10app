@@ -421,6 +421,11 @@ class DeclaracionVeracidad(models.Model):
     def __str__(self):
         return f"Declaración de veracidad de usuario: {self.user.username}"
     
+class confirmacion(models.Model):
+    mensaje_de_despedida = RichTextField(default=False, verbose_name="Términos y Condiciones de Uso")
+
+
+    
 
 class Dashboard(models.Model):
     titulo = models.CharField(max_length=100)

@@ -9,7 +9,7 @@ from .forms import LoginForm, UserRegistrationForm, \
                     LegalEditForm,Legal2EditForm, \
                     ActivityEditForm, DeclaratoriaEditForm
                     
-from .models import Profile, Contacts, Legal,Activity,DeclaracionVeracidad, Dashboard
+from .models import Profile, Contacts, Legal,Activity,DeclaracionVeracidad, Dashboard, confirmacion
 from editorial_literaria.models import ManualCreateConvocatoria
 from django.shortcuts import get_object_or_404
 from django.conf import settings
@@ -200,6 +200,7 @@ def edit_activity(request):
         if activity_form.is_valid():
             activity_form.save()
             messages.success(request, 'Profile updated successfully')
+            return redirect('usuarios:edit_declaratoria')
         else:
             messages.error(request, 'Error updating your profile')
     else:
@@ -210,21 +211,27 @@ def edit_activity(request):
 
 @login_required
 def edit_declaratoria(request):
+    info = get_object_or_404(Profile, user=request.user)
     if request.method == 'POST':
         declaratoria_form =  DeclaratoriaEditForm(instance=request.user,
                                  data=request.POST)
         if declaratoria_form.is_valid():
             declaratoria_form.save()
             messages.success(request, 'Profile updated successfully')
+            return redirect('usuarios:confirmacion')
         else:
             messages.error(request, 'Error updating your profile')
     else:
         declaratoria_form = DeclaratoriaEditForm(instance=request.user)
     return render(request,
                   'usuarios/edit_profile/edit_declaratoria.html',
-                  {'declaratoria_form':   declaratoria_form })
+                  {'declaratoria_form':   declaratoria_form, 'info': info  })
 
 
+@login_required
+def confirmacion(request):
+    info = get_object_or_404(Profile, user=request.user)
+    return render(request, 'usuarios/edit_profile/confirmacion.html', {'info': info})
 
 @login_required
 def contact_profile(request):

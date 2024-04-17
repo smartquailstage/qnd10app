@@ -81,23 +81,39 @@
       <div class="card-body">
       
       <div class="bs-stepper-content">
+
+        <div class="card radius-10">
+          <div class="card-body">
+              <h4>DECLARATORIA DE VERACIDAD DE LA INFORMACIÓN</h4>
+              <p>
+                Yo, <strong>{{ info.user.get_full_name }}</strong>, reconozco y declaro que toda la información proporcionada por mí a la plataforma de gestión cultural, incluyendo pero no limitado a mi perfil de usuario y cualquier formulario de solicitud para convocatorias de fomento cultural de la Secretaría de Cultura del Municipio del Distrito Metropolitano de Quito, es verídica, completa y precisa en todos los aspectos.
+
+<p>Entiendo y acepto que cualquier falsedad, omisión o inexactitud en la información proporcionada puede resultar en la anulación inmediata de mi participación en cualquier actividad dentro de la plataforma, incluyendo la postulación a convocatorias para líneas de fomento de la Secretaría de Cultura.</p>
+
+<p>Asimismo, al aceptar esta declaración, reconozco que automáticamente estoy habilitado para participar en todas las actividades difundidas en esta plataforma de fomento de la Secretaría de Cultura del Municipio del Distrito Metropolitano de Quito.</p>
+              </p>
+          </div>
+        </div>
+
         <form action="." method="post" enctype="multipart/form-data">
+
+
 
           <div class="row g-3">
             <div class="col-12 col-lg-6">
 
               {% for field in declaratoria_form.visible_fields %}
               {% if field.name == 'acepta_terminos_condiciones' %}
-                <label for="{{ field.id }}" class="form-label">Acepto las condiciones de uso y declaratoria de vercidad.</label>
+                <label for="{{ field.id }}" class="form-label">Marque aquí si acepta esta declaratoria de vercidad de la información.</label>
                 {% if field.errors %}
-                  {% render_field field class="form-control is-invalid" %}
+                  {% render_field field class="form-check-input  is-invalid" %}
                   {% for error in field.errors %}
                     <div class="invalid-feedback">
                       {{ error }}
                     </div>
                   {% endfor %}
                 {% else %}
-                  {% render_field field class="form-control is-valid"  %}
+                  {% render_field field class="form-check-input is-valid"  %}
                 {% endif %}
                 {% if field.help_text %}
                   <small class="form-text text-muted">{{ field.help_text }}</small>
@@ -108,8 +124,9 @@
             {% csrf_token %}
             <div class="col-12">
               <div class="d-flex align-items-center gap-3">
-                <button class="btn btn-secondary px-4"  type="submit" value="Save changes"><i class='bx bx-save me-2'></i>Guardar</button>
-                <button href ="{% url 'usuarios:confirmacion' %}" class="btn btn-primary px-4" onclick="stepper1.previous()"><i class='bx bx-right-arrow-alt me-2'></i>Siguiente</button>
+                <a href ="{% url 'usuarios:edit_activity' %}" class="btn btn-secondary px-4" ><i class='bx bx-left-arrow-alt me-2'></i>Atras</a>
+                <button class="btn btn-primary px-4"  type="submit" value="Save changes"><i class='bx bx-save me-2'></i>Guardar</button>
+               
                
               </div>
             </div>
