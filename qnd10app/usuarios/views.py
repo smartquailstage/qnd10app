@@ -94,6 +94,7 @@ def edit(request):
 
 @login_required
 def edit_contact(request):
+    profile = get_object_or_404(Profile, user=request.user)
     if request.method == 'POST':
         contact1_form = Contact1EditForm(request.POST, instance=request.user.contacts)
         if contact1_form.is_valid():
@@ -105,7 +106,7 @@ def edit_contact(request):
             messages.error(request, 'Error updating your profile')
     else:
         contact1_form = Contact1EditForm(instance=request.user.contacts)
-    return render(request, 'usuarios/edit_profile/edit_contact1.html', {'contact1_form': contact1_form})
+    return render(request, 'usuarios/edit_profile/edit_contact1.html', {'contact1_form': contact1_form, 'profile': profile})
 
 
 @login_required
@@ -158,6 +159,7 @@ def edit_contact4(request):
 
 @login_required
 def edit_legal(request):
+    profile = get_object_or_404(Profile, user=request.user)
     legal = get_object_or_404(Legal, user=request.user)
     
     if request.method == 'POST':
@@ -171,11 +173,12 @@ def edit_legal(request):
     else:
         legal1_form = LegalEditForm(instance=legal)
     
-    return render(request, 'usuarios/edit_profile/edit_legal1.html', {'legal1_form': legal1_form, 'legal': legal})
+    return render(request, 'usuarios/edit_profile/edit_legal1.html', {'legal1_form': legal1_form, 'legal': legal, 'profile': profile })
 
 
 @login_required
 def edit_legal2(request):
+    profile = get_object_or_404(Profile, user=request.user)
     legal = Legal.objects.get(user=request.user)
     if request.method == 'POST':
         legal2_form =  Legal2EditForm(instance=request.user.legal,
@@ -190,10 +193,11 @@ def edit_legal2(request):
         legal2_form = LegalEditForm(instance=request.user.legal)
     return render(request,
                   'usuarios/edit_profile/edit_legal2.html',
-                  {'legal2_form': legal2_form, 'legal':legal })
+                  {'legal2_form': legal2_form, 'legal':legal, 'profile': profile  })
 
 @login_required
 def edit_activity(request):
+    profile = get_object_or_404(Profile, user=request.user)
     if request.method == 'POST':
         activity_form =  ActivityEditForm(instance=request.user,
                                  data=request.POST)
@@ -207,11 +211,11 @@ def edit_activity(request):
         activity_form = ActivityEditForm(instance=request.user)
     return render(request,
                   'usuarios/edit_profile/edit_activity.html',
-                  {'activity_form':  activity_form })
+                  {'activity_form':  activity_form , 'profile': profile })
 
 @login_required
 def edit_declaratoria(request):
-    info = get_object_or_404(Profile, user=request.user)
+    profile = get_object_or_404(Profile, user=request.user)
     if request.method == 'POST':
         declaratoria_form =  DeclaratoriaEditForm(instance=request.user,
                                  data=request.POST)
@@ -225,13 +229,13 @@ def edit_declaratoria(request):
         declaratoria_form = DeclaratoriaEditForm(instance=request.user)
     return render(request,
                   'usuarios/edit_profile/edit_declaratoria.html',
-                  {'declaratoria_form':   declaratoria_form, 'info': info  })
+                  {'declaratoria_form':   declaratoria_form, 'profile': profile  })
 
 
 @login_required
 def confirmacion(request):
-    info = get_object_or_404(Profile, user=request.user)
-    return render(request, 'usuarios/edit_profile/confirmacion.html', {'info': info})
+    profile = get_object_or_404(Profile, user=request.user)
+    return render(request, 'usuarios/edit_profile/confirmacion.html', {'profile': profile})
 
 @login_required
 def contact_profile(request):
@@ -245,11 +249,11 @@ def contact_profile(request):
 
 @login_required
 def dashboard(request):
-    perfil = Profile.objects.get(user=request.user)
+    profile = Profile.objects.get(user=request.user)
     dashboards = Dashboard.objects.all()
     return render(request,
                   'usuarios/dashboard.html',
-                  {'section': 'dashboard', 'perfil': perfil, 'dashboards': dashboards})
+                  {'section': 'dashboard', 'profile': profile, 'dashboards': dashboards})
 
 @login_required
 def nav_bar(request):
@@ -262,7 +266,11 @@ def nav_bar(request):
 def profile_view(request):
     # Obtener el perfil del usuario actualmente autenticado
     profile = Profile.objects.get(user=request.user)
-    return render(request, 'usuarios/profile.html', {'profile': profile})
+    contact = Contacts.objects.get(user=request.user)
+    legal = Legal.objects.get(user=request.user)
+    activity = Activity.objects.get(user=request.user)
+    declaratoria = DeclaracionVeracidad.objects.get(user=request.user)
+    return render(request, 'usuarios/profile.html', {'profile': profile,'contact': contact,'legal': legal,'activity': activity,'declaratoria': declaratoria})
 
 @login_required
 def config_view(request):

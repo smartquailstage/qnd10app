@@ -31,23 +31,18 @@
               <div class="mt-5 d-flex align-items-start justify-content-between">
                 <div class="">
                   <h3 class="mb-2">{{ user.get_full_name }}</h3>
-                  <p class="mb-1">Engineer at BB Agency Industry</p>
-                  <p>New York, United States</p>
-                  <div class="">
-                    <span class="badge rounded-pill bg-primary">UX Research</span>
-                    <span class="badge rounded-pill bg-primary">CX Strategy</span>
-                    <span class="badge rounded-pill bg-primary">Project Management</span>
-                  </div>
+                  <p class="mb-1">Fecha de nacimiento : {{ profile.date_of_birth }}</p>
+                  <p  class="mb-1"> Nacionalidad: {{ profile.nacionalidad }} </p>
+                  <p class="mb-1"> Genero: {{ profile.genero }} </p>
+                  <p  class="mb-1"> ¿Me autoidentifico perteneciente a pertenece a un pueblo o nacionalidad indígena, montubio o afro-ecuatoriano ? {{ profile.autoidentificacion }} </p>
                 </div>
-                <div class="">
-                   <a href="javascript:;" class="btn btn-primary"><ion-icon name="send-sharp"></ion-icon>Send Message</a>
-                </div>
+
               </div>
             </div>
           </div>
           <div class="card">
             <div class="card-body">
-              <h4 class="mb-2">About Me</h4>
+              <h4 class="mb-2">DECLARATORIA</h4>
               <p class="">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters.</p>
               <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.</p>
               <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters</p>
@@ -57,16 +52,40 @@
         <div class="col-12 col-lg-4 col-xl-3">
           <div class="card radius-10">
             <div class="card-body">
-              <h5 class="mb-3">Location</h5>
-               <p class="mb-0"><ion-icon name="compass-sharp" class="me-2"></ion-icon>Kalkio Network</p>
+              <h5 class="mb-3">  <ion-icon name="compass-sharp" class="me-2"></ion-icon> Información de Domicilio</h5>
+              <p class="mb-0">
+                <ion-icon name="compass-sharp" class="me-2"></ion-icon>
+                País de residencia: {{ contact.pais_residencia }}
+              </p>
+              <p class="mb-0">
+                <ion-icon name="compass-sharp" class="me-2"></ion-icon>
+                Ciudad en ecuador: {{ contact.provincia_cantones_ecuador  }}
+              </p>
+              <p class="mb-0">
+                <ion-icon name="compass-sharp" class="me-2"></ion-icon>
+                Parroquia en Quito: {{ contact.parroquia_quito }}
+              </p>
+               <p class="mb-0">
+                <ion-icon name="compass-sharp" class="me-2"></ion-icon>
+                Dirección: {{ contact.direccion }}, {{ contact.georeferenciacion }}
+              </p>
             </div>
           </div>
     
           <div class="card radius-10">
             <div class="card-body">
-              <h5 class="mb-3">Connect</h5>
-               <p class=""><ion-icon name="globe-sharp" class="me-2"></ion-icon>www.example.com</p>
-               <p class=""><ion-icon name="logo-facebook" class="me-2"></ion-icon>Facebook</p>
+              <h5 class="mb-3">Información de Contacto </h5>
+               <p class=""><ion-icon name="globe-sharp" class="me-2"></ion-icon> telefono: {{ contact.telefono }} </p>
+               <p class=""><ion-icon name="logo-facebook" class="me-2"></ion-icon>Correo electrónico: {{ profile.user.email }} </p>
+               <p class=""><ion-icon name="logo-twitter" class="me-2"></ion-icon>Perfil de redes sociales: <a href="{{ contact.perfil_redes_sociales.url }}"> {{ contact.perfil_redes_sociales }}</a> </p>
+            </div>
+          </div>
+
+          <div class="card radius-10">
+            <div class="card-body">
+              <h5 class="mb-3">Información de Personería</h5>
+               <p class=""><ion-icon name="globe-sharp" class="me-2"></ion-icon>Registro único de contribuyente: {{ legal.ruc }}</p>
+               <p class=""><ion-icon name="logo-facebook" class="me-2"></ion-icon>Personería Jurídica: {{ legal.ruc }} </p>
                <p class=""><ion-icon name="logo-twitter" class="me-2"></ion-icon>Twitter</p>
                <p class="mb-0"><ion-icon name="logo-linkedin" class="me-2"></ion-icon>LinkedIn</p>
             </div>
