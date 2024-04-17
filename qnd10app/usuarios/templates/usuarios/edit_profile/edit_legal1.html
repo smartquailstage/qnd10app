@@ -131,15 +131,93 @@
             
             </div>
 
+       {% if legal.tipo_personeria == 'Jurídico' %}
+
+
+            <div class="col-12 col-lg-6">
+             
+
+              {% for field in legal1_form.visible_fields %}
+                {% if field.name == 'telefono_contacto' %}
+                  <label for="{{ field.id }}" class="form-label">Teléfono de contacto</label>
+                  {% render_field field class="form-control" %}
+                  {% if field.help_text %}
+                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+
+              {% for field in legal1_form.visible_fields %}
+                {% if field.name == 'direccion_domicilio' %}
+                  <label for="{{ field.id }}" class="form-label">Escriba su dirección:</label>
+                  {% render_field field class="form-control" %}
+                  {% if field.help_text %}
+                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+
+              {% for field in legal1_form.visible_fields %}
+                {% if field.name == 'georeferencia' %}
+                  <label for="{{ field.id }}" class="form-label">Geo referencia</label>
+                  {% render_field field class="form-control" %}
+                  {% if field.help_text %}
+                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+
+              {% for field in legal1_form.visible_fields %}
+                {% if field.name == 'pagina_web' %}
+                  <label for="{{ field.id }}" class="form-label">Pegue aquí la dirección web de la compañia.</label>
+                  {% render_field field class="form-control" %}
+                  {% if field.help_text %}
+                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+
+              {% for field in legal1_form.visible_fields %}
+                {% if field.name == 'categoria_personeria' %}
+                  <label for="{{ field.id }}" class="form-label">Constitución:</label>
+                  {% render_field field class="form-control" %}
+                  {% if field.help_text %}
+                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+
+              {% for field in legal1_form.visible_fields %}
+                {% if field.name == 'fines_lucro' %}
+                  <label for="{{ field.id }}" class="form-label">¿Su organización tiene fines de lucro?</label>
+                  {% render_field field class="form-control" %}
+                  {% if field.help_text %}
+                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+
+              {% for field in legal1_form.visible_fields %}
+                {% if field.name == 'actividad_principal' %}
+                  <label for="{{ field.id }}" class="form-label">Escriba la actividad principal de la organización.</label>
+                  {% render_field field class="form-control" %}
+                  {% if field.help_text %}
+                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+            </div>
+        {% else %}
+        {% endif %}
+
             {% csrf_token %}
             <div class="col-12">
               <div class="d-flex align-items-center gap-3">
-                <button class="btn btn-secondary px-4"  type="submit" value="Save changes"><i class='bx bx-save me-2'></i>Guardar</button>
-                {% if legal.tipo_personeria == 'Jurídico' %}
-                <a href ="{% url 'usuarios:edit_legal2' %}" class="btn btn-primary px-4"><i class='bx bx-right-arrow-alt me-2'></i>Siguiente</a>
-                {% else %}
-                <a href ="{% url 'usuarios:edit_activity' %}" class="btn btn-primary px-4" ><i class='bx bx-right-arrow-alt me-2'></i>Siguiente</a>
-                {% endif %}
+
+                <a href ="{% url 'usuarios:edit_contact1' %}" class="btn btn-secondary px-4"><i class='bx bx-left-arrow-alt me-2'></i>Atras</a>
+                <button class="btn btn-primary px-4"  type="submit" value="Save changes"><i class='bx bx-save me-2'></i>Guardar</button>
+               
+
                
               </div>
             </div>

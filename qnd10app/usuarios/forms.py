@@ -44,7 +44,7 @@ class ProfileEditForm(forms.ModelForm):
 class Contact1EditForm(forms.ModelForm):
     class Meta:
         model = Contacts
-        fields = ('pais_residencia',)
+        fields = ('pais_residencia','provincia_cantones_ecuador','parroquia_quito','telefono','direccion', 'georeferenciacion', 'perfil_redes_sociales')
 
 class Contact2EditForm(forms.ModelForm):
     class Meta:
@@ -67,7 +67,7 @@ class Contact4EditForm(forms.ModelForm):
 class LegalEditForm(forms.ModelForm):
     class Meta:
         model = Legal
-        fields = ('ruc', 'tipo_personeria')
+        fields = ('ruc', 'tipo_personeria','categoria_personeria','fines_lucro','actividad_principal', 'representante_legal_nombre', 'representante_legal_apellido', 'representante_legal_cedula', 'telefono_contacto','direccion_domicilio','georeferencia', 'pagina_web')
 
 class Legal2EditForm(forms.ModelForm):
     class Meta:

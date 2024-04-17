@@ -329,14 +329,14 @@ class Contacts(models.Model):
         ),
     )
     
-    provincia_cantones_ecuador = models.CharField(max_length=255, blank=True, null=True, verbose_name="Provincia y Cantones", choices=PROVINCIAS_CANTONES_CHOICES)
+    provincia_cantones_ecuador = models.CharField(max_length=255, blank=True, null=True, verbose_name="Provincia y Cantones", choices=PROVINCIAS_CANTONES_CHOICES, help_text="Si su pais de residencia es Ecuador, Elija una provincia. Caso contrario dejelo en blanco")
 
     PARROQUIAS_QUITO = (
         ('Conocoto', 'Conocoto'),
         ('Cumbayá', 'Cumbayá'),
         ('Chillogallo', 'Chillogallo'),
         ('Chilibulo', 'Chilibulo'),
-        ('Chillos', 'Chillos'),
+        ('Chillos', 'Ch  illos'),
         ('Guamaní', 'Guamaní'),
         ('Calderón', 'Calderón'),
         ('Carapungo', 'Carapungo'),
@@ -347,7 +347,7 @@ class Contacts(models.Model):
         ('Quito', 'Quito'),
     )
     
-    parroquia_quito = models.CharField(max_length=255, blank=True, null=True, verbose_name="Parroquia de Quito", choices=PARROQUIAS_QUITO)
+    parroquia_quito = models.CharField(max_length=255, blank=True, null=True, verbose_name="Parroquia de Quito", choices=PARROQUIAS_QUITO, help_text="Si su provincia de residencia es Pichincha, Elija una parroquia. Caso contrario dejelo en blanco")
     class Meta:
         ordering = ['user']
         verbose_name_plural = "Contacto de Usuarios"
@@ -364,7 +364,7 @@ class Legal(models.Model):
     representante_legal_apellido = models.CharField(max_length=255, blank=True, null=True, verbose_name="Apellido del Representante Legal")
     representante_legal_cedula = models.CharField(max_length=20, blank=True, null=True, verbose_name="Cédula del Representante Legal")
     ruc = models.CharField(max_length=13, blank=True, null=True, verbose_name="RUC")
-    telefono_contacto = PhoneNumberField(verbose_name="Teléfono de Contacto")
+    telefono_contacto = PhoneNumberField(verbose_name="Teléfono de Contacto",blank=True)
     direccion_domicilio = models.CharField(max_length=255, blank=True, null=True, verbose_name="Dirección de Domicilio")
     georeferencia = models.CharField(max_length=255, blank=True, null=True, verbose_name="Georreferencia")
     pagina_web = models.URLField(blank=True, null=True, verbose_name="Página Web")
@@ -381,8 +381,8 @@ class Legal(models.Model):
         ('SOCIEDAD COOPERATIVA', 'Sociedad cooperativa'),
         ('SOCIEDAD LIMITADA S.L.', 'Sociedad limitada S.L.'),
         ('OTRO', 'Otro')
-    ), verbose_name="Categoría de Personería Jurídica")
-    fines_lucro = models.BooleanField(default=False, verbose_name="¿La personería jurídica tiene fines de lucro?")
+    ), verbose_name="Categoría de Personería Jurídica", blank=True, null= True)
+    fines_lucro = models.BooleanField(default=False, verbose_name="¿La personería jurídica tiene fines de lucro?",blank=True, null= True)
     actividad_principal = models.TextField(blank=True, null=True, verbose_name="Actividad Principal a la que se dedica la empresa")
 
     def __str__(self):

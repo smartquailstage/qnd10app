@@ -91,29 +91,22 @@ def edit(request):
                   {'user_form': user_form,
                    'profile_form': profile_form})
 
+
 @login_required
 def edit_contact(request):
-    if request.method == 'POST' :
-        contact1_form = Contact1EditForm(request.POST)
-        contact2_form = Contact2EditForm(instance=request.user,
-                                 data=request.POST)
-        contact3_form = Contact3EditForm(instance=request.user,
-                                 data=request.POST)
-        contact4_form = Contact4EditForm(instance=request.user,
-                                 data=request.POST)
-        
-        if contact1_form.is_valid() and contact2_form.is_valid() and contact3_form.is_valid() and contact4_form.is_valid() :
-            pais_de_residencia = contact1_form.cleaned_data['pais_residencia']
-            if pais_de_residencia == 'Ecuador':
-                return redirect('usuarios:edit_contact2')
-            else:
-                return redirect('usuarios:edit_contact4')
+    if request.method == 'POST':
+        contact1_form = Contact1EditForm(request.POST, instance=request.user.contacts)
+        if contact1_form.is_valid():
+            # Guardar los datos del formulario en la base de datos
+            contact1_form.save()
+            messages.success(request, 'Profile updated successfully')
+            return redirect('usuarios:edit_legal')
         else:
-            messages.error(request, 'Error al procesar el formulario. Por favor, verifica los datos e intenta de nuevo.')
+            messages.error(request, 'Error updating your profile')
     else:
-        contact1_form = Contact1EditForm()
-    
-    return render(request, 'usuarios/edit_profile/edit_contact1.html', {'contact1_form': contact1_form,'contact2_form': contact2_form,'contact3_form': contact3_form,'contact4_form': contact4_form})
+        contact1_form = Contact1EditForm(instance=request.user.contacts)
+    return render(request, 'usuarios/edit_profile/edit_contact1.html', {'contact1_form': contact1_form})
+
 
 @login_required
 def edit_contact2(request):
@@ -165,35 +158,39 @@ def edit_contact4(request):
 
 @login_required
 def edit_legal(request):
+    legal = get_object_or_404(Legal, user=request.user)
+    
     if request.method == 'POST':
-        legal1_form =  LegalEditForm(instance=request.user,
-                                 data=request.POST)
+        legal1_form = LegalEditForm(instance=legal, data=request.POST)
         if legal1_form.is_valid():
             legal1_form.save()
-            messages.success(request, 'Profile updated successfully')
+            messages.success(request, 'Un perfil legal de usuario acaba de ser grabado')
+            return redirect('usuarios:edit_activity')
         else:
             messages.error(request, 'Error updating your profile')
     else:
-        legal1_form = LegalEditForm(instance=request.user)
-    return render(request,
-                  'usuarios/edit_profile/edit_legal1.html',
-                  {'legal1_form': legal1_form})
+        legal1_form = LegalEditForm(instance=legal)
+    
+    return render(request, 'usuarios/edit_profile/edit_legal1.html', {'legal1_form': legal1_form, 'legal': legal})
+
 
 @login_required
 def edit_legal2(request):
+    legal = Legal.objects.get(user=request.user)
     if request.method == 'POST':
-        legal2_form =  Legal2EditForm(instance=request.user,
+        legal2_form =  Legal2EditForm(instance=request.user.legal,
                                  data=request.POST)
         if legal2_form.is_valid():
             legal2_form.save()
             messages.success(request, 'Profile updated successfully')
+            return redirect('usuarios:edit_activity')
         else:
             messages.error(request, 'Error updating your profile')
     else:
-        legal2_form = LegalEditForm(instance=request.user)
+        legal2_form = LegalEditForm(instance=request.user.legal)
     return render(request,
                   'usuarios/edit_profile/edit_legal2.html',
-                  {'legal2_form': legal2_form})
+                  {'legal2_form': legal2_form, 'legal':legal })
 
 @login_required
 def edit_activity(request):

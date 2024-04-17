@@ -90,17 +90,17 @@
               {% if field.name == 'disciplina_artistica' %}
                 <label for="{{ field.id }}" class="form-label">Diciplina Artistica a la que se dedica</label>
                 {% if field.errors %}
-                  {% render_field field class="form-control is-invalid" %}
+                  {% render_field field class="form-select mb-3 is-invalid" %}
                   {% for error in field.errors %}
                     <div class="invalid-feedback">
                       {{ error }}
                     </div>
                   {% endfor %}
                 {% else %}
-                  {% render_field field class="form-control is-valid"  %}
+                  {% render_field field class="form-select mb-3 is-valid"  %}
                 {% endif %}
                 {% if field.help_text %}
-                  <small class="form-text text-muted">{{ field.help_text }}</small>
+                  <small class="form-select mb-3 text-muted">{{ field.help_text }}</small>
                 {% endif %}
               {% endif %}
             {% endfor %}
@@ -124,7 +124,15 @@
             {% endif %}
           {% endfor %}
 
-          {% for field in activity_form.visible_fields %}
+          
+
+              
+        
+            </div>
+
+            <div class="col-12 col-lg-6">
+
+              {% for field in activity_form.visible_fields %}
             {% if field.name == 'portafolio' %}
               <label for="{{ field.id }}" class="form-label">Pegue aqui la dirección URL de sus trabajos realizados</label>
               {% if field.errors %}
@@ -145,16 +153,16 @@
 
           {% for field in activity_form.visible_fields %}
             {% if field.name == 'registro_ruac' %}
-              <label for="{{ field.id }}" class="form-label">¿Tiene registro único de artistas ?</label>
+              <label for="{{ field.id }}" class="form-label">Maque si tiene registro único de artistas </label>
               {% if field.errors %}
-                {% render_field field class="form-control is-invalid" %}
+                {% render_field field class="form-check-input mb-3 is-invalid" %}
                 {% for error in field.errors %}
                   <div class="invalid-feedback">
                     {{ error }}
                   </div>
                 {% endfor %}
               {% else %}
-                {% render_field field class="form-control is-valid"  %}
+                {% render_field field class="form-check-input mb-3 is-valid"  %}
               {% endif %}
               {% if field.help_text %}
                 <small class="form-text text-muted">{{ field.help_text }}</small>
@@ -162,52 +170,28 @@
             {% endif %}
           {% endfor %}
 
-              
-        
-            </div>
-
-            <div class="col-12 col-lg-6">
+          {% for field in activity_form.visible_fields %}
+          {% if field.name == 'nombre_agremiacion' %}
+            <label for="{{ field.id }}" class="form-label">Escriba el nombre de la agremiación a la que usted pertenece.</label>
+            {% if field.errors %}
+              {% render_field field class="form-control is-invalid" %}
+              {% for error in field.errors %}
+                <div class="invalid-feedback">
+                  {{ error }}
+                </div>
+              {% endfor %}
+            {% else %}
+              {% render_field field class="form-control is-valid"  %}
+            {% endif %}
+            {% if field.help_text %}
+              <small class="form-text text-muted">{{ field.help_text }}</small>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
         
 
              
-                {% for field in profile_form.visible_fields %}
-                  {% if field.name == 'pertenece_agremiacion_colectivo' %}
-                    <label for="{{ field.id }}" class="form-label">¿ Pertenece a una agremiacion o colectivo ?</label>
-                    {% if field.errors %}
-                      {% render_field field class="form-control datepicker is-valid" %}
-                      {% for error in field.errors %}
-                        <div class="invalid-feedback">
-                          {{ error }}
-                        </div>
-                      {% endfor %}
-                    {% else %}
-                      {% render_field field class="form-control datepicker is-valid" %}
-                    {% endif %}
-                    {% if field.help_text %}
-                      <small class="form-text text-muted">{{ field.help_text }}</small>
-                    {% endif %}
-                  {% endif %}
-                {% endfor %}
-
-             
-                  {% for field in profile_form.visible_fields %}
-                    {% if field.name == 'nombre_agremiacion' %}
-                      <label for="{{ field.id }}" class="form-label">Escriba el nombre de la agremiación que pertenece.</label>
-                      {% if field.errors %}
-                        {% render_field field class="form-control datepicker is-valid" %}
-                        {% for error in field.errors %}
-                          <div class="invalid-feedback">
-                            {{ error }}
-                          </div>
-                        {% endfor %}
-                      {% else %}
-                        {% render_field field class="form-control datepicker is-valid" %}
-                      {% endif %}
-                      {% if field.help_text %}
-                        <small class="form-text text-muted">{{ field.help_text }}</small>
-                      {% endif %}
-                    {% endif %}
-                  {% endfor %}
+               
 
                  <div></div>
                   
