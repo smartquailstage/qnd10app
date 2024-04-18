@@ -5,7 +5,7 @@ import datetime
 import datetime
 from django.contrib import admin
 from django.http import HttpResponse
-from .models import Profile, Contacts, Dashboard,Legal,Activity,confirmacion
+from .models import Profile, Contacts, Dashboard,Legal,Activity,confirmacion,DeclaracionVeracidad
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 
@@ -106,6 +106,13 @@ class DashboardAdmin(admin.ModelAdmin):
 @admin.register(confirmacion)
 class confirmacionAdmin(admin.ModelAdmin):
     list_display = ['mensaje_de_despedida']
+    actions = [ export_to_csv, export_to_excel]
+    verbose_name = "Información de bienvenida al usuario"
+    verbose_name_plural =  "Información de bienvenida al usuario"
+
+@admin.register(DeclaracionVeracidad)
+class DeclaracionVeracidadAdmin(admin.ModelAdmin):
+    list_display = ['user', 'acepta_terminos_condiciones']
     actions = [ export_to_csv, export_to_excel]
     verbose_name = "Información de bienvenida al usuario"
     verbose_name_plural =  "Información de bienvenida al usuario"

@@ -217,7 +217,7 @@ def edit_activity(request):
 def edit_declaratoria(request):
     profile = get_object_or_404(Profile, user=request.user)
     if request.method == 'POST':
-        declaratoria_form =  DeclaratoriaEditForm(instance=request.user,
+        declaratoria_form =  DeclaratoriaEditForm(instance=request.user.declaracionveracidad,
                                  data=request.POST)
         if declaratoria_form.is_valid():
             declaratoria_form.save()
@@ -226,7 +226,7 @@ def edit_declaratoria(request):
         else:
             messages.error(request, 'Error updating your profile')
     else:
-        declaratoria_form = DeclaratoriaEditForm(instance=request.user)
+        declaratoria_form = DeclaratoriaEditForm(instance=request.user.declaracionveracidad)
     return render(request,
                   'usuarios/edit_profile/edit_declaratoria.html',
                   {'declaratoria_form':   declaratoria_form, 'profile': profile  })
