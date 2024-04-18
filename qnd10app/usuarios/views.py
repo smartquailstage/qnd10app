@@ -48,24 +48,19 @@ def register(request):
             # Create a new user object but avoid saving it yet
             new_user = user_form.save(commit=False)
             # Set the chosen password
-            new_user.set_password(
-                user_form.cleaned_data['password'])
+            new_user.set_password(user_form.cleaned_data['password'])
             # Save the User object
             new_user.save()
-            # Create the user profile
-            Profile.objects.create(user=new_user)
-            Contacts.objects.create(user=new_user)
-            Legal.objects.create(user=new_user)
-            Activity.objects.create(user=new_user)
-            DeclaracionVeracidad.objects.create(user=new_user)
-            return render(request,
-                          'usuarios/register_done.html',
-                          {'new_user': new_user})
+            # Create the user profile and related objects
+            profile = Profile.objects.create(user=new_user)
+            contacts = Contacts.objects.create(user=new_user)
+            legal = Legal.objects.create(user=new_user)
+            activity = Activity.objects.create(user=new_user)
+            declaratoriadeveracidad= DeclaracionVeracidad.objects.create(user=new_user)
+            return render(request, 'usuarios/register_done.html', {'new_user': new_user})
     else:
         user_form = UserRegistrationForm()
-    return render(request,
-                  'usuarios/register.html',
-                  {'user_form': user_form})
+    return render(request, 'usuarios/register.html', {'user_form': user_form})
 
 
 @login_required
