@@ -81,104 +81,102 @@
             </li>
         {% endif %}
 
-       {% if terminos.acepta_terminos_condiciones == 'False' %}
-      <li class="menu-label">Convocatorias</li>
-      <li>
-        <a  href="{% url 'editorial_literaria:inicio_inscripcion' %}">
-          <div class="parent-icon">
-            <ion-icon name="card-outline"></ion-icon>
-          </div>
-          <div class="menu-title">Inscripción</div>
-        </a>
-      </li>
-      {% else %}
-
-      <li>
-        <a class="has-arrow" href="javascript:;">
-          <div class="parent-icon">
-            <ion-icon name="megaphone-outline"></ion-icon>
-          </div>
-          <div class="menu-title">Convocatorias disponibles</div>
-        </a>
-        <ul>
-          <li> <a href="{% url 'editorial_literaria:manual_postulacion' %}">
-              <ion-icon name="ellipse-outline"></ion-icon>Editorial y literaria
+        {% if not terminos.acepta_terminos_condiciones %}
+        <li class="menu-label">Convocatorias</li>
+        <li>
+            <a href="{% url 'editorial_literaria:inicio_inscripcion' %}">
+                <div class="parent-icon">
+                    <ion-icon name="card-outline"></ion-icon>
+                </div>
+                <div class="menu-title">Inscripción</div>
             </a>
-          </li>
+        </li>
+    {% else %}
+        <li>
+            <a class="has-arrow" href="javascript:;">
+                <div class="parent-icon">
+                    <ion-icon name="megaphone-outline"></ion-icon>
+                </div>
+                <div class="menu-title">Convocatorias disponibles</div>
+            </a>
+            <ul>
+                <li>
+                    <a href="{% url 'editorial_literaria:manual_postulacion' %}">
+                        <ion-icon name="ellipse-outline"></ion-icon>Editorial y literaria
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a class="has-arrow" href="javascript:;">
+                <div class="parent-icon">
+                    <ion-icon name="share-outline"></ion-icon>
+                </div>
+                <div class="menu-title">Mis Postulaciones</div>
+            </a>
+            <ul>
+                <li>
+                    <a href="{% url 'editorial_literaria:inicio_mis_postulaciones' %}">
+                        <ion-icon name="ellipse-outline"></ion-icon>Editorial y literaria
+                    </a>
+                </li>
+            </ul>
+        </li>
     
-        </ul>
-      </li>
-      <li>
-        <a class="has-arrow" href="javascript:;">
-          <div class="parent-icon">
-            <ion-icon name="share-outline"></ion-icon>
-          </div>
-          <div class="menu-title">Mis Postulaciones</div>
-        </a>
-        <ul>
-          <li> <a  href="{% url 'editorial_literaria:inicio_mis_postulaciones' %}">
-            <ion-icon name="ellipse-outline"></ion-icon>Editorial y literaria
-            </a>
-          </li>
-        </ul>
-      </li>
-
-      <li class="menu-label">Proyectos de usuarios </li>
-
-     
-
-      <li>
-        <a class="has-arrow" href="javascript:;">
-          <div class="parent-icon">
-            <ion-icon name="add-circle-outline"></ion-icon>
-           
-          </div>
-          <div class="menu-title">Crear Proyecto</div>
-        </a>
-        <ul>
-          <li> <a href="{% url 'editorial_literaria:inicio_crear_proyecto' %}">
-              <ion-icon name="ellipse-outline"></ion-icon>Editorial y literaria
-            </a>
-          </li>
+        <li class="menu-label">Proyectos de usuarios</li>
     
-        </ul>
-      </li>
-      <li>
-        <a class="has-arrow" href="javascript:;">
-          <div class="parent-icon">
-            <ion-icon name="create-outline"></ion-icon>
-          </div>
-          <div class="menu-title">Editar Proyecto </div>
-        </a>
-        <ul>
-          <li> <a href="{% url 'editorial_literaria:inicio_editar_proyecto' %}">
-            <ion-icon name="ellipse-outline"></ion-icon>Editorial y literaria
+        <li>
+            <a class="has-arrow" href="javascript:;">
+                <div class="parent-icon">
+                    <ion-icon name="add-circle-outline"></ion-icon>
+                </div>
+                <div class="menu-title">Crear Proyecto</div>
             </a>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a class="has-arrow" href="javascript:;">
-          <div class="parent-icon">
-            <ion-icon name="list-outline"></ion-icon>
-          </div>
-          <div class="menu-title">Mis Proyectos </div>
-        </a>
-        <ul>
-          <li> <a href="{% url 'editorial_literaria:inicio_mis_proyectos' %}">
-            <ion-icon name="ellipse-outline"></ion-icon>Editorial y literaria
+            <ul>
+                <li>
+                    <a href="{% url 'editorial_literaria:inicio_crear_proyecto' %}">
+                        <ion-icon name="ellipse-outline"></ion-icon>Editorial y literaria
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a class="has-arrow" href="javascript:;">
+                <div class="parent-icon">
+                    <ion-icon name="create-outline"></ion-icon>
+                </div>
+                <div class="menu-title">Editar Proyecto</div>
             </a>
-          </li>
-        </ul>
-      </li>
-
-  {% endif %}
-
+            <ul>
+                <li>
+                    <a href="{% url 'editorial_literaria:inicio_editar_proyecto' %}">
+                        <ion-icon name="ellipse-outline"></ion-icon>Editorial y literaria
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a class="has-arrow" href="javascript:;">
+                <div class="parent-icon">
+                    <ion-icon name="list-outline"></ion-icon>
+                </div>
+                <div class="menu-title">Mis Proyectos</div>
+            </a>
+            <ul>
+                <li>
+                    <a href="{% url 'editorial_literaria:inicio_mis_proyectos' %}">
+                        <ion-icon name="ellipse-outline"></ion-icon>Editorial y literaria
+                    </a>
+                </li>
+            </ul>
+        </li>
+    {% endif %}
       
       <li class="menu-label">Configuraciones</li>
     
-      {% if is_tecnicos_group %}
-      {% else %}
+    
+
+      {% if not terminos.acepta_terminos_condiciones and is_tecnicos_group %}
       <li>
         <a href="{% url 'usuarios:perfil' %}">
           <div class="parent-icon">
@@ -187,6 +185,8 @@
           <div class="menu-title">Perfil de usuario</div>
         </a>
       </li>
+      {% else %}
+     
       {% endif %}
 
       <li>
