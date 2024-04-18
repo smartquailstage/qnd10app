@@ -81,8 +81,7 @@
             </li>
         {% endif %}
 
-        {% if is_tecnicos_group %}
-        {% else %}
+       {% if terminos.acepta_terminos_condiciones == 'False' %}
       <li class="menu-label">Convocatorias</li>
       <li>
         <a  href="{% url 'editorial_literaria:inicio_inscripcion' %}">
@@ -92,6 +91,7 @@
           <div class="menu-title">Inscripción</div>
         </a>
       </li>
+      {% else %}
 
       <li>
         <a class="has-arrow" href="javascript:;">
@@ -172,7 +172,7 @@
         </ul>
       </li>
 
-      {% endif %}
+  {% endif %}
 
       
       <li class="menu-label">Configuraciones</li>

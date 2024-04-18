@@ -199,7 +199,7 @@ def edit_legal2(request):
 def edit_activity(request):
     profile = get_object_or_404(Profile, user=request.user)
     if request.method == 'POST':
-        activity_form =  ActivityEditForm(instance=request.user,
+        activity_form =  ActivityEditForm(instance=request.user.activity,
                                  data=request.POST)
         if activity_form.is_valid():
             activity_form.save()
@@ -208,7 +208,7 @@ def edit_activity(request):
         else:
             messages.error(request, 'Error updating your profile')
     else:
-        activity_form = ActivityEditForm(instance=request.user)
+        activity_form = ActivityEditForm(instance=request.user.activity)
     return render(request,
                   'usuarios/edit_profile/edit_activity.html',
                   {'activity_form':  activity_form , 'profile': profile })
@@ -292,10 +292,11 @@ def admin_profile_pdf(request, profile_id):
 @login_required
 def Manuales(request):
     manuales = Manual.objects.all()
+    terminos = DeclaracionVeracidad.objects.get(user=request.user)
     user_groups = request.user.groups.all()
     is_tecnicos_group = any(group.name == 'tecnicos' for group in user_groups)
     return render(request,
                   'usuarios/edit_profile/sidebar.html',
-                  {'section': 'sidebar','manuales': 'manuales','is_tecnicos_group': is_tecnicos_group})
+                  {'section': 'sidebar','manuales': 'manuales','is_tecnicos_group': is_tecnicos_group, 'terminos': terminos})
 
 
