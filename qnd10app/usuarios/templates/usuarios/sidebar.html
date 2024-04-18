@@ -169,9 +169,9 @@
             </li>
         {% endif %}
         
-        <li class="menu-label">Configuraciones {{ terminos.acepta_terminos_condiciones }}</li>
+        <li class="menu-label">Configuraciones </li>
         
-        {% if not terminos.acepta_terminos_condiciones and is_tecnicos_group %}
+        {% if  terminos.acepta_terminos_condiciones  %}
             <li>
                 <a href="{% url 'usuarios:perfil' %}">
                     <div class="parent-icon">
@@ -180,6 +180,8 @@
                     <div class="menu-title">Perfil de usuario</div>
                 </a>
             </li>
+            {% else %}
+          
         {% endif %}
     
         <li>
