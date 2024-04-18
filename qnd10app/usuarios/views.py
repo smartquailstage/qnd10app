@@ -250,10 +250,13 @@ def contact_profile(request):
 @login_required
 def dashboard(request):
     profile = Profile.objects.get(user=request.user)
+    terminos  = DeclaracionVeracidad.objects.get(user=request.user)
+    user_groups = request.user.groups.all()
+    is_tecnicos_group = any(group.name == 'tecnicos' for group in user_groups)
     dashboards = Dashboard.objects.all()
     return render(request,
                   'usuarios/dashboard.html',
-                  {'section': 'dashboard', 'profile': profile, 'dashboards': dashboards})
+                  {'section': 'dashboard', 'profile': profile, 'dashboards': dashboards, 'terminos': terminos, 'is_tecnicos_group': is_tecnicos_group})
 
 @login_required
 def nav_bar(request):
@@ -270,7 +273,10 @@ def profile_view(request):
     legal = Legal.objects.get(user=request.user)
     activity = Activity.objects.get(user=request.user)
     declaratoria = DeclaracionVeracidad.objects.get(user=request.user)
-    return render(request, 'usuarios/profile.html', {'profile': profile,'contact': contact,'legal': legal,'activity': activity,'declaratoria': declaratoria})
+    terminos  = DeclaracionVeracidad.objects.get(user=request.user)
+    user_groups = request.user.groups.all()
+    is_tecnicos_group = any(group.name == 'tecnicos' for group in user_groups)
+    return render(request, 'usuarios/profile.html', {'profile': profile,'contact': contact,'legal': legal,'activity': activity,'declaratoria': declaratoria, 'terminos': terminos, 'is_tecnicos_group':is_tecnicos_group })
 
 @login_required
 def config_view(request):
@@ -289,14 +295,12 @@ def admin_profile_pdf(request, profile_id):
     weasyprint.HTML(string=html,  base_url=request.build_absolute_uri() ).write_pdf(response,stylesheets=[weasyprint.CSS('static/assets/css/profiles.css')], presentational_hints=True)
     return response
 
-@login_required
-def Manuales(request):
-    manuales = Manual.objects.all()
-    terminos = DeclaracionVeracidad.objects.get(user=request.user)
+def sidebar(request):
+    terminos  = DeclaracionVeracidad.objects.get(user=request.user)
     user_groups = request.user.groups.all()
     is_tecnicos_group = any(group.name == 'tecnicos' for group in user_groups)
     return render(request,
                   'usuarios/edit_profile/sidebar.html',
-                  {'section': 'sidebar','manuales': 'manuales','is_tecnicos_group': is_tecnicos_group, 'terminos': terminos})
+                  {'section': 'sidebar', 'is_tecnicos_group': is_tecnicos_group, 'terminos': terminos})
 
 
