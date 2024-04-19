@@ -20,7 +20,7 @@ class Profile(models.Model):
     
 class Contacts(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Nombre de Usuario")
-    pais_residencia = CountryField(verbose_name="País de Residencia", default="Ecuador")
+    pais_residencias = CountryField(multiple=True, verbose_name="País de Residencia", blank=True,max_length=150)
     
     PROVINCIAS_CANTONES_CHOICES = (
         ('Azuay', (
@@ -339,8 +339,8 @@ class Contacts(models.Model):
     )
     
     parroquia_quito = models.CharField(max_length=255, blank=True, null=True, verbose_name="Parroquia de Quito", choices=PARROQUIAS_QUITO, help_text="Si su provincia de residencia es Pichincha, Elija una parroquia. Caso contrario dejelo en blanco")
-    telefono = models.CharField(max_length=20, verbose_name="Teléfono",null=True,blank=True)
-    direccion = models.CharField(max_length=255, blank=True, null=True, verbose_name="Dirección")
+    #telefono = models.CharField(max_length=20, verbose_name="Teléfono",null=True,blank=True)
+    #direccion = models.CharField(max_length=255, blank=True, null=True, verbose_name="Dirección")
    # georeferenciacion = models.CharField(max_length=255, blank=True, null=True, verbose_name="Georreferenciación")
    # perfil_redes_sociales = models.URLField(blank=True, null=True, verbose_name="Perfil de Redes Sociales")
 
