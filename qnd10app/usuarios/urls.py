@@ -18,6 +18,7 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('edit/', views.edit, name='edit'),
     path('edit_contacto_1/', views.edit_contact, name='edit_contact1'),
+    path('edit_contacto_2/', views.edit_contact2, name='edit_contact2'),
     path('Actividad_Cultural/', views.edit_activity, name='edit_activity'),
     path('edit_legal1/', views.edit_legal, name='edit_legal'),
     path('edit_legal2/', views.edit_legal2, name='edit_legal2'),

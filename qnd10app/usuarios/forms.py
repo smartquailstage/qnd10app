@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Profile,Edit_Contact,Legal,Activity,DeclaracionVeracidad
+from .models import Profile,edit_contact2,edit_contact1, Contacts ,Legal,Activity,DeclaracionVeracidad
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
@@ -41,29 +41,23 @@ class ProfileEditForm(forms.ModelForm):
             'date_of_birth': forms.DateInput(attrs={'type': 'datepicker'}),
         }
 
-
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = Contacts
+        fields = ( 'user',)
 
 class Contact1EditForm(forms.ModelForm):
     class Meta:
-        model =Edit_Contact
-        fields = ('pais_residencia', 'telefono', 'direccion', 'georeferenciacion', 'perfil_redes_sociales')
+        model =edit_contact2
+        fields = ( 'telefono', 'direccion', 'georeferenciacion', 'perfil_redes_sociales')
 
 class Contact2EditForm(forms.ModelForm):
     class Meta:
-        model = Edit_Contact
-        fields = ('provincia_cantones_ecuador',)
+        model = edit_contact1
+        fields = ('pais_residencia','provincia_cantones_ecuador','parroquia_quito')
 
 
-class Contact3EditForm(forms.ModelForm):
-    class Meta:
-        model = Edit_Contact
-        fields = ('parroquia_quito',)
 
-
-class Contact4EditForm(forms.ModelForm):
-    class Meta:
-        model = Edit_Contact
-        fields = ('telefono','direccion', 'georeferenciacion', 'perfil_redes_sociales')
 
 
 class LegalEditForm(forms.ModelForm):

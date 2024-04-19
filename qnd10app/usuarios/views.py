@@ -5,11 +5,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import LoginForm, UserRegistrationForm, \
                    UserEditForm, ProfileEditForm,Contact1EditForm, \
-                    Contact2EditForm,Contact3EditForm,Contact4EditForm, \
+                    Contact2EditForm,ContactForm, \
                     LegalEditForm,Legal2EditForm, \
                     ActivityEditForm, DeclaratoriaEditForm
                     
-from .models import Profile, Edit_Contact, Legal,Activity,DeclaracionVeracidad, Dashboard, confirmacion
+from .models import Profile, edit_contact1,edit_contact2,Contacts, Legal,Activity,DeclaracionVeracidad, Dashboard, confirmacion
 from editorial_literaria.models import ManualCreateConvocatoria
 from django.shortcuts import get_object_or_404
 from django.conf import settings
@@ -44,21 +44,22 @@ def user_login(request):
 def register(request):
     if request.method == 'POST':
         user_form = UserRegistrationForm(request.POST)
-        terms_form = DeclaratoriaEditForm(request.POST)
-        if user_form.is_valid() and terms_form.is_valid():
+        if user_form.is_valid():
             # Create a new user object but avoid saving it yet
             new_user = user_form.save(commit=False)
-            acepta_terms = terms_form.save(commit=False)
+            
             # Set the chosen password
             new_user.set_password(user_form.cleaned_data['password'])
             # Save the User object
             new_user.save()
             # Create the user profile and related objects
             Profile.objects.create(user=new_user)
-       #     Edit_Contact.objects.create(user=new_user)
+            Contacts.objects.create(user=new_user)
+            #edit_contact1.objects.create(user=new_user)
+            #edit_contact2.objects.create(user=new_user)
             Legal.objects.create(user=new_user)
             Activity.objects.create(user=new_user)
-            DeclaracionVeracidad.objects.create(user=new_user, acepta_terminos_condiciones=acepta_terms)
+            DeclaracionVeracidad.objects.create(user=new_user, acepta_terminos_condiciones=False)
             return render(request, 'usuarios/register_done.html', {'new_user': new_user})
     else:
         user_form = UserRegistrationForm()
@@ -93,7 +94,7 @@ def edit(request):
 def edit_contact(request):
     profile = get_object_or_404(Profile, user=request.user)
     if request.method == 'POST':
-        contact1_form = Contact1EditForm(request.POST, instance=request.user.contacts)
+        contact1_form = ContactForm(request.POST, instance=request.user.contacts)
         if contact1_form.is_valid():
             # Guardar los datos del formulario en la base de datos
             contact1_form.save()
@@ -104,6 +105,22 @@ def edit_contact(request):
     else:
         contact1_form = Contact1EditForm(instance=request.user.contacts)
     return render(request, 'usuarios/edit_profile/edit_contact1.html', {'contact1_form': contact1_form, 'profile': profile})
+
+@login_required
+def edit_contact2(request):
+    profile = get_object_or_404(Profile, user=request.user)
+    if request.method == 'POST':
+        contact2_form = Contact1EditForm(request.POST, instance=request.user.contacts)
+        if contact2_form.is_valid():
+            # Guardar los datos del formulario en la base de datos
+            contact2_form.save()
+            messages.success(request, 'Profile updated successfully')
+            return redirect('usuarios:edit_legal')
+        else:
+            messages.error(request, 'Error updating your profile')
+    else:
+        contact2_form = Contact1EditForm(instance=request.user.contacts)
+    return render(request, 'usuarios/edit_profile/edit_contact2.html', {'contact1_form': contact1_form, 'profile': profile})
 
 
 
@@ -201,13 +218,13 @@ def contact_profile(request):
 @login_required
 def dashboard(request):
     profile = Profile.objects.get(user=request.user)
-    terminos  = DeclaracionVeracidad.objects.get(user=request.user)
+   # terminos  = DeclaracionVeracidad.objects.get(user=request.user)
     user_groups = request.user.groups.all()
     is_tecnicos_group = any(group.name == 'tecnicos' for group in user_groups)
     dashboards = Dashboard.objects.all()
     return render(request,
                   'usuarios/dashboard.html',
-                  {'section': 'dashboard', 'profile': profile, 'dashboards': dashboards, 'terminos': terminos, 'is_tecnicos_group': is_tecnicos_group})
+                  {'section': 'dashboard', 'profile': profile, 'dashboards': dashboards, 'is_tecnicos_group': is_tecnicos_group})
 
 @login_required
 def nav_bar(request):
@@ -220,7 +237,7 @@ def nav_bar(request):
 def profile_view(request):
     # Obtener el perfil del usuario actualmente autenticado
     profile = Profile.objects.get(user=request.user)
-    contact = Contacts.objects.get(user=request.user)
+    contact = Edit_Contact.objects.get(user=request.user)
     legal = Legal.objects.get(user=request.user)
     activity = Activity.objects.get(user=request.user)
     declaratoria = DeclaracionVeracidad.objects.get(user=request.user)
