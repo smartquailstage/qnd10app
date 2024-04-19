@@ -21,7 +21,7 @@ class Profile(models.Model):
 from django.db import models
 from django.conf import settings
 
-class Contacts(models.Model):
+class Edit_Contact(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Nombre de Usuario")
    # date_of_birth = models.DateField(blank=True, null=True, verbose_name="Fecha de Nacimiento")
    # photo = models.ImageField(upload_to='users/%Y/%m/%d/', blank=True, verbose_name="Foto de Perfil")

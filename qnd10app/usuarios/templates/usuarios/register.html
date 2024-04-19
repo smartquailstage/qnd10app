@@ -60,6 +60,31 @@
           </div>
           {% endfor %}
 
+          {% for field in terms_form.visible_fields %}
+          <div class="col-12">
+            <div class="form-group">
+              {{ field.label_tag }}
+              {% if terms_form.is_bound %}
+              {% if field.errors %}
+              {% render_field field class="form-check is-invalid" %}
+              {% for error in field.errors %}
+              <div class="invalid-feedback">
+                {{ error }}
+              </div>
+              {% endfor %}
+              {% else %}
+              {% render_field field class="form-check  is-valid" %}
+              {% endif %}
+              {% else %}
+              {% render_field field class="form-check " %}
+              {% endif %}
+              {% if field.help_text %}
+              <small class="form-text text-muted" placeholder="Your Email">{{ field.help_text }}</small>
+              {% endif %}
+            </div>
+          </div>
+          {% endfor %}
+
        
 
           

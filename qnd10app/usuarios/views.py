@@ -9,7 +9,7 @@ from .forms import LoginForm, UserRegistrationForm, \
                     LegalEditForm,Legal2EditForm, \
                     ActivityEditForm, DeclaratoriaEditForm
                     
-from .models import Profile, Contacts, Legal,Activity,DeclaracionVeracidad, Dashboard, confirmacion
+from .models import Profile, Edit_Contact, Legal,Activity,DeclaracionVeracidad, Dashboard, confirmacion
 from editorial_literaria.models import ManualCreateConvocatoria
 from django.shortcuts import get_object_or_404
 from django.conf import settings
@@ -44,19 +44,21 @@ def user_login(request):
 def register(request):
     if request.method == 'POST':
         user_form = UserRegistrationForm(request.POST)
-        if user_form.is_valid():
+        terms_form = DeclaratoriaEditForm(request.POST)
+        if user_form.is_valid() and terms_form.is_valid():
             # Create a new user object but avoid saving it yet
             new_user = user_form.save(commit=False)
+            acepta_terms = terms_form.save(commit=False)
             # Set the chosen password
             new_user.set_password(user_form.cleaned_data['password'])
             # Save the User object
             new_user.save()
             # Create the user profile and related objects
-            profile = Profile.objects.create(user=new_user)
-            contacts = Contacts.objects.create(user=new_user)
-            legal = Legal.objects.create(user=new_user)
-            activity = Activity.objects.create(user=new_user)
-            declaratoriadeveracidad= DeclaracionVeracidad.objects.create(user=new_user)
+            Profile.objects.create(user=new_user)
+       #     Edit_Contact.objects.create(user=new_user)
+            Legal.objects.create(user=new_user)
+            Activity.objects.create(user=new_user)
+            DeclaracionVeracidad.objects.create(user=new_user, acepta_terminos_condiciones=acepta_terms)
             return render(request, 'usuarios/register_done.html', {'new_user': new_user})
     else:
         user_form = UserRegistrationForm()
@@ -104,53 +106,7 @@ def edit_contact(request):
     return render(request, 'usuarios/edit_profile/edit_contact1.html', {'contact1_form': contact1_form, 'profile': profile})
 
 
-@login_required
-def edit_contact2(request):
-    if request.method == 'POST':
-        contact2_form = Contact2EditForm(instance=request.user,
-                                 data=request.POST)
-        if contact2_form.is_valid():
-            contact2_form.save()
-            messages.success(request, 'Profile updated successfully')
-        else:
-            messages.error(request, 'Error updating your profile')
-    else:
-        contact2_form = Contact2EditForm(instance=request.user)
-    return render(request,
-                  'usuarios/edit_profile/edit_contact2.html',
-                  {'contact2_form': contact2_form})
 
-@login_required
-def edit_contact3(request):
-    if request.method == 'POST':
-        contact3_form = Contact3EditForm(instance=request.user,
-                                 data=request.POST)
-        if contact3_form.is_valid():
-            contact3_form.save()
-            messages.success(request, 'Profile updated successfully')
-        else:
-            messages.error(request, 'Error updating your profile')
-    else:
-        contact3_form = Contact3EditForm(instance=request.user)
-    return render(request,
-                  'usuarios/edit_profile/edit_contact3.html',
-                  {'contact3_form': contact3_form})
-
-@login_required
-def edit_contact4(request):
-    if request.method == 'POST':
-        contact4_form = Contact4EditForm(instance=request.user,
-                                 data=request.POST)
-        if contact4_form.is_valid():
-            contact4_form.save()
-            messages.success(request, 'Profile updated successfully')
-        else:
-            messages.error(request, 'Error updating your profile')
-    else:
-        contact4_form = Contact4EditForm(instance=request.user)
-    return render(request,
-                  'usuarios/edit_profile/edit_contact4.html',
-                  {'contact4_form': contact4_form})
 
 @login_required
 def edit_legal(request):
