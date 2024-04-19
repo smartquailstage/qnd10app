@@ -339,10 +339,10 @@ class Contacts(models.Model):
     )
     
     parroquia_quito = models.CharField(max_length=255, blank=True, null=True, verbose_name="Parroquia de Quito", choices=PARROQUIAS_QUITO, help_text="Si su provincia de residencia es Pichincha, Elija una parroquia. Caso contrario dejelo en blanco")
-    #telefono = models.CharField(max_length=20, verbose_name="Teléfono",null=True,blank=True)
-    #direccion = models.CharField(max_length=255, blank=True, null=True, verbose_name="Dirección")
-   # georeferenciacion = models.CharField(max_length=255, blank=True, null=True, verbose_name="Georreferenciación")
-   # perfil_redes_sociales = models.URLField(blank=True, null=True, verbose_name="Perfil de Redes Sociales")
+    telefono = models.CharField(max_length=20, verbose_name="Teléfono",null=True,blank=True)
+    direccion = models.CharField(max_length=255, blank=True, null=True, verbose_name="Dirección")
+    georeferenciacion = models.CharField(max_length=255, blank=True, null=True, verbose_name="Georreferenciación")
+    perfil_redes_sociales = models.URLField(blank=True, null=True, verbose_name="Perfil de Redes Sociales")
 
     class Meta:
         ordering = ['user']

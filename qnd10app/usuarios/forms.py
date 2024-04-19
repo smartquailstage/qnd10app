@@ -44,7 +44,7 @@ class ProfileEditForm(forms.ModelForm):
 class ContactForm(forms.ModelForm):
     class Meta:
         model = Contacts
-        fields = ( 'user',)
+        fields = ( 'user','pais_residencias','provincia_cantones_ecuador','parroquia_quito','telefono', 'direccion', 'georeferenciacion', 'perfil_redes_sociales')
 
 class Contact1EditForm(forms.ModelForm):
     class Meta:

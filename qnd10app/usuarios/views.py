@@ -92,19 +92,19 @@ def edit(request):
 
 @login_required
 def edit_contact(request):
-    profile = get_object_or_404(Profile, user=request.user)
+    contacts = get_object_or_404(Contacts, user=request.user)
     if request.method == 'POST':
-        contact1_form = ContactForm(request.POST, instance=request.user.contacts)
+        contact1_form = ContactForm(request.POST, instance=contacts)  # Utiliza la instancia correcta
         if contact1_form.is_valid():
             # Guardar los datos del formulario en la base de datos
             contact1_form.save()
             messages.success(request, 'Profile updated successfully')
-            return redirect('usuarios:edit_legal')
+            return redirect('usuarios:edit_legal')  # Utiliza el nombre de la vista en lugar de una URL directa
         else:
             messages.error(request, 'Error updating your profile')
     else:
-        contact1_form = Contact1EditForm(instance=request.user.contacts)
-    return render(request, 'usuarios/edit_profile/edit_contact1.html', {'contact1_form': contact1_form, 'profile': profile})
+        contact1_form = ContactForm(instance=contacts)  # Utiliza la instancia correcta
+    return render(request, 'usuarios/edit_profile/edit_contact1.html', {'contact1_form': contact1_form, 'contacts': contacts})
 
 @login_required
 def edit_contact2(request):

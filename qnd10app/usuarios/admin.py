@@ -5,7 +5,7 @@ import datetime
 import datetime
 from django.contrib import admin
 from django.http import HttpResponse
-from .models import Profile, edit_contact1, edit_contact2, Dashboard,Legal,Activity,confirmacion,DeclaracionVeracidad
+from .models import Profile, edit_contact1, Contacts, edit_contact2, Dashboard,Legal,Activity,confirmacion,DeclaracionVeracidad
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 
@@ -75,19 +75,13 @@ class ProfileAdmin(admin.ModelAdmin):
     verbose_name = "Información de perfil de usuario"
     verbose_name_plural = "Información de perfil de usuario"
 
-@admin.register(edit_contact2)
-class edit_contact1Admin(admin.ModelAdmin):
+@admin.register(Contacts)
+class ContactsAdmin(admin.ModelAdmin):
     list_display = ['user', 'telefono']
     actions = [ export_to_csv, export_to_excel]
     verbose_name = "Información de contacto de usuario"
     verbose_name_plural = "Información de contacto de usuario"
 
-@admin.register(edit_contact1)
-class edit_contact1Admin(admin.ModelAdmin):
-    list_display = ['user', 'pais_residencia']
-    actions = [ export_to_csv, export_to_excel]
-    verbose_name = "Información de contacto de usuario"
-    verbose_name_plural = "Información de contacto de usuario"
 
 @admin.register(Legal)
 class LegalAdmin(admin.ModelAdmin):
