@@ -239,7 +239,7 @@ def nav_bar(request):
 def profile_view(request):
     # Obtener el perfil del usuario actualmente autenticado
     profile = Profile.objects.get(user=request.user)
-    contact = Edit_Contact.objects.get(user=request.user)
+    contact = Contacts.objects.get(user=request.user)
     legal = Legal.objects.get(user=request.user)
     activity = Activity.objects.get(user=request.user)
     declaratoria = DeclaracionVeracidad.objects.get(user=request.user)
