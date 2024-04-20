@@ -107,108 +107,124 @@
               {% endif %}
             {% endfor %}
 
+            {% for field in contact1_form.visible_fields %}
+            {% if field.name == 'provincia_cantones_ecuador' %}
+              <label for="{{ field.id }}" class="form-label">Pais de Residencia</label>
+              {% if field.errors %}
+                {% render_field field class="form-select is-valid" %}
+                {% for error in field.errors %}
+                  <div class="invalid-feedback">
+                    {{ error }}
+                  </div>
+                {% endfor %}
+              {% else %}
+                {% render_field field class="form-select is-valid" %}
+              {% endif %}
+              {% if field.help_text %}
+                <small class="form-text text-muted">{{ field.help_text }}</small>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
 
-                  {% for field in legal1_form.visible_fields %}
-                    {% if field.name == 'tipo_personeria' %}
-                      <label for="{{ field.id }}" class="form-label">Personería jurídica</label>
-                      {% if field.errors %}
-                        {% render_field field class="form-control datepicker is-valid" %}
-                        {% for error in field.errors %}
-                          <div class="invalid-feedback">
-                            {{ error }}
-                          </div>
-                        {% endfor %}
-                      {% else %}
-                        {% render_field field class="form-control datepicker is-valid" %}
-                      {% endif %}
-                      {% if field.help_text %}
-                        <small class="form-text text-muted">{{ field.help_text }}</small>
-                      {% endif %}
+          {% for field in contact1_form.visible_fields %}
+          {% if field.name == 'parroquia_quito' %}
+            <label for="{{ field.id }}" class="form-label">Pais de Residencia</label>
+            {% if field.errors %}
+              {% render_field field class="form-select is-valid" %}
+              {% for error in field.errors %}
+                <div class="invalid-feedback">
+                  {{ error }}
+                </div>
+              {% endfor %}
+            {% else %}
+              {% render_field field class="form-select is-valid" %}
+            {% endif %}
+            {% if field.help_text %}
+              <small class="form-text text-muted">{{ field.help_text }}</small>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+
+                </div>
+                <div class="col-12 col-lg-6">
+                  {% for field in contact1_form.visible_fields %}
+                  {% if field.name == 'telefono' %}
+                    <label for="{{ field.id }}" class="form-label">Pais de Residencia</label>
+                    {% if field.errors %}
+                      {% render_field field class="form-select is-valid" %}
+                      {% for error in field.errors %}
+                        <div class="invalid-feedback">
+                          {{ error }}
+                        </div>
+                      {% endfor %}
+                    {% else %}
+                      {% render_field field class="form-select is-valid" %}
                     {% endif %}
+                    {% if field.help_text %}
+                      <small class="form-text text-muted">{{ field.help_text }}</small>
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+
+                {% for field in contact1_form.visible_fields %}
+                {% if field.name == 'direccion' %}
+                  <label for="{{ field.id }}" class="form-label">Pais de Residencia</label>
+                  {% if field.errors %}
+                    {% render_field field class="form-select is-valid" %}
+                    {% for error in field.errors %}
+                      <div class="invalid-feedback">
+                        {{ error }}
+                      </div>
+                    {% endfor %}
+                  {% else %}
+                    {% render_field field class="form-select is-valid" %}
+                  {% endif %}
+                  {% if field.help_text %}
+                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+
+              {% for field in contact1_form.visible_fields %}
+              {% if field.name == 'georeferenciacion' %}
+                <label for="{{ field.id }}" class="form-label">Pais de Residencia</label>
+                {% if field.errors %}
+                  {% render_field field class="form-select is-valid" %}
+                  {% for error in field.errors %}
+                    <div class="invalid-feedback">
+                      {{ error }}
+                    </div>
                   {% endfor %}
+                {% else %}
+                  {% render_field field class="form-select is-valid" %}
+                {% endif %}
+                {% if field.help_text %}
+                  <small class="form-text text-muted">{{ field.help_text }}</small>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
 
-          
-            
+            {% for field in contact1_form.visible_fields %}
+              {% if field.name == 'perfil_redes_sociales' %}
+                <label for="{{ field.id }}" class="form-label">Pais de Residencia</label>
+                {% if field.errors %}
+                  {% render_field field class="form-select is-valid" %}
+                  {% for error in field.errors %}
+                    <div class="invalid-feedback">
+                      {{ error }}
+                    </div>
+                  {% endfor %}
+                {% else %}
+                  {% render_field field class="form-select is-valid" %}
+                {% endif %}
+                {% if field.help_text %}
+                  <small class="form-text text-muted">{{ field.help_text }}</small>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+                 
             </div>
-
-       {% if legal.tipo_personeria == 'Jurídico' %}
-
-
-            <div class="col-12 col-lg-6">
-             
-
-              {% for field in legal1_form.visible_fields %}
-                {% if field.name == 'telefono_contacto' %}
-                  <label for="{{ field.id }}" class="form-label">Teléfono de contacto</label>
-                  {% render_field field class="form-control" %}
-                  {% if field.help_text %}
-                    <small class="form-text text-muted">{{ field.help_text }}</small>
-                  {% endif %}
-                {% endif %}
-              {% endfor %}
-
-              {% for field in legal1_form.visible_fields %}
-                {% if field.name == 'direccion_domicilio' %}
-                  <label for="{{ field.id }}" class="form-label">Escriba su dirección:</label>
-                  {% render_field field class="form-control" %}
-                  {% if field.help_text %}
-                    <small class="form-text text-muted">{{ field.help_text }}</small>
-                  {% endif %}
-                {% endif %}
-              {% endfor %}
-
-              {% for field in legal1_form.visible_fields %}
-                {% if field.name == 'georeferencia' %}
-                  <label for="{{ field.id }}" class="form-label">Geo referencia</label>
-                  {% render_field field class="form-control" %}
-                  {% if field.help_text %}
-                    <small class="form-text text-muted">{{ field.help_text }}</small>
-                  {% endif %}
-                {% endif %}
-              {% endfor %}
-
-              {% for field in legal1_form.visible_fields %}
-                {% if field.name == 'pagina_web' %}
-                  <label for="{{ field.id }}" class="form-label">Pegue aquí la dirección web de la compañia.</label>
-                  {% render_field field class="form-control" %}
-                  {% if field.help_text %}
-                    <small class="form-text text-muted">{{ field.help_text }}</small>
-                  {% endif %}
-                {% endif %}
-              {% endfor %}
-
-              {% for field in legal1_form.visible_fields %}
-                {% if field.name == 'categoria_personeria' %}
-                  <label for="{{ field.id }}" class="form-label">Constitución:</label>
-                  {% render_field field class="form-control" %}
-                  {% if field.help_text %}
-                    <small class="form-text text-muted">{{ field.help_text }}</small>
-                  {% endif %}
-                {% endif %}
-              {% endfor %}
-
-              {% for field in legal1_form.visible_fields %}
-                {% if field.name == 'fines_lucro' %}
-                  <label for="{{ field.id }}" class="form-label">¿Su organización tiene fines de lucro?</label>
-                  {% render_field field class="form-control" %}
-                  {% if field.help_text %}
-                    <small class="form-text text-muted">{{ field.help_text }}</small>
-                  {% endif %}
-                {% endif %}
-              {% endfor %}
-
-              {% for field in legal1_form.visible_fields %}
-                {% if field.name == 'actividad_principal' %}
-                  <label for="{{ field.id }}" class="form-label">Escriba la actividad principal de la organización.</label>
-                  {% render_field field class="form-control" %}
-                  {% if field.help_text %}
-                    <small class="form-text text-muted">{{ field.help_text }}</small>
-                  {% endif %}
-                {% endif %}
-              {% endfor %}
-            </div>
-        {% else %}
-        {% endif %}
+    
 
             {% csrf_token %}
             <div class="col-12">

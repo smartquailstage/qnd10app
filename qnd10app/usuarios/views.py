@@ -94,16 +94,18 @@ def edit(request):
 def edit_contact(request):
     contacts = get_object_or_404(Contacts, user=request.user)
     if request.method == 'POST':
-        contact1_form = ContactForm(request.POST, instance=contacts)  # Utiliza la instancia correcta
+        # Utiliza la instancia correcta para el formulario
+        contact1_form = ContactForm(request.POST, instance=contacts)
         if contact1_form.is_valid():
             # Guardar los datos del formulario en la base de datos
             contact1_form.save()
-            messages.success(request, 'Profile updated successfully')
+            messages.success(request, 'Perfil actualizado exitosamente')
             return redirect('usuarios:edit_legal')  # Utiliza el nombre de la vista en lugar de una URL directa
         else:
-            messages.error(request, 'Error updating your profile')
+            messages.error(request, 'Error al actualizar tu perfil')
     else:
-        contact1_form = ContactForm(instance=contacts)  # Utiliza la instancia correcta
+        # Utiliza la instancia correcta para el formulario
+        contact1_form = ContactForm(instance=contacts)
     return render(request, 'usuarios/edit_profile/edit_contact1.html', {'contact1_form': contact1_form, 'contacts': contacts})
 
 @login_required
@@ -218,13 +220,13 @@ def contact_profile(request):
 @login_required
 def dashboard(request):
     profile = Profile.objects.get(user=request.user)
-   # terminos  = DeclaracionVeracidad.objects.get(user=request.user)
+    terminos  = DeclaracionVeracidad.objects.get(user=request.user)
     user_groups = request.user.groups.all()
     is_tecnicos_group = any(group.name == 'tecnicos' for group in user_groups)
     dashboards = Dashboard.objects.all()
     return render(request,
                   'usuarios/dashboard.html',
-                  {'section': 'dashboard', 'profile': profile, 'dashboards': dashboards, 'is_tecnicos_group': is_tecnicos_group})
+                  {'section': 'dashboard', 'profile': profile, 'dashboards': dashboards, 'is_tecnicos_group': is_tecnicos_group, 'terminos':terminos })
 
 @login_required
 def nav_bar(request):
