@@ -54,6 +54,8 @@ ALLOWED_HOSTS = ['quitocultura.smartquail.io', '*.smartquail.io', '164.90.153.17
 # Application definition
 
 INSTALLED_APPS = [
+    'corsheaders',
+    'usuarios',
     'baton',
    
     
@@ -75,7 +77,7 @@ INSTALLED_APPS = [
     #'django_comments',
     #Wagtail Inicials
     'core',
-    'corsheaders',
+    
     #'wagtail',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
@@ -98,7 +100,7 @@ INSTALLED_APPS = [
     'wagtailmenus',
     'django_social_share',
     'taggit',
-    'usuarios',
+    
     'editorial_literaria',
 
     'webapp_0',
@@ -137,25 +139,30 @@ INSTALLED_APPS = [
 
 
 MIDDLEWARE = [
-    'django.contrib.sites.middleware.CurrentSiteMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.cache.FetchFromCacheMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  # Descomenta esta línea
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.sites.middleware.CurrentSiteMiddleware',
-    #'corsheaders.middleware.CorsMiddleware',
+]
+
+
+    
     #'wagtail.core.middleware.SiteMiddleware',
     #'wagtail.contrib.redirects.middleware.RedirectMiddleware',
-]
+
 
 ROOT_URLCONF = 'qnd10app.urls'
 WAGTAILADMIN_BASE_URL ='app.smartquail.io'
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_HTTPONLY = True
 
 
 #WAGTAIL SETUPS
@@ -261,6 +268,7 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.csrf',
                 'django.contrib.messages.context_processors.messages',
                 'wagtailmenus.context_processors.wagtailmenus',
             ],
