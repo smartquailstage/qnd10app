@@ -25,7 +25,7 @@ BATON = {
     'CHANGELIST_FILTERS_ALWAYS_OPEN': False,
     'CHANGELIST_FILTERS_FORM': True,
     'MENU_ALWAYS_COLLAPSED': True,
-    'MENU_TITLE': 'Todo en Orden',
+    'MENU_TITLE': 'Quito Cultura',
     'MESSAGES_TOASTS': False,
     'GRAVATAR_DEFAULT_IMG': 'retro',
     'LOGIN_SPLASH': '/static/img/login_splash.jpg',
@@ -34,7 +34,7 @@ BATON = {
          'url': '/search/',
     },
     'MENU': (
-        { 'type': 'title', 'label': 'Gerencia', 'apps': ('auth','todo_en_orden', ) },
+        { 'type': 'title', 'label': 'Gerencia', 'apps': ('auth','Quito Cultura', ) },
         {
             'type': 'app',
             'name': 'auth',

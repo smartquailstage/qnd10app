@@ -54,8 +54,10 @@ ALLOWED_HOSTS = ['quitocultura.smartquail.io', '*.smartquail.io', '164.90.153.17
 # Application definition
 
 INSTALLED_APPS = [
-    'usuarios',
     'baton',
+   
+    
+    
     #'account',
     #'courses',
     #'courses_exams',
@@ -96,7 +98,9 @@ INSTALLED_APPS = [
     'wagtailmenus',
     'django_social_share',
     'taggit',
+    'usuarios',
     'editorial_literaria',
+
     'webapp_0',
     'streams',
     'widget_tweaks',
@@ -136,15 +140,15 @@ MIDDLEWARE = [
     'django.contrib.sites.middleware.CurrentSiteMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    #'django.middleware.cache.UpdateCacheMiddleware',
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
-    #'django.middleware.cache.FetchFromCacheMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.sites.middleware.CurrentSiteMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    #'corsheaders.middleware.CorsMiddleware',
     #'wagtail.core.middleware.SiteMiddleware',
     #'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]
