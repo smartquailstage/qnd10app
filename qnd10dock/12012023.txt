@@ -1,6 +1,6 @@
 Django
 #django>=3.2,<4.0
-django-baton
+django-baton==2.8.0
 #Wagtail
 wagtail==6.0.1
 
