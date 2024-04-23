@@ -73,6 +73,15 @@ services:
       - ./scripts:/jmeter/scripts  # Directorio que contiene los scripts de JMeter
       - ./results:/jmeter/results  # Directorio donde se guardarán los resultados
 
+  jmeter_GUI:
+    image: guitarrapc/jmeter-gui:latest
+    tty: true
+    volumes:
+      - ./scenario/:/root/jmeter/
+    ports:
+      - 5900:5900
+      - 3390:3389
+
 
 volumes:
   certbot-web_2:
