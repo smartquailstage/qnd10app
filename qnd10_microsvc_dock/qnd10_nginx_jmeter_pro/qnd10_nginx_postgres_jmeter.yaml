@@ -65,8 +65,6 @@ services:
 
   jmeter-slave:
     image: smartquail/qnd10_jmeter:prod
-    env_file:
-      - .env
     container_name: jmeter-slave
     depends_on:
       - jmeter-master
