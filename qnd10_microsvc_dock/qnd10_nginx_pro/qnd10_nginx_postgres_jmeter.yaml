@@ -53,7 +53,7 @@ services:
       - proxy-dhparams_2:/vol/proxy
       - letsencrypt_certs:/etc/letsencrypt/
 
-  jmeter-master:
+ jmeter-master:
     image: justb4/jmeter:latest
     container_name: jmeter-master
     command: jmeter -n -t /jmeter/scripts/qnd10_test_plan.jmx -l /jmeter/results/qnd10_results.jtl -e -o /jmeter/qnd10_web_report
@@ -69,7 +69,41 @@ services:
     container_name: jmeter-slave
     depends_on:
       - jmeter-master
-    command: jmeter -n -t /jmeter/scripts/qnd10_test_plan.jmx -l /jmeter/results/qnd10_results.jtl -e -o /jmeter/qnd10_web_report  -Jserver.rmi.ssl.disable=true -Djava.rmi.server.hostname=jmeter-master -Dclient.rmi.localport=60000 -Dclient.rmi.ssl.disable=true -Dserver.rmi.localport=60000 -Dserver.rmi.port=60000 -Dserver.rmi.ssl.disable=true -Dserver.rmi.service.port=60000 -Dserver.rmi.registry.port=1099 -Djava.rmi.server.hostname=jmeter-master -Dclient.rmi.localport=60000 -Dclient.rmi.ssl.disable=true -Dserver.rmi.localport=60000 -Dserver.rmi.port=60000 -Dserver.rmi.ssl.disable=true -Dserver.rmi.service.port=60000 -Dserver.rmi.registry.port=1099 -Djava.rmi.server.hostname=jmeter-master -Dclient.rmi.localport=60000 -Dclient.rmi.ssl.disable=true -Dserver.rmi.localport=60000 -Dserver.rmi.port=60000 -Dserver.rmi.ssl.disable=true -Dserver.rmi.service.port=60000 -Dserver.rmi.registry.port=1099 -Djava.rmi.server.hostname=jmeter-master -Dclient.rmi.localport=60000 -Dclient.rmi.ssl.disable=true -Dserver.rmi.localport=60000 -Dserver.rmi.port=60000 -Dserver.rmi.ssl.disable=true -Dserver.rmi.service.port=60000 -Dserver.rmi.registry.port=1099 -Djava.rmi.server.hostname=jmeter-master -Dclient.rmi.localport=60000 -Dclient.rmi.ssl.disable=true -Dserver.rmi.localport=60000 -Dserver.rmi.port=60000 -Dserver.rmi.ssl.disable=true -Dserver.rmi.service.port=60000 -Dserver.rmi.registry.port=1099 -Djava.rmi.server.hostname=jmeter-master -Dclient.rmi.localport=60000 -Dclient.rmi.ssl.disable=true -Dserver.rmi.localport=60000 -Dserver.rmi.port=60000 -Dserver.rmi.ssl.disable=true -Dserver.rmi.service.port=60000 -Dserver.rmi.registry.port=1099
+    command:  >
+      jmeter -n -t /jmeter/scripts/qnd10_test_plan.jmx -l /jmeter/results/qnd10_results.jtl -e -o /jmeter/qnd10_web_report
+      -Jserver.rmi.ssl.disable=true
+      -Djava.rmi.server.hostname=jmeter-master
+      -Dclient.rmi.localport=60000
+      -Dclient.rmi.ssl.disable=true
+      -Dserver.rmi.localport=60000
+      -Dserver.rmi.port=60000
+      -Dserver.rmi.ssl.disable=true
+      -Dserver.rmi.service.port=60000
+      -Dserver.rmi.registry.port=1099
+      -Djava.rmi.server.hostname=jmeter-master
+      -Dclient.rmi.localport=60000
+      -Dclient.rmi.ssl.disable=true
+      -Dserver.rmi.localport=60000
+      -Dserver.rmi.port=60000
+      -Dserver.rmi.ssl.disable=true
+      -Dserver.rmi.service.port=60000
+      -Dserver.rmi.registry.port=1099
+      -Djava.rmi.server.hostname=jmeter-master
+      -Dclient.rmi.localport=60000
+      -Dclient.rmi.ssl.disable=true
+      -Dserver.rmi.localport=60000
+      -Dserver.rmi.port=60000
+      -Dserver.rmi.ssl.disable=true
+      -Dserver.rmi.service.port=60000
+      -Dserver.rmi.registry.port=1099
+      -Djava.rmi.server.hostname=jmeter-master
+      -Dclient.rmi.localport=60000
+      -Dclient.rmi.ssl.disable=true
+      -Dserver.rmi.localport=60000
+      -Dserver.rmi.port=60000
+      -Dserver.rmi.ssl.disable=true
+      -Dserver.rmi.service.port=60000
+      -Dserver.rmi.registry.port=1099
     volumes:
       - ./scripts:/jmeter/scripts  # Directorio que contiene los scripts de JMeter
       - ./results:/jmeter/results  # Directorio donde se guardarán los resultados
