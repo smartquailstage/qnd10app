@@ -10,7 +10,8 @@ ENV JMETER_CUSTOM_PLUGINS_FOLDER /plugins
 ENV JMETER_BIN ${JMETER_HOME}/bin
 ENV JMETER_DOWNLOAD_URL https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-${JMETER_VERSION}.tgz
 
-COPY ./jmeter/scripts/* /jmeter/scripts/
+# Copiar el directorio jmeter en el contenedor
+COPY ./jmeter /jmeter
 
 # Install extra packages
 # Set TimeZone, See: https://github.com/gliderlabs/docker-alpine/issues/136#issuecomment-612751142
@@ -43,3 +44,4 @@ COPY entrypoint.sh /
 WORKDIR ${JMETER_HOME}
 
 ENTRYPOINT ["/entrypoint.sh"]
+

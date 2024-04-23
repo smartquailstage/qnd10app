@@ -54,8 +54,8 @@ services:
     image: smartquail/qnd10_jmeter:prod
     container_name: jmeter-master
     command: >
-      -n -t /jmeter/scripts/qnd10_test_plan.jmx
-      -l /jmeter/results/qnd10_results.jtl
+      jmeter -n -t /jmeter/scripts/qnd10_test_plan.jmx \
+      -l /jmeter/results/qnd10_results.jtl \
       -e -o /jmeter/qnd10_web_report
     ports:
       - "60000:60000"  # Puerto para la comunicación con los slaves
@@ -70,17 +70,17 @@ services:
     depends_on:
       - jmeter-master
     command: >
-      -n -t /jmeter/scripts/qnd10_test_plan.jmx
-      -l /jmeter/results/qnd10_results.jtl
-      -e -o /jmeter/qnd10_web_report
-      -Jserver.rmi.ssl.disable=true
-      -Djava.rmi.server.hostname=jmeter-master
-      -Dclient.rmi.localport=60000
-      -Dclient.rmi.ssl.disable=true
-      -Dserver.rmi.localport=60000
-      -Dserver.rmi.port=60000
-      -Dserver.rmi.ssl.disable=true
-      -Dserver.rmi.service.port=60000
+      jmeter -n -t /jmeter/scripts/qnd10_test_plan.jmx \
+      -l /jmeter/results/qnd10_results.jtl \
+      -e -o /jmeter/qnd10_web_report \
+      -Jserver.rmi.ssl.disable=true \
+      -Djava.rmi.server.hostname=jmeter-master \
+      -Dclient.rmi.localport=60000 \
+      -Dclient.rmi.ssl.disable=true \
+      -Dserver.rmi.localport=60000 \
+      -Dserver.rmi.port=60000 \
+      -Dserver.rmi.ssl.disable=true \
+      -Dserver.rmi.service.port=60000 \
       -Dserver.rmi.registry.port=1099
     volumes:
       - ./scripts:/jmeter/scripts  # Directorio que contiene los scripts de JMeter
