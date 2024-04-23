@@ -24,7 +24,7 @@ services:
     env_file:
       - .env
     restart: always
-    command: -p 5432
+    command: "postgres -p 5432"  # Agregué comillas al valor del comando
     expose:
       - 5432
     volumes:
@@ -53,7 +53,10 @@ services:
   jmeter-master:
     image: smartquail/qnd10_jmeter:prod
     container_name: jmeter-master
-    command: jmeter -n -t /jmeter/scripts/qnd10_test_plan.jmx -l /jmeter/results/qnd10_results.jtl -e -o /jmeter/qnd10_web_report
+    command: >
+      -n -t /jmeter/scripts/qnd10_test_plan.jmx
+      -l /jmeter/results/qnd10_results.jtl
+      -e -o /jmeter/qnd10_web_report
     ports:
       - "60000:60000"  # Puerto para la comunicación con los slaves
       - "1099:1099"    # Puerto RMI
@@ -67,7 +70,7 @@ services:
     depends_on:
       - jmeter-master
     command: >
-      jmeter -n -t /jmeter/scripts/qnd10_test_plan.jmx
+      -n -t /jmeter/scripts/qnd10_test_plan.jmx
       -l /jmeter/results/qnd10_results.jtl
       -e -o /jmeter/qnd10_web_report
       -Jserver.rmi.ssl.disable=true
