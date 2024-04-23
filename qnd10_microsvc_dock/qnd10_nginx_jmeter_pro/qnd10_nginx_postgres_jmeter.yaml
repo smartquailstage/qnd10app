@@ -52,6 +52,8 @@ services:
 
   jmeter-master:
     image: smartquail/jmeter:latest
+    env_file:
+      - .env
     container_name: jmeter-master
     command: jmeter -n -t /jmeter/scripts/qnd10_test_plan.jmx -l /jmeter/results/qnd10_results.jtl -e -o /jmeter/qnd10_web_report
     ports:
@@ -63,6 +65,8 @@ services:
 
   jmeter-slave:
     image: smartquail/jmeter:latest
+    env_file:
+      - .env
     container_name: jmeter-slave
     depends_on:
       - jmeter-master
@@ -85,6 +89,8 @@ services:
 
   jmeter_GUI:
     image: guitarrapc/jmeter-gui:latest
+    env_file:
+      - .env
     tty: true
     volumes:
       - ./scenario/:/root/jmeter/
