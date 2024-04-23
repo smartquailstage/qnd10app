@@ -56,7 +56,7 @@ services:
   jmeter-master:
     image: justb4/jmeter:latest
     container_name: jmeter-master
-    command: command: jmeter -n -t /jmeter/scripts/qnd10_test_plan.jmx -l /jmeter/results/qnd10_results.jtl -e -o /jmeter/qnd10_web_report
+    command: jmeter -n -t /jmeter/scripts/qnd10_test_plan.jmx -l /jmeter/results/qnd10_results.jtl -e -o /jmeter/qnd10_web_report
     ports:
       - "60000:60000"  # Puerto para la comunicación con los slaves
       - "1099:1099"    # Puerto RMI
