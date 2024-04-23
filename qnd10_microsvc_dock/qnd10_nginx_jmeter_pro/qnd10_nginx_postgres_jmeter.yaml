@@ -51,7 +51,7 @@ services:
       - letsencrypt_certs:/etc/letsencrypt/
 
   jmeter-master:
-    image: smartquail/jmeter:latest
+    image: smartquail/qnd10_jmeter:prod
     env_file:
       - .env
     container_name: jmeter-master
@@ -64,7 +64,7 @@ services:
       - ./results:/jmeter/results  # Directorio donde se guardarán los resultados
 
   jmeter-slave:
-    image: smartquail/jmeter:latest
+    image: smartquail/qnd10_jmeter:prod
     env_file:
       - .env
     container_name: jmeter-slave
