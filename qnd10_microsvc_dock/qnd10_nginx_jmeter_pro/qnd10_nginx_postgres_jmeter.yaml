@@ -54,7 +54,7 @@ services:
     image: smartquail/qnd10_jmeter:prod
     container_name: jmeter-master
     command: >
-      jmeter -n -t /jmeter/scripts/qnd10_test_plan.jmx \
+      -n -t /jmeter/scripts/qnd10_test_plan.jmx \
       -l /jmeter/results/qnd10_results.jtl \
       -e -o /jmeter/qnd10_web_report
     ports:
@@ -70,7 +70,7 @@ services:
     depends_on:
       - jmeter-master
     command: >
-      jmeter -n -t /jmeter/scripts/qnd10_test_plan.jmx \
+      -n -t /jmeter/scripts/qnd10_test_plan.jmx \
       -l /jmeter/results/qnd10_results.jtl \
       -e -o /jmeter/qnd10_web_report \
       -Jserver.rmi.ssl.disable=true \
