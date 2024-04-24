@@ -83,7 +83,7 @@ services:
       -Dserver.rmi.service.port=60000 \
       -Dserver.rmi.registry.port=1099
     volumes:
-      - jmeter_scrpts:/jmeter/scripts  # Directorio que contiene los scripts de JMeter
+      - jmeter_scripts:/jmeter/scripts  # Directorio que contiene los scripts de JMeter
       - jmeter_results:/jmeter/results  # Directorio donde se guardarán los resultados
 
   jmeter_GUI:
