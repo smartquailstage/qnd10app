@@ -30,7 +30,8 @@ RUN apk update \
     && tar -xzf /tmp/dependencies/apache-jmeter-${JMETER_VERSION}.tgz -C /opt  \
     && rm -rf /tmp/dependencies \
     && mkdir -p /jmeter/scripts \
-    && mkdir -p /jmeter/results
+    && mkdir -p /jmeter/results \
+    && cp ./jmeter/scripts/qnd10_test_plan.jmx /jmeter/scripts/qnd10_test_plan.jmx 
 
 # TODO: plugins (later)
 # && unzip -oq "/tmp/dependencies/JMeterPlugins-*.zip" -d $JMETER_HOME
