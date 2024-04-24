@@ -52,7 +52,10 @@ services:
 
   jmeter-master:
     image: smartquail/qnd10_jmeter:prod
+    restart: unless-stopped
     container_name: jmeter-master
+    env_file:
+      - .env
     command: >
       -n -t /jmeter/scripts/qnd10_test_plan.jmx \
       -l /jmeter/results/qnd10_results.jtl \
@@ -67,6 +70,8 @@ services:
   jmeter-slave:
     image: smartquail/qnd10_jmeter:prod
     container_name: jmeter-slave
+    env_file:
+      - .env
     depends_on:
       - jmeter-master
     command: >
