@@ -12,7 +12,7 @@ ENV JMETER_DOWNLOAD_URL https://archive.apache.org/dist/jmeter/binaries/apache-j
 
 # Copiar el directorio jmeter en el contenedor
 COPY ./jmeter /jmeter
-
+COPY ./jmeter/scripts/qnd10_test_plan.jmx /jmeter/scripts/qnd10_test_plan.jmx 
 # Install extra packages
 # Set TimeZone, See: https://github.com/gliderlabs/docker-alpine/issues/136#issuecomment-612751142
 ARG TZ="Guayaquil/America"
