@@ -61,8 +61,8 @@ services:
       - "60000:60000"  # Puerto para la comunicación con los slaves
       - "1099:1099"    # Puerto RMI
     volumes:
-      - ./scripts:/jmeter/scripts  # Directorio que contiene los scripts de JMeter
-      - ./results:/jmeter/results  # Directorio donde se guardarán los resultados
+      - jmeter_scripts:/jmeter/scripts  # Directorio que contiene los scripts de JMeter
+      - jmeter_results:/jmeter/results  # Directorio donde se guardarán los resultados
 
   jmeter-slave:
     image: smartquail/qnd10_jmeter:prod
@@ -83,8 +83,8 @@ services:
       -Dserver.rmi.service.port=60000 \
       -Dserver.rmi.registry.port=1099
     volumes:
-      - ./scripts:/jmeter/scripts  # Directorio que contiene los scripts de JMeter
-      - ./results:/jmeter/results  # Directorio donde se guardarán los resultados
+      - jmeter_scrpts:/jmeter/scripts  # Directorio que contiene los scripts de JMeter
+      - jmeter_results:/jmeter/results  # Directorio donde se guardarán los resultados
 
   jmeter_GUI:
     image: guitarrapc/jmeter-gui:latest
@@ -96,6 +96,8 @@ services:
       - 3390:3389
 
 volumes:
+  jmeter_scripts:
+  jmeter_results:
   certbot-web_2:
   proxy-dhparams_2:
   letsencrypt_certs:
