@@ -4,6 +4,7 @@ from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
 from localflavor.ec.forms import ECProvinceSelect
 from ckeditor.fields import RichTextField
+from django.core.cache import cache
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Nombre de Usuario")
     date_of_birth = models.DateField(blank=True, null=True, verbose_name="Fecha de Nacimiento")
@@ -765,6 +766,18 @@ class DeclaracionVeracidad(models.Model):
 
     def __str__(self):
         return f"Declaración de veracidad de usuario: {self.user.username}"
+
+    def save(self, *args, **kwargs):
+        # Guardar en caché el valor de acepta_terminos_condiciones
+        cache_key = f"user_{self.user.id}_acepta_terminos_condiciones"
+        cache.set(cache_key, self.acepta_terminos_condiciones)
+        super().save(*args, **kwargs)
+
+    @property
+    def get_acepta_terminos_condiciones(self):
+        # Obtener el valor de acepta_terminos_condiciones desde caché
+        cache_key = f"user_{self.user.id}_acepta_terminos_condiciones"
+        return cache.get(cache_key, self.acepta_terminos_condiciones)
     
 class confirmacion(models.Model):
     mensaje_de_despedida = RichTextField(default=False, verbose_name="Términos y Condiciones de Uso")

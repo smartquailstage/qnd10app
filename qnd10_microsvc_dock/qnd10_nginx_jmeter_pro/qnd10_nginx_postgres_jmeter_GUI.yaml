@@ -59,6 +59,15 @@ services:
     ports:
       - 5900:5900
       - 3390:3389
+    environment:
+      - JVM_ARGS=-Xmx512mb  # Configura el tamaño máximo de la memoria para JMeter (por ejemplo, 1GB)
+    deploy:
+      resources:
+        limits:
+          cpus: "0.25"  # Limita el uso de la CPU al 50%
+          memory: 512 mb   # Limita el uso de la memoria a 2GB
+
+    
 
 volumes:
   certbot-web_2:

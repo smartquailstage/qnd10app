@@ -188,6 +188,15 @@ REST_FRAMEWORK = {
 
 #Redis Setup
 
+from django.core.cache.backends.locmem import LocMemCache
+
+# Configuración del backend de caché
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
+    }
+}
 
 
 

@@ -16,6 +16,7 @@ from django.conf import settings
 from django.template.loader import render_to_string
 from django.contrib.admin.views.decorators import staff_member_required
 import weasyprint
+from django.core.cache import cache
 
 def user_login(request):
     if request.method == 'POST':
@@ -59,7 +60,7 @@ def register(request):
             #edit_contact2.objects.create(user=new_user)
             Legal.objects.create(user=new_user)
             Activity.objects.create(user=new_user)
-            DeclaracionVeracidad.objects.create(user=new_user, acepta_terminos_condiciones=False)
+            DeclaracionVeracidad.objects.create(user=new_user)
             return render(request, 'usuarios/register_done.html', {'new_user': new_user})
     else:
         user_form = UserRegistrationForm()
@@ -216,17 +217,26 @@ def contact_profile(request):
 
 
 
-
 @login_required
 def dashboard(request):
     profile = Profile.objects.get(user=request.user)
-    terminos  = DeclaracionVeracidad.objects.get(user=request.user)
+    terminos = cache.get(f'terminos_{request.user.id}')
+    
+    if not terminos:
+        terminos = get_object_or_404(DeclaracionVeracidad, user=request.user)
+        cache.set(f'terminos_{request.user.id}', terminos)
+    
     user_groups = request.user.groups.all()
     is_tecnicos_group = any(group.name == 'tecnicos' for group in user_groups)
     dashboards = Dashboard.objects.all()
-    return render(request,
-                  'usuarios/dashboard.html',
-                  {'section': 'dashboard', 'profile': profile, 'dashboards': dashboards, 'is_tecnicos_group': is_tecnicos_group, 'terminos':terminos })
+    
+    return render(request, 'usuarios/dashboard.html', {
+        'section': 'dashboard', 
+        'profile': profile, 
+        'dashboards': dashboards, 
+        'is_tecnicos_group': is_tecnicos_group, 
+        'terminos': terminos 
+    })
 
 @login_required
 def nav_bar(request):
