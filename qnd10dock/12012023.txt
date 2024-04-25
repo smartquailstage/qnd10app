@@ -25,6 +25,7 @@ django-countries
 django-social-auth
 social-auth-app-django
 sorl-thumbnail
+django-redis
 django-widget-tweaks
 django-phone-field
 django-phonenumber-field[phonenumberslite]

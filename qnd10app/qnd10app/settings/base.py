@@ -1,6 +1,7 @@
 
 
 import os
+import redis
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -188,21 +189,25 @@ REST_FRAMEWORK = {
 
 #Redis Setup
 
-from django.core.cache.backends.locmem import LocMemCache
 
-# Configuración del backend de caché
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': 'unique-snowflake',
-    }
-}
+
+
 
 
 
 REDIS_HOST=os.environ.get('REDIS_HOST')
 REDIS_PORT=os.environ.get('REDIS_PORT')
 REDIS_DB =os.environ.get('REDIS_DB')  
+REDIS_PASSWORD = os.environ.get('REDIS_PASSWORD')  
+
+redis_conn = redis.StrictRedis(
+    host=REDIS_HOST,
+    port=REDIS_PORT,
+    db=REDIS_DB,
+    password=REDIS_PASSWORD,
+)
+
+
 
 #DJANGO ADMIN SETUPS
 

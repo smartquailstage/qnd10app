@@ -273,6 +273,17 @@ if DB_IS_AVIAL and POSTGRES_READY:
     }
 }
 
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://redis:6379/0',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        },
+    }
+}
+
 #Static files DevMod
 
 MEDIA_URL = "/media/"

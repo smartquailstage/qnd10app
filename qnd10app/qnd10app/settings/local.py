@@ -136,6 +136,18 @@ BATON = {
 
 ALLOWED_HOSTS = ['*']
 
+from django_redis.cache import RedisCache
+# Configuración del backend de caché
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/0',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        },
+    }
+}
+
 #Static files DevMod
 
 MEDIA_URL = "/media/"
@@ -150,7 +162,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # celery setup
 
 #CELERY_BROKER_URL = 'amqp://guest:guest@rabbitmq:5672//'
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
 
 
 EMAIL_HOST= "smtp.gmail.com"
