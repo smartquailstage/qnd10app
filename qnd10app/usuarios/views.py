@@ -220,22 +220,23 @@ def contact_profile(request):
 @login_required
 def dashboard(request):
     profile = Profile.objects.get(user=request.user)
-    terminos = cache.get(f'terminos_{request.user.id}')
     
-    if not terminos:
-        terminos = get_object_or_404(DeclaracionVeracidad, user=request.user)
-        cache.set(f'terminos_{request.user.id}', terminos)
+    # Recuperar el valor del campo desde el caché
+    #acepta_terminos_condiciones = cache.get(f'acepta_terminos_condiciones_{request.user.id}')
+    #if acepta_terminos_condiciones is None:
+        # Si no hay valor en caché, obtenerlo de la base de datos
+    #    terminos = DeclaracionVeracidad.objects.get(user=request.user)
+    #    acepta_terminos_condiciones = terminos.acepta_terminos_condiciones
+        # Almacenar el valor en caché con una duración de 1 hora (3600 segundos)
+    #    cache.set(f'acepta_terminos_condiciones_{request.user.id}', acepta_terminos_condiciones, timeout=3600)
     
-    user_groups = request.user.groups.all()
-    is_tecnicos_group = any(group.name == 'tecnicos' for group in user_groups)
-    dashboards = Dashboard.objects.all()
-    
+    #user_groups = request.user.groups.all()
+    #is_tecnicos_group = any(group.name == 'tecnicos' for group in user_groups)
+    #dashboards = Dashboard.objects.all()
     return render(request, 'usuarios/dashboard.html', {
-        'section': 'dashboard', 
-        'profile': profile, 
-        'dashboards': dashboards, 
-        'is_tecnicos_group': is_tecnicos_group, 
-        'terminos': terminos 
+        'section': 'dashboard',
+        'profile': profile,
+
     })
 
 @login_required

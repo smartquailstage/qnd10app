@@ -24,6 +24,7 @@ from wagtail.admin import urls as wagtailadmin_urls
 from wagtail import urls as wagtail_urls
 from wagtail import urls as wagtaildocs_urls
 from django.contrib.auth import views as auth_views
+from editorial_literaria.views import CourseListView
 
 urlpatterns = [
 
@@ -33,6 +34,7 @@ urlpatterns = [
     path('rosetta/', include('rosetta.urls')),
     path('account/', include('usuarios.urls', namespace='usuarios')),
     path('editorial_literaria/', include('editorial_literaria.urls')),
+    path('convocatorias_disponibles/', CourseListView.as_view(), name='course_list'),
     path('login/', auth_views.LoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('password_change/', auth_views.PasswordChangeView.as_view(), name='password_change'),

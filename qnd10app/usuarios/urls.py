@@ -2,6 +2,7 @@ from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from . import views
 
+
 app_name = 'usuarios'
 
 urlpatterns = [
@@ -11,6 +12,7 @@ urlpatterns = [
     path('dashboard', views.dashboard, name='dashboard'),
     path('perfil_de_usuario/', views.profile_view , name='perfil'),
     path('configuracion_de_usuario/', views.config_view , name='configuraciones'),
+  
     # change password urls
 
     # alternative way to include authentication views

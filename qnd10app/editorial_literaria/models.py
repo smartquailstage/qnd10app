@@ -109,6 +109,8 @@ class Video(ItemBase):
     url = models.URLField()
 
 
+
+
 #Manuales de uso
 TYPE = [
         ('Crear Convocatoria', 'Crear Convocatoria'),

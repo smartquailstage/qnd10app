@@ -36,7 +36,7 @@
       <h6 class="mb-0 text-uppercase">Editar convocatorias</h6>
       <div class="my-3 border-bottom"></div>
     </div>
-    
+   
     <div class="row row-cols-1 row-cols-lg-3">
       {% for course in object_list %}
        <div class="col">
@@ -67,13 +67,16 @@
           </div>
         </div>
        
+       
        </div>
        {% empty %}
        <p>You haven't created any courses yet.</p>
          {% endfor %}
+       
       
 
 </div>
+
 </div>
 
 {% endblock %}
