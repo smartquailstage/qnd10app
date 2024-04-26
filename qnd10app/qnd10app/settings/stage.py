@@ -15,6 +15,22 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 CSRF_COOKIE_DOMAIN=".smartquail.io"
 CSRF_COOKIE_SECURE = True
 CSRF_TRUSTED_ORIGINS = ['https://quitocultura.smartquail.io', 'http://127.0.0.1']
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+CSRF_COOKIE_HTTPONLY = True
+
+from django_redis.cache import RedisCache
+# Configuración del backend de caché
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/0',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        },
+    }
+}
+
+
 
 
 BATON = {

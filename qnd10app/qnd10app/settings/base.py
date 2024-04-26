@@ -13,10 +13,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 ENV_FILE_PATH = BASE_DIR / ".env_stage"
 load_dotenv(str(ENV_FILE_PATH))
 
-CORS_ALLOWED_ORIGINS = [
-    'https://quitocultura.smartquail.io',
-    # Otros orígenes permitidos si los hay
-]
+
 
 #CSRF_COOKIE_DOMAIN = '.smartquail.io'
 
@@ -55,7 +52,7 @@ ALLOWED_HOSTS = ['quitocultura.smartquail.io', '*.smartquail.io', '164.90.153.17
 # Application definition
 
 INSTALLED_APPS = [
-    'corsheaders',
+    #'corsheaders',
     'usuarios',
     'baton',
    
@@ -146,7 +143,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.cache.FetchFromCacheMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'corsheaders.middleware.CorsMiddleware',  # Descomenta esta línea
+  #  'corsheaders.middleware.CorsMiddleware',  # Descomenta esta línea
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -161,9 +158,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'qnd10app.urls'
 WAGTAILADMIN_BASE_URL ='app.smartquail.io'
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-CSRF_COOKIE_SECURE = True
-CSRF_COOKIE_HTTPONLY = True
+
 
 
 #WAGTAIL SETUPS

@@ -8,54 +8,79 @@
 
 {% block title %}
     {% if subject %}
-        {{ subject.title }} courses
+    Convocatoria:  {{ subject.title }} 
     {% else %}
-        All courses
+    Todas las convocatorias disponibles
     {% endif %}
 {% endblock %}
 
 {% block content %}
 
+<div class="page-content-wrapper">
+    <!-- start page content-->
+   <div class="page-content">
 
-
-
-  <div class="demo-seprater">
-    <h6 class="mb-0 text-uppercase">Cards With Images</h6>
-    <div class="my-3 border-bottom"></div>
-  </div>
-<h1>
-    {% if subject %}
-        {{ subject.title }} courses
-    {% else %}
-        All courses
-    {% endif %}
-</h1>
-<div class="contents">
-    <h3>Subjects</h3>
-    <ul id="modules">
-        <li {% if not subject %}class="selected"{% endif %}>
-            <a href="{% url "course_list" %}">All</a>
-        </li>
-        {% for s in subjects %}
-            <li {% if subject == s %}class="selected"{% endif %}>
-                <a href="{% url "editorial_literaria:course_list_subject" s.slug %}">
-                    {{ s.title }}
-                    <br><span>{{ s.total_courses }} courses</span>
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
-</div>
-<div class="module">
-    {% for course in courses %}
+       <!--start breadcrumb-->
+      <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+        <div class="breadcrumb-title pe-3">Component</div>
+        <div class="ps-3">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0 align-items-center">
+              <li class="breadcrumb-item"><a href="javascript:;"><ion-icon name="home-outline"></ion-icon></a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">{% if subject %}
+                Convocatoria: {{ subject.title }} 
+            {% else %}
+                Todas las convocatorias disponibles
+            {% endif %}</li>
+            </ol>
+          </nav>
+        </div>
+        <div class="ms-auto">
+          <div class="btn-group">
+            <button type="button" class="btn btn-outline-primary"><ion-icon name="search-circle-outline"></ion-icon> Buscar</button>
+            <button type="button" class="btn btn-outline-primary split-bg-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">	<span class="visually-hidden">Toggle Dropdown</span>
+            </button>
+              {% for s in subjects %}
+               {% if subject == s %}
+                  <a class="dropdown-item" href="{% url "editorial_literaria:course_list_subject" s.slug %}">
+                      {{ s.title }}
+                  </a>
+                {% endif %}
+          {% endfor %}
+              <div class="dropdown-divider"></div>	<a class="dropdown-item" href="javascript:;">
+                 {% if not subject %}
+                <a href="{% url "course_list" %}">Todas las convocatorias disponibles</a>
+                {% endif %}
+            </div>
+          </div>
+        </div>
+  
+ 
+      <div class="row row-cols-1 row-cols-lg-3">
+        {% for course in courses %}
         {% with subject=course.subject %}
-            <h3><a href="{% url "editorial_literaria:course_detail" course.slug %}">{{ course.title }}</a></h3>
-            <p>
-                <a href="{% url "editorial_literaria:course_list_subject" subject.slug %}">{{ subject }}</a>.
-                {{ course.total_modules }} modules.
-                Instructor: {{ course.owner.get_full_name }}
-            </p>
-        {% endwith %}
-    {% endfor %}
-</div>
+         <div class="col">
+          <div class="card">
+            <img src="{{ course.portada.url }}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title"><a href="{% url "editorial_literaria:course_detail" course.slug %}">{{ course.title }}</a></h5>
+              <p class="card-text">{{ course.overview }}.</p>
+              <p class="card-text"> <a href="{% url "editorial_literaria:course_list_subject" subject.slug %}">{{ subject }}</a>.</p>
+              <p class="card-text"> N- Bases Técnicas {{ course.total_modules }} 
+                Tecnico a cargo de la convocatoria: {{ course.owner.get_full_name }}</p>
+              <a href="{% url "editorial_literaria:course_detail" course.slug %}" class="btn btn-primary">Postularse</a>
+            </div>
+          </div>
+         </div>
+
+         {% endwith %}
+         {% endfor %}
+
+
+      </div>
+
+    </diV>
+</diV>
+
 {% endblock %}
