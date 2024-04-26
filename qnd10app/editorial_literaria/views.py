@@ -199,25 +199,12 @@ class CourseListView(TemplateResponseMixin, View):
     template_name = 'courses/course/list.html'
 
     def get(self, request, subject=None):
-        subjects = cache.get('all_subjects')
-        if not subjects:
-            subjects = Subject.objects.annotate(
-                           total_courses=Count('courses'))
-            cache.set('all_subjects', subjects)
-        all_courses = Course.objects.annotate(
-                                   total_modules=Count('modules'))
+        subjects = Subject.objects.annotate(total_courses=Count('courses'))
+        courses = Course.objects.annotate(total_modules=Count('modules'))
+
         if subject:
-            subject = get_object_or_404(Subject, slug=subject)
-            key = 'subject_{}_courses'.format(subject.id)
-            courses = cache.get(key)
-            if not courses:
-                courses = all_courses.filter(subject=subject)
-                cache.set(key, courses)
-        else:
-            courses = cache.get('all_courses')
-            if not courses:
-                courses = all_courses
-                cache.set('all_courses', courses)
+            subject = get_object_or_404(Subject,slug=subject)
+            courses = courses.filter(subject=subject)       
         return self.render_to_response({'subjects': subjects,
                                         'subject': subject,
                                         'courses': courses})
@@ -227,52 +214,12 @@ class CourseDetailView(DetailView):
      model = Course
      template_name = 'courses/course/detail.html'
      
-     def get_context_data(self, **kwargs):
-         context = super(CourseDetailView,
-                        self).get_context_data(**kwargs)
-         context['enroll_form'] = CourseEnrollForm(
-                                    initial={'course':self.object})
-         return context
+  
      
 
 
 
-class StudentEnrollCourseView(FormView):
-    form_class = CourseEnrollForm
 
-    def form_valid(self, form):
-        self.course = form.cleaned_data['course']
-        self.course.students.add(self.request.user)
-        return super().form_valid(form)
-
-    def get_success_url(self):
-        return reverse_lazy('editorial_literaria:student_course_detail',
-                            args=[self.course.id])
-
-
-class StudentCourseListView(ListView):
-    model = Course
-    template_name = 'students/course/list.html'
-
-    def get_queryset(self):
-        return super().get_queryset().filter(students__in=[self.request.user])
-
-
-class StudentCourseDetailView(DetailView):
-    model = Course
-    template_name = 'students/course/detail.html'
-
-    def get_queryset(self):
-        return super().get_queryset().filter(students__in=[self.request.user])
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        course = self.get_object()
-        if 'module_id' in self.kwargs:
-            context['module'] = course.modules.get(id=self.kwargs['module_id'])
-        else:
-            context['module'] = course.modules.first()  # Use first() instead of all()[0]
-        return context
 
 @login_required
 def manual_crear_convocatoria(request):

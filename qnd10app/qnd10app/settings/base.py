@@ -53,9 +53,9 @@ ALLOWED_HOSTS = ['quitocultura.smartquail.io', '*.smartquail.io', '164.90.153.17
 
 INSTALLED_APPS = [
     #'corsheaders',
-    'usuarios',
+    
     'baton',
-   
+    'usuarios',
     
     
     #'account',

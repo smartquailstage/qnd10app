@@ -22,10 +22,10 @@ urlpatterns = [
     # Uncomment and correct the following paths if needed
     path('subject/<slug:subject>/', views.CourseListView.as_view(), name='course_list_subject'),
     path('<slug:slug>/', views.CourseDetailView.as_view(), name='course_detail'),
-path('enroll-course/', views.StudentEnrollCourseView.as_view(),name='student_enroll_course'),
-    path('courses/',views.StudentCourseListView.as_view(),name='student_course_list'),
-    path('course/<pk>/',views.StudentCourseDetailView.as_view(),name='student_course_detail'),
-    path('course/<pk>/<module_id>/', views.StudentCourseDetailView.as_view(), name='student_course_detail_module'),
+    #path('enroll-course/', views.StudentEnrollCourseView.as_view(),name='student_enroll_course'),
+    #path('courses/',views.StudentCourseListView.as_view(),name='student_course_list'),
+    #path('course/<pk>/',views.StudentCourseDetailView.as_view(),name='student_course_detail'),
+    #path('course/<pk>/<module_id>/', views.StudentCourseDetailView.as_view(), name='student_course_detail_module'),
 
     path('inicio_crear_convocatoria/', views.manual_crear_convocatoria, name='inicio_crear_convocatoria'),
     path('inicio_editar_convocatoria/', views.manual_editar_convocatoria, name='inicio_editar_convocatoria'),
