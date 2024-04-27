@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     
     'baton',
     'usuarios',
+    'students',
     
     
     #'account',

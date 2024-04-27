@@ -35,6 +35,7 @@ urlpatterns = [
     path('account/', include('usuarios.urls', namespace='usuarios')),
     path('editorial_literaria/', include('editorial_literaria.urls')),
     path('convocatorias_disponibles/', CourseListView.as_view(), name='course_list'),
+    path('postularse/', include('students.urls')),
     path('login/', auth_views.LoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('password_change/', auth_views.PasswordChangeView.as_view(), name='password_change'),

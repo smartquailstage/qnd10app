@@ -13,7 +13,8 @@ from django.apps import apps
 from braces.views import CsrfExemptMixin, JsonRequestResponseMixin
 from django.db.models import Count
 from .models import Subject, Course, Module, Content,ManualCreateConvocatoria,ManualEditConvocatoria,ManualMisConvocatoria,ManualInscripcion,ManualMisPostulaciones,ManualCrearProyecto,ManualEditProyecto,ManualMisProyectos,ManualPostulacion 
-from .forms import ModuleFormSet, CourseEnrollForm
+from .forms import ModuleFormSet
+from students.forms import CourseEnrollForm
 #from students.forms import CourseEnrollForm
 from django.core.cache import cache
 from django.shortcuts import render, redirect
@@ -213,8 +214,15 @@ class CourseListView(TemplateResponseMixin, View):
 class CourseDetailView(DetailView):
      model = Course
      template_name = 'courses/course/detail.html'
+
+     def get_context_data(self, **kwargs):
+        context = super(CourseDetailView,
+                        self).get_context_data(**kwargs)
+        context['enroll_form'] = CourseEnrollForm(
+                                   initial={'course':self.object})
+        return context
      
-  
+
      
 
 
@@ -224,9 +232,7 @@ class CourseDetailView(DetailView):
 @login_required
 def manual_crear_convocatoria(request):
     manuales = ManualCreateConvocatoria.objects.all()
-    return render(request,
-                  'editorial_literaria/manuales/crear_convocatoria.html',
-                  {'manuales': manuales})
+    return render(request, 'editorial_literaria/manuales/crear_convocatoria.html', {'manuales': manuales})
 
 @login_required
 def manual_editar_convocatoria(request):

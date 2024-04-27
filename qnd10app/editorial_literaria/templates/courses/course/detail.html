@@ -99,7 +99,7 @@
                           <div class="col">
 
                             {% if request.user.is_authenticated %}
-                            <form action="{% url "editorial_literaria:student_enroll_course" %}" method="post">
+                            <form action="{% url "student_enroll_course" %}" method="post">
                                 {{ enroll_form }}
                                 {% csrf_token %}
                                 <input type="submit" class="button" value="Enroll now">
