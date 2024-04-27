@@ -38,18 +38,27 @@ django-ckeditor
 django-qr-code
 django-braces
 django-cors-headers
-
+django-environ 
 kombu==5.2.2
 django-parler
 django-localflavor
 django-rosetta
 wagtail-localize
+django-memcache-status
 
+djangorestframework 
+django-debug-toolbar 
+django-seed 
+pymemcache
 
 boto3
 #System HOST
 PyOpenSSL
 python-dotenv==0.21.0
+
+#BACKENDS
+python-memcached
+
 
 #Ecommerce
 braintree

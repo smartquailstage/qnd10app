@@ -1,8 +1,10 @@
 from .base import *
 
-ENV_FILE_PATH = BASE_DIR / ".env_dev"
-load_dotenv(str(ENV_FILE_PATH))
+#ENV_FILE_PATH = BASE_DIR / ".env_base"
+#load_dotenv(str(ENV_FILE_PATH))
 
+
+environ.Env.read_env(os.path.join(BASE_DIR, '.env_base'))
 
 DEBUG = True
 
@@ -10,7 +12,7 @@ DEBUG = True
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
+SECRET_KEY ="safwdsjafasdnfljasndf3489y50432581052p934'039u4jeñdwef"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = os.environ.get("DEBUG")
@@ -58,6 +60,8 @@ WAGTAILADMIN_BASE_URL = "/businessmedia/"
 REDIS_HOST=os.environ.get('REDIS_HOST')
 REDIS_PORT=os.environ.get('REDIS_PORT')
 REDIS_DB =os.environ.get('REDIS_DB')  
+
+#Development Backends
 
 
 

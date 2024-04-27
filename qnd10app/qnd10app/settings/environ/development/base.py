@@ -1,7 +1,7 @@
 
 
 import os
-import redis
+import environ
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -10,12 +10,8 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-ENV_FILE_PATH = BASE_DIR / ".env_stage"
+ENV_FILE_PATH = BASE_DIR / ".env_base"
 load_dotenv(str(ENV_FILE_PATH))
-
-
-
-#CSRF_COOKIE_DOMAIN = '.smartquail.io'
 
 DJANGO_SECRET_KEY= os.environ.get('DJANGO_SECRET_KEY')
 
@@ -42,7 +38,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 #DEBUG = str(os.environ.get('DEBUG')) == "1"
 #ENV_ALLOWED_HOST = os.environ.get("ENV_ALLOWED_HOST")
-ALLOWED_HOSTS = ['quitocultura.smartquail.io', '*.smartquail.io', '164.90.153.177','127.0.0.1']
+ALLOWED_HOSTS = ['*']
 #if ENV_ALLOWED_HOST:
 #     ALLOWED_HOSTS = [ ENV_ALLOWED_HOST ]
 
@@ -52,13 +48,8 @@ ALLOWED_HOSTS = ['quitocultura.smartquail.io', '*.smartquail.io', '164.90.153.17
 # Application definition
 
 INSTALLED_APPS = [
-    #'corsheaders',
-    
-    'baton',
     'usuarios',
-    'students',
-    
-    
+    'baton',
     #'account',
     #'courses',
     #'courses_exams',
@@ -76,8 +67,9 @@ INSTALLED_APPS = [
     #'django_comments',
     #Wagtail Inicials
     'core',
-    
     #'wagtail',
+    'wagtail',
+    'wagtailmedia',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.embeds',
@@ -87,21 +79,20 @@ INSTALLED_APPS = [
     'wagtail.documents',
     'wagtail.images',
     'wagtail.search',
-
+    
+    
     'wagtail.admin',
-    'wagtail',
-    'wagtail.contrib.settings',
+   # 'wagtail.core',
+   # 'wagtail.contrib.settings',
     'wagtail.contrib.routable_page',
     #'wagtail.contrib.modeladmin',
-   # 'wagalytics',
+    #'wagalytics',
     #'wagtailfontawesome',
     'wagtailgmaps',
     'wagtailmenus',
     'django_social_share',
     'taggit',
     
-    'editorial_literaria',
-
     'webapp_0',
     'streams',
     'widget_tweaks',
@@ -126,41 +117,39 @@ INSTALLED_APPS = [
     'qr_code',
     'storages',
     #'actions',
-       
+    'editorial_literaria',
+  
     #'memcache_status',
     'rest_framework',
     'ckeditor',
-    #'js_blog_app',
-    'baton.autodiscover',   
+    'wagtail.contrib.settings',
+    
+    'baton.autodiscover',
+    'memcache_status',
+   
 ]
 
 
 
 
 MIDDLEWARE = [
+    #'django.contrib.sites.middleware.CurrentSiteMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.cache.FetchFromCacheMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-  #  'corsheaders.middleware.CorsMiddleware',  # Descomenta esta línea
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.sites.middleware.CurrentSiteMiddleware',
-]
-
-
-    
     #'wagtail.core.middleware.SiteMiddleware',
     #'wagtail.contrib.redirects.middleware.RedirectMiddleware',
-
+]
 
 ROOT_URLCONF = 'qnd10app.urls'
 WAGTAILADMIN_BASE_URL ='app.smartquail.io'
-
-
 
 #WAGTAIL SETUPS
 WAGTAILSEARCH_BACKENDS = {
@@ -188,22 +177,9 @@ REST_FRAMEWORK = {
 
 
 
-
-
-
 REDIS_HOST=os.environ.get('REDIS_HOST')
 REDIS_PORT=os.environ.get('REDIS_PORT')
 REDIS_DB =os.environ.get('REDIS_DB')  
-REDIS_PASSWORD = os.environ.get('REDIS_PASSWORD')  
-
-redis_conn = redis.StrictRedis(
-    host=REDIS_HOST,
-    port=REDIS_PORT,
-    db=REDIS_DB,
-    password=REDIS_PASSWORD,
-)
-
-
 
 #DJANGO ADMIN SETUPS
 
@@ -214,7 +190,7 @@ LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 
 from django.urls import reverse_lazy
-LOGIN_REDIRECT_URL = reverse_lazy('usuarios:dashboard')
+LOGIN_REDIRECT_URL = reverse_lazy('course_list')
 
 
 
@@ -250,9 +226,9 @@ CELERY_TASK_SERIALIZER = 'json'
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     #'account.authentication.EmailAuthBackend',
-    'social_core.backends.facebook.FacebookOAuth2',
-    'social_core.backends.twitter.TwitterOAuth',
-    'social_core.backends.google.GoogleOAuth2',
+    #'social_core.backends.facebook.FacebookOAuth2',
+    #'social_core.backends.twitter.TwitterOAuth',
+    #'social_core.backends.google.GoogleOAuth2',
 ]
 
 # social auth settings
@@ -278,19 +254,40 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
-                'django.template.context_processors.csrf',
                 'django.contrib.messages.context_processors.messages',
                 'wagtailmenus.context_processors.wagtailmenus',
+                'wagtail.contrib.settings.context_processors.settings',
             ],
         },
     },
 ]
+
+CACHES = {
+    'default': {
+    'BACKEND': 'django.core.cache.backends.memcached.PyMemcacheCache',
+    'LOCATION': '127.0.0.1:11211',
+    'TIMEOUT': 60,
+    }
+}
+
+#CACHES = {
+#    'default': {
+#        'BACKEND': os.environ.get('CACHE_BACKEND', 'django.core.cache.backends.memcached.MemcachedCache'),
+#        'LOCATION': os.environ.get('CACHE_LOCATION', '127.0.0.1:11211'),
+#        'TIMEOUT': int(os.environ.get('CACHE_TIMEOUT', 300)),
+#    }
+#}
+
+
+
 
 WSGI_APPLICATION = 'qnd10app.wsgi.application'
 
 WAGTAILADMIN_BASE_URL =  os.environ.get('DOMAINS')
 WAGTAILIMAGES_MAX_UPLOAD_SIZE = 5 * 1024 * 1024 * 1024  # 5 GB en bytes
 WAGTAILIMAGES_MAX_IMAGE_PIXELS = 1000000000  # 1 millardo de píxeles (1 Gb)
+
+
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -327,9 +324,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'es-EC'
+LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'America/Guayaquil'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
