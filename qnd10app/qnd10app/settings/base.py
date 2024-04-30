@@ -304,7 +304,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'es-Ec'
 
-TIME_ZONE = 'America/guayaquil'
+TIME_ZONE = 'America/Guayaquil'
 
 USE_I18N = True
 
