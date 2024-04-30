@@ -1,42 +1,23 @@
 from .base import *
 
+DEBUG=  "1"
 
-ENV_FILE_PATH = BASE_DIR / ".env_stage"
-load_dotenv(str(ENV_FILE_PATH))
 
-DEBUG=True
 
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
-# SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = os.environ.get("DEBUG")
-#ALLOWED_HOSTS = [os.environ.get("ENV_ALLOWED_HOST")]
-
-CSRF_COOKIE_DOMAIN=".smartquail.io"
-CSRF_COOKIE_SECURE = True
-CSRF_TRUSTED_ORIGINS = ['https://quitocultura.smartquail.io', 'http://127.0.0.1']
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-CSRF_COOKIE_HTTPONLY = True
-
-from django_redis.cache import RedisCache
-# Configuración del backend de caché
-CACHES = {
+DATABASES = {
     'default': {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://127.0.0.1:6379/0',
-        'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-        },
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR / 'db.sqlite3'),
     }
 }
-
 
 
 
 BATON = {
     'SITE_HEADER': '<a href="#"><img src="/static/img/m2.png" height="26px"></a>',
     'SITE_TITLE': '',
-    'INDEX_TITLE': 'BUSINESS ANALITYCS PLATFORM ',
+    'INDEX_TITLE': 'TODO EN ORDEN CLEAN & BUILDING CIA. LTDA.- BUSINESS ANALITYCS CONSULTING',
     'SUPPORT_HREF': '#',
     'COPYRIGHT': '<a href="#"><img src="/static/img/m2.png" height="18px"></a>&nbsp;&nbsp; copyright © 2022', # noqa
     'POWERED_BY': '<a href="#"><img src="/static/img/logo_smartquailgray.png" height="13px"</a>',
@@ -47,7 +28,7 @@ BATON = {
     'CHANGELIST_FILTERS_ALWAYS_OPEN': False,
     'CHANGELIST_FILTERS_FORM': True,
     'MENU_ALWAYS_COLLAPSED': True,
-    'MENU_TITLE': 'Quito Cultura',
+    'MENU_TITLE': 'Todo en Orden',
     'MESSAGES_TOASTS': False,
     'GRAVATAR_DEFAULT_IMG': 'retro',
     'LOGIN_SPLASH': '/static/img/login_splash.jpg',
@@ -56,7 +37,7 @@ BATON = {
          'url': '/search/',
     },
     'MENU': (
-        { 'type': 'title', 'label': 'Gerencia', 'apps': ('auth','Quito Cultura', ) },
+        { 'type': 'title', 'label': 'Gerencia', 'apps': ('auth','todo_en_orden', ) },
         {
             'type': 'app',
             'name': 'auth',
@@ -205,7 +186,7 @@ BATON = {
         {
             'type': 'app',
             'name': 'todo_en_orden',
-            'label': 'Insumos Venta',
+            'label': 'Kardex por Venta',
             'icon': 'fa fa-user',
             'models': (
                 {
@@ -221,7 +202,7 @@ BATON = {
          {
             'type': 'app',
             'name': 'todo_en_orden',
-            'label': 'Insumos Contratos ',
+            'label': 'Kardex por Contrato ',
             'icon': 'fa fa-user',
             'models': (
                 {
@@ -237,7 +218,7 @@ BATON = {
                  {
             'type': 'app',
             'name': 'todo_en_orden',
-            'label': 'Generador de Contratos ',
+            'label': 'Contratos ',
             'icon': 'fa fa-user',
             'models': (
                 {
@@ -250,55 +231,169 @@ BATON = {
                 },
             )
         },
+
+         {
+            'type': 'app',
+            'name': 'todo_en_orden',
+            'label': 'Kardex de herramientas ',
+            'icon': 'fa fa-user',
+            'models': (
+                {
+                    'name': 'order',
+                    'label': 'Clientes'
+                },
+                {
+                    'name': 'order',
+                    'label': 'Servicios'
+                },
+            )
+        },
+
+          
         
-         
+        { 'type': 'title', 'label': 'Administración Contable', 'apps': ('auth','todo_en_orden', ) },
+              {
+            'type': 'app',
+            'name': 'todo_en_orden',
+            'label': 'Cuentas por cobrar',
+            'icon': 'fa fa-user',
+            'models': (
+                {
+                    'name': 'order',
+                    'label': 'Clientes'
+                },
+                {
+                    'name': 'order',
+                    'label': 'Servicios'
+                },
+            )
+        },
+         {
+            'type': 'app',
+            'name': 'todo_en_orden',
+            'label': 'Cuentas por pagar',
+            'icon': 'fa fa-user',
+            'models': (
+                {
+                    'name': 'order',
+                    'label': 'Clientes'
+                },
+                {
+                    'name': 'order',
+                    'label': 'Servicios'
+                },
+            )
+        },
+         {
+            'type': 'app',
+            'name': 'todo_en_orden',
+            'label': 'Egresos',
+            'icon': 'fa fa-user',
+            'models': (
+                {
+                    'name': 'order',
+                    'label': 'Clientes'
+                },
+                {
+                    'name': 'order',
+                    'label': 'Servicios'
+                },
+            )
+        },
+        {
+            'type': 'app',
+            'name': 'todo_en_orden',
+            'label': 'venta de Insumos',
+            'icon': 'fa fa-user',
+            'models': (
+                {
+                    'name': 'order',
+                    'label': 'Clientes'
+                },
+                {
+                    'name': 'order',
+                    'label': 'Servicios'
+                },
+            )
+        },
+         {
+            'type': 'app',
+            'name': 'todo_en_orden',
+            'label': 'Facturación',
+            'icon': 'fa fa-user',
+            'models': (
+                {
+                    'name': 'order',
+                    'label': 'Clientes'
+                },
+                {
+                    'name': 'order',
+                    'label': 'Servicios'
+                },
+            )
+        },
+
+        {
+            'type': 'app',
+            'name': 'todo_en_orden',
+            'label': 'Nómina',
+            'icon': 'fa fa-user',
+            'models': (
+                {
+                    'name': 'order',
+                    'label': 'Clientes'
+                },
+                {
+                    'name': 'order',
+                    'label': 'Servicios'
+                },
+            )
+        },
+
+                {
+            'type': 'app',
+            'name': 'todo_en_orden',
+            'label': 'IESS',
+            'icon': 'fa fa-user',
+            'models': (
+                {
+                    'name': 'order',
+                    'label': 'Clientes'
+                },
+                {
+                    'name': 'order',
+                    'label': 'Servicios'
+                },
+            )
+        },
+
+          {
+            'type': 'app',
+            'name': 'todo_en_orden',
+            'label': 'Bancos',
+            'icon': 'fa fa-user',
+            'models': (
+                {
+                    'name': 'order',
+                    'label': 'Banco Guayaquil'
+                },
+                {
+                    'name': 'order',
+                    'label': 'Banco Internacional'
+                },
+            )
+        },
+              
     ),
 }
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR / 'db.sqlite3')
-    }
-}
 
-DB_USERNAME = os.environ.get("POSTGRES_USER")
-DB_PASSWORD = os.environ.get("POSTGRES_PASSWORD")
-DB_DATABASE = os.environ.get("POSTGRES_DB")
-DB_HOST = os.environ.get("POSTGRES_HOST")
-DB_PORT = os.environ.get("POSTGRES_PORT")
-DB_IS_AVIAL = all([
-    DB_USERNAME,
-    DB_PASSWORD,
-    DB_DATABASE,
-    DB_HOST,
-    DB_PORT
-])
+ADMINS= (
+    ('SILVA MAU', 'smartquail.dev@gmail.com')
+)
 
-POSTGRES_READY="1"
-if DB_IS_AVIAL and POSTGRES_READY:
-    DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': DB_DATABASE,
-        "USER": DB_USERNAME,
-        "PASSWORD": DB_PASSWORD,
-        "HOST": DB_HOST,
-        "PORT": DB_PORT,
-    }
-}
-
-
-CACHES = {
-    'default': {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://redis:6379/0',
-        'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-        },
-    }
-}
+ALLOWED_HOSTS = ['*']
 
 #Static files DevMod
 
@@ -309,3 +404,4 @@ STATIC_URL = "/static/"
 STATIC_ROOT = STATIC_ROOT = BASE_DIR / "static"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+

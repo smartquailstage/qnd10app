@@ -1,7 +1,6 @@
 
 
 import os
-import environ
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -10,7 +9,7 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-ENV_FILE_PATH = BASE_DIR / ".env_base"
+ENV_FILE_PATH = BASE_DIR / ".env"
 load_dotenv(str(ENV_FILE_PATH))
 
 DJANGO_SECRET_KEY= os.environ.get('DJANGO_SECRET_KEY')
@@ -50,6 +49,7 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'usuarios',
     'baton',
+    'editorial_literaria',
     #'account',
     #'courses',
     #'courses_exams',
@@ -79,7 +79,6 @@ INSTALLED_APPS = [
     'wagtail.documents',
     'wagtail.images',
     'wagtail.search',
-    
     
     'wagtail.admin',
    # 'wagtail.core',
@@ -117,15 +116,13 @@ INSTALLED_APPS = [
     'qr_code',
     'storages',
     #'actions',
-    'editorial_literaria',
-  
+       
     #'memcache_status',
     'rest_framework',
     'ckeditor',
+   # 'js_blog_app',
     'wagtail.contrib.settings',
-    
     'baton.autodiscover',
-    'memcache_status',
    
 ]
 
@@ -136,9 +133,9 @@ MIDDLEWARE = [
     #'django.contrib.sites.middleware.CurrentSiteMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.cache.UpdateCacheMiddleware',
+    #'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.cache.FetchFromCacheMiddleware',
+    #'django.middleware.cache.FetchFromCacheMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -262,25 +259,6 @@ TEMPLATES = [
     },
 ]
 
-CACHES = {
-    'default': {
-    'BACKEND': 'django.core.cache.backends.memcached.PyMemcacheCache',
-    'LOCATION': '127.0.0.1:11211',
-    'TIMEOUT': 60,
-    }
-}
-
-#CACHES = {
-#    'default': {
-#        'BACKEND': os.environ.get('CACHE_BACKEND', 'django.core.cache.backends.memcached.MemcachedCache'),
-#        'LOCATION': os.environ.get('CACHE_LOCATION', '127.0.0.1:11211'),
-#        'TIMEOUT': int(os.environ.get('CACHE_TIMEOUT', 300)),
-#    }
-#}
-
-
-
-
 WSGI_APPLICATION = 'qnd10app.wsgi.application'
 
 WAGTAILADMIN_BASE_URL =  os.environ.get('DOMAINS')
@@ -324,9 +302,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-Ec'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/guayaquil'
 
 USE_I18N = True
 

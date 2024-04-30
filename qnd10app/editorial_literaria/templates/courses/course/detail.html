@@ -99,10 +99,12 @@
                           <div class="col">
 
                             {% if request.user.is_authenticated %}
-                            <form action="{% url "student_enroll_course" %}" method="post">
+                            <form action="{% url "students:student_enroll_course" %}" method="post">
                                 {{ enroll_form }}
                                 {% csrf_token %}
-                                <input type="submit" class="button" value="Enroll now">
+                                <div class="d-flex gap-2 mt-3">
+                                  <button type="submit" value="Enroll now" class="btn btn-primary btn-ecomm">	<i class="bx bxs-file"></i>Leer Bases Técnicas</a> 
+                                </div>
                             </form>
                         {% else %}
                             <a href="{% url "usuarios:edit" %}" class="button">
@@ -111,10 +113,7 @@
                         {% endif %}
 
                         </div>
-                        <!--end row-->
-                        <div class="d-flex gap-2 mt-3">
-                          <a href="javascript:;" class="btn btn-primary btn-ecomm">	<i class="bx bxs-cart-add"></i>Postularse Ahora</a> <a href="javascript:;" class="btn btn-light btn-ecomm"><i class="bx bx-heart"></i>Add to Wishlist</a>
-                        </div>
+                      
                         <hr/>
        
                       </div>

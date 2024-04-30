@@ -109,7 +109,42 @@ class Video(ItemBase):
     url = models.URLField()
 
 
+class Proyectos(models.Model):
+     postulante = models.ManyToManyField(User,
+                                      related_name='projects_joined',
+                                      blank=True)
+     titulo = models.CharField(max_length=100)
+     informacion_basica = RichTextField()
+     created = models.DateTimeField(auto_now_add=True)
+     updated = models.DateTimeField(auto_now=True)
 
+     class Meta:
+        ordering = ['-created']
+        verbose_name_plural = "Convocatorias"
+
+
+     def __str__(self):
+        return self.titulo
+     
+class postulacion(models.Model):
+    postulante = models.ManyToManyField(User,
+                                      related_name='project_user_joined',
+                                      blank=True)
+    title = models.ManyToManyField(Proyectos,
+                                      related_name='project_title',
+                                      blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created']
+        verbose_name_plural = "Proyectos Postulados"
+
+    def __str__(self):
+        return self.title
+
+
+      
 
 #Manuales de uso
 TYPE = [

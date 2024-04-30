@@ -220,6 +220,8 @@ class CourseDetailView(DetailView):
                         self).get_context_data(**kwargs)
         context['enroll_form'] = CourseEnrollForm(
                                    initial={'course':self.object})
+   #     context['project_enroll_form'] = ProjectEnrollForm(
+   #                                initial={'project':self.object})
         return context
      
 
