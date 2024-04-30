@@ -3,17 +3,17 @@ from .base import *
 
 
 
-ENV_FILE_PATH = BASE_DIR / ".env"
+ENV_FILE_PATH = BASE_DIR / ".env_stage"
 load_dotenv(str(ENV_FILE_PATH))
 
-DEBUG=  "0"
+DEBUG=  "1"
 
 
-CSRF_COOKIE_DOMAIN=".juansilvaphoto.com"
+CSRF_COOKIE_DOMAIN=".quitocultura.smartquail.io"
 CSRF_COOKIE_SECURE = True
-CSRF_TRUSTED_ORIGINS = ['https://www.juansilvaphoto.com','https://64.23.235.13']
+CSRF_TRUSTED_ORIGINS = ['https://quitocultura.smartquail.io','https://164.90.153.177']
 CORS_ALLOWED_ORIGINS = [
-    'https://www.juansilvaphoto.com','https://64.23.235.13'
+    'https://quitocultura.smartquail.io','https://164.90.153.177'
     # Otros orígenes permitidos si los hay
 ]
 
