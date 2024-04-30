@@ -45,6 +45,7 @@ django-localflavor
 django-rosetta
 wagtail-localize
 django-memcache-status
+wagtailmedia
 
 djangorestframework 
 django-debug-toolbar 

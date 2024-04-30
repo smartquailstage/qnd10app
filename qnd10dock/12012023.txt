@@ -45,7 +45,12 @@ django-localflavor
 django-rosetta
 wagtail-localize
 django-memcache-status
+wagtailmedia
 
+djangorestframework 
+django-debug-toolbar 
+django-seed 
+pymemcache
 
 boto3
 #System HOST
