@@ -44,14 +44,11 @@
             </button>
             <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end">	
               {% for s in subjects %}
-              {% if s == subject %}
-              <a class="dropdown-item" href="javascript:;">{{ s.title }}</a>
-              {% endif %}
-        
+              <a class="dropdown-item"  href="{% url "editorial_literaria:course_list_subject" s.slug %}">{{ s.title }}</a>
               {% endfor %}
-              {% if not subject %}
+
               <div class="dropdown-divider"></div>	<a class="dropdown-item" href="{% url "course_list" %}">Todas las convocatorias disponibles</a>
-              {% endif %}
+
             </div>
           </div>
         </div>
