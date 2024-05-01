@@ -36,6 +36,7 @@
             </ol>
           </nav>
         </div>
+      </div>
 
 
         <div class="ms-auto">
@@ -45,10 +46,9 @@
             </button>
             <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end">	
               {% for s in subjects %}
-              {% if subject == s %}
-              
+       
               <a class="dropdown-item" href="javascript:;">{{ s.title }}</a>
-              {% endif %}
+        
               {% endfor %}
               {% if not subject %}
               <div class="dropdown-divider"></div>	<a class="dropdown-item" href="{% url "course_list" %}">Todas las convocatorias disponibles</a>
