@@ -221,6 +221,7 @@ def contact_profile(request):
 @login_required
 def dashboard(request):
     profile = Profile.objects.get(user=request.user)
+    manuales = Dashboard.objects.all()
     
     # Recuperar el valor del campo desde el caché
     #acepta_terminos_condiciones = cache.get(f'acepta_terminos_condiciones_{request.user.id}')
@@ -237,6 +238,7 @@ def dashboard(request):
     return render(request, 'usuarios/dashboard.html', {
         'section': 'dashboard',
         'profile': profile,
+        'manuales': manuales,
 
     })
 
