@@ -17,6 +17,7 @@ from django.template.loader import render_to_string
 from django.contrib.admin.views.decorators import staff_member_required
 import weasyprint
 from django.core.cache import cache
+from editorial_literaria.models import ManualCreateConvocatoria, ManualEditConvocatoria,ManualInscripcion
 
 def user_login(request):
     if request.method == 'POST':
@@ -285,3 +286,26 @@ def sidebar(request):
                   {'section': 'sidebar', 'is_tecnicos_group': is_tecnicos_group, 'terminos': terminos})
 
 
+@login_required
+def manual_crear_convocatoria(request):
+    manuales = ManualCreateConvocatoria.objects.all()
+    return render(request,
+                   'editorial_literaria/manuales/crear_convocatoria.html',
+                     {'manuales': manuales})
+
+
+
+@login_required
+def manual_editar_convocatoria(request):
+    manuales = ManualEditConvocatoria.objects.all()
+    return render(request,
+                   'editorial_literaria/manuales/edit_convocatoria.html',
+                     {'manuales': manuales})
+
+
+@login_required
+def manual_inscripcion(request):
+    manuales = ManualInscripcion.objects.all()
+    return render(request,
+                  'editorial_literaria/manuales/inscripcion.html',
+                  {'manuales': manuales})

@@ -4,7 +4,8 @@
 {% load wagtailimages_tags %}
 {% load widget_tweaks %}
 {% load static %}
-{% load menu_tags %}
+
+
 
 
 
@@ -34,9 +35,9 @@
         <div class="col-12 col-lg-12 mx-auto">
          
           <div class="text-center">
-            {% for manual in manuales %}
-            <h5 class="mb-0 text-uppercase">Preguntas Frecuentes para: {{ manual.type|richtext }}</h5>
-            {% endfor %}
+           
+            <h5 class="mb-0 text-uppercase">Preguntas Frecuentes para: Crear convocatorias para la Línea de Fomento Editorial.</h5>
+          
           
             <hr/>
           </div>
@@ -50,7 +51,7 @@
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="heading{{ forloop.counter }}">
                         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="true" aria-controls="collapse{{ forloop.counter }}">
-                            {{ manual.titulo | richtext }}
+                            {{ manual.titulo }}
                         </button>
                     </h2>
                     <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse show" aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#accordionExample">

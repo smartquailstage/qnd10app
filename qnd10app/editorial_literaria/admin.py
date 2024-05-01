@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Subject, Course, Module, ManualCreateConvocatoria
+from .models import Subject, Course, Module, ManualCreateConvocatoria, ManualEditConvocatoria, ManualInscripcion
 
 
 @admin.register(Subject)
@@ -25,4 +25,12 @@ class CourseAdmin(admin.ModelAdmin):
 
 @admin.register(ManualCreateConvocatoria)
 class ManualCreateConvocatoriaAdmin(admin.ModelAdmin):
+    list_display = ['type', 'titulo']
+
+@admin.register(ManualEditConvocatoria)
+class ManualEditConvocatoriaAdmin(admin.ModelAdmin):
+    list_display = ['type', 'titulo']
+
+@admin.register(ManualInscripcion)
+class ManualInscripcionAdmin(admin.ModelAdmin):
     list_display = ['type', 'titulo']

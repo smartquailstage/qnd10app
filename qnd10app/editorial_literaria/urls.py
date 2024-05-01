@@ -27,14 +27,6 @@ urlpatterns = [
     #path('course/<pk>/',views.StudentCourseDetailView.as_view(),name='student_course_detail'),
     #path('course/<pk>/<module_id>/', views.StudentCourseDetailView.as_view(), name='student_course_detail_module'),
 
-    path('inicio_crear_convocatoria/', views.manual_crear_convocatoria, name='inicio_crear_convocatoria'),
-    path('inicio_editar_convocatoria/', views.manual_editar_convocatoria, name='inicio_editar_convocatoria'),
-    path('inicio_Mis_convocatoria/', views.manual_mis_convocatoria, name='inicio_mis_convocatoria'),
-    path('inicio_Inscripciones/', views.manual_inscripcion, name='inicio_inscripcion'),
-   # path('inicio_postulacion/', views.manual_postulation, name='inicio_postulation'),  # Corrected name
-    path('inicio_Mis_postulaciones/', views.manual_mis_postulaciones, name='inicio_mis_postulaciones'),
-    path('inicio_crear_Proyecto/', views.manual_crear_proyecto, name='inicio_crear_proyecto'),
-    path('inicio_editar_Proyecto/', views.manual_editar_proyecto, name='inicio_editar_proyecto'),
-    path('inicio_Mis_Proyecto/', views.manual_mis_proyectos, name='inicio_mis_proyectos'),
+  
    
 ]
