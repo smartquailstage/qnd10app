@@ -36,25 +36,28 @@
             </ol>
           </nav>
         </div>
+
+
         <div class="ms-auto">
           <div class="btn-group">
-            <button type="button" class="btn btn-outline-primary"><ion-icon name="search-circle-outline"></ion-icon> Buscar</button>
+            <button type="button" class="btn btn-outline-primary">Buscar por módulos de convocatorias</button>
             <button type="button" class="btn btn-outline-primary split-bg-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">	<span class="visually-hidden">Toggle Dropdown</span>
             </button>
+            <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end">	
               {% for s in subjects %}
-               {% if subject == s %}
-                  <a class="dropdown-item" href="{% url "editorial_literaria:course_list_subject" s.slug %}">
-                      {{ s.title }}
-                  </a>
-                {% endif %}
-          {% endfor %}
-              <div class="dropdown-divider"></div>	<a class="dropdown-item" href="javascript:;">
-                 {% if not subject %}
-                <a href="{% url "course_list" %}">Todas las convocatorias disponibles</a>
-                {% endif %}
+              {% if subject == s %}
+              
+              <a class="dropdown-item" href="javascript:;">{{ s.title }}</a>
+              {% endif %}
+              {% endfor %}
+              {% if not subject %}
+              <div class="dropdown-divider"></div>	<a class="dropdown-item" href="{% url "course_list" %}">Todas las convocatorias disponibles</a>
+              {% endif %}
             </div>
           </div>
         </div>
+
+ 
   
  
       <div class="row row-cols-1 row-cols-lg-3">
