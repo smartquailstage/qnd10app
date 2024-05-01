@@ -44,8 +44,9 @@
             </button>
             <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end">	
               {% for s in subjects %}
-       
+              {% if s == subject %}
               <a class="dropdown-item" href="javascript:;">{{ s.title }}</a>
+              {% endif %}
         
               {% endfor %}
               {% if not subject %}
@@ -54,7 +55,7 @@
             </div>
           </div>
         </div>
-        
+
       </div>
 
 
