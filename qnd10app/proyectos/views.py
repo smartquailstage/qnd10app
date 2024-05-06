@@ -201,7 +201,7 @@ class ProjectListView(TemplateResponseMixin, View):
 
     def get(self, request, subject=None):
         subjects = Subject.objects.annotate(total_projects=Count('projects'))
-        projects = Project.objects.annotate(total_authors=Count('authors'))
+      #  projects = Project.objects.annotate(total_authors=Count('authors'))
 
         if subject:
             subject = get_object_or_404(Subject,slug=subject)
