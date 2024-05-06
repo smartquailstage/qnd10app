@@ -91,7 +91,7 @@ INSTALLED_APPS = [
     'wagtailmenus',
     'django_social_share',
     'taggit',
-    
+    'proyectos',
     'webapp_0',
     'streams',
     'widget_tweaks',

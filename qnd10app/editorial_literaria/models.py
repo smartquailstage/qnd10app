@@ -6,6 +6,7 @@ from .fields import OrderField
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 from ckeditor.fields import RichTextField
+from proyectos.models import Project
 
 
 class Subject(models.Model):
@@ -34,6 +35,9 @@ class Course(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     students = models.ManyToManyField(User,
                                       related_name='courses_joined',
+                                      blank=True)
+    projects = models.ManyToManyField(Project,
+                                      related_name='projects_joined',
                                       blank=True)
 
     class Meta:

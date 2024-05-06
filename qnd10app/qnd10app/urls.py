@@ -34,6 +34,7 @@ urlpatterns = [
     path('rosetta/', include('rosetta.urls')),
     path('account/', include('usuarios.urls', namespace='usuarios')),
     path('editorial_literaria/', include('editorial_literaria.urls')),
+    path('proyectos/', include('proyectos.urls')),
     path('convocatorias_disponibles/', CourseListView.as_view(), name='course_list'),
     path('postularse/', include('students.urls')),
     path('login/', auth_views.LoginView.as_view(), name='login'),

@@ -1,0 +1,102 @@
+{% extends "base_dash.html" %}
+{% load wagtailimages_tags wagtailcore_tags %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load widget_tweaks %}
+{% load static %}
+{% load menu_tags %}
+
+
+
+{% block content %}
+<div class="page-content-wrapper">
+    <!-- start page content-->
+    <div class="page-content">
+  
+      <!--start breadcrumb-->
+      <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+        <div class="breadcrumb-title pe-3">Inicio</div>
+        <div class="ps-3">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0 align-items-center">
+              <li class="breadcrumb-item"><a href="javascript:;">
+                  <ion-icon name="home-outline"></ion-icon>
+                </a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">{% block title %}Información de Perfil de usuario{% endblock %}</li>
+            </ol>
+          </nav>
+        </div>
+  
+      </div>
+      
+      <div class="row">
+        <div class="col-12 col-lg-12 mx-auto">
+         
+          <div class="text-center">
+            {% for manual in manuales %}
+            <h5 class="mb-0 text-uppercase">Preguntas Frecuentes para: {{ manual.type|richtext }}</h5>
+            {% endfor %}
+          
+            <hr/>
+          </div>
+         
+          <div class="card">
+           
+            <div class="card-body">
+              
+              <div class="accordion" id="accordionExample">
+                {% for manual in manuales %}
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading{{ forloop.counter }}">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="true" aria-controls="collapse{{ forloop.counter }}">
+                            {{ manual.titulo | richtext }}
+                        </button>
+                    </h2>
+                    <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse show" aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <p>{{ manual.bloque_1 | richtext }}</p> 
+                            {% if manual.image_1 %}
+                                <img src ="{{ manual.image_1.url }}" class="img-fluid rounded">
+                            {% endif %}
+            
+                            <p>{{ manual.bloque_2 | richtext }}</p> 
+                            {% if manual.image_2 %}
+                                <img src ="{{ manual.image_2.url }}" class="img-fluid rounded">
+                            {% endif %}
+            
+                            <p>{{ manual.bloque_3 | richtext }}</p> 
+                            {% if manual.image_3 %}
+                                <img src ="{{ manual.image_3.url }}" class="img-fluid rounded">
+                            {% endif %}
+            
+                            <p>{{ manual.bloque_4 | richtext }}</p> 
+                            {% if manual.image_4 %}
+                                <img src ="{{ manual.image_4.url }}" class="img-fluid rounded">
+                            {% endif %}
+            
+                            <p>{{ manual.bloque_5 | richtext }}</p> 
+                            {% if manual.image_5 %}
+                                <img src ="{{ manual.image_5.url }}" class="img-fluid rounded">
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+               
+            {% endfor %}
+            <a href ="#" type="button" class="btn btn-outline-secondary px-5"> <ion-icon name="add-circle-outline"></ion-icon> Crear Proyecto</a>
+              </div>
+              
+            </div>
+          
+            
+                   
+          </div>
+          
+        </div>
+      </div>
+  
+      
+    </div>
+    </div>
+{% endblock %}

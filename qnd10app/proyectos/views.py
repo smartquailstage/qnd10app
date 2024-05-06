@@ -12,8 +12,8 @@ from django.forms.models import modelform_factory
 from django.apps import apps
 from braces.views import CsrfExemptMixin, JsonRequestResponseMixin
 from django.db.models import Count
-from .models import Subject, Course, Module, Content,ManualCreateConvocatoria,ManualEditConvocatoria,ManualMisConvocatoria,ManualInscripcion,ManualMisPostulaciones,ManualCrearProyecto,ManualEditProyecto,ManualMisProyectos,ManualPostulacion 
-from .forms import ModuleFormSet, ProjectEnrollForm
+from .models import Subject, Project,Author,Content 
+from .forms import ModuleFormSet
 from students.forms import CourseEnrollForm
 #from students.forms import CourseEnrollForm
 from django.core.cache import cache
@@ -33,78 +33,78 @@ class OwnerEditMixin(object):
         return super(OwnerEditMixin, self).form_valid(form)
 
 
-class OwnerCourseMixin(OwnerMixin, LoginRequiredMixin):
-    model = Course
+class OwnerProjectMixin(OwnerMixin, LoginRequiredMixin):
+    model = Project
     fields = ['portada','subject', 'title', 'slug', 'overview']
-    success_url = reverse_lazy('editroial_literaria:manage_course_list')
+    success_url = reverse_lazy('proyectos:manage_project_list')
 
 
-class OwnerCourseEditMixin(OwnerCourseMixin, OwnerEditMixin):
+class OwnerProjectEditMixin(OwnerProjectMixin, OwnerEditMixin):
     fields = ['portada','subject', 'title', 'slug', 'overview']
-    success_url = reverse_lazy('editorial_literaria:manage_course_list')
-    template_name = 'courses/manage/course/form.html'
+    success_url = reverse_lazy('proyectos:manage_project_list')
+    template_name = 'projects/manage/course/form.html'
 
 
-class ManageCourseListView(OwnerCourseMixin, ListView):
-    template_name = 'courses/manage/course/list.html'
+class ManageProjectListView(OwnerProjectMixin, ListView):
+    template_name = 'projects/manage/course/list.html'
 
 
-class CourseCreateView(PermissionRequiredMixin,
-                       OwnerCourseEditMixin,
+class ProjectCreateView(PermissionRequiredMixin,
+                       OwnerProjectEditMixin,
                        CreateView):
-    permission_required = 'courses.add_course'
+    permission_required = 'projects.add_project'
 
 
-class CourseUpdateView(PermissionRequiredMixin,
-                       OwnerCourseEditMixin,
+class ProjectUpdateView(PermissionRequiredMixin,
+                       OwnerProjectEditMixin,
                        UpdateView):
-    permission_required = 'courses.change_course'
+    permission_required = 'projects.change_project'
 
 
-class CourseDeleteView(PermissionRequiredMixin,
-                       OwnerCourseMixin,
+class ProjectDeleteView(PermissionRequiredMixin,
+                       OwnerProjectMixin,
                        DeleteView):
-    template_name = 'courses/manage/course/delete.html'
-    success_url = reverse_lazy('editorial_literaria:manage_course_list')
-    permission_required = 'courses.delete_course'
+    template_name = 'projects/manage/course/delete.html'
+    success_url = reverse_lazy('proyectos:manage_project_list')
+    permission_required = 'projects.delete_project'
 
 
-class CourseModuleUpdateView(TemplateResponseMixin, View):
-    template_name = 'courses/manage/module/formset.html'
-    course = None
+class ProjectAuthorUpdateView(TemplateResponseMixin, View):
+    template_name = 'projects/manage/module/formset.html'
+    project = None
 
     def get_formset(self, data=None):
-        return ModuleFormSet(instance=self.course, data=data)
+        return ModuleFormSet(instance=self.project, data=data)
 
     def dispatch(self, request, pk):
-        self.course = get_object_or_404(Course,
+        self.project = get_object_or_404(Project,
                                         id=pk,
                                         owner=request.user)
-        return super(CourseModuleUpdateView, self).dispatch(request, pk)
+        return super(ProjectAuthorUpdateView, self).dispatch(request, pk)
 
     def get(self, request, *args, **kwargs):
         formset = self.get_formset()
-        return self.render_to_response({'course': self.course,
+        return self.render_to_response({'project': self.project,
                                         'formset': formset})
 
     def post(self, request, *args, **kwargs):
         formset = self.get_formset(data=request.POST)
         if formset.is_valid():
             formset.save()
-            return redirect('editorial_literaria:manage_course_list')
-        return self.render_to_response({'course': self.course,
+            return redirect('proyectos:manage_project_list')
+        return self.render_to_response({'project': self.project,
                                         'formset': formset})
 
 
 class ContentCreateUpdateView(TemplateResponseMixin, View):
-    module = None
+    author = None
     model = None
     obj = None
-    template_name = 'courses/manage/content/form.html'
+    template_name = 'projects/manage/content/form.html'
 
     def get_model(self, model_name):
-        if model_name in ['text', 'video', 'image', 'file']:
-            return apps.get_model(app_label='editorial_literaria',
+        if model_name in ['file']:
+            return apps.get_model(app_label='proyectos',
                                   model_name=model_name)
         return None
 
@@ -115,24 +115,24 @@ class ContentCreateUpdateView(TemplateResponseMixin, View):
                                                  'updated'])
         return Form(*args, **kwargs)
 
-    def dispatch(self, request, module_id, model_name, id=None):
-        self.module = get_object_or_404(Module,
-                                       id=module_id,
-                                       course__owner=request.user)
+    def dispatch(self, request, author_id, model_name, id=None):
+        self.author = get_object_or_404(Author,
+                                       id=author_id,
+                                       project__owner=request.user)
         self.model = self.get_model(model_name)
         if id:
             self.obj = get_object_or_404(self.model,
                                          id=id,
                                          owner=request.user)
         return super(ContentCreateUpdateView,
-           self).dispatch(request, module_id, model_name, id)
+           self).dispatch(request, author_id, model_name, id)
 
-    def get(self, request, module_id, model_name, id=None):
+    def get(self, request, author_id, model_name, id=None):
         form = self.get_form(self.model, instance=self.obj)
         return self.render_to_response({'form': form,
                                         'object': self.obj})
 
-    def post(self, request, module_id, model_name, id=None):
+    def post(self, request, author_id, model_name, id=None):
         form = self.get_form(self.model,
                              instance=self.obj,
                              data=request.POST,
@@ -143,9 +143,9 @@ class ContentCreateUpdateView(TemplateResponseMixin, View):
             obj.save()
             if not id:
                 # new content
-                Content.objects.create(module=self.module,
+                Content.objects.create(author=self.author,
                                        item=obj)
-            return redirect('editorial_literaria:module_content_list', self.module.id)
+            return redirect('proyectos:module_content_list', self.author.id)
 
         return self.render_to_response({'form': form,
                                         'object': self.obj})
@@ -156,33 +156,31 @@ class ContentDeleteView(View):
     def post(self, request, id):
         content = get_object_or_404(Content,
                                     id=id,
-                                    module__course__owner=request.user)
-        module = content.module
+                                    author__project__owner=request.user)
+        author = content.author
         content.item.delete()
         content.delete()
-        return redirect('editorial_literaria:module_content_list', module.id)
+        return redirect('proyectos:module_content_list', author.id)
 
 
-class ModuleContentListView(TemplateResponseMixin, View):
-    template_name = 'courses/manage/module/content_list.html'
-    
+class AuthorContentListView(TemplateResponseMixin, View):
+    template_name = 'projects/manage/module/content_list.html'
 
-    def get(self, request, module_id):
-       # project_form = ProjectEnrollForm(usuario=request.user)
-        module = get_object_or_404(Module,
-                                   id=module_id,
-                                   course__owner=request.user)
+    def get(self, request, author_id):
+        author = get_object_or_404(Author,
+                                   id=author_id,
+                                   project__owner=request.user)
 
-        return self.render_to_response({'module': module})
+        return self.render_to_response({'author': author})
 
 
-class ModuleOrderView(CsrfExemptMixin,
+class AuthorOrderView(CsrfExemptMixin,
                       JsonRequestResponseMixin,
                       View):
     def post(self, request):
         for id, order in self.request_json.items():
-            Module.objects.filter(id=id,
-                   course__owner=request.user).update(order=order)
+            Author.objects.filter(id=id,
+                   project__owner=request.user).update(order=order)
         return self.render_json_response({'saved': 'OK'})
 
 
@@ -192,36 +190,35 @@ class ContentOrderView(CsrfExemptMixin,
     def post(self, request):
         for id, order in self.request_json.items():
             Content.objects.filter(id=id,
-                       module__course__owner=request.user) \
+                       author__project__owner=request.user) \
                        .update(order=order)
         return self.render_json_response({'saved': 'OK'})
 
 
-class CourseListView(TemplateResponseMixin, View):
-    model = Course
-    template_name = 'courses/course/list.html'
+class ProjectListView(TemplateResponseMixin, View):
+    model = Project
+    template_name = 'projects/course/list.html'
 
     def get(self, request, subject=None):
-        subjects = Subject.objects.annotate(total_courses=Count('courses'))
-        courses = Course.objects.annotate(total_modules=Count('modules'))
+        subjects = Subject.objects.annotate(total_projects=Count('projects'))
+        projects = Project.objects.annotate(total_authors=Count('authors'))
 
         if subject:
             subject = get_object_or_404(Subject,slug=subject)
-            courses = courses.filter(subject=subject)       
+            projects = projects.filter(subject=subject)       
         return self.render_to_response({'subjects': subjects,
-                                        'subject': subject,
-                                        'courses': courses})
+                                        'projects': projects})
 
 
-class CourseDetailView(DetailView):
-     model = Course
-     template_name = 'courses/course/detail.html'
+class ProjectDetailView(DetailView):
+     model = Project
+     template_name = 'projects/course/detail.html'
 
      def get_context_data(self, **kwargs):
-        context = super(CourseDetailView,
+        context = super(ProjectDetailView,
                         self).get_context_data(**kwargs)
         context['enroll_form'] = CourseEnrollForm(
-                                   initial={'course':self.object})
+                                   initial={'project':self.object})
    #     context['project_enroll_form'] = ProjectEnrollForm(
    #                                initial={'project':self.object})
         return context
