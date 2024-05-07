@@ -32,7 +32,7 @@ class StudentEnrollCourseView(LoginRequiredMixin, FormView):
     def form_valid(self, form):
         self.course = form.cleaned_data['course']
         self.course.students.add(self.request.user)
-        self.course.projects.add(self.request.project)
+    #    self.course.projects.add(self.request.project)
         return super(StudentEnrollCourseView,
                      self).form_valid(form)
 
