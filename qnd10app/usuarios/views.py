@@ -25,22 +25,22 @@ def user_login(request):
         if form.is_valid():
             cd = form.cleaned_data
             user = authenticate(request,
-                                username=cd['Nombre de Usuario'],
-                                password=cd['password'])
+                                username=cd['username'],
+                                password=cd['password'],
+                                user_group=cd['user_group'])
             if user is not None:
                 if user.is_active:
                     login(request, user)
                     user_profile = Profile.objects.get(user=user)
                     user_group = user_profile.user_group
-                    return HttpResponse('Authenticated '\
-                                        'successfully')
+                    return redirect('usuarios:dashboard')
                 else:
                     return HttpResponse('Disabled account')
             else:
                 return HttpResponse('Invalid login')
     else:
         form = LoginForm()
-    return render(request, 'account/login.html', {'form': form})
+    return render(request, 'registration/login.html', {'form': form})
 
 
 
@@ -224,6 +224,8 @@ def contact_profile(request):
 def dashboard(request):
     profile = Profile.objects.get(user=request.user)
     manuales = Dashboard.objects.all()
+    user_groups = request.user.groups.all()
+    is_tecnicos_group = any(group.name == 'tecnicos' for group in user_groups)
     
     # Recuperar el valor del campo desde el caché
     #acepta_terminos_condiciones = cache.get(f'acepta_terminos_condiciones_{request.user.id}')
@@ -241,6 +243,7 @@ def dashboard(request):
         'section': 'dashboard',
         'profile': profile,
         'manuales': manuales,
+        'is_tecnicos_group':is_tecnicos_group 
 
     })
 

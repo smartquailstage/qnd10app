@@ -30,6 +30,8 @@
         </li>
  
             <li class="menu-label">Convocatorias Editorial & Literaria</li>
+
+        {% if is_tecnicos_group %}
             <li>
                 <a href="javascript:;" class="has-arrow">
                     <div class="parent-icon">
@@ -61,9 +63,7 @@
                     </li>
                 </ul>
             </li>
-    
-    
-       
+        {% elif is_postulante_group %}   
             <li>
                 <a class="has-arrow" href="javascript:;">
                     <div class="parent-icon">
@@ -94,6 +94,7 @@
                     </li>
                 </ul>
             </li>
+        {% endif %}
 
         
    
