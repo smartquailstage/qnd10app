@@ -29,9 +29,10 @@
             </a>
         </li>
  
-            <li class="menu-label">Convocatorias Editorial & Literaria</li>
+           
 
         {% if is_tecnicos_group %}
+        <li class="menu-label">Convocatorias Editorial & Literaria</li>
             <li>
                 <a href="javascript:;" class="has-arrow">
                     <div class="parent-icon">
@@ -94,20 +95,23 @@
                     </li>
                 </ul>
             </li>
+       
+
         {% endif %}
 
+        <li class="menu-label">Inscripción al sistema de convocatorias</li>
+        <li>
+            <a href="{% url 'usuarios:inicio_inscripcion' %}">
+                <div class="parent-icon">
+                    <ion-icon name="card-outline"></ion-icon>
+                </div>
+                <div class="menu-title">Inscripción</div>
+            </a>
+        </li>
         
    
 
-            <li class="menu-label">Inscripción al sistema de convocatorias</li>
-            <li>
-                <a href="{% url 'usuarios:inicio_inscripcion' %}">
-                    <div class="parent-icon">
-                        <ion-icon name="card-outline"></ion-icon>
-                    </div>
-                    <div class="menu-title">Inscripción</div>
-                </a>
-            </li>
+
             
 
         
