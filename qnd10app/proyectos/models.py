@@ -7,6 +7,7 @@ from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 from ckeditor.fields import RichTextField
 from django.utils import timezone
+from editorial_literaria.models import Course
 
 
 class Subject(models.Model):
@@ -29,6 +30,7 @@ class Project(models.Model):
     slug = models.SlugField(max_length=200, unique=True)
     overview = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
+    course = models.ForeignKey(Course, related_name='proyectos_course', on_delete=models.CASCADE,null=True,blank=True,verbose_name="Elija la convocatoria que desea postular este proyecto.")
 
     class Meta:
         ordering = ['-created']

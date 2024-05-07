@@ -65,6 +65,25 @@
             <div class="col-12 col-lg-6">
 
               {% for field in form.visible_fields %}
+              {% if field.name == 'course' %}
+                <label for="{{ field.id }}" class="form-label">Convocatoría que desea postular</label>
+                {% if field.errors %}
+                  {% render_field field class="form-control is-invalid" %}
+                  {% for error in field.errors %}
+                    <div class="invalid-feedback">
+                      {{ error }}
+                    </div>
+                  {% endfor %}
+                {% else %}
+                  {% render_field field class="form-control is-valid"  %}
+                {% endif %}
+                {% if field.help_text %}
+                  <small class="form-text text-muted">{{ field.help_text }}</small>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+
+              {% for field in form.visible_fields %}
               {% if field.name == 'subject' %}
                 <label for="{{ field.id }}" class="form-label">Categoría de convocatoría en Fomento Editorial y Literaría</label>
                 {% if field.errors %}

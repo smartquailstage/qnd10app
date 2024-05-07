@@ -35,12 +35,12 @@ class OwnerEditMixin(object):
 
 class OwnerProjectMixin(OwnerMixin, LoginRequiredMixin):
     model = Project
-    fields = ['portada','subject', 'title', 'slug', 'overview']
+    fields = ['course','portada','subject', 'title', 'slug', 'overview']
     success_url = reverse_lazy('proyectos:manage_project_list')
 
 
 class OwnerProjectEditMixin(OwnerProjectMixin, OwnerEditMixin):
-    fields = ['portada','subject', 'title', 'slug', 'overview']
+    fields = ['course','portada','subject', 'title', 'slug', 'overview']
     success_url = reverse_lazy('proyectos:manage_project_list')
     template_name = 'projects/manage/course/form.html'
 
