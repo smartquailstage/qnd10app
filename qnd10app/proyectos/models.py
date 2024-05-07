@@ -23,7 +23,7 @@ class Subject(models.Model):
 
 class Project(models.Model):
     owner = models.ForeignKey(User, related_name='projects_created', on_delete=models.CASCADE)
-    subject = models.ForeignKey(Subject, related_name='projects', on_delete=models.CASCADE)
+    subject = models.ForeignKey(Subject, related_name='proyectos_subject', on_delete=models.CASCADE)
     portada = models.ImageField(upload_to='portada/%Y/%m/%d/', blank=True, verbose_name="Foto de portada de convocatoria")
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True)
