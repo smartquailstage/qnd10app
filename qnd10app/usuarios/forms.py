@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from .models import Profile,edit_contact2,edit_contact1, Contacts ,Legal,Activity,DeclaracionVeracidad
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 class LoginForm(forms.Form):
     username = forms.CharField(label="Nombre de Usuario")
     password = forms.CharField(widget=forms.PasswordInput,label="Contraseña")
+    user_group = forms.ModelChoiceField(queryset=Group.objects.all(), empty_label=None, label="Grupo de Usuario")
 
 
 class UserRegistrationForm(forms.ModelForm):
@@ -15,6 +16,7 @@ class UserRegistrationForm(forms.ModelForm):
                                widget=forms.PasswordInput)
     password2 = forms.CharField(label='Repeat password',
                                 widget=forms.PasswordInput)
+    user_group = forms.ModelChoiceField(queryset=Group.objects.all(), empty_label=None, label="Grupo de Usuario")
 
     class Meta:
         model = User
@@ -36,7 +38,7 @@ class UserEditForm(forms.ModelForm):
 class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('date_of_birth', 'photo','nacionalidad','autoidentificacion','genero')
+        fields = ('user_group','date_of_birth', 'photo','nacionalidad','autoidentificacion','genero')
         widgets = {
             'date_of_birth': forms.DateInput(attrs={'type': 'datepicker'}),
         }

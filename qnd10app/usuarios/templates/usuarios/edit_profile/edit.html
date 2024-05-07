@@ -124,11 +124,32 @@
                 {% endif %}
               {% endfor %}
 
+
+
               
           
               {% for field in user_form.visible_fields %}
                 {% if field.name == 'last_name' %}
                   <label for="{{ field.id }}" class="form-label">Apellidos</label>
+                  {% if field.errors %}
+                    {% render_field field class="form-control is-invalid" %}
+                    {% for error in field.errors %}
+                      <div class="invalid-feedback">
+                        {{ error }}
+                      </div>
+                    {% endfor %}
+                  {% else %}
+                    {% render_field field class="form-control is-valid" %}
+                  {% endif %}
+                  {% if field.help_text %}
+                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+
+              {% for field in user_form.visible_fields %}
+                {% if field.name == 'user_group' %}
+                  <label for="{{ field.id }}" class="form-label">Tipo de cuenta </label>
                   {% if field.errors %}
                     {% render_field field class="form-control is-invalid" %}
                     {% for error in field.errors %}

@@ -5,8 +5,11 @@ from phonenumber_field.modelfields import PhoneNumberField
 from localflavor.ec.forms import ECProvinceSelect
 from ckeditor.fields import RichTextField
 from django.core.cache import cache
+from django.contrib.auth.models import User, Group
+
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Nombre de Usuario")
+    user_group = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True, blank=True,verbose_name="Tipo de cuenta de Usuario")
     date_of_birth = models.DateField(blank=True, null=True, verbose_name="Fecha de Nacimiento")
     photo = models.ImageField(upload_to='users/%Y/%m/%d/', blank=True, verbose_name="Foto de Perfil")
     nacionalidad = models.CharField(blank=True, null=True, max_length=100, verbose_name="Nacionalidad")

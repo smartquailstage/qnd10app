@@ -30,6 +30,8 @@ def user_login(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
+                    user_profile = Profile.objects.get(user=user)
+                    user_group = user_profile.user_group
                     return HttpResponse('Authenticated '\
                                         'successfully')
                 else:
