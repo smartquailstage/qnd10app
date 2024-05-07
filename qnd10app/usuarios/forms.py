@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 class LoginForm(forms.Form):
     username = forms.CharField(label="Nombre de Usuario")
     password = forms.CharField(widget=forms.PasswordInput,label="Contraseña")
-    user_group = forms.ModelChoiceField(queryset=Group.objects.all(), empty_label=None, label="Tipo de Cuenta")
+    user_group = forms.ModelChoiceField(queryset=Group.objects.all(), empty_label=None, label="Actividad de Usuario", help_text="Elegir la actividad que desea realizar en la plataforma")
 
 
 class UserRegistrationForm(forms.ModelForm):
@@ -16,7 +16,7 @@ class UserRegistrationForm(forms.ModelForm):
                                widget=forms.PasswordInput)
     password2 = forms.CharField(label='Repeat password',
                                 widget=forms.PasswordInput)
-    user_group = forms.ModelChoiceField(queryset=Group.objects.all(), empty_label=None, label="Grupo de Usuario")
+    user_group = forms.ModelChoiceField(queryset=Group.objects.all(), empty_label=None, label="Actividad de Usuario")
 
     class Meta:
         model = User
