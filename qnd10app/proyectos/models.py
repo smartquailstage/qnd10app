@@ -23,6 +23,13 @@ class Subject(models.Model):
 
 
 class Project(models.Model):
+    PROCESS = (
+        ('Aprobado', 'Aprobado'),
+        ('Activo', 'Activo'),
+        ('Subsanación', 'Subsanación'),
+        ('Rechazado', 'Rechazado'),
+    )
+    
     owner = models.ForeignKey(User, related_name='projects_created', on_delete=models.CASCADE)
     subject = models.ForeignKey(Subject, related_name='proyectos_subject', on_delete=models.CASCADE)
     portada = models.ImageField(upload_to='portada/%Y/%m/%d/', blank=True, verbose_name="Foto de portada de convocatoria")
@@ -31,6 +38,7 @@ class Project(models.Model):
     overview = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     course = models.ForeignKey(Course, related_name='proyectos_course', on_delete=models.CASCADE,null=True,blank=True,verbose_name="Elija la convocatoria que desea postular este proyecto.")
+    proceso =  models.CharField(max_length=255, blank=True, null=True, verbose_name="Proceso del proyecto postulado", choices=PROCESS, help_text="Elija el proceso en la que se encuentra esta postulacion", default="Activo")
 
     class Meta:
         ordering = ['-created']

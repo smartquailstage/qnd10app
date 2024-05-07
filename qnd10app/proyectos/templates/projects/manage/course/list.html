@@ -76,9 +76,35 @@
                      </div>
                   </div>
                 </td>
-                <td>{{ project.course }}</td>
-                
-                <td><span class="badge bg-light-success text-success w-100">{{ project.proceso }}dd</span></td>
+                <td>{{ project.course }}
+                </td>
+                {% if project.proceso == 'Aprobado' %}
+                <td>
+                  <span class="badge bg-light-success text-success w-100">
+                    {{ project.proceso }}
+                  </span>
+                </td>
+                {% elif project.proceso == 'Activo' %}
+                <td>
+                  <span class="badge bg-light-warning text-warning w-100">
+                    {{ project.proceso }}
+                  </span>
+                </td>
+                {% elif project.proceso == 'Subsanación' %}
+                <td>
+                  <span class="badge bg-light-warning text-success w-100">
+                    {{ project.proceso }}
+                  </span>
+                </td>
+                {% elif project.proceso == 'Rechazado' %}
+                <td>
+                  <span class="badge bg-light-danger text-danger w-100">
+                    {{ project.proceso }}
+                  </span>
+                </td>
+                {% endif %}
+
+
                 <td>
                   <div class="table-actions d-flex align-items-center gap-3 fs-6">
                   <a class="dropdown-item" href="{% url "proyectos:project_edit" project.id %}" title="Editar Proyecto" >  <ion-icon name="create-outline"></ion-icon></a>
