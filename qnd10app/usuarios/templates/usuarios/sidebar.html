@@ -88,61 +88,17 @@
                 </a>
                 <ul>
                     <li>
-                        <a href="#">
-                            <ion-icon name="ellipse-outline"></ion-icon>Editorial y literaria
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="menu-label">Proyectos de usuarios</li>
-        
-            <li>
-                <a class="has-arrow" href="javascript:;">
-                    <div class="parent-icon">
-                        <ion-icon name="add-circle-outline"></ion-icon>
-                    </div>
-                    <div class="menu-title">Crear Proyecto</div>
-                </a>
-                <ul>
-                    <li>
-                        <a href="{% url 'proyectos:project_create' %}">
-                            <ion-icon name="ellipse-outline"></ion-icon>Editorial y literaria
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a class="has-arrow" href="javascript:;">
-                    <div class="parent-icon">
-                        <ion-icon name="create-outline"></ion-icon>
-                    </div>
-                    <div class="menu-title">Editar Proyecto</div>
-                </a>
-                <ul>
-                    <li>
-                        <a href="#">
-                            <ion-icon name="ellipse-outline"></ion-icon>Editorial y literaria
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a class="has-arrow" href="javascript:;">
-                    <div class="parent-icon">
-                        <ion-icon name="list-outline"></ion-icon>
-                    </div>
-                    <div class="menu-title">Mis Proyectos</div>
-                </a>
-                <ul>
-                    <li>
-                        <a href="#">
+                        <a href="{% url 'proyectos:manage_project_list' %}">
                             <ion-icon name="ellipse-outline"></ion-icon>Editorial y literaria
                         </a>
                     </li>
                 </ul>
             </li>
 
-            <li class="menu-label">Convocatorias </li>
+        
+   
+
+            <li class="menu-label">Inscripción al sistema de convocatorias</li>
             <li>
                 <a href="{% url 'usuarios:inicio_inscripcion' %}">
                     <div class="parent-icon">
