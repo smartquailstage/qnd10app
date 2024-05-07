@@ -19,7 +19,7 @@ from students.forms import CourseEnrollForm
 from django.core.cache import cache
 from django.shortcuts import render, redirect
 from django.views.generic.edit import FormView
-
+from usuarios.models import Profile
 
 class OwnerMixin(object):
     def get_queryset(self):
@@ -200,6 +200,7 @@ class ProjectListView(TemplateResponseMixin, View):
     template_name = 'projects/course/list.html'
 
     def get(self, request, subject=None):
+        profile = Profile.objects.get(user=request.user)
         subjects = Subject.objects.annotate(total_projects=Count('projects'))
       #  projects = Project.objects.annotate(total_authors=Count('authors'))
 
@@ -207,7 +208,7 @@ class ProjectListView(TemplateResponseMixin, View):
             subject = get_object_or_404(Subject,slug=subject)
             projects = projects.filter(subject=subject)       
         return self.render_to_response({'subjects': subjects,
-                                        'projects': projects})
+                                        'projects': projects, 'profile':profile})
 
 
 class ProjectDetailView(DetailView):

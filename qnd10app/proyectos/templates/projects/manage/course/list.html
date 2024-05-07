@@ -33,46 +33,81 @@
     </div>
 
     <div class="demo-seprater">
-      <h6 class="mb-0 text-uppercase">Editar convocatorias</h6>
+      <h6 class="mb-0 text-uppercase">Editar Proyectos postlados </h6>
       <div class="my-3 border-bottom"></div>
     </div>
-   
-    <div class="row row-cols-1 row-cols-lg-3">
-      {% for project in object_list %}
-       <div class="col">
-        
-        <div class="card">
-          {% thumbnail project.portada "300x200" crop="center" as p %}
-          <img src="{{ p.url }}" class="card-img-top" alt="...">
-           {% endthumbnail %}
-          <div class="card-body">
-            <h5 class="card-title">{{ project.title }}</h5>
-            <p class="card-text">{{ project.overview }}</p>
-            <div class="dropdown">
-              <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><ion-icon name="settings"></ion-icon>Configuración</button>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="{% url "proyectos:project_edit" project.id %}"> Editar convocatoria</a>
-                </li>
-                <li><a class="dropdown-item" href="{% url "proyectos:project_delete" project.id %}"> Eliminar convocatoria </a>
-                </li>
-                <li><a class="dropdown-item" href="{% url "proyectos:project_author_update" project.id %}"> Bases tecnicas</a>
-                </li>
-                {% if project.authors.count > 0 %}
-                <li><a class="dropdown-item"  href="{% url "proyectos:module_content_list" project.authors.first.id %}"> Crear contenidos Bases tecnicas</a>
-                </li>
-                {% endif %}
-              </ul>
-            </div>
-        
-          </div>
+
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-center">
+           <h5 class="mb-0">Lista de proyectos Postulados</h5>
+            <form class="ms-auto position-relative">
+              <div class="position-absolute top-50 translate-middle-y search-icon px-3"><ion-icon name="search-sharp"></ion-icon></div>
+              <input class="form-control ps-5" type="text" placeholder="search">
+            </form>
         </div>
+        <div class="table-responsive mt-3">
+          <table class="table align-middle">
+            <thead class="table-secondary">
+              <tr>
+               <th># de Autores</th>
+               <th>Nombre de Usuario</th>
+               <th>Titulo de obra literaria</th>
+               <th>Nombre de convocatoria a postular </th>
+               <th>Proceso</th>
+               <th>Configuraciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for project in object_list %}
+              <tr>
+               <td>
+                {{ project.authors.count }}
 
-       
-       </div>
-</div>
+               </td>
+               <td>{{ project.owner }}</td>
+                <td>
+                  <div class="d-flex align-items-center gap-3 cursor-pointer">
+                    {% thumbnail project.portada "300x200" crop="center" as p %}
+                     <img src="{{ p.url }}" class="rounded-circle" width="44" height="44" alt="">
+                     {% endthumbnail %}
+                     <div class="">
+                       <p class="mb-0">{{ project.title }}</p>        
+                     </div>
+                  </div>
+                </td>
+                <td>{{ project.course }}</td>
+                
+                <td><span class="badge bg-light-success text-success w-100">{{ project.proceso }}dd</span></td>
+                <td>
+                  <div class="table-actions d-flex align-items-center gap-3 fs-6">
+                  <a class="dropdown-item" href="{% url "proyectos:project_edit" project.id %}" title="Editar Proyecto" >  <ion-icon name="create-outline"></ion-icon></a>
+                  <a class="dropdown-item" href="{% url "proyectos:project_delete" project.id %}" title="Eliminar Proyecto" ><ion-icon name="trash-outline"></ion-icon></a>
+                  <a class="dropdown-item" href="{% url "proyectos:project_author_update" project.id %}" title="Agregar Autores"> <ion-icon name="person-add-outline"></a>
+                  {% if project.authors.count > 0 %}
+                <a class="dropdown-item"  href="{% url "proyectos:module_content_list" project.authors.first.id %}" title="Agregar Curriculm Vitale" ><ion-icon name="document-attach-outline"></ion-icon></ion-icon></a>
+                
+                {% endif %}
+                  </div>
 
-{% empty %}
-<h3>Usted todavia no ha creado una convocatoria para la línea de fomento editorial y literaria.</h3>
+                
+                </td>
+              </tr>
+            
+              {% empty %}
+              <tr>
+               
+<h3>Usted todavia no ha creado un proyecto para postular en las convocatorias para la línea de fomento editorial y literaria.</h3>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+   
+
+
    
    </div>
 </div>
@@ -80,11 +115,6 @@
 
  
 
-         {% endfor %}
 
-
-</div>
-
-</div>
 
 {% endblock %}
