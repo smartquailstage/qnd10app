@@ -92,7 +92,7 @@ INSTALLED_APPS = [
     'django_social_share',
     'taggit',
     'proyectos',
-    'webapp_0',
+    #'webapp_0',
     'streams',
     'widget_tweaks',
    #SMARTQUAIL-BUSINESS-CONSULTING
