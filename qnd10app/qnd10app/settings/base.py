@@ -92,6 +92,7 @@ INSTALLED_APPS = [
     'django_social_share',
     'taggit',
     'proyectos',
+    'students',
     #'webapp_0',
     'streams',
     'widget_tweaks',
