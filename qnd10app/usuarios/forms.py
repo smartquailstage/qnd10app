@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 class LoginForm(forms.Form):
     username = forms.CharField(label="Nombre de Usuario")
     password = forms.CharField(widget=forms.PasswordInput,label="Contraseña")
-    user_group = forms.ModelChoiceField(queryset=Group.objects.all(), empty_label=None, label="Actividad de Usuario", help_text="Elegir la actividad que desea realizar en la plataforma")
+    user_group = forms.ModelChoiceField(queryset=Group.objects.all(), empty_label=None, label="Actividad que desea realizar:", help_text="Elegir la actividad que desea realizar en la plataforma")
 
 
 class UserRegistrationForm(forms.ModelForm):

@@ -25,6 +25,7 @@ from wagtail import urls as wagtail_urls
 from wagtail import urls as wagtaildocs_urls
 from django.contrib.auth import views as auth_views
 from editorial_literaria.views import CourseListView
+from usuarios.views import user_login
 
 urlpatterns = [
 
@@ -32,12 +33,12 @@ urlpatterns = [
     path('baton/', include('baton.urls')),
     path('social-auth/', include('social_django.urls', namespace='social')),
     path('rosetta/', include('rosetta.urls')),
-    path('account/', include('usuarios.urls', namespace='usuarios')),
+    path('secu_users/', include('usuarios.urls', namespace='usuarios')),
     path('editorial_literaria/', include('editorial_literaria.urls')),
     path('proyectos/', include('proyectos.urls')),
     path('convocatorias_disponibles/', CourseListView.as_view(), name='course_list'),
     path('postularse/', include('students.urls')),
-    path('login/', auth_views.LoginView.as_view(), name='login'),
+   # path('login/', auth_views.LoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('password_change/', auth_views.PasswordChangeView.as_view(), name='password_change'),
     path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(), name='password_change_done'),
