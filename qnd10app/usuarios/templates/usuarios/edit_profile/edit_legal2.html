@@ -87,9 +87,7 @@
                       {% endif %}
                     {% endif %}
                   {% endfor %}
-                </div>
-
-                <div class="col-12 col-lg-6">
+              
                   {% for field in legal2_form.visible_fields %}
                     {% if field.name == 'representante_legal_nombre' %}
                       <label for="{{ field.id }}" class="form-label">Nombre de representante legal</label>
@@ -150,6 +148,9 @@
                     {% endif %}
                   {% endfor %}
 
+                  </div>
+                  <div class="col-12 col-lg-6">
+
                   {% for field in legal2_form.visible_fields %}
                     {% if field.name == 'pagina_web' %}
                       <label for="{{ field.id }}" class="form-label">Pegue aquí la dirección web de la compañia.</label>
@@ -194,8 +195,12 @@
 
               <div class="col-12">
                 <div class="d-flex align-items-center gap-3">
-                  <button class="btn btn-secondary px-4" type="submit"><i class='bx bx-save me-2'></i>Guardar</button>
-                  <a href="{% url 'usuarios:edit_activity' %}" class="btn btn-primary px-4"><i class='bx bx-right-arrow-alt me-2'></i>Siguiente</a>
+                  {% if legal.tipo_personeria == 'Natural' %}
+                  <a href="{% url 'usuarios:edit_legal' %}" class="btn btn-primary px-4"><i class='bx bx-left-arrow-alt me-2'></i>Atrás</a>
+              {% elif legal.tipo_personeria == 'Jurídico' %}
+                  <a href="{% url 'usuarios:edit_legal' %}" class="btn btn-primary px-4"><i class='bx bx-left-arrow-alt me-2'></i>Atrás</a>
+              {% endif %}
+                  <button href="{% url 'usuarios:edit_activity' %}" class="btn btn-secondary px-4" type="submit"><i class='bx bx-save me-2'></i>Guardar</button>
                 </div>
               </div>
             </form>

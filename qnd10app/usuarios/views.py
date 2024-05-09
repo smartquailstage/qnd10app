@@ -144,11 +144,21 @@ def edit_legal(request):
     if request.method == 'POST':
         legal1_form = LegalEditForm(instance=legal, data=request.POST)
         if legal1_form.is_valid():
-            legal1_form.save()
-            messages.success(request, 'Un perfil legal de usuario acaba de ser grabado')
-            return redirect('usuarios:edit_activity')
+            legal_instance = legal1_form.save(commit=False)
+            # Obtener el valor de tipo_personeria del formulario
+            tipo_personeria = legal_instance.tipo_personeria
+            
+            if tipo_personeria == 'Natural':  # Condición para el primer valor
+                # Redireccionar a una URL específica para valor1
+                return redirect('usuarios:edit_activity')
+            elif tipo_personeria == 'Jurídico':  # Condición para el segundo valor
+                # Redireccionar a una URL específica para valor2
+                return redirect('usuarios:edit_legal2')
+            else:
+                # Redireccionar a una URL predeterminada si no cumple ninguna condición
+                return redirect('usuarios:edit_activity')
         else:
-            messages.error(request, 'Error updating your profile')
+            messages.error(request, 'Error actualizando tu perfil')
     else:
         legal1_form = LegalEditForm(instance=legal)
     

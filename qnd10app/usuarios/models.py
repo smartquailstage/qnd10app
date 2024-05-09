@@ -723,7 +723,17 @@ class Legal(models.Model):
     representante_legal_apellido = models.CharField(max_length=255, blank=True, null=True, verbose_name="Apellido del Representante Legal")
     representante_legal_cedula = models.CharField(max_length=20, blank=True, null=True, verbose_name="Cédula del Representante Legal")
     ruc = models.CharField(max_length=13, blank=True, null=True, verbose_name="RUC")
-    telefono_contacto = PhoneNumberField(verbose_name="Teléfono de Contacto",blank=True)
+    phone_regex = RegexValidator(
+        regex=r'^\+?593?\d{9,15}$',
+        message="El número de teléfono debe estar en formato internacional. Ejemplo: +593XXXXXXXXX."
+    )
+
+    telefono_contacto = PhoneNumberField(
+        verbose_name="telefono de contacto del representante legal",
+        validators=[phone_regex],
+        default='+593'  # Código de área de Ecuador como valor por defecto
+    )
+
     direccion_domicilio = models.CharField(max_length=255, blank=True, null=True, verbose_name="Dirección de Domicilio")
     georeferencia = models.CharField(max_length=255, blank=True, null=True, verbose_name="Georreferencia")
     pagina_web = models.URLField(blank=True, null=True, verbose_name="Página Web")
