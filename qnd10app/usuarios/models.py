@@ -778,7 +778,7 @@ class Activity(models.Model):
     portafolio = models.URLField(blank=True, null=True, verbose_name="Portafolio")
     registro_ruac = models.BooleanField(default=False, verbose_name="¿Es parte del Registro Único de Artistas y Gestores Culturales - RUAC?")
     pertenece_agremiacion_colectivo = models.BooleanField(default=False, verbose_name="¿Pertenece a alguna Agremiación / Colectivo?")
-    nombre_agremiacion = models.CharField(max_length=255, blank=True, null=True, verbose_name="Nombre de la Agremiación")
+    nombre_agremiacion = models.CharField(max_length=255, blank=True, null=True, verbose_name="Nombre de la Agremiación", help_text="Si pertence a una agremiación artistica, escriba el nombre de la misma. Caso contrario, deje el campo en blanco. ")
 
     def __str__(self):
         return 'Perfil de Actividad Artistica de Usuario {}'.format(self.user.username)

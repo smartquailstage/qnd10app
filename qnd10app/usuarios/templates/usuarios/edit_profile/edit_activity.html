@@ -153,16 +153,16 @@
 
           {% for field in activity_form.visible_fields %}
             {% if field.name == 'registro_ruac' %}
-              <label for="{{ field.id }}" class="form-label">Maque si tiene registro único de artistas </label>
+              <label for="{{ field.id }}" class="form-label">Maque si tiene registro único de artistas culturales. R.U.A.C </label>
               {% if field.errors %}
-                {% render_field field class="form-check-input mb-3 is-invalid" %}
+                {% render_field field class="form-check-input mb-3 " %}
                 {% for error in field.errors %}
                   <div class="invalid-feedback">
                     {{ error }}
                   </div>
                 {% endfor %}
               {% else %}
-                {% render_field field class="form-check-input mb-3 is-valid"  %}
+                {% render_field field class="form-check-input mb-3 "  %}
               {% endif %}
               {% if field.help_text %}
                 <small class="form-text text-muted">{{ field.help_text }}</small>
@@ -172,7 +172,7 @@
 
           {% for field in activity_form.visible_fields %}
           {% if field.name == 'nombre_agremiacion' %}
-            <label for="{{ field.id }}" class="form-label">Escriba el nombre de la agremiación a la que usted pertenece.</label>
+            <label for="{{ field.id }}" class="form-label"></label>
             {% if field.errors %}
               {% render_field field class="form-control is-invalid" %}
               {% for error in field.errors %}
