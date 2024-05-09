@@ -34,6 +34,11 @@ class UserEditForm(forms.ModelForm):
         model = User
         fields = ('first_name', 'last_name', 'email')
 
+class UserEditForm2(forms.ModelForm):
+    class Meta:
+        model = Group
+        fields = ('name',)
+
 
 class ProfileEditForm(forms.ModelForm):
     class Meta:

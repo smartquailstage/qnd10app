@@ -6,6 +6,7 @@ from localflavor.ec.forms import ECProvinceSelect
 from ckeditor.fields import RichTextField
 from django.core.cache import cache
 from django.contrib.auth.models import User, Group
+from django.core.validators import RegexValidator
 
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Nombre de Usuario")
@@ -343,10 +344,19 @@ class Contacts(models.Model):
     )
     
     parroquia_quito = models.CharField(max_length=255, blank=True, null=True, verbose_name="Parroquia de Quito", choices=PARROQUIAS_QUITO, help_text="Si su provincia de residencia es Pichincha, Elija una parroquia. Caso contrario dejelo en blanco")
-    telefono = models.CharField(max_length=20, verbose_name="Teléfono",null=True,blank=True)
+    phone_regex = RegexValidator(
+        regex=r'^\+?593?\d{9,15}$',
+        message="El número de teléfono debe estar en formato internacional. Ejemplo: +593XXXXXXXXX."
+    )
+
+    telefono = PhoneNumberField(
+        verbose_name="Teléfono",
+        validators=[phone_regex],
+        default='+593'  # Código de área de Ecuador como valor por defecto
+    )
     direccion = models.CharField(max_length=255, blank=True, null=True, verbose_name="Dirección")
     georeferenciacion = models.CharField(max_length=255, blank=True, null=True, verbose_name="Georreferenciación")
-    perfil_redes_sociales = models.URLField(blank=True, null=True, verbose_name="Perfil de Redes Sociales")
+    perfil_redes_sociales = models.URLField(blank=True, null=True, verbose_name="Perfil de Redes Sociales", help_text="Pegue aquí la dirección Url de superfil de usuario en redes sociales.")
 
     class Meta:
         ordering = ['user']

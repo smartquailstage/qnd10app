@@ -109,7 +109,7 @@
 
             {% for field in contact1_form.visible_fields %}
             {% if field.name == 'provincia_cantones_ecuador' %}
-              <label for="{{ field.id }}" class="form-label">Pais de Residencia</label>
+              <label for="{{ field.id }}" class="form-label"></label>
               {% if field.errors %}
                 {% render_field field class="form-select is-valid" %}
                 {% for error in field.errors %}
@@ -128,7 +128,7 @@
 
           {% for field in contact1_form.visible_fields %}
           {% if field.name == 'parroquia_quito' %}
-            <label for="{{ field.id }}" class="form-label">Pais de Residencia</label>
+            <label for="{{ field.id }}" class="form-label"></label>
             {% if field.errors %}
               {% render_field field class="form-select is-valid" %}
               {% for error in field.errors %}
@@ -149,7 +149,7 @@
                 <div class="col-12 col-lg-6">
                   {% for field in contact1_form.visible_fields %}
                   {% if field.name == 'telefono' %}
-                    <label for="{{ field.id }}" class="form-label">Pais de Residencia</label>
+                    <label for="{{ field.id }}" class="form-label">Escriba su número de teléfono</label>
                     {% if field.errors %}
                       {% render_field field class="form-select is-valid" %}
                       {% for error in field.errors %}
@@ -168,7 +168,7 @@
 
                 {% for field in contact1_form.visible_fields %}
                 {% if field.name == 'direccion' %}
-                  <label for="{{ field.id }}" class="form-label">Pais de Residencia</label>
+                  <label for="{{ field.id }}" class="form-label">Dirección</label>
                   {% if field.errors %}
                     {% render_field field class="form-select is-valid" %}
                     {% for error in field.errors %}
@@ -187,7 +187,7 @@
 
               {% for field in contact1_form.visible_fields %}
               {% if field.name == 'georeferenciacion' %}
-                <label for="{{ field.id }}" class="form-label">Pais de Residencia</label>
+                <label for="{{ field.id }}" class="form-label">Referecia de domicilio</label>
                 {% if field.errors %}
                   {% render_field field class="form-select is-valid" %}
                   {% for error in field.errors %}
@@ -206,7 +206,7 @@
 
             {% for field in contact1_form.visible_fields %}
               {% if field.name == 'perfil_redes_sociales' %}
-                <label for="{{ field.id }}" class="form-label">Pais de Residencia</label>
+                <label for="{{ field.id }}" class="form-label">Dirección de perfil de redes sociales</label>
                 {% if field.errors %}
                   {% render_field field class="form-select is-valid" %}
                   {% for error in field.errors %}
@@ -230,7 +230,7 @@
             <div class="col-12">
               <div class="d-flex align-items-center gap-3">
 
-                <a href ="{% url 'usuarios:edit_contact1' %}" class="btn btn-secondary px-4"><i class='bx bx-left-arrow-alt me-2'></i>Atras</a>
+                <a href ="{% url 'usuarios:edit' %}" class="btn btn-secondary px-4"><i class='bx bx-left-arrow-alt me-2'></i>Atras</a>
                 <button class="btn btn-primary px-4"  type="submit" value="Save changes"><i class='bx bx-save me-2'></i>Guardar</button>
                
 
