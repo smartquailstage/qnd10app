@@ -240,7 +240,7 @@ def dashboard(request):
     profile = Profile.objects.get(user=request.user)
     manuales = Dashboard.objects.all()
     user_groups = request.user.groups.all()
-    is_tecnicos_group = any(group.name == 'tecnicos' for group in user_groups)
+    is_tecnicos_group = any(group.name == 'administrar' for group in user_groups)
     is_postulante_group = any(group.name == 'Postular_a_convocatorias' for group in user_groups)
     
     # Recuperar el valor del campo desde el caché
