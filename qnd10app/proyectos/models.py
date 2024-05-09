@@ -20,8 +20,21 @@ class Subject(models.Model):
 
     def __str__(self):
         return self.title
+class BibliographicReference(models.Model):
+    title = models.CharField(max_length=255)
+    authors = models.CharField(max_length=255)
+    publication_year = models.PositiveIntegerField()
+    journal = models.CharField(max_length=255, blank=True, null=True)
+    volume = models.CharField(max_length=50, blank=True, null=True)
+    issue = models.CharField(max_length=50, blank=True, null=True)
+    pages = models.CharField(max_length=50, blank=True, null=True)
+    doi = models.CharField(max_length=100, blank=True, null=True)
+    url = models.URLField(blank=True, null=True)
+    abstract = models.TextField(blank=True, null=True)
 
-
+    def __str__(self):
+        return self.title
+    
 class Project(models.Model):
     PROCESS = (
         ('Aprobado', 'Aprobado'),
@@ -31,11 +44,13 @@ class Project(models.Model):
     )
     
     owner = models.ForeignKey(User, related_name='projects_created', on_delete=models.CASCADE)
-    subject = models.ForeignKey(Subject, related_name='proyectos_subject', on_delete=models.CASCADE)
-    portada = models.ImageField(upload_to='portada/%Y/%m/%d/', blank=True, verbose_name="Foto de portada de convocatoria")
-    title = models.CharField(max_length=200)
+    subject = models.ForeignKey(Subject, related_name='proyectos_subject', on_delete=models.CASCADE, verbose_name="Nombre de categoría de convocatoria a la que se desea postular", help_text="Seleccione la categoría de la convocatoria en la que desea postular")
+    #portada = models.ImageField(upload_to='portada/%Y/%m/%d/', blank=True, verbose_name="Foto de portada de convocatoria")
+    title = models.CharField(max_length=300, verbose_name="Título del proyecto")
     slug = models.SlugField(max_length=200, unique=True)
-    overview = models.TextField()
+    overview = models.TextField(verbose_name="Resumen breve del proyecto de tomo", help_text="Identificación de un debate o giro paradigmático y explicación sobre cómo cada uno de los capítulos que compondrán el tomo representan lo dicho.")
+
+    bibliographic_reference = models.ForeignKey(BibliographicReference, on_delete=models.CASCADE, blank=True, null=True) 
     created = models.DateTimeField(auto_now_add=True)
     course = models.ForeignKey(Course, related_name='proyectos_course', on_delete=models.CASCADE,null=True,blank=True,verbose_name="Elija la convocatoria que desea postular este proyecto.")
     proceso =  models.CharField(max_length=255, blank=True, null=True, verbose_name="Proceso del proyecto postulado", choices=PROCESS, help_text="Elija el proceso en la que se encuentra esta postulacion", default="Activo")

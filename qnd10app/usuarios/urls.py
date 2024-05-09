@@ -7,7 +7,8 @@ app_name = 'usuarios'
 
 urlpatterns = [
     # previous login view
-    path('ingresar/', views.user_login, name='login'),
+    path('fomento_editorial/', views.user_login, name='login'),
+   # path('Reserva_de_espacio_publico/', views.user_activity_login, name='login_activity'),
   
     path('dashboard', views.dashboard, name='dashboard'),
     path('perfil_de_usuario/', views.profile_view , name='perfil'),
@@ -17,7 +18,8 @@ urlpatterns = [
 
     # alternative way to include authentication views
     # path('', include('django.contrib.auth.urls')),
-    path('register/', views.register, name='register'),
+    path('registro_para_postulacion_a_convocatorias/', views.register, name='register'),
+   # path('registro_para_uso_espacio_publico/', views.register_public, name='register_public'),
     path('edit/', views.edit, name='edit'),
     path('edit_contacto_1/', views.edit_contact, name='edit_contact1'),
     path('edit_contacto_2/', views.edit_contact2, name='edit_contact2'),

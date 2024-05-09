@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import LoginForm, UserEditForm2,UserRegistrationForm, \
@@ -26,13 +27,11 @@ def user_login(request):
             cd = form.cleaned_data
             user = authenticate(request,
                                 username=cd['username'],
-                                password=cd['password'],
-                                user_group=cd['user_group'])
+                                password=cd['password'])
             if user is not None:
                 if user.is_active:
                     login(request, user)
                     user_profile = Profile.objects.get(user=user)
-                    user_group = user_profile.user_group
                     return redirect('usuarios:dashboard')
                 else:
                     return HttpResponse('Disabled account')
@@ -52,11 +51,15 @@ def register(request):
         if user_form.is_valid():
             # Create a new user object but avoid saving it yet
             new_user = user_form.save(commit=False)
+  
             
             # Set the chosen password
             new_user.set_password(user_form.cleaned_data['password'])
             # Save the User object
             new_user.save()
+            group = Group.objects.get(name='Postular_a_convocatorias')
+            new_user.groups.add(group)
+
             # Create the user profile and related objects
             Profile.objects.create(user=new_user)
             Contacts.objects.create(user=new_user)
@@ -261,8 +264,6 @@ def dashboard(request):
         'manuales': manuales,
         'is_tecnicos_group':is_tecnicos_group,
         'is_postulante_group':is_postulante_group
-
-
     })
 
 @login_required

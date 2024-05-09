@@ -3,7 +3,7 @@ from django.views.generic.list import ListView
 from django.contrib.auth.decorators import login_required
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, \
-                                      DeleteView
+                                      DeleteView,FormView
 from django.contrib.auth.mixins import LoginRequiredMixin, \
                                        PermissionRequiredMixin
 from django.shortcuts import redirect, get_object_or_404
@@ -13,7 +13,7 @@ from django.apps import apps
 from braces.views import CsrfExemptMixin, JsonRequestResponseMixin
 from django.db.models import Count
 from .models import Subject, Project,Author,Content 
-from .forms import ModuleFormSet
+from .forms import ModuleFormSet, BiblioProjectForm
 from students.forms import CourseEnrollForm
 #from students.forms import CourseEnrollForm
 from django.core.cache import cache
@@ -35,14 +35,16 @@ class OwnerEditMixin(object):
 
 class OwnerProjectMixin(OwnerMixin, LoginRequiredMixin):
     model = Project
-    fields = ['course','portada','subject', 'title', 'slug', 'overview']
+    fields = ['course','subject','bibliographic_reference', 'title', 'slug', 'overview']
     success_url = reverse_lazy('proyectos:manage_project_list')
 
 
 class OwnerProjectEditMixin(OwnerProjectMixin, OwnerEditMixin):
-    fields = ['course','portada','subject', 'title', 'slug', 'overview']
+    fields = ['course','subject','bibliographic_reference', 'title', 'slug', 'overview']
     success_url = reverse_lazy('proyectos:manage_project_list')
     template_name = 'projects/manage/course/form.html'
+
+
 
 
 class ManageProjectListView(OwnerProjectMixin, ListView):

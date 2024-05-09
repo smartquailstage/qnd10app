@@ -147,25 +147,7 @@
                 {% endif %}
               {% endfor %}
 
-              {% for field in profile_form.visible_fields %}
-                {% if field.name == 'user_group' %}
-                  <label for="{{ field.id }}" class="form-label">Tipo de cuenta </label>
-                  {% if field.errors %}
-                    {% render_field field class="form-control is-invalid" %}
-                    {% for error in field.errors %}
-                      <div class="invalid-feedback">
-                        {{ error }}
-                      </div>
-                    {% endfor %}
-                  {% else %}
-                    {% render_field field class="form-control is-valid" %}
-                  {% endif %}
-                  {% if field.help_text %}
-                    <small class="form-text text-muted">{{ field.help_text }}</small>
-                  {% endif %}
-                {% endif %}
-              {% endfor %}
-          
+ 
               {% for field in user_form.visible_fields %}
                 {% if field.name == 'email' %}
                   <label for="{{ field.id }}" class="form-label">Correo Electrónico</label>
@@ -274,8 +256,8 @@
             {% csrf_token %}
             <div class="col-12">
               <div class="d-flex align-items-center gap-3">
-
-                <a href ="{% url 'usuarios:edit_contact1' %}" type="submit" class="btn btn-primary px-4" ><i class='bx bx-right-arrow-alt me-2'></i>Siguiente</a>
+                <button class="btn btn-secondary px-4"  type="submit" value="Save changes"><i class='bx bx-save me-2'></i>Guardar</button>
+                <a href ="{% url 'usuarios:edit_contact1' %}" class="btn btn-primary px-4" ><i class='bx bx-right-arrow-alt me-2'></i>Siguiente</a>
                
               </div>
             </div>

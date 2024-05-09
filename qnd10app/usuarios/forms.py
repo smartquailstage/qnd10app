@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 class LoginForm(forms.Form):
     username = forms.CharField(label="Nombre de Usuario")
     password = forms.CharField(widget=forms.PasswordInput,label="Contraseña")
-    user_group = forms.ModelChoiceField(queryset=Group.objects.all(), empty_label=None, label="Actividad que desea realizar:", help_text="Elegir la actividad que desea realizar en la plataforma")
+
 
 
 class UserRegistrationForm(forms.ModelForm):
@@ -16,8 +16,6 @@ class UserRegistrationForm(forms.ModelForm):
                                widget=forms.PasswordInput)
     password2 = forms.CharField(label='Repeat password',
                                 widget=forms.PasswordInput)
-    user_group = forms.ModelChoiceField(queryset=Group.objects.all(), empty_label=None, label="Actividad de Usuario")
-
     class Meta:
         model = User
         fields = ('username', 'first_name', 'email')
@@ -27,6 +25,9 @@ class UserRegistrationForm(forms.ModelForm):
         if cd['password'] != cd['password2']:
             raise forms.ValidationError('Passwords don\'t match.')
         return cd['password2']
+    
+
+
 
 
 class UserEditForm(forms.ModelForm):

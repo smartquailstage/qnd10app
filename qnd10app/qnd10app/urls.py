@@ -33,7 +33,7 @@ urlpatterns = [
     path('baton/', include('baton.urls')),
     path('social-auth/', include('social_django.urls', namespace='social')),
     path('rosetta/', include('rosetta.urls')),
-    path('secu_users/', include('usuarios.urls', namespace='usuarios')),
+    path('QuitoCultura/', include('usuarios.urls', namespace='usuarios')),
     path('editorial_literaria/', include('editorial_literaria.urls')),
     path('proyectos/', include('proyectos.urls')),
     path('convocatorias_disponibles/', CourseListView.as_view(), name='course_list'),

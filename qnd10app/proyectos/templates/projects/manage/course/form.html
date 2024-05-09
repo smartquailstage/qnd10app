@@ -104,7 +104,7 @@
 
               
             {% for field in form.visible_fields %}
-            {% if field.name == 'portada' %}
+            {% if field.name == 'bibliographic_reference' %}
               <label for="{{ field.id }}" class="form-label">Ingrese una foto de la portada de la convocatoria</label>
               {% if field.errors %}
                 {% render_field field class="form-control is-invalid" %}
@@ -187,6 +187,38 @@
                 {% endif %}
               {% endif %}
             {% endfor %}
+
+
+
+            <!-- Agregar un botón o enlace para abrir el modal -->
+<a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addReferenceModal">Agregar Referencia Bibliográfica</a>
+
+<!-- Definir el modal -->
+<div class="modal fade" id="addReferenceModal" tabindex="-1" aria-labelledby="addReferenceModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addReferenceModalLabel">Agregar Nueva Referencia Bibliográfica</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Aquí incluye tu formulario para agregar una nueva referencia bibliográfica -->
+        <form method="post" action=".">
+    
+          <!-- Aquí incluye los campos del formulario para agregar una nueva referencia bibliográfica -->
+          <!-- Por ejemplo: -->
+          <div class="mb-3">
+            <label for="title" class="form-label">Título</label>
+            <input type="text" class="form-control" id="title" name="title">
+          </div>
+          <!-- Otros campos del formulario... -->
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
             
             </div>
 

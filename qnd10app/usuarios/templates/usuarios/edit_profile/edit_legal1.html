@@ -139,7 +139,11 @@
 
                 <a href ="{% url 'usuarios:edit_contact1' %}" class="btn btn-secondary px-4"><i class='bx bx-left-arrow-alt me-2'></i>Atras</a>
                 <button class="btn btn-primary px-4"  type="submit" value="Save changes"><i class='bx bx-save me-2'></i>Guardar</button>
-               
+                {% if legal.tipo_personeria == 'Jurídico' %}
+                <a href ="{% url 'usuarios:edit_legal2' %}" class="btn btn-secondary px-4"><i class='bx bx-right-arrow-alt me-2'></i>Siguiente</a>
+               {% elif legal.tipo_personeria == 'Natural' %}
+               <a href ="{% url 'usuarios:edit_activity' %}" class="btn btn-secondary px-4"><i class='bx bx-right-arrow-alt me-2'></i>Siguiente</a>
+               {% endif %}
 
                
               </div>

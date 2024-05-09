@@ -64,40 +64,44 @@
                     </li>
                 </ul>
             </li>
-        {% elif is_postulante_group %}   
-            <li>
-                <a class="has-arrow" href="javascript:;">
-                    <div class="parent-icon">
-                        <ion-icon name="megaphone-outline"></ion-icon>
-                    </div>
-                    <div class="menu-title">Convocatorias disponibles</div>
-                </a>
-                <ul>
-                    <li>
-                        <a href="{% url 'course_list' %}">
-                            <ion-icon name="ellipse-outline"></ion-icon>Editorial y literaria
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a class="has-arrow" href="javascript:;">
-                    <div class="parent-icon">
-                        <ion-icon name="share-outline"></ion-icon>
-                    </div>
-                    <div class="menu-title">Mis Postulaciones</div>
-                </a>
-                <ul>
-                    <li>
-                        <a href="{% url 'proyectos:manage_project_list' %}">
-                            <ion-icon name="ellipse-outline"></ion-icon>Editorial y literaria
-                        </a>
-                    </li>
-                </ul>
-            </li>
+        
        
 
         {% endif %}
+
+        {% if is_postulante_group %}
+        <li>
+            <a class="has-arrow" href="javascript:;">
+                <div class="parent-icon">
+                    <ion-icon name="megaphone-outline"></ion-icon>
+                </div>
+                <div class="menu-title">Convocatorias disponibles</div>
+            </a>
+            <ul>
+                <li>
+                    <a href="{% url 'course_list' %}">
+                        <ion-icon name="ellipse-outline"></ion-icon>Editorial y literaria
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a class="has-arrow" href="javascript:;">
+                <div class="parent-icon">
+                    <ion-icon name="share-outline"></ion-icon>
+                </div>
+                <div class="menu-title">Mis Postulaciones</div>
+            </a>
+            <ul>
+                <li>
+                    <a href="{% url 'proyectos:manage_project_list' %}">
+                        <ion-icon name="ellipse-outline"></ion-icon>Editorial y literaria
+                    </a>
+                </li>
+            </ul>
+        </li>
+    {% endif %}
+
 
 
         <li class="menu-label">Inscripción al sistema de convocatorias</li>
