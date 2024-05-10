@@ -106,12 +106,16 @@
                 <td>
                   <div class="table-actions d-flex align-items-center gap-3 fs-6">
                   <a class="dropdown-item" href="{% url "proyectos:project_edit" project.id %}" title="Editar Proyecto" >  <ion-icon name="create-outline"></ion-icon></a>
-                  <a class="dropdown-item" href="{% url "proyectos:project_delete" project.id %}" title="Eliminar Proyecto" ><ion-icon name="trash-outline"></ion-icon></a>
-                  <a class="dropdown-item" href="{% url "proyectos:project_author_update" project.id %}" title="Agregar Autores"> <ion-icon name="person-add-outline"></a>
+                  <a class="dropdown-item" href="{% url "proyectos:project_work_plan_update" project.id %}" title="Agregar Plan de trabajo"><ion-icon name="calendar"></ion-icon></a>
+                  <a class="dropdown-item" href="{% url "proyectos:project_biblio_update" project.id %}" title="Agregar bibliografia"> <ion-icon name="bookmarks"></ion-icon></a>
+                  <a class="dropdown-item" href="{% url "proyectos:project_author_update" project.id %}" title="Agregar Autores"> <ion-icon name="person-add-outline"></ion-icon></a>
+                 
                   {% if project.authors.count > 0 %}
                 <a class="dropdown-item"  href="{% url "proyectos:module_content_list" project.authors.first.id %}" title="Agregar Curriculm Vitale" ><ion-icon name="document-attach-outline"></ion-icon></ion-icon></a>
                 
                 {% endif %}
+               
+                <a class="dropdown-item" href="{% url "proyectos:project_delete" project.id %}" title="Eliminar Proyecto" style="color:red;" ><ion-icon name="trash-outline"></ion-icon></a>
                   </div>
 
                 

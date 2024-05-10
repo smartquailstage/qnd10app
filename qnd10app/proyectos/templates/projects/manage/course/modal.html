@@ -1,0 +1,44 @@
+<a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addReferenceModal">Agregar Referencia Bibliográfica</a>
+
+<!-- Definir el modal -->
+<div class="modal fade" id="addReferenceModal" tabindex="-1" aria-labelledby="addReferenceModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addReferenceModalLabel">Agregar Nueva Referencia Bibliográfica</h5>
+        <button type="button" href="{% url 'usuarios:edit' %}" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Aquí incluye tu formulario para agregar una nueva referencia bibliográfica -->
+        <form method="post" action=".">
+    
+          <!-- Aquí incluye los campos del formulario para agregar una nueva referencia bibliográfica -->
+          <!-- Por ejemplo: -->
+          <div class="mb-3">
+            {% for field in form.visible_fields %}
+            {% if field.name == 'journal' %}
+              <label for="{{ field.id }}" class="form-label">Resumen de convocatoria:</label>
+              {% if field.errors %}
+                {% render_field field class="form-control is-invalid" %}
+                {% for error in field.errors %}
+                  <div class="invalid-feedback">
+                    {{ error }}
+                  </div>
+                {% endfor %}
+              {% else %}
+                {% render_field field class="form-control is-valid" %}
+              {% endif %}
+              {% if field.help_text %}
+                <small class="form-text text-muted">{{ field.help_text }}</small>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+          </div>
+          <!-- Otros campos del formulario... -->
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

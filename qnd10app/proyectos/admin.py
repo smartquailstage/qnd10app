@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Subject, Project, Author
+from .models import Subject, Project, Author,BibliographicReference
 
 @admin.register(Subject)
 class SubjectAdmin(admin.ModelAdmin):
@@ -9,6 +9,10 @@ class SubjectAdmin(admin.ModelAdmin):
 
 class AuthorInline(admin.StackedInline):
     model = Author
+
+class BibliographicReferenceInline(admin.StackedInline):
+    model = BibliographicReference
+
     
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
@@ -16,5 +20,5 @@ class ProjectAdmin(admin.ModelAdmin):
     list_filter = ['created', 'subject']
     search_fields = ['title', 'overview']
     prepopulated_fields = {'slug': ('title',)}
-    inlines = [AuthorInline]
+    inlines = [BibliographicReferenceInline,AuthorInline]
     verbose_name_plural = "Convocatorias" 

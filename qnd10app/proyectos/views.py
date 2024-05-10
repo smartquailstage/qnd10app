@@ -12,14 +12,15 @@ from django.forms.models import modelform_factory
 from django.apps import apps
 from braces.views import CsrfExemptMixin, JsonRequestResponseMixin
 from django.db.models import Count
-from .models import Subject, Project,Author,Content 
-from .forms import ModuleFormSet, BiblioProjectForm
+from .models import Subject, Project,Author,Content,BibliographicReference
+from .forms import ModuleFormSet, BiblioProjectForm,BiblioProjectFormSet,WorkPlanProjectFormSet
 from students.forms import CourseEnrollForm
 #from students.forms import CourseEnrollForm
 from django.core.cache import cache
 from django.shortcuts import render, redirect
 from django.views.generic.edit import FormView
 from usuarios.models import Profile
+from django.contrib import messages
 
 class OwnerMixin(object):
     def get_queryset(self):
@@ -35,12 +36,14 @@ class OwnerEditMixin(object):
 
 class OwnerProjectMixin(OwnerMixin, LoginRequiredMixin):
     model = Project
-    fields = ['course','subject','bibliographic_reference', 'title', 'slug', 'overview']
+    fields = ['course','subject', 'title', 'slug', 'overview','plan','cv']
     success_url = reverse_lazy('proyectos:manage_project_list')
 
 
+
+
 class OwnerProjectEditMixin(OwnerProjectMixin, OwnerEditMixin):
-    fields = ['course','subject','bibliographic_reference', 'title', 'slug', 'overview']
+    fields = ['course','subject', 'title', 'slug', 'overview','plan','cv']
     success_url = reverse_lazy('proyectos:manage_project_list')
     template_name = 'projects/manage/course/form.html'
 
@@ -96,6 +99,8 @@ class ProjectAuthorUpdateView(TemplateResponseMixin, View):
             return redirect('proyectos:manage_project_list')
         return self.render_to_response({'project': self.project,
                                         'formset': formset})
+    
+
 
 
 class ContentCreateUpdateView(TemplateResponseMixin, View):
@@ -105,16 +110,13 @@ class ContentCreateUpdateView(TemplateResponseMixin, View):
     template_name = 'projects/manage/content/form.html'
 
     def get_model(self, model_name):
-        if model_name in ['file']:
+        if model_name in ['CV']:
             return apps.get_model(app_label='proyectos',
                                   model_name=model_name)
         return None
 
     def get_form(self, model, *args, **kwargs):
-        Form = modelform_factory(model, exclude=['owner',
-                                                 'order',
-                                                 'created',
-                                                 'updated'])
+        Form = modelform_factory(model)
         return Form(*args, **kwargs)
 
     def dispatch(self, request, author_id, model_name, id=None):
@@ -227,9 +229,49 @@ class ProjectDetailView(DetailView):
         return context
      
 
-     
+class ProjectBibliographicReferenceUpdateView(TemplateResponseMixin, View):
+    template_name = 'projects/manage/module/bibliographic_reference_formset.html'
+    project = None
+
+    def get_formset(self, data=None):
+        return BiblioProjectFormSet(instance=self.project, data=data)
+
+    def dispatch(self, request, pk):
+        self.project = get_object_or_404(Project, id=pk, owner=request.user)
+        return super(ProjectBibliographicReferenceUpdateView, self).dispatch(request, pk)
+
+    def get(self, request, *args, **kwargs):
+        formset = self.get_formset()
+        return self.render_to_response({'project': self.project, 'formset': formset})
+
+    def post(self, request, *args, **kwargs):
+        formset = self.get_formset(data=request.POST)
+        if formset.is_valid():
+            formset.save()
+            return redirect('proyectos:manage_project_list')
+        return self.render_to_response({'project': self.project, 'formset': formset})
 
 
 
 
+class WorkPlanUpdateView(TemplateResponseMixin, View):
+    template_name = 'projects/manage/module/work_plan_formset.html'
+    project = None
 
+    def get_formset(self, data=None):
+        return WorkPlanProjectFormSet(instance=self.project, data=data)
+
+    def dispatch(self, request, pk):
+        self.project = get_object_or_404(Project, id=pk, owner=request.user)
+        return super(WorkPlanUpdateView, self).dispatch(request, pk)
+
+    def get(self, request, *args, **kwargs):
+        formset = self.get_formset()
+        return self.render_to_response({'project': self.project, 'formset': formset})
+
+    def post(self, request, *args, **kwargs):
+        formset = self.get_formset(data=request.POST)
+        if formset.is_valid():
+            formset.save()
+            return redirect('proyectos:manage_project_list')
+        return self.render_to_response({'project': self.project, 'formset': formset})

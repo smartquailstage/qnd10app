@@ -20,20 +20,7 @@ class Subject(models.Model):
 
     def __str__(self):
         return self.title
-class BibliographicReference(models.Model):
-    title = models.CharField(max_length=255)
-    authors = models.CharField(max_length=255)
-    publication_year = models.PositiveIntegerField()
-    journal = models.CharField(max_length=255, blank=True, null=True)
-    volume = models.CharField(max_length=50, blank=True, null=True)
-    issue = models.CharField(max_length=50, blank=True, null=True)
-    pages = models.CharField(max_length=50, blank=True, null=True)
-    doi = models.CharField(max_length=100, blank=True, null=True)
-    url = models.URLField(blank=True, null=True)
-    abstract = models.TextField(blank=True, null=True)
 
-    def __str__(self):
-        return self.title
     
 class Project(models.Model):
     PROCESS = (
@@ -49,8 +36,10 @@ class Project(models.Model):
     title = models.CharField(max_length=300, verbose_name="Título del proyecto")
     slug = models.SlugField(max_length=200, unique=True)
     overview = models.TextField(verbose_name="Resumen breve del proyecto de tomo", help_text="Identificación de un debate o giro paradigmático y explicación sobre cómo cada uno de los capítulos que compondrán el tomo representan lo dicho.")
+    plan = models.TextField(verbose_name="Describa el plan de uso de incentivo", help_text="Detalle de manera clara y sucinta.",null=True,blank=True)
+    cv = models.FileField(upload_to='curriculms/',verbose_name="Perfil del postulante", help_text ="En calidad de coordinador/a o autor/a del proyecto, que acredite experiencia en el campo del conocimiento pertinente, así como experiencia en temas editoriales, de publicación, coordinación y/o de curaduría de proyectos culturales o académicos según corresponda, de al menos 2 años.", null=True,blank=True)
 
-    bibliographic_reference = models.ForeignKey(BibliographicReference, on_delete=models.CASCADE, blank=True, null=True) 
+    #bibliographic_reference = models.ForeignKey(BibliographicReference, on_delete=models.CASCADE, blank=True, null=True) 
     created = models.DateTimeField(auto_now_add=True)
     course = models.ForeignKey(Course, related_name='proyectos_course', on_delete=models.CASCADE,null=True,blank=True,verbose_name="Elija la convocatoria que desea postular este proyecto.")
     proceso =  models.CharField(max_length=255, blank=True, null=True, verbose_name="Proceso del proyecto postulado", choices=PROCESS, help_text="Elija el proceso en la que se encuentra esta postulacion", default="Activo")
@@ -58,6 +47,35 @@ class Project(models.Model):
     class Meta:
         ordering = ['-created']
         verbose_name_plural = "Proyectos editoriales postulados"
+
+    def __str__(self):
+        return self.title
+    
+class WorkPlan(models.Model):
+    project = models.ForeignKey(Project, related_name='workplan', on_delete=models.CASCADE, null=True, blank=True)
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    start_date = models.DateField()
+    end_date = models.DateField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title
+    
+class BibliographicReference(models.Model):
+    project = models.ForeignKey(Project, related_name='biblio', on_delete=models.CASCADE, null=True, blank=True)
+    title = models.CharField(max_length=255)
+    authors = models.CharField(max_length=255)
+    publication_year = models.PositiveIntegerField()
+    journal = models.CharField(max_length=255, blank=True, null=True)
+    volume = models.CharField(max_length=50, blank=True, null=True)
+    issue = models.CharField(max_length=50, blank=True, null=True)
+    pages = models.CharField(max_length=50, blank=True, null=True)
+    doi = models.CharField(max_length=100, blank=True, null=True)
+    url = models.URLField(blank=True, null=True)
+    abstract = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.title
@@ -103,7 +121,6 @@ class ItemBase(models.Model):
         return render_to_string('projects/content/{}.html'.format(self._meta.model_name), {'item': self})
 
 
-class File(ItemBase):
-    archivo = models.FileField(upload_to='files')
-    # Cambia 'file_related' a 'proyectos_file_related'
-    owner = models.ForeignKey(User, related_name='proyectos_file_related', on_delete=models.CASCADE)
+class CV(ItemBase):
+    file = models.FileField(upload_to='files')
+    
