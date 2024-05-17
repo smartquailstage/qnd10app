@@ -7116,11 +7116,13 @@ textarea.form-control-lg {
 }
 .my-4 {
 	margin-top: 1.5rem!important;
-	margin-bottom: 1.5rem!important
+	margin-bottom: 1.5rem!important;
+	color: #fff;
 }
 .my-5 {
-	margin-top: 3rem!important;
-	margin-bottom: 3rem!important
+	margin-top: 0rem!important;
+	margin-bottom: 3rem!important;
+    background-color: #00000057; 
 }
 .my-auto {
 	margin-top: auto!important;
@@ -7780,7 +7782,7 @@ textarea.form-control-lg {
 }
 .bg-white {
 	--bs-bg-opacity: 1;
-	background-color: rgba(var(--bs-white-rgb), var(--bs-bg-opacity))!important
+	background-color: #f0f8ffc4
 }
 .bg-body {
 	--bs-bg-opacity: 1;

@@ -38,7 +38,7 @@ body {
 }
 
 a {
-    color: #923eb9;
+    color: #2a3881;
     text-decoration: none;
 }
 
@@ -1312,7 +1312,7 @@ ul.categories-list li {
 
 .login-bg-overlay {
     width: 100%;
-    height: 110%;
+    height: 100%;
     position: absolute;
     top: 0;
     right: 0;
@@ -1344,7 +1344,7 @@ ul.categories-list li {
 }
 
 .login-menu-2 a.nav-link {
-    color: #6d6868;
+    color: #27367f;
 }
 
 
@@ -1398,7 +1398,7 @@ ul.categories-list li {
 }
 
 .au-sign-up-basic {
-    background-image: url("../images/authentication/au-sign-up-basic.png");
+    background-image: url("../images/fomento_editorial.jpg");
     background-position: center;
     background-size: cover;
 }

@@ -19,6 +19,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 import weasyprint
 from django.core.cache import cache
 from editorial_literaria.models import ManualCreateConvocatoria, ManualEditConvocatoria,ManualInscripcion
+from .models import PrivacyPolicy, TermsOfUse
 
 def user_login(request):
     if request.method == 'POST':
@@ -335,3 +336,11 @@ def manual_inscripcion(request):
     return render(request,
                   'editorial_literaria/manuales/inscripcion.html',
                   {'manuales': manuales})
+
+def privacy_policy_view(request):
+    privacy_policy_items = PrivacyPolicy.objects.all()
+    return render(request, 'legal/privacy_policy.html', {'items': privacy_policy_items})
+
+def terms_of_use_view(request):
+    terms_of_use_items = TermsOfUse.objects.all()
+    return render(request, 'legal/terms_of_use.html', {'items': terms_of_use_items})

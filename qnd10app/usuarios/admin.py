@@ -8,6 +8,7 @@ from django.http import HttpResponse
 from .models import Profile, edit_contact1, Contacts, edit_contact2, Dashboard,Legal,Activity,confirmacion,DeclaracionVeracidad
 from django.urls import reverse
 from django.utils.safestring import mark_safe
+from .models import PrivacyPolicy, TermsOfUse
 
 
 
@@ -117,4 +118,21 @@ class DeclaracionVeracidadAdmin(admin.ModelAdmin):
     actions = [ export_to_csv, export_to_excel]
     verbose_name = "Información de bienvenida al usuario"
     verbose_name_plural =  "Información de bienvenida al usuario"
+
+
+
+@admin.register(PrivacyPolicy)
+class PrivacyPolicyAdmin(admin.ModelAdmin):
+    list_display = ['title', 'content']
+    actions = [ export_to_csv, export_to_excel]
+    verbose_name = "Información de politicas de privacidad"
+    verbose_name_plural =  "Información de politicas de privacidad"
+
+
+@admin.register(TermsOfUse)
+class TermsOfUseAdmin(admin.ModelAdmin):
+    list_display = ['title', 'content']
+    actions = [ export_to_csv, export_to_excel]
+    verbose_name = "Información de terminos de uso"
+    verbose_name_plural =  "Información de terminos de uso"
     

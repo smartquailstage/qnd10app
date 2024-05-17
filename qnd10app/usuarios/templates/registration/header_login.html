@@ -6,7 +6,9 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-white p-3">
       <div class="container-fluid">
-        <a href="javascript:;"><img src="{% static 'assets/images/secretaria.png' %}" style="width: 80px;" alt=""></a>
+        <a href="javascript:;">
+          <img src="{% static 'assets/images/escudo.png' %}" style="width: 30px; border-radius: 15%;" alt="">
+          <img src="{% static 'assets/images/secretaria.png' %}" style="width: 70px;" alt=""></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
           data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
           aria-label="Toggle navigation">
@@ -15,13 +17,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-3 login-menu-2">
             <li class="nav-item">
-              <a class="nav-link" href="javascript:;">Secretaría de Cultura</a>
+              <a class="nav-link" href="{% url 'usuarios:terms_of_use' %}">Términos de condiciones de uso</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="javascript:;">Términos de condiciones de uso</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="javascript:;">Políticas de privacidad y uso de la información</a>
+              <a class="nav-link" href="{% url 'usuarios:privacy_policy' %}">Políticas de privacidad y uso de la información</a>
             </li>
           </ul>
           <form class="d-flex">
