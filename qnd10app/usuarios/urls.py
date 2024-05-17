@@ -8,6 +8,7 @@ app_name = 'usuarios'
 urlpatterns = [
     # previous login view
     path('fomento_editorial/', views.user_login, name='login'),
+    path('actividades_espacio_publico/', views.user_activity_login, name='login_activity'),
    # path('Reserva_de_espacio_publico/', views.user_activity_login, name='login_activity'),
   
     path('dashboard', views.dashboard, name='dashboard'),

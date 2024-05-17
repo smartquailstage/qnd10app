@@ -38,10 +38,33 @@ def user_login(request):
                     return HttpResponse('Disabled account')
             else:
                 form = LoginForm()
-                return render(request, 'registration/login_fail.html', {'form': form})
+                return render(request, 'registration/editorial_literario/login_fail.html', {'form': form})
     else:
         form = LoginForm()
-    return render(request, 'registration/login.html', {'form': form})
+    return render(request, 'registration/editorial_literario/login.html', {'form': form})
+
+
+def user_activity_login(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            user = authenticate(request,
+                                username=cd['username'],
+                                password=cd['password'])
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    user_profile = Profile.objects.get(user=user)
+                    return redirect('usuarios:dashboard')
+                else:
+                    return HttpResponse('Disabled account')
+            else:
+                form = LoginForm()
+                return render(request, 'registration/actividades_espacio_publico/login_fail.html', {'form': form})
+    else:
+        form = LoginForm()
+    return render(request, 'registration/actividades_espacio_publico/login.html', {'form': form})
 
 
 
