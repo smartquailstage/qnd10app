@@ -20,6 +20,7 @@ urlpatterns = [
     # alternative way to include authentication views
     # path('', include('django.contrib.auth.urls')),
     path('registro_para_postulacion_a_convocatorias/', views.register, name='register'),
+    path('registro_para_proponer_actividades_culturales__espacios_publicos/', views.activity_register, name='activity_register'),
    # path('registro_para_uso_espacio_publico/', views.register_public, name='register_public'),
     path('edit/', views.edit, name='edit'),
     path('edit_contacto_1/', views.edit_contact, name='edit_contact1'),
@@ -31,6 +32,8 @@ urlpatterns = [
     path('confirmacion/', views.confirmacion, name='confirmacion'),
     path('privacy/', views.privacy_policy_view , name='privacy_policy'),
     path('terms/', views.terms_of_use_view , name='terms_of_use'),
+    path('Activityprivacy/', views.activity_privacy_policy_view , name='activity_privacy_policy'),
+    path('Activityterms/', views.activity_terms_of_use_view , name='activity_terms_of_use'),
     path('inicio_crear_convocatoria/', views.manual_crear_convocatoria, name='inicio_crear_convocatoria'),
     path('inicio_editar_convocatoria/', views.manual_editar_convocatoria, name='inicio_editar_convocatoria'),
  #   path('inicio_Mis_convocatoria/', views.manual_mis_convocatoria, name='inicio_mis_convocatoria'),

@@ -19,7 +19,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 import weasyprint
 from django.core.cache import cache
 from editorial_literaria.models import ManualCreateConvocatoria, ManualEditConvocatoria,ManualInscripcion
-from .models import PrivacyPolicy, TermsOfUse
+from .models import PrivacyPolicy, TermsOfUse, ActivityPrivacyPolicy,ActivityTermsOfUse
 
 def user_login(request):
     if request.method == 'POST':
@@ -96,6 +96,35 @@ def register(request):
     else:
         user_form = UserRegistrationForm()
     return render(request, 'usuarios/register.html', {'user_form': user_form})
+
+
+def activity_register(request):
+    if request.method == 'POST':
+        user_form = UserRegistrationForm(request.POST)
+        if user_form.is_valid():
+            # Create a new user object but avoid saving it yet
+            new_user = user_form.save(commit=False)
+  
+            
+            # Set the chosen password
+            new_user.set_password(user_form.cleaned_data['password'])
+            # Save the User object
+            new_user.save()
+            group = Group.objects.get(name='Postular_a_convocatorias')
+            new_user.groups.add(group)
+
+            # Create the user profile and related objects
+            Profile.objects.create(user=new_user)
+            Contacts.objects.create(user=new_user)
+            #edit_contact1.objects.create(user=new_user)
+            #edit_contact2.objects.create(user=new_user)
+            Legal.objects.create(user=new_user)
+            Activity.objects.create(user=new_user)
+            DeclaracionVeracidad.objects.create(user=new_user)
+            return render(request, 'usuarios/activity_register_done.html', {'new_user': new_user})
+    else:
+        user_form = UserRegistrationForm()
+    return render(request, 'usuarios/activity_register.html', {'user_form': user_form})
 
 
 @login_required
@@ -367,3 +396,14 @@ def privacy_policy_view(request):
 def terms_of_use_view(request):
     terms_of_use_items = TermsOfUse.objects.all()
     return render(request, 'legal/terms_of_use.html', {'items': terms_of_use_items})
+
+
+def activity_privacy_policy_view(request):
+    privacy_policy_items = ActivityPrivacyPolicy.objects.all()
+    return render(request, 'legal/activity_privacy_policy.html', {'items': privacy_policy_items})
+
+def activity_terms_of_use_view(request):
+    terms_of_use_items = ActivityTermsOfUse.objects.all()
+    return render(request, 'legal/activity_terms_of_use.html', {'items': terms_of_use_items})
+
+

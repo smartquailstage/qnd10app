@@ -93,7 +93,7 @@ INSTALLED_APPS = [
     'taggit',
     'proyectos',
     'students',
-    #'webapp_0',
+    'webapp_0',
     'streams',
     'widget_tweaks',
    #SMARTQUAIL-BUSINESS-CONSULTING

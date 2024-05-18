@@ -174,7 +174,7 @@
                                                   
                                                 {% endfor %}  
                                         </fieldset>
-                                        <button type="submit" id="subscribe-button" class="subscribe-button">Submit</button>
+                                        <button type="submit" id="subscribe-button" class="subscribe-button">Enviar comentario</button>
                                     </form>
                                 </div>
                             </div>
@@ -185,7 +185,7 @@
                 <!-- sb-widget-wrap end--> 
                 <!-- sb-widget-wrap-->
                 <div class="sb-widget-wrap fl-wrap">
-                    <h3>Redes sociales de la Secretaría de cultura</h3>
+                    <h3>Redes sociales de la Secretaría de Cultura del Distrito Metropolitano de Quito.</h3>
                     <div class="sb-widget    fl-wrap">
                         <div class="sidebar-social fl-wrap">
                             <ul>
@@ -207,19 +207,15 @@
                                 {% if settings.webapp_0.SocialMediaSettings.youtube %}
                                 <li><a href="{{ settings.webapp_0.SocialMediaSettings.youtube }}" target="_blank"><i class="fab fa-youtube"></i></a></li>
                                 {% endif %}
-                                <li><a href="https://api.whatsapp.com/send?phone=593984534954" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
-                                <li><a href="mailto:info@juansilvaphoto.com" target="_blank"><i class="fa fa-envelope"></i></a></li>
+                                <li><a href="https://api.whatsapp.com/send?phone=593" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
+                                <li><a href="mailto:info@fomentoquito.gob.ec" target="_blank"><i class="fa fa-envelope"></i></a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <!-- sb-widget-wrap end-->                                   
                 <!-- sb-widget-wrap-->
-                <div class="sb-widget-wrap fl-wrap">
-                    <div class="sb-widget  fl-wrap">
-                        <a href="{{ settings.webapp_0.SocialMediaSettings.instagram }}" target="_blank" class="twitt_btn fl-wrap">Follow Us</a>
-                    </div>
-                </div>
+        
                 {% include 'webapp_0/footer.html' %}
                 <!-- sb-widget-wrap end-->    
             </div>

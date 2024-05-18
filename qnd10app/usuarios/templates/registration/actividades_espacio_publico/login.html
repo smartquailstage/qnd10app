@@ -89,7 +89,7 @@
           <p>¿Olvidó su contraseña?<a href="{% url 'password_reset' %}"> Recuperar contraseña</a></p>
 
           <div class="col-12">
-            <p>Al ingresar, usted automáticamente acepta las <a href="{% url 'usuarios:privacy_policy' %}">políticas de privacidad</a> y los  <a href="{% url 'usuarios:terms_of_use' %}">términos y condiciones de uso</a> de la plataforma.</p>
+            <p>Al ingresar, usted automáticamente acepta las <a href="{% url 'usuarios:activity_privacy_policy' %}">políticas de privacidad</a> y los  <a href="{% url 'usuarios:activity_terms_of_use' %}">términos y condiciones de uso</a> de la plataforma.</p>
           </div>
 
           <div class="col-12 d-grid">
@@ -97,12 +97,11 @@
           </div>
 
           <div class="col-12">
-            <p>¿No se ha registrado todavía?<a href="{% url 'usuarios:register' %}"> Registrarse</a></p>
+            <p>¿No se ha registrado todavía?<a href="{% url 'usuarios:activity_register' %}"> Registrarse</a></p>
+            <p  style="text-align: center; font-size: 10px;">AppRelease: QND.V1.0</p>
           </div>
 
-          <div class="col-12">
-           
-          </div>
+       
 
         </form>
       </div>

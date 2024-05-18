@@ -838,3 +838,20 @@ class TermsOfUse(models.Model):
 
     def __str__(self):
         return self.title
+
+class ActivityPrivacyPolicy(models.Model):
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    last_updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+    
+
+class ActivityTermsOfUse(models.Model):
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    last_updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
