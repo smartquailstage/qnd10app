@@ -1145,7 +1145,7 @@ blockquote p {
 	bottom:0;
 	top:0;
 	line-height:20px;
-	color:#273681;
+	color:#cde1ea;
 	font-size:18px;
 	font-weight: 500;
 	-webkit-transform: scale(0.5);
@@ -1233,7 +1233,7 @@ blockquote p {
 	position:relative;
 	top:44%;
 	z-index:20;
-	text-align:center;
+	text-align:left;
 	opacity:0;
 	margin-top:50px;
 	-webkit-transition: all 0.3s  linear;
