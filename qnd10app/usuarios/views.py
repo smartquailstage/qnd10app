@@ -127,6 +127,9 @@ def activity_register(request):
     return render(request, 'usuarios/activity_register.html', {'user_form': user_form})
 
 
+
+
+
 @login_required
 def edit(request):
     if request.method == 'POST':

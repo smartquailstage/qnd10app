@@ -5,6 +5,10 @@
 {% load widget_tweaks %}
 {% load static %}
 {% load menu_tags %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{{ profile_form.media }}
 
 
 
@@ -81,8 +85,15 @@
       <div class="card-body">
       
       <div class="bs-stepper-content">
-        <form action="." method="post" enctype="multipart/form-data">
 
+        <form method="post">{% csrf_token %}
+          {% bootstrap_form profile_form %}
+          <input type="submit" value="Save">
+      </form>
+
+
+        <form action="."  method="post" enctype="multipart/form-data">
+          <div id="test-l-1" role="tabpanel" aria-labelledby="stepper1trigger1">
           <div class="row g-3">
             <div class="col-12 col-lg-6">
 
@@ -173,14 +184,14 @@
                 {% if field.name == 'date_of_birth' %}
                   <label for="{{ field.id }}" class="form-label">Fecha de Nacimiento</label>
                   {% if field.errors %}
-                    {% render_field field class="form-control datepicker is-valid" %}
+                    {% render_field field  class="form-control datepicker" %}
                     {% for error in field.errors %}
                       <div class="invalid-feedback">
                         {{ error }}
                       </div>
                     {% endfor %}
                   {% else %}
-                    {% render_field field class="form-control datepicker is-valid" %}
+                    {% render_field field class="form-control datepicker" %}
                   {% endif %}
                   {% if field.help_text %}
                     <small class="form-text text-muted">{{ field.help_text }}</small>
@@ -188,19 +199,22 @@
                 {% endif %}
               {% endfor %}
 
+
+            
+
              
                 {% for field in profile_form.visible_fields %}
                   {% if field.name == 'nacionalidad' %}
                     <label for="{{ field.id }}" class="form-label">Nacionalidad</label>
                     {% if field.errors %}
-                      {% render_field field class="form-control datepicker is-valid" %}
+                      {% render_field field class="form-control is-valid" %}
                       {% for error in field.errors %}
                         <div class="invalid-feedback">
                           {{ error }}
                         </div>
                       {% endfor %}
                     {% else %}
-                      {% render_field field class="form-control datepicker is-valid" %}
+                      {% render_field field class="form-control is-valid" %}
                     {% endif %}
                     {% if field.help_text %}
                       <small class="form-text text-muted">{{ field.help_text }}</small>
@@ -213,14 +227,14 @@
                     {% if field.name == 'autoidentificacion' %}
                       <label for="{{ field.id }}" class="form-label">Autoidentificacion</label>
                       {% if field.errors %}
-                        {% render_field field class="form-control datepicker is-valid" %}
+                        {% render_field field class="form-control  is-valid" %}
                         {% for error in field.errors %}
                           <div class="invalid-feedback">
                             {{ error }}
                           </div>
                         {% endfor %}
                       {% else %}
-                        {% render_field field class="form-control datepicker is-valid" %}
+                        {% render_field field class="form-control  is-valid" %}
                       {% endif %}
                       {% if field.help_text %}
                         <small class="form-text text-muted">{{ field.help_text }}</small>
@@ -233,14 +247,14 @@
                       {% if field.name == 'genero' %}
                         <label for="{{ field.id }}" class="form-label">Genero</label>
                         {% if field.errors %}
-                          {% render_field field class="form-control datepicker is-valid" %}
+                          {% render_field field class="form-control  is-valid" %}
                           {% for error in field.errors %}
                             <div class="invalid-feedback">
                               {{ error }}
                             </div>
                           {% endfor %}
                         {% else %}
-                          {% render_field field class="form-control datepicker is-valid" %}
+                          {% render_field field class="form-control  is-valid" %}
                         {% endif %}
                         {% if field.help_text %}
                           <small class="form-text text-muted">{{ field.help_text }}</small>
@@ -261,6 +275,7 @@
                
               </div>
             </div>
+          </div>
           </div>
           </div>
         </form>

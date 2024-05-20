@@ -90,6 +90,7 @@ INSTALLED_APPS = [
     'wagtailgmaps',
     'wagtailmenus',
     'django_social_share',
+   
     'taggit',
     'proyectos',
     'students',
@@ -123,6 +124,8 @@ INSTALLED_APPS = [
     'ckeditor',
    # 'js_blog_app',
     'wagtail.contrib.settings',
+     "bootstrap4",
+    "bootstrap_datepicker_plus",
     'baton.autodiscover',
    
 ]

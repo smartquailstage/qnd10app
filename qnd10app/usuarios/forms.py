@@ -3,8 +3,24 @@ from django.contrib.auth.models import User, Group
 from .models import Profile,edit_contact2,edit_contact1, Contacts ,Legal,Activity,DeclaracionVeracidad
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.widgets import AdminDateWidget
+from django.forms.fields import DateField
+from django.forms import DateInput
+from bootstrap_datepicker_plus.widgets import DateTimePickerInput
+from django.forms.widgets import DateTimeInput 
 
+class DatePickerWidget(DateInput):
+    template_name = 'usuarios/edit_profile/datepicker_widget.html'  # Ruta a tu plantilla de widget personalizada
 
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+        context['is_hidden'] = self.is_hidden
+        context['field_id'] = attrs.get('id')
+        return context
+
+class DateInput(forms.DateInput):
+    input_type = 'date'
+    
 class LoginForm(forms.Form):
     username = forms.CharField(label="Nombre de Usuario")
     password = forms.CharField(widget=forms.PasswordInput,label="Contraseña")
@@ -42,12 +58,14 @@ class UserEditForm2(forms.ModelForm):
 
 
 class ProfileEditForm(forms.ModelForm):
+    date_of_birth = forms.DateField(widget=DatePickerWidget(attrs={'class': 'form-control datepicker'}))
+
     class Meta:
         model = Profile
-        fields = ('user_group','date_of_birth', 'photo','nacionalidad','autoidentificacion','genero')
-        widgets = {
-            'date_of_birth': forms.DateInput(attrs={'type': 'datepicker'}),
-        }
+        fields = ('user_group', 'date_of_birth', 'photo', 'nacionalidad', 'autoidentificacion', 'genero')
+
+    def __init__(self, *args, **kwargs):
+        super(ProfileEditForm, self).__init__(*args, **kwargs)
 
 class ContactForm(forms.ModelForm):
     class Meta:
