@@ -228,19 +228,19 @@ class CourseDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['enroll_form'] = CourseEnrollForm(initial={'course': self.object})
+        context['actividad'] = self.get_profile()
+        context['acepta_terminos_condiciones'] = self.get_declaracion()
         return context
     
     def get_profile(self):
-        # Obtener el perfil del usuario que está viendo el detalle del curso
         user = self.request.user
         profile = get_object_or_404(Profile, user=user)
-        return profile.activity  # Retorna solo el campo 'activity' del perfil
-
+        return profile.activity
+    
     def get_declaracion(self):
-        # Obtener la declaración de veracidad del usuario que está viendo el detalle del curso
         user = self.request.user
         declaracion = get_object_or_404(DeclaracionVeracidad, user=user)
-        return declaracion.acepta_terminos_condiciones 
+        return declaracion.acepta_terminos_condiciones
 
 
      
