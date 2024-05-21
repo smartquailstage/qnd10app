@@ -343,12 +343,13 @@ def contact_profile(request):
 @login_required
 def dashboard(request):
     profile = Profile.objects.get(user=request.user)
+    actividad = profile.activity
     try:
         declaracion = DeclaracionVeracidad.objects.get(user=request.user)
         acepta_terminos_condiciones = declaracion.acepta_terminos_condiciones
     except DeclaracionVeracidad.DoesNotExist:
         # Si no hay declaración existente, establece el valor de acepta_terminos_condiciones en False
-        acepta_terminos_condiciones = True
+        acepta_terminos_condiciones = False
     
     manuales = Dashboard.objects.all()
     user_groups = request.user.groups.all()
@@ -357,6 +358,7 @@ def dashboard(request):
     return render(request, 'usuarios/dashboard.html', {
         'section': 'dashboard',
         'profile': profile,
+        'actividad': actividad,
         'acepta_terminos_condiciones': acepta_terminos_condiciones,
         'manuales': manuales,
         'is_tecnicos_group': is_tecnicos_group

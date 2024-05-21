@@ -19,7 +19,7 @@ from students.forms import CourseEnrollForm
 from django.core.cache import cache
 from django.shortcuts import render, redirect
 from django.views.generic.edit import FormView
-from usuarios.models import Profile
+from usuarios.models import Profile,DeclaracionVeracidad
 from django.contrib import messages
 
 class OwnerMixin(object):
@@ -54,24 +54,24 @@ class ManageProjectListView(OwnerProjectMixin, ListView):
     template_name = 'projects/manage/course/list.html'
 
 
-class ProjectCreateView(PermissionRequiredMixin,
+class ProjectCreateView(
                        OwnerProjectEditMixin,
                        CreateView):
-    permission_required = 'projects.add_project'
+    pass
 
 
-class ProjectUpdateView(PermissionRequiredMixin,
+class ProjectUpdateView(
                        OwnerProjectEditMixin,
                        UpdateView):
-    permission_required = 'projects.change_project'
+    pass
 
 
-class ProjectDeleteView(PermissionRequiredMixin,
+class ProjectDeleteView(
                        OwnerProjectMixin,
                        DeleteView):
     template_name = 'projects/manage/course/delete.html'
     success_url = reverse_lazy('proyectos:manage_project_list')
-    permission_required = 'projects.delete_project'
+    pass
 
 
 class ProjectAuthorUpdateView(TemplateResponseMixin, View):
@@ -209,13 +209,19 @@ class ProjectListView(TemplateResponseMixin, View):
     def get(self, request, subject=None):
         profile = Profile.objects.get(user=request.user)
         subjects = Subject.objects.annotate(total_projects=Count('projects'))
+        actividad = profile.activity
+        declaracion = DeclaracionVeracidad.objects.get(user=request.user)
+        acepta_terminos_condiciones = declaracion.acepta_terminos_condiciones
       #  projects = Project.objects.annotate(total_authors=Count('authors'))
 
         if subject:
             subject = get_object_or_404(Subject,slug=subject)
             projects = projects.filter(subject=subject)       
         return self.render_to_response({'subjects': subjects,
-                                        'projects': projects, 'profile':profile})
+                                        'projects': projects, 
+                                        'profile':profile,
+                                        'actividad':actividad,
+                                        'acepta_terminos_condiciones':acepta_terminos_condiciones,})
 
 
 class ProjectDetailView(DetailView):

@@ -19,6 +19,7 @@ from students.forms import CourseEnrollForm
 from django.core.cache import cache
 from django.shortcuts import render, redirect
 from django.views.generic.edit import FormView
+from usuarios.models import Profile, DeclaracionVeracidad
 
 
 class OwnerMixin(object):
@@ -200,8 +201,13 @@ class ContentOrderView(CsrfExemptMixin,
 class CourseListView(TemplateResponseMixin, View):
     model = Course
     template_name = 'courses/course/list.html'
+   
 
     def get(self, request, subject=None):
+        profile = Profile.objects.get(user=request.user)
+        actividad = profile.activity
+        declaracion = DeclaracionVeracidad.objects.get(user=request.user)
+        acepta_terminos_condiciones = declaracion.acepta_terminos_condiciones
         subjects = Subject.objects.annotate(total_courses=Count('courses'))
         courses = Course.objects.annotate(total_modules=Count('modules'))
 
@@ -210,21 +216,33 @@ class CourseListView(TemplateResponseMixin, View):
             courses = courses.filter(subject=subject)       
         return self.render_to_response({'subjects': subjects,
                                         'subject': subject,
-                                        'courses': courses})
+                                        'courses': courses,
+                                        'actividad':actividad,
+                                        'acepta_terminos_condiciones':acepta_terminos_condiciones})
 
 
 class CourseDetailView(DetailView):
-     model = Course
-     template_name = 'courses/course/detail.html'
+    model = Course
+    template_name = 'courses/course/detail.html'
 
-     def get_context_data(self, **kwargs):
-        context = super(CourseDetailView,
-                        self).get_context_data(**kwargs)
-        context['enroll_form'] = CourseEnrollForm(
-                                   initial={'course':self.object})
-   #     context['project_enroll_form'] = ProjectEnrollForm(
-   #                                initial={'project':self.object})
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['enroll_form'] = CourseEnrollForm(initial={'course': self.object})
         return context
+    
+    def get_profile(self):
+        # Obtener el perfil del usuario que está viendo el detalle del curso
+        user = self.request.user
+        profile = get_object_or_404(Profile, user=user)
+        return profile.activity  # Retorna solo el campo 'activity' del perfil
+
+    def get_declaracion(self):
+        # Obtener la declaración de veracidad del usuario que está viendo el detalle del curso
+        user = self.request.user
+        declaracion = get_object_or_404(DeclaracionVeracidad, user=user)
+        return declaracion.acepta_terminos_condiciones 
+
+
      
 
      

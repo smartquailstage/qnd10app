@@ -69,7 +69,7 @@
 
         {% endif %}
 
-        {% if acepta_terminos_condiciones %}
+        {% if acepta_terminos_condiciones and actividad == 'POSTULANTE' %}
         <li class="menu-label">Actividades en la secretaría</li>
         <li>
             <a class="has-arrow" href="javascript:;">
@@ -101,6 +101,7 @@
                 </li>
             </ul>
         </li>
+    {% elif actividad == 'PROPONIENTE' %}
         <li>
             <a href="{% url 'usuarios:perfil' %}">
                 <div class="parent-icon">
@@ -133,15 +134,18 @@
 
         
         <li class="menu-label">Configuraciones </li>
-
-            <li>
-                <a href="{% url 'usuarios:perfil' %}">
-                    <div class="parent-icon">
-                        <ion-icon name="person-circle-outline"></ion-icon>
-                    </div>
-                    <div class="menu-title">Perfil de usuario</div>
-                </a>
-            </li>
+        {% if acepta_terminos_condiciones %}
+        <li>
+            <a href="{% url 'usuarios:perfil' %}">
+                <div class="parent-icon">
+                    <ion-icon name="person-circle-outline"></ion-icon>
+                </div>
+                <div class="menu-title">Perfil de usuario</div>
+            </a>
+        </li>
+        {% else %}
+            
+        {% endif %}
 
     
         <li>
@@ -163,4 +167,6 @@
         </li>
     </ul>
     <!--end navigation-->
+
+
 </aside>
