@@ -97,7 +97,7 @@ INSTALLED_APPS = [
     'webapp_0',
     'streams',
     'widget_tweaks',
-    'datetimewidget',
+   # 'datetimewidget',
    #SMARTQUAIL-BUSINESS-CONSULTING
     #'shop',
     #'coupons',
