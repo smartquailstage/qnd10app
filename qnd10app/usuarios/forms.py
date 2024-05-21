@@ -6,21 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.admin.widgets import AdminDateWidget
 from django.forms.fields import DateField
 from django.forms import DateInput
-from bootstrap_datepicker_plus.widgets import DateTimePickerInput
-from django.forms.widgets import DateTimeInput 
 
-class DatePickerWidget(DateInput):
-    template_name = 'usuarios/edit_profile/datepicker_widget.html'  # Ruta a tu plantilla de widget personalizada
-
-    def get_context(self, name, value, attrs):
-        context = super().get_context(name, value, attrs)
-        context['is_hidden'] = self.is_hidden
-        context['field_id'] = attrs.get('id')
-        return context
-
-class DateInput(forms.DateInput):
-    input_type = 'date'
-    
 class LoginForm(forms.Form):
     username = forms.CharField(label="Nombre de Usuario")
     password = forms.CharField(widget=forms.PasswordInput,label="Contraseña")
@@ -57,30 +43,41 @@ class UserEditForm2(forms.ModelForm):
         fields = ('name',)
 
 
+class DateInput(forms.DateInput):
+    input_type = "date"
+
 class ProfileEditForm(forms.ModelForm):
-    date_of_birth = forms.DateField(widget=DatePickerWidget(attrs={'class': 'form-control datepicker'}))
+
 
     class Meta:
         model = Profile
-        fields = ('user_group', 'date_of_birth', 'photo', 'nacionalidad', 'autoidentificacion', 'genero')
+        fields = ('activity', 'date_of_birth', 'photo', 'nacionalidad', 'autoidentificacion', 'genero')
+        widgets = {
+            'date_of_birth': DateInput(
+                
+            ),
+        }
 
-    def __init__(self, *args, **kwargs):
-        super(ProfileEditForm, self).__init__(*args, **kwargs)
 
 class ContactForm(forms.ModelForm):
     class Meta:
         model = Contacts
-        fields = ( 'pais_residencias','provincia_cantones_ecuador','parroquia_quito','telefono', 'direccion', 'georeferenciacion', 'perfil_redes_sociales')
+        fields = ( 'pais_residencias',)
 
 class Contact1EditForm(forms.ModelForm):
     class Meta:
-        model =edit_contact2
-        fields = ( 'telefono', 'direccion', 'georeferenciacion', 'perfil_redes_sociales')
+        model =Contacts
+        fields = ('provincia_cantones_ecuador',)
 
 class Contact2EditForm(forms.ModelForm):
     class Meta:
-        model = edit_contact1
-        fields = ('pais_residencia','provincia_cantones_ecuador','parroquia_quito')
+        model = Contacts
+        fields = ('parroquia_quito','telefono', 'direccion', 'georeferenciacion', 'perfil_redes_sociales',)
+
+class Contact3EditForm(forms.ModelForm):
+    class Meta:
+        model = Contacts
+        fields = ('telefono', 'direccion', 'georeferenciacion', 'perfil_redes_sociales',)
 
 
 
@@ -89,7 +86,7 @@ class Contact2EditForm(forms.ModelForm):
 class LegalEditForm(forms.ModelForm):
     class Meta:
         model = Legal
-        fields = ('ruc', 'tipo_personeria','categoria_personeria','fines_lucro','actividad_principal', 'representante_legal_nombre', 'representante_legal_apellido', 'representante_legal_cedula', 'telefono_contacto','direccion_domicilio','georeferencia', 'pagina_web')
+        fields = ('ruc', 'tipo_personeria')
 
 class Legal2EditForm(forms.ModelForm):
     class Meta:

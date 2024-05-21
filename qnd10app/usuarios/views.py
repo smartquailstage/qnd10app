@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import LoginForm, UserEditForm2,UserRegistrationForm, \
                    UserEditForm, ProfileEditForm,Contact1EditForm, \
-                    Contact2EditForm,ContactForm, \
+                    Contact2EditForm,Contact3EditForm,ContactForm, \
                     LegalEditForm,Legal2EditForm, \
                     ActivityEditForm, DeclaratoriaEditForm
                     
@@ -161,36 +161,85 @@ def edit(request):
 @login_required
 def edit_contact(request):
     contacts = get_object_or_404(Contacts, user=request.user)
+    profile = get_object_or_404(Profile, user=request.user)
     if request.method == 'POST':
         # Utiliza la instancia correcta para el formulario
-        contact1_form = ContactForm(request.POST, instance=contacts)
-        if contact1_form.is_valid():
-            # Guardar los datos del formulario en la base de datos
-            contact1_form.save()
-            messages.success(request, 'Perfil actualizado exitosamente')
-            return redirect('usuarios:edit_legal')  # Utiliza el nombre de la vista en lugar de una URL directa
+        contact_form = ContactForm(request.POST, instance=contacts)
+        if contact_form.is_valid():
+            contact_instance = contact_form.save(commit=False)
+            paises_residencias = contact_instance.pais_residencias
+
+            if 'EC' in paises_residencias:  # Condición para Ecuador en la lista de países
+                # Redireccionar a una URL específica para Ecuador
+                return redirect('usuarios:edit_contact2')
+            else:
+                # Redireccionar a una URL predeterminada si no cumple ninguna condición
+                return redirect('usuarios:edit_contact4')
         else:
-            messages.error(request, 'Error al actualizar tu perfil')
+            messages.error(request, 'Error actualizando tu perfil')
     else:
-        # Utiliza la instancia correcta para el formulario
-        contact1_form = ContactForm(instance=contacts)
-    return render(request, 'usuarios/edit_profile/edit_contact1.html', {'contact1_form': contact1_form, 'contacts': contacts})
+        contact_form = ContactForm(instance=contacts)
+    return render(request, 'usuarios/edit_profile/edit_contact1.html', {'contact_form': contact_form, 'contacts': contacts, 'profile': profile})
 
 @login_required
 def edit_contact2(request):
+    contacts = get_object_or_404(Contacts, user=request.user)
     profile = get_object_or_404(Profile, user=request.user)
     if request.method == 'POST':
-        contact2_form = Contact1EditForm(request.POST, instance=request.user.contacts)
+        # Utiliza la instancia correcta para el formulario
+        contact2_form = Contact1EditForm(request.POST, instance=contacts)
         if contact2_form.is_valid():
+            contact2_instance = contact2_form.save(commit=False)
+            provincia_cantones_ecuador = contact2_instance.provincia_cantones_ecuador
+
+            if 'Quito' in provincia_cantones_ecuador:  # Condición para Ecuador en la lista de países
+                # Redireccionar a una URL específica para Ecuador
+                return redirect('usuarios:edit_contact3')
+            else:
+                # Redireccionar a una URL predeterminada si no cumple ninguna condición
+                return redirect('usuarios:edit_contact4')
+        else:
+            messages.error(request, 'Error actualizando tu perfil')
+    else:
+        contact2_form = Contact1EditForm(instance=contacts)
+    return render(request, 'usuarios/edit_profile/edit_contact2.html', {'contact2_form': contact2_form, 'contacts': contacts, 'profile': profile})
+
+
+@login_required
+def edit_contact3(request):
+    profile = get_object_or_404(Profile, user=request.user)
+    if request.method == 'POST':
+        contact3_form = Contact2EditForm(request.POST, instance=request.user.contacts)
+        if contact3_form.is_valid():
             # Guardar los datos del formulario en la base de datos
-            contact2_form.save()
+            contact3_form.save()
             messages.success(request, 'Profile updated successfully')
             return redirect('usuarios:edit_legal')
         else:
             messages.error(request, 'Error updating your profile')
     else:
-        contact2_form = Contact1EditForm(instance=request.user.contacts)
-    return render(request, 'usuarios/edit_profile/edit_contact2.html', {'contact1_form': contact1_form, 'profile': profile})
+        contact3_form = Contact2EditForm(instance=request.user.contacts)
+    return render(request, 'usuarios/edit_profile/edit_contact3.html', {'contact3_form': contact3_form, 'profile': profile})
+
+
+@login_required
+def edit_contact4(request):
+    profile = get_object_or_404(Profile, user=request.user)
+    if request.method == 'POST':
+        contact4_form = Contact3EditForm(request.POST, instance=request.user.contacts)
+        if contact4_form.is_valid():
+            # Guardar los datos del formulario en la base de datos
+            contact4_form.save()
+            messages.success(request, 'Profile updated successfully')
+            return redirect('usuarios:edit_legal')
+        else:
+            messages.error(request, 'Error updating your profile')
+    else:
+        contact4_form = Contact2EditForm(instance=request.user.contacts)
+    return render(request, 'usuarios/edit_profile/edit_contact4.html', {'contact4_form': contact4_form, 'profile': profile})
+
+
+
 
 
 
@@ -201,9 +250,9 @@ def edit_legal(request):
     legal = get_object_or_404(Legal, user=request.user)
     
     if request.method == 'POST':
-        legal1_form = LegalEditForm(instance=legal, data=request.POST)
-        if legal1_form.is_valid():
-            legal_instance = legal1_form.save(commit=False)
+        legal_form = LegalEditForm(instance=legal, data=request.POST)
+        if legal_form.is_valid():
+            legal_instance = legal_form.save(commit=False)
             # Obtener el valor de tipo_personeria del formulario
             tipo_personeria = legal_instance.tipo_personeria
             
@@ -219,29 +268,26 @@ def edit_legal(request):
         else:
             messages.error(request, 'Error actualizando tu perfil')
     else:
-        legal1_form = LegalEditForm(instance=legal)
+        legal_form = LegalEditForm(instance=legal)
     
-    return render(request, 'usuarios/edit_profile/edit_legal1.html', {'legal1_form': legal1_form, 'legal': legal, 'profile': profile })
+    return render(request, 'usuarios/edit_profile/edit_legal1.html', {'legal_form': legal_form, 'legal': legal, 'profile': profile })
 
 
 @login_required
 def edit_legal2(request):
     profile = get_object_or_404(Profile, user=request.user)
-    legal = Legal.objects.get(user=request.user)
+    legal = get_object_or_404(Legal, user=request.user)
     if request.method == 'POST':
-        legal2_form =  Legal2EditForm(instance=request.user.legal,
-                                 data=request.POST)
+        legal2_form = Legal2EditForm(instance=legal, data=request.POST)
         if legal2_form.is_valid():
             legal2_form.save()
-            messages.success(request, 'Profile updated successfully')
+            messages.success(request, 'Perfil actualizado exitosamente')
             return redirect('usuarios:edit_activity')
         else:
-            messages.error(request, 'Error updating your profile')
+            messages.error(request, 'Error actualizando tu perfil')
     else:
-        legal2_form = LegalEditForm(instance=request.user.legal)
-    return render(request,
-                  'usuarios/edit_profile/edit_legal2.html',
-                  {'legal2_form': legal2_form, 'legal':legal, 'profile': profile  })
+        legal2_form = Legal2EditForm(instance=legal)
+    return render(request, 'usuarios/edit_profile/edit_legal2.html', {'legal2_form': legal2_form, 'legal': legal, 'profile': profile })
 
 @login_required
 def edit_activity(request):
@@ -297,30 +343,26 @@ def contact_profile(request):
 @login_required
 def dashboard(request):
     profile = Profile.objects.get(user=request.user)
+    try:
+        declaracion = DeclaracionVeracidad.objects.get(user=request.user)
+        acepta_terminos_condiciones = declaracion.acepta_terminos_condiciones
+    except DeclaracionVeracidad.DoesNotExist:
+        # Si no hay declaración existente, establece el valor de acepta_terminos_condiciones en False
+        acepta_terminos_condiciones = True
+    
     manuales = Dashboard.objects.all()
     user_groups = request.user.groups.all()
     is_tecnicos_group = any(group.name == 'Administrar' for group in user_groups)
-    is_postulante_group = any(group.name == 'Postular_a_convocatorias' for group in user_groups)
     
-    # Recuperar el valor del campo desde el caché
-    #acepta_terminos_condiciones = cache.get(f'acepta_terminos_condiciones_{request.user.id}')
-    #if acepta_terminos_condiciones is None:
-        # Si no hay valor en caché, obtenerlo de la base de datos
-    #    terminos = DeclaracionVeracidad.objects.get(user=request.user)
-    #    acepta_terminos_condiciones = terminos.acepta_terminos_condiciones
-        # Almacenar el valor en caché con una duración de 1 hora (3600 segundos)
-    #    cache.set(f'acepta_terminos_condiciones_{request.user.id}', acepta_terminos_condiciones, timeout=3600)
-    
-    #user_groups = request.user.groups.all()
-    #is_tecnicos_group = any(group.name == 'tecnicos' for group in user_groups)
-    #dashboards = Dashboard.objects.all()
     return render(request, 'usuarios/dashboard.html', {
         'section': 'dashboard',
         'profile': profile,
+        'acepta_terminos_condiciones': acepta_terminos_condiciones,
         'manuales': manuales,
-        'is_tecnicos_group':is_tecnicos_group,
-        'is_postulante_group':is_postulante_group
+        'is_tecnicos_group': is_tecnicos_group
     })
+
+
 
 @login_required
 def nav_bar(request):

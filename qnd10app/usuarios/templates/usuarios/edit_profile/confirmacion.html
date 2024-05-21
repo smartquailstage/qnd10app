@@ -15,22 +15,22 @@
 
     <!--start breadcrumb-->
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-      <div class="breadcrumb-title pe-3">Inicio</div>
+      <div class="breadcrumb-title pe-3"><ion-icon name="card"></ion-icon> Inscripción</div>
       <div class="ps-3">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb mb-0 p-0 align-items-center">
             <li class="breadcrumb-item"><a href="javascript:;">
-                <ion-icon name="home-outline"></ion-icon>
+              <ion-icon name="school"></ion-icon>
               </a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">{% block title %}Información de Perfil de usuario{% endblock %}</li>
+            <li class="breadcrumb-item active" aria-current="page">{% block title %} Declaratoria {% endblock %}</li>
           </ol>
         </nav>
       </div>
 
     </div>
 
-    <h6 class="text-uppercase">Proceso de Incripsición para convocatorias en la línea de fomento editorial y literaria</h6>
+    <h6 class="text-uppercase">Proceso de Inscripción para el uso del sistema de gestión de fomento y actividades culturales en espacios públicos.</h6>
     <hr>
   <div id="stepper1" class="bs-stepper">
     <div class="card">
@@ -84,18 +84,17 @@
 
         <div class="card">
             <div class="card-body text-center">
-              <h2 class="h4 pb-3">Gracias, <strong>{{ info.user.get_full_name }}</strong></h2>
-              <p class="fs-sm mb-2">por inscribirte en nuestra plataforma de gestión cultural de la Secretaría de Cultura! Nos complace darle la bienvenida a nuestra comunidad dedicada al fomento y promoción de la cultura en el Municipio del Distrito Metropolitano de Quito.</p>
+              <h2 class="h4 pb-3">Gracias, <strong>{{ profile.user.get_full_name }}.</strong></h2>
+              <p class="fs-sm mb-2">Por realizar el proceso de  inscribición en nuestra plataforma de gestión cultural de la Secretaría de Cultura! Nos complace darle la bienvenida a nuestra comunidad dedicada al fomento y promoción de la cultura en el Municipio del Distrito Metropolitano de Quito.</p>
               <p class="fs-sm mb-2">Ahora que has completado tu registro, tienes acceso completo a nuestra plataforma. Puedes explorar las diversas convocatorias vigentes accediendo a los siguientes enlaces. Además, puedes crear y presentar proyectos para postularte a las diferentes convocatorias y también para proponer actividades culturales que enriquezcan nuestra comunidad.
 
                 Estamos emocionados de tenerte a bordo y esperamos colaborar contigo en la realización de proyectos culturales significativos para nuestra ciudad.
                 
-                ¡Bienvenido y gracias por formar parte de nuestra comunidad cultural!<span class="fw-medium">34VB5540K83.</span>
+                ¡Bienvenido y gracias por formar parte de nuestra comunidad cultural!
               </p>
               <p class="fs-sm">
               </p>
               <a class="btn btn-primary mt-3" href="{% url 'usuarios:dashboard' %}">Volver al Inicio</a>
-              <a class="btn btn-white mt-3" href=""><i class="bx bx-map"></i>Crear proyecto</a>
             </div>
           </div>
 

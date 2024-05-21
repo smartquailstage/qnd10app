@@ -8,11 +8,13 @@
 {% load bootstrap4 %}
 {% bootstrap_css %}
 {% bootstrap_javascript jquery='full' %}
-{{ profile_form.media }}
+
+
 
 
 
 {% block content %}
+
 <div class="page-content-wrapper">
   <!-- start page content-->
   <div class="page-content">
@@ -34,7 +36,7 @@
 
     </div>
 
-    <h6 class="text-uppercase">Proceso de Incripsición para convocatorias en la línea de fomento editorial y literaria</h6>
+    <h6 class="text-uppercase">Proceso de Inscripción para el uso del sistema de gestión de fomento y actividades culturales en espacios públicos.</h6>
     <hr>
   <div id="stepper1" class="bs-stepper">
     <div class="card">
@@ -46,7 +48,7 @@
             <div class="bs-stepper-circle"><i class='bx bx-user fs-4'></i></div>
             <div class="">
               <h5 class="mb-0 steper-title">Perfil de usuario</h5>
-              <p class="mb-0 steper-sub-title">Información de Perfil del usuario</p>
+              <p class="mb-0 steper-sub-title">Información de Perfil </p>
             </div>
           </div>
           </div>
@@ -56,7 +58,7 @@
             <div class="bs-stepper-circle"><ion-icon name="paper-plane-outline"></ion-icon></div>
             <div class="">
               <h5 class="mb-0 steper-title">Contacto de usuario</h5>
-              <p class="mb-0 steper-sub-title">Información de contacto del usuario</p>
+              <p class="mb-0 steper-sub-title">Información de contacto </p>
             </div>
             </div>
           </div>
@@ -76,21 +78,17 @@
               <div class="bs-stepper-circle"><i class='bx bx-play fs-4'></i></div>
               <div class="">
                 <h5 class="mb-0 steper-title">Actividad Cultural</h5>
-                <p class="mb-0 steper-sub-title">Información actividad cultural del usuario</p>
+                <p class="mb-0 steper-sub-title">Información actividad cultural</p>
               </div>
               </div>
             </div>
         </div>
       </div>
+      
       <div class="card-body">
       
       <div class="bs-stepper-content">
-
-        <form method="post">{% csrf_token %}
-          {% bootstrap_form profile_form %}
-          <input type="submit" value="Save">
-      </form>
-
+     
 
         <form action="."  method="post" enctype="multipart/form-data">
           <div id="test-l-1" role="tabpanel" aria-labelledby="stepper1trigger1">
@@ -98,17 +96,37 @@
             <div class="col-12 col-lg-6">
 
               {% for field in profile_form.visible_fields %}
-              {% if field.name == 'photo' %}
-                <label for="{{ field.id }}" class="form-label">Foto de Perfil</label>
+              {% if field.name == 'activity' %}
+                <label for="{{ field.id }}" class="form-label">{{ field.label_tag }}</label>
                 {% if field.errors %}
-                  {% render_field field class="form-control is-invalid" %}
+                  {% render_field field class="form-control " %}
                   {% for error in field.errors %}
                     <div class="invalid-feedback">
                       {{ error }}
                     </div>
                   {% endfor %}
                 {% else %}
-                  {% render_field field class="form-control is-valid"  %}
+                  {% render_field field class="form-control" %}
+                {% endif %}
+                {% if field.help_text %}
+                  <small class="form-text text-muted">{{ field.help_text }}</small>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+
+
+              {% for field in profile_form.visible_fields %}
+              {% if field.name == 'photo' %}
+                <label for="{{ field.id }}" class="form-label">Foto de Perfil</label>
+                {% if field.errors %}
+                  {% render_field field class="form-control" %}
+                  {% for error in field.errors %}
+                    <div class="invalid-feedback">
+                      {{ error }}
+                    </div>
+                  {% endfor %}
+                {% else %}
+                  {% render_field field class="form-control"  %}
                 {% endif %}
                 {% if field.help_text %}
                   <small class="form-text text-muted">{{ field.help_text }}</small>
@@ -120,14 +138,14 @@
                 {% if field.name == 'first_name' %}
                   <label for="{{ field.id }}" class="form-label">{{ field.label_tag }}</label>
                   {% if field.errors %}
-                    {% render_field field class="form-control is-invalid" %}
+                    {% render_field field class="form-control" %}
                     {% for error in field.errors %}
                       <div class="invalid-feedback">
                         {{ error }}
                       </div>
                     {% endfor %}
                   {% else %}
-                    {% render_field field class="form-control is-valid" %}
+                    {% render_field field class="form-control" %}
                   {% endif %}
                   {% if field.help_text %}
                     <small class="form-text text-muted">{{ field.help_text }}</small>
@@ -143,14 +161,14 @@
                 {% if field.name == 'last_name' %}
                   <label for="{{ field.id }}" class="form-label">Apellidos</label>
                   {% if field.errors %}
-                    {% render_field field class="form-control is-invalid" %}
+                    {% render_field field class="form-control" %}
                     {% for error in field.errors %}
                       <div class="invalid-feedback">
                         {{ error }}
                       </div>
                     {% endfor %}
                   {% else %}
-                    {% render_field field class="form-control is-valid" %}
+                    {% render_field field class="form-control" %}
                   {% endif %}
                   {% if field.help_text %}
                     <small class="form-text text-muted">{{ field.help_text }}</small>
@@ -163,14 +181,14 @@
                 {% if field.name == 'email' %}
                   <label for="{{ field.id }}" class="form-label">Correo Electrónico</label>
                   {% if field.errors %}
-                    {% render_field field class="form-control is-invalid" %}
+                    {% render_field field class="form-control" %}
                     {% for error in field.errors %}
                       <div class="invalid-feedback">
                         {{ error }}
                       </div>
                     {% endfor %}
                   {% else %}
-                    {% render_field field class="form-control is-valid" %}
+                    {% render_field field class="form-control" %}
                   {% endif %}
                   {% if field.help_text %}
                     <small class="form-text text-muted">{{ field.help_text }}</small>
@@ -180,24 +198,26 @@
             </div>
 
             <div class="col-12 col-lg-6">
+              
+              
               {% for field in profile_form.visible_fields %}
-                {% if field.name == 'date_of_birth' %}
+              {% if field.name == 'date_of_birth' %}
                   <label for="{{ field.id }}" class="form-label">Fecha de Nacimiento</label>
                   {% if field.errors %}
-                    {% render_field field  class="form-control datepicker" %}
-                    {% for error in field.errors %}
-                      <div class="invalid-feedback">
-                        {{ error }}
-                      </div>
-                    {% endfor %}
+                      {% render_field field class="form-control datepicker"  %}
+                      {% for error in field.errors %}
+                          <div class="invalid-feedback">
+                              {{ error }}
+                          </div>
+                      {% endfor %}
                   {% else %}
-                    {% render_field field class="form-control datepicker" %}
+                      {% render_field field class="form-control datepicker"  %}
                   {% endif %}
                   {% if field.help_text %}
-                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                      <small class="form-text text-muted">{{ field.help_text }}</small>
                   {% endif %}
-                {% endif %}
-              {% endfor %}
+              {% endif %}
+          {% endfor %}
 
 
             
@@ -207,14 +227,14 @@
                   {% if field.name == 'nacionalidad' %}
                     <label for="{{ field.id }}" class="form-label">Nacionalidad</label>
                     {% if field.errors %}
-                      {% render_field field class="form-control is-valid" %}
+                      {% render_field field class="form-control" %}
                       {% for error in field.errors %}
                         <div class="invalid-feedback">
                           {{ error }}
                         </div>
                       {% endfor %}
                     {% else %}
-                      {% render_field field class="form-control is-valid" %}
+                      {% render_field field class="form-control" %}
                     {% endif %}
                     {% if field.help_text %}
                       <small class="form-text text-muted">{{ field.help_text }}</small>
@@ -227,14 +247,14 @@
                     {% if field.name == 'autoidentificacion' %}
                       <label for="{{ field.id }}" class="form-label">Autoidentificacion</label>
                       {% if field.errors %}
-                        {% render_field field class="form-control  is-valid" %}
+                        {% render_field field class="form-control" %}
                         {% for error in field.errors %}
                           <div class="invalid-feedback">
                             {{ error }}
                           </div>
                         {% endfor %}
                       {% else %}
-                        {% render_field field class="form-control  is-valid" %}
+                        {% render_field field class="form-control " %}
                       {% endif %}
                       {% if field.help_text %}
                         <small class="form-text text-muted">{{ field.help_text }}</small>
@@ -247,14 +267,14 @@
                       {% if field.name == 'genero' %}
                         <label for="{{ field.id }}" class="form-label">Genero</label>
                         {% if field.errors %}
-                          {% render_field field class="form-control  is-valid" %}
+                          {% render_field field class="form-control" %}
                           {% for error in field.errors %}
                             <div class="invalid-feedback">
                               {{ error }}
                             </div>
                           {% endfor %}
                         {% else %}
-                          {% render_field field class="form-control  is-valid" %}
+                          {% render_field field class="form-control " %}
                         {% endif %}
                         {% if field.help_text %}
                           <small class="form-text text-muted">{{ field.help_text }}</small>
@@ -266,8 +286,8 @@
           
             
             </div>
-
             {% csrf_token %}
+            
             <div class="col-12">
               <div class="d-flex align-items-center gap-3">
                 <button class="btn btn-secondary px-4"  type="submit" value="Save changes"><i class='bx bx-save me-2'></i>Guardar</button>
@@ -291,10 +311,24 @@
 
 
 
-
+  <script>
+    $(document).ready(function () {
+        $('.datepicker').datepicker({
+            format: 'dd/mm/yyyy',  // Formato de fecha día/mes/año
+            autoclose: true,
+            language: 'es',  // Establece el idioma en español
+            todayHighlight: true,
+        });
+    });
+</script>
 
   
 {% endblock %}
+
+<form method="post">{% csrf_token %}
+  {% bootstrap_form profile_form %}
+  <input type="submit" value="Save">
+</form>
 
 <h1>Edit your account</h1>
   <p>You can edit your account using the following form:</p>

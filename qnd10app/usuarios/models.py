@@ -10,9 +10,10 @@ from django.core.validators import RegexValidator
 
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Nombre de Usuario")
-    user_group = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True, blank=True,verbose_name="Tipo de cuenta de Usuario")
+    activity = models.CharField(blank=True, null=True, max_length=120, choices=[("POSTULANTE", "Postular proyectos a convocatorias"), ("PROPONIENTE", "Proponer actividades culturales en espacios públicos")], verbose_name="¿Que actividad cultural desea realizar en nuestra plataforma?")
+    #user_group = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True, blank=True,verbose_name="¿Que actividad cultural desea realizar en nuestra plataforma?")
     date_of_birth = models.DateField(blank=True, null=True, verbose_name="Fecha de Nacimiento")
-    photo = models.ImageField(upload_to='users/%Y/%m/%d/', blank=True, verbose_name="Foto de Perfil")
+    photo = models.ImageField(upload_to='users/%Y/%m/%d/', blank=True, verbose_name="Agregar Foto de Perfil")
     nacionalidad = models.CharField(blank=True, null=True, max_length=100, verbose_name="Nacionalidad")
     autoidentificacion = models.CharField(blank=True, null=True, max_length=3, choices=[("SI", "Sí"), ("NO", "No")], verbose_name="¿Usted pertenece a un pueblo o nacionalidad indígena, montubio o afro-ecuatoriano?",help_text="¿Usted pertenece a un pueblo o nacionalidad indígena, montubio o afro-ecuatoriano?")
     genero = models.CharField(blank=True, null=True, max_length=10, choices=[("MASCULINO", "Masculino"), ("FEMENINO", "Femenino"), ("OTRO", "Otro")], verbose_name="Identidad de Género")
@@ -25,7 +26,7 @@ class Profile(models.Model):
     
 class Contacts(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Nombre de Usuario")
-    pais_residencias = CountryField(multiple=True, verbose_name="País de Residencia", blank=True,max_length=150)
+    pais_residencias = CountryField(multiple=True, verbose_name="País de Residencia", blank=True,max_length=150, help_text="Elija el país en el que usted reside")
     
     PROVINCIAS_CANTONES_CHOICES = (
         ('Azuay', (
@@ -718,7 +719,7 @@ class edit_contact1(models.Model):
 class Legal(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Nombre de Usuario")
    # date_of_birth = models.DateField(blank=True, null=True, verbose_name="Fecha de Nacimiento")
-    lugar_residencia = CountryField(blank=True, null=True, verbose_name="Lugar de Residencia del Representante Legal")
+   # lugar_residencia = CountryField(blank=True, null=True, verbose_name="Lugar de Residencia del Representante Legal")
     representante_legal_nombre = models.CharField(max_length=255, blank=True, null=True, verbose_name="Nombre del Representante Legal")
     representante_legal_apellido = models.CharField(max_length=255, blank=True, null=True, verbose_name="Apellido del Representante Legal")
     representante_legal_cedula = models.CharField(max_length=20, blank=True, null=True, verbose_name="Cédula del Representante Legal")

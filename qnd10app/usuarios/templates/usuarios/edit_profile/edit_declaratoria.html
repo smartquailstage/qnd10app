@@ -15,22 +15,22 @@
 
     <!--start breadcrumb-->
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-      <div class="breadcrumb-title pe-3">Inicio</div>
+      <div class="breadcrumb-title pe-3"><ion-icon name="card"></ion-icon> Inscripción</div>
       <div class="ps-3">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb mb-0 p-0 align-items-center">
             <li class="breadcrumb-item"><a href="javascript:;">
-                <ion-icon name="home-outline"></ion-icon>
+              <ion-icon name="school"></ion-icon>
               </a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">{% block title %}Información de Perfil de usuario{% endblock %}</li>
+            <li class="breadcrumb-item active" aria-current="page">{% block title %} Declaratoria {% endblock %}</li>
           </ol>
         </nav>
       </div>
 
     </div>
 
-    <h6 class="text-uppercase">Proceso de Incripsición para convocatorias en la línea de fomento editorial y literaria</h6>
+    <h6 class="text-uppercase">Proceso de Inscripción para el uso del sistema de gestión de fomento y actividades culturales en espacios públicos.</h6>
     <hr>
   <div id="stepper1" class="bs-stepper">
     <div class="card">
@@ -42,7 +42,7 @@
             <div class="bs-stepper-circle"><i class='bx bx-user fs-4'></i></div>
             <div class="">
               <h5 class="mb-0 steper-title">Perfil de usuario</h5>
-              <p class="mb-0 steper-sub-title">Información de Perfil del usuario</p>
+              <p class="mb-0 steper-sub-title">Información de Perfil </p>
             </div>
           </div>
           </div>
@@ -52,7 +52,7 @@
             <div class="bs-stepper-circle"><ion-icon name="paper-plane-outline"></ion-icon></div>
             <div class="">
               <h5 class="mb-0 steper-title">Contacto de usuario</h5>
-              <p class="mb-0 steper-sub-title">Información de contacto del usuario</p>
+              <p class="mb-0 steper-sub-title">Información de contacto </p>
             </div>
             </div>
           </div>
@@ -72,7 +72,7 @@
               <div class="bs-stepper-circle"><i class='bx bx-play fs-4'></i></div>
               <div class="">
                 <h5 class="mb-0 steper-title">Actividad Cultural</h5>
-                <p class="mb-0 steper-sub-title">Información actividad cultural del usuario</p>
+                <p class="mb-0 steper-sub-title">Información actividad  </p>
               </div>
               </div>
             </div>
@@ -86,7 +86,7 @@
           <div class="card-body">
               <h4>DECLARATORIA DE VERACIDAD DE LA INFORMACIÓN</h4>
               <p>
-                Yo, <strong>{{ info.user.get_full_name }}</strong>, reconozco y declaro que toda la información proporcionada por mí a la plataforma de gestión cultural, incluyendo pero no limitado a mi perfil de usuario y cualquier formulario de solicitud para convocatorias de fomento cultural de la Secretaría de Cultura del Municipio del Distrito Metropolitano de Quito, es verídica, completa y precisa en todos los aspectos.
+                Yo, <strong>{{ profile.user.get_full_name }}</strong>, reconozco y declaro que toda la información proporcionada por mí a la plataforma de gestión cultural, incluyendo pero no limitado a mi perfil de usuario y cualquier formulario de solicitud para convocatorias de fomento cultural de la Secretaría de Cultura del Municipio del Distrito Metropolitano de Quito, es verídica, completa y precisa en todos los aspectos.
 
 <p>Entiendo y acepto que cualquier falsedad, omisión o inexactitud en la información proporcionada puede resultar en la anulación inmediata de mi participación en cualquier actividad dentro de la plataforma, incluyendo la postulación a convocatorias para líneas de fomento de la Secretaría de Cultura.</p>
 

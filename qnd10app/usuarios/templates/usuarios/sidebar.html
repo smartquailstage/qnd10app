@@ -69,8 +69,8 @@
 
         {% endif %}
 
-        {% if is_postulante_group %}
-        <li class="menu-label">Actividades en la secretaria</li>
+        {% if acepta_terminos_condiciones %}
+        <li class="menu-label">Actividades en la secretaría</li>
         <li>
             <a class="has-arrow" href="javascript:;">
                 <div class="parent-icon">
@@ -101,20 +101,15 @@
                 </li>
             </ul>
         </li>
-
         <li>
             <a href="{% url 'usuarios:perfil' %}">
                 <div class="parent-icon">
                     <ion-icon name="chatbox-ellipses-outline"></ion-icon>
                 </div>
-                <div class="menu-title">Proponer actividad cultural en  espacios publicos</div>
+                <div class="menu-title">Proponer actividad cultural en espacios públicos</div>
             </a>
         </li>
-        
-    {% endif %}
-
-
-
+    {% else %}
         <li class="menu-label">Inscripción al sistema de convocatorias</li>
         <li>
             <a href="{% url 'usuarios:inicio_inscripcion' %}">
@@ -124,6 +119,12 @@
                 <div class="menu-title">Inscripción</div>
             </a>
         </li>
+    {% endif %}
+    
+
+
+
+       
         
    
 
