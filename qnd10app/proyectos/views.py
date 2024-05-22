@@ -42,12 +42,22 @@ class OwnerProjectMixin(OwnerMixin, LoginRequiredMixin):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # Agregar las variables adicionales al contexto
+        context['author'] = self.authors()
         context['profile'] = self.profile()
         context['actividad'] = self.get_profile()
         context['acepta_terminos_condiciones'] = self.get_declaracion()
         return context
     
 
+    
+    def authors(self):
+        user = self.request.user
+        authors = Author.objects.filter(user=user)
+        if authors.exists():
+            titles = [author.title for author in authors]
+            return titles
+        else:
+            return ["No registra autores este proyecto"] 
     
     def profile(self):
         user = self.request.user

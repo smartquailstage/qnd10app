@@ -33,21 +33,21 @@
     </div>
 
     <div class="demo-seprater">
-      <h6 class="mb-0 text-uppercase">Editar proyectos postulados </h6>
+      <h6 class="mb-0 text-uppercase">Mis proyectos postulados </h6>
       <div class="my-3 border-bottom"></div>
     </div>
 
-    {% for project in object_list %}
+    
   
       <div class="card-body">
+        {% for project in object_list %}
             <div class="tab-content" id="pills-tabContent">
               <div class="tab-pane fade show active" id="credit-card" role="tabpanel">
-                <div class="p-3 border rounded">
-
+                <div class="p-2 border rounded">
+              
                   <div class="col-12 col-lg-7">
                     <div class="product-info-section p-3">
-                      <h3 class="mt-3 mt-lg-0 mb-0">{{ project.subject }}</h3>
-                      <p>{{ project.course }} </p>
+                     
 
                       {% if project.proceso == 'Aprobado' %}
                       <td>
@@ -55,45 +55,67 @@
                          <p>{{ project.proceso }}</p> 
                         </span>
                       </td>
+                      <div class="form-body p-3 rounded border bg-light-success">
+                        <p class="mb-4" style="color:azure">El  proyecto editorial "{{ project.title }}" ha sido Aprobado satisfactoriamente a la
+                           convocatoria de fomento editorial y literario, {{project.course}}, en la categoría de {{project.subject}}.
+                           Este proyecto está siendo calificado en las próximas horas por  jurados competentes de la secretaría de cultura del distrito metropolitano de Quito.</p>
+                      </div>
+                      
                       {% elif project.proceso == 'Activo' %}
                       <td>
                         <span class="badge bg-light-warning text-warning w-100">
                           {{ project.proceso }}
                         </span>
                       </td>
+                      <div class="form-body p-3 rounded border bg-warning">
+                        <p class="mb-4" style="color:azure">El  proyecto editorial "{{ project.title }}" ha sido postulado satisfactoriamente a la
+                           convocatoria de fomento editorial y literario, {{project.course}}, en la categoría de {{project.subject}}.
+                           Este proyecto será verficado en las próximas horas por  técnicos competentes de la secretaría de cultura del distrito metropolitano de Quito.</p>
+                      </div>
                       {% elif project.proceso == 'Subsanación' %}
                       <td>
-                        <span class="badge bg-light-warning text-success w-100">
+                        <span class="badge bg-secondary text-success w-100">
                           {{ project.proceso }}
                         </span>
                       </td>
+                      <div class="form-body p-3 rounded border bg-secondary">
+                        <p class="mb-4" style="color:azure">El  proyecto editorial "{{ project.title }}" ha sido verificado en la
+                           convocatoria de fomento editorial y literario, {{project.course}}, en la categoría de {{project.subject}}.
+                           Cuya recomendaciones son las siguientes:</p>
+                      </div>
                       {% elif project.proceso == 'Rechazado' %}
                       <td>
                         <span class="badge bg-light-danger text-danger w-100">
                           {{ project.proceso }}
                         </span>
                       </td>
+                      <div class="form-body p-3 rounded border bg-danger">
+                        <p class="mb-4" style="color:azure">El  proyecto editorial "{{ project.title }}" ha sido rechazado en la
+                           convocatoria de fomento editorial y literario, {{project.course}}, en la categoría de {{project.subject}}.
+                           Cuyo dictamén han sido el siguiente:</p>
+                      </div>
                       {% endif %}
-                    
+
                       
-                  
+                      <h3 class="mt-3 mt-lg-0 mb-0">Calificación Actual</h3>
+                      <p>1/10</p>
                       <div class="d-flex align-items-center mt-3 gap-2">
                         <h5 class="mb-0 text-light-3">{{ project.title }}</h5>
                        
                       </div>
                       <div class="mt-3">
                         <h6>Resumen de proyecto:</h6>
-                        <p class="mb-0">{{ project.overview | richtext }}</p>
+                        <p class="mb-0" style="text-align: justify;">{{ project.overview | richtext }}</p>
                       </div>
                       <dl class="row mt-3">	
-                        <dt class="col-sm-3">Bibliografía:</dt>
-                        <dd class="col-sm-9">{{ project.created }}</dd>	
+
                         <dt class="col-sm-3">Última actualización:</dt>
                         <dd class="col-sm-9">{{ project.created }}</dd>	
                         <dt class="col-sm-3">Coordinador de Proyecto:</dt>
                         <dd class="col-sm-9">{{ project.owner.get_full_name }}</dd>
-                        <dt class="col-sm-3">Autores:</dt>
-                        <dd class="col-sm-9">{{ project.authors.title }}</dd>
+                        <dt class="col-sm-3">Número de autores en el proyecto:</dt>
+                        <dd class="col-sm-9">{{ project.authors.count }}</dd>
+                       
                       </dl>
 
                       <hr/>
@@ -127,28 +149,50 @@
                        
 
                       </div>
+                      
                       <hr/>
-                      <div class="product-sharing">
-                        <ul class="list-inline">
-                          <li class="list-inline-item "> safadffafsa
-                          </li>
                      
-                        </ul>
-                      </div>
                     </div>
-                  </div>
-                 
+                    <div class="product-sharing">
+                      <ul class="list-inline">
+                        <li class="list-inline-item "> 
+                          <p> * Para postular proyectos editoriales en convocatorias o llamados a fomento editorial y 
+                            literario, es imprescindible respetar el número de autores, bibliografías y planes 
+                            de trabajo establecidos de acuerdo a las bases técnicas descritas en cada convocatoria.
+                             No cumplir con esta normativa puede resultar en el rechazo automático de la postulación al 
+                             fondo de fomento. Se insta a los postulantes a revisar detenidamente las condiciones y requisitos 
+                             específicos de cada convocatoria, antes de crear un proyecto para fomento en la misma.</p>
+
+                        </li>
+                        <li class="list-inline-item "> 
+                          <p>** <span class="badge bg-light-warning text-warning w-10">Activo</span>/proceso de postulación enviado,
+                            <span class="badge bg-secondary text-success w-10">Subsanación</span>/proceso de verificación de información. 
+                            <span class="badge bg-light-danger text-danger w-10">Rechazado</span>/proceso de postulación anulado.  
+                            <span class="badge bg-light-success text-success w-10">Aprobado</span>/proceso de calificación de proyecto.   </p>
+
+                        </li>
+                   
+                      </ul>
+                      
+                    </div>  
+                    <a class="btn btn-danger btn-ecomm" href="{% url "proyectos:project_delete" project.id %}" title="Eliminar Proyecto" style="color:rgb(255, 255, 255);" ><ion-icon name="trash-outline"></ion-icon>Desistimar proyecto de convocatoria</a>
                 </div>
+
+              
+                
               </div>
+              
             </div>
+          </div>
+          {% endfor %}
       </div>
-    {% endfor %}
+
+
+   
    </div>
 </div>
+
         
-
- 
-
 
 
 {% endblock %}

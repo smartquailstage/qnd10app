@@ -82,6 +82,7 @@ class BibliographicReference(models.Model):
 
 
 class Author(models.Model):
+    user = models.ForeignKey(User, related_name='projects_authors', on_delete=models.CASCADE, blank=True,null=True)
     project = models.ForeignKey(Project, related_name='authors', on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
