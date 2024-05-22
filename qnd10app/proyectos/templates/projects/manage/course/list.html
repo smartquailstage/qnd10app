@@ -108,6 +108,11 @@
                           <ion-icon name="person-add"></ion-icon> Agregar Autores
                         </a> 
 
+                        {% if project.authors.count > 0 %}
+                        <a class="btn btn-light btn-ecomm"   href="{% url "proyectos:module_content_list" project.authors.first.id %}" title="Agregar Curriculm Vitale" ><ion-icon name="document-attach-outline"></ion-icon>Agregar hojas de vida</a>
+                        
+                        {% endif %}
+
                       </div>
                       <div class="d-flex gap-2 mt-3">
 
@@ -118,6 +123,8 @@
                         <a class="btn btn-light btn-ecomm"  href="{% url "proyectos:project_work_plan_update" project.id %}" title="Agregar Plan de trabajo">  
                           <ion-icon name="calendar"></ion-icon> Agregar Plan de trabajo
                         </a> 
+
+                       
 
                       </div>
                       <hr/>
