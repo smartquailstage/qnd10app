@@ -6,8 +6,6 @@
 {% load static %}
 {% load menu_tags %}
 
-
-
 {% block content %}
 
 <div class="page-content-wrapper">
@@ -16,7 +14,7 @@
 
     <!--start breadcrumb-->
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-      <div class="breadcrumb-title pe-3">Inicio</div>
+      <div class="breadcrumb-title pe-3"><ion-icon name="folder-open"></ion-icon> Proyectos Editoriales y Literarios</div>
       <div class="ps-3">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb mb-0 p-0 align-items-center">
@@ -26,9 +24,9 @@
             </li>
             <li class="breadcrumb-item active" aria-current="page">{% block title %}
               {% if object %}
-                Editar convocatoria: "{{ object.title }}"
+                Editar proyecto a postular: "{{ object.title }}"
               {% else %}
-                Crear nueva convocatoria
+                Crear nuevo proyecto a postular
               {% endif %}
             {% endblock %}</li>
           </ol>
@@ -66,35 +64,37 @@
 
               {% for field in form.visible_fields %}
               {% if field.name == 'course' %}
-                <label for="{{ field.id }}" class="form-label">Convocatoría que desea postular</label>
+                <label for="{{ field.id }}" class="form-label">Convocatoría que desea postular este proyecto</label><br>
                 {% if field.errors %}
-                  {% render_field field class="form-control is-invalid" %}
+                  {% render_field field class="form-control" %}
                   {% for error in field.errors %}
                     <div class="invalid-feedback">
                       {{ error }}
                     </div>
                   {% endfor %}
                 {% else %}
-                  {% render_field field class="form-control is-valid"  %}
+                  {% render_field field class="form-control"  %}
                 {% endif %}
                 {% if field.help_text %}
                   <small class="form-text text-muted">{{ field.help_text }}</small>
                 {% endif %}
               {% endif %}
             {% endfor %}
+
+            <br> <!-- Agrega espacio -->
 
               {% for field in form.visible_fields %}
               {% if field.name == 'subject' %}
-                <label for="{{ field.id }}" class="form-label">Categoría de convocatoría en Fomento Editorial y Literaría</label>
+                <label for="{{ field.id }}" class="form-label">Categoría de convocatoría en Fomento Editorial y Literaría</label><br>
                 {% if field.errors %}
-                  {% render_field field class="form-control is-invalid" %}
+                  {% render_field field class="form-control" %}
                   {% for error in field.errors %}
                     <div class="invalid-feedback">
                       {{ error }}
                     </div>
                   {% endfor %}
                 {% else %}
-                  {% render_field field class="form-control is-valid"  %}
+                  {% render_field field class="form-control"  %}
                 {% endif %}
                 {% if field.help_text %}
                   <small class="form-text text-muted">{{ field.help_text }}</small>
@@ -102,87 +102,75 @@
               {% endif %}
             {% endfor %}
 
-              
-            {% for field in form.visible_fields %}
-            {% if field.name == 'bibliographic_reference' %}
-              <label for="{{ field.id }}" class="form-label">Ingrese una foto de la portada de la convocatoria</label>
-              {% if field.errors %}
-                {% render_field field class="form-control is-invalid" %}
-                {% for error in field.errors %}
-                  <div class="invalid-feedback">
-                    {{ error }}
-                  </div>
-                {% endfor %}
-              {% else %}
-                {% render_field field class="form-control is-valid" %}
-              {% endif %}
-              {% if field.help_text %}
-                <small class="form-text text-muted">{{ field.help_text }}</small>
-              {% endif %}
-            {% endif %}
-          {% endfor %}
-            
-              {% for field in form.visible_fields %}
-                {% if field.name == 'title' %}
-                  <label for="{{ field.id }}" class="form-label">Título de Convocatoria</label>
-                  {% if field.errors %}
-                    {% render_field field class="form-control is-invalid" %}
-                    {% for error in field.errors %}
-                      <div class="invalid-feedback">
-                        {{ error }}
-                      </div>
-                    {% endfor %}
-                  {% else %}
-                    {% render_field field class="form-control is-valid" %}
-                  {% endif %}
-                  {% if field.help_text %}
-                    <small class="form-text text-muted">{{ field.help_text }}</small>
-                  {% endif %}
-                {% endif %}
-              {% endfor %}
+   
 
-              {% for field in form.visible_fields %}
-                {% if field.name == 'slug' %}
-                  <label for="{{ field.id }}" class="form-label">re-scriba el titulo de la convocatoria, en minusculas y los espacios reemplaze con - </label>
-                  {% if field.errors %}
-                    {% render_field field class="form-control datepicker is-valid" %}
-                    {% for error in field.errors %}
-                      <div class="invalid-feedback">
-                        {{ error }}
-                      </div>
-                    {% endfor %}
-                  {% else %}
-                    {% render_field field class="form-control datepicker is-valid" %}
-                  {% endif %}
-                  {% if field.help_text %}
-                    <small class="form-text text-muted">{{ field.help_text }}</small>
-                  {% endif %}
-                {% endif %}
-              {% endfor %}
-
-              {% for field in form.visible_fields %}
-              {% if field.name == 'cv' %}
-                <label for="{{ field.id }}" class="form-label">Curriculm Vitae de Coordinar del proyecto</label>
-                {% if field.errors %}
-                  {% render_field field class="form-control is-invalid" %}
-                  {% for error in field.errors %}
-                    <div class="invalid-feedback">
-                      {{ error }}
-                    </div>
-                  {% endfor %}
-                {% else %}
-                  {% render_field field class="form-control is-valid" %}
-                {% endif %}
-                {% if field.help_text %}
-                  <small class="form-text text-muted">{{ field.help_text }}</small>
-                {% endif %}
-              {% endif %}
-            {% endfor %}
-
-              
           
-           
-        
+
+          <br> <!-- Agrega espacio -->
+
+            {% for field in form.visible_fields %}
+              {% if field.name == 'title' %}
+                <label for="{{ field.id }}" class="form-label">Título de Convocatoria</label><br>
+                {% if field.errors %}
+                  {% render_field field class="form-control" %}
+                  {% for error in field.errors %}
+                    <div class="invalid-feedback">
+                      {{ error }}
+                    </div>
+                  {% endfor %}
+                {% else %}
+                  {% render_field field class="form-control" %}
+                {% endif %}
+                {% if field.help_text %}
+                  <small class="form-text text-muted">{{ field.help_text }}</small>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+
+            <br> <!-- Agrega espacio -->
+
+            {% for field in form.visible_fields %}
+              {% if field.name == 'slug' %}
+                <label for="{{ field.id }}" class="form-label">re-scriba el titulo de la convocatoria, en minusculas y los espacios reemplaze con - </label><br>
+                {% if field.errors %}
+                  {% render_field field class="form-control" %}
+                  {% for error in field.errors %}
+                    <div class="invalid-feedback">
+                      {{ error }}
+                    </div>
+                  {% endfor %}
+                {% else %}
+                  {% render_field field class="form-control " %}
+                {% endif %}
+                {% if field.help_text %}
+                  <small class="form-text text-muted">{{ field.help_text }}</small>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+
+            <br> <!-- Agrega espacio -->
+
+            {% for field in form.visible_fields %}
+              {% if field.name == 'cv' %}
+                <label for="{{ field.id }}" class="form-label">Curriculm Vitale del coordinar del proyecto</label><br>
+                {% if field.errors %}
+                  {% render_field field class="form-control" %}
+                  {% for error in field.errors %}
+                    <div class="invalid-feedback">
+                      {{ error }}
+                    </div>
+                  {% endfor %}
+                {% else %}
+                  {% render_field field class="form-control" %}
+                {% endif %}
+                {% if field.help_text %}
+                  <small class="form-text text-muted">{{ field.help_text }}</small>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+
+            <br> <!-- Agrega espacio -->
+
             </div>
 
             <div class="col-12 col-lg-6">
@@ -190,44 +178,45 @@
           
               {% for field in form.visible_fields %}
               {% if field.name == 'overview' %}
-                <label for="{{ field.id }}" class="form-label">Resumen de Proyecto a postular</label>
+                <label for="{{ field.id }}" class="form-label">Resumen de Proyecto a postular</label><br>
                 {% if field.errors %}
-                  {% render_field field class="form-control is-invalid" %}
+                  {% render_field field class="form-control" %}
                   {% for error in field.errors %}
                     <div class="invalid-feedback">
                       {{ error }}
                     </div>
                   {% endfor %}
                 {% else %}
-                  {% render_field field class="form-control is-valid" %}
+                  {% render_field field class="form-control" %}
                 {% endif %}
                 {% if field.help_text %}
                   <small class="form-text text-muted">{{ field.help_text }}</small>
                 {% endif %}
               {% endif %}
             {% endfor %}
-            <di>
 
-            </di>
+            <br> <!-- Agrega espacio -->
 
             {% for field in form.visible_fields %}
             {% if field.name == 'plan' %}
-              <label for="{{ field.id }}" class="form-label">Plan de uso del incentivo.</label>
+              <label for="{{ field.id }}" class="form-label">Plan de uso del incentivo.</label><br>
               {% if field.errors %}
-                {% render_field field class="form-control is-invalid" %}
+                {% render_field field class="form-control" %}
                 {% for error in field.errors %}
                   <div class="invalid-feedback">
                     {{ error }}
                   </div>
                 {% endfor %}
               {% else %}
-                {% render_field field class="form-control is-valid" %}
+                {% render_field field class="form-control" %}
               {% endif %}
               {% if field.help_text %}
                 <small class="form-text text-muted">{{ field.help_text }}</small>
               {% endif %}
             {% endif %}
           {% endfor %}
+
+          <br> <!-- Agrega espacio -->
 
        
 

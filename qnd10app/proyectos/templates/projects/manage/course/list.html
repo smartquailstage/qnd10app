@@ -33,110 +33,109 @@
     </div>
 
     <div class="demo-seprater">
-      <h6 class="mb-0 text-uppercase">Editar Proyectos postlados </h6>
+      <h6 class="mb-0 text-uppercase">Editar proyectos postulados </h6>
       <div class="my-3 border-bottom"></div>
     </div>
 
-    <div class="card">
+    {% for project in object_list %}
+  
       <div class="card-body">
-        <div class="d-flex align-items-center">
-           <h5 class="mb-0">Lista de proyectos Postulados</h5>
-   
-         </div>
-        
-        <div class="table-responsive mt-3">
-          <table class="table align-middle">
-            <thead class="table-secondary">
-              <tr>
-               <th># de Autores</th>
-               <th>Nombre de Usuario</th>
-               <th>Titulo de obra literaria</th>
-               <th>Nombre de convocatoria a postular </th>
-               <th>Proceso</th>
-               <th>Configuraciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for project in object_list %}
-              <tr>
-               <td>
-                {{ project.authors.count }}
+            <div class="tab-content" id="pills-tabContent">
+              <div class="tab-pane fade show active" id="credit-card" role="tabpanel">
+                <div class="p-3 border rounded">
 
-               </td>
-               <td>{{ project.owner }}</td>
-                <td>
-                  <div class="d-flex align-items-center gap-3 cursor-pointer">
-                    {% thumbnail project.portada "300x200" crop="center" as p %}
-                     <img src="{{ p.url }}" class="rounded-circle" width="44" height="44" alt="">
-                     {% endthumbnail %}
-                     <div class="">
-                       <p class="mb-0">{{ project.title }}</p>        
-                     </div>
+                  <div class="col-12 col-lg-7">
+                    <div class="product-info-section p-3">
+                      <h3 class="mt-3 mt-lg-0 mb-0">{{ project.subject }}</h3>
+                      <p>{{ project.course }} </p>
+
+                      {% if project.proceso == 'Aprobado' %}
+                      <td>
+                        <span class="badge bg-light-success text-success w-100">
+                         <p>{{ project.proceso }}</p> 
+                        </span>
+                      </td>
+                      {% elif project.proceso == 'Activo' %}
+                      <td>
+                        <span class="badge bg-light-warning text-warning w-100">
+                          {{ project.proceso }}
+                        </span>
+                      </td>
+                      {% elif project.proceso == 'Subsanación' %}
+                      <td>
+                        <span class="badge bg-light-warning text-success w-100">
+                          {{ project.proceso }}
+                        </span>
+                      </td>
+                      {% elif project.proceso == 'Rechazado' %}
+                      <td>
+                        <span class="badge bg-light-danger text-danger w-100">
+                          {{ project.proceso }}
+                        </span>
+                      </td>
+                      {% endif %}
+                    
+                      
+                  
+                      <div class="d-flex align-items-center mt-3 gap-2">
+                        <h5 class="mb-0 text-light-3">{{ project.title }}</h5>
+                       
+                      </div>
+                      <div class="mt-3">
+                        <h6>Resumen de proyecto:</h6>
+                        <p class="mb-0">{{ project.overview | richtext }}</p>
+                      </div>
+                      <dl class="row mt-3">	
+                        <dt class="col-sm-3">Bibliografía:</dt>
+                        <dd class="col-sm-9">{{ project.created }}</dd>	
+                        <dt class="col-sm-3">Última actualización:</dt>
+                        <dd class="col-sm-9">{{ project.created }}</dd>	
+                        <dt class="col-sm-3">Coordinador de Proyecto:</dt>
+                        <dd class="col-sm-9">{{ project.owner.get_full_name }}</dd>
+                        <dt class="col-sm-3">Autores:</dt>
+                        <dd class="col-sm-9">{{ project.authors.title }}</dd>
+                      </dl>
+
+                      <hr/>
+               
+                      <!--end row-->
+                      <div class="d-flex gap-2 mt-3">
+                        <a class="btn btn-primary btn-ecomm" href="{% url "proyectos:project_edit" project.id %}" title="Editar Proyecto" >  
+                          <ion-icon name="create-outline"></ion-icon> Editar
+                        </a> 
+
+                        <a class="btn btn-light btn-ecomm" href="{% url "proyectos:project_author_update" project.id %}" title="Agregar Autores" >  
+                          <ion-icon name="person-add"></ion-icon> Agregar Autores
+                        </a> 
+
+                      </div>
+                      <div class="d-flex gap-2 mt-3">
+
+                        <a class="btn btn-light btn-ecomm" href="{% url "proyectos:project_biblio_update" project.id %}" title="Agregar bibliografia" >  
+                          <ion-icon name="bookmark"></ion-icon> Agregar Bibliografía
+                        </a> 
+
+                        <a class="btn btn-light btn-ecomm"  href="{% url "proyectos:project_work_plan_update" project.id %}" title="Agregar Plan de trabajo">  
+                          <ion-icon name="calendar"></ion-icon> Agregar Plan de trabajo
+                        </a> 
+
+                      </div>
+                      <hr/>
+                      <div class="product-sharing">
+                        <ul class="list-inline">
+                          <li class="list-inline-item "> safadffafsa
+                          </li>
+                     
+                        </ul>
+                      </div>
+                    </div>
                   </div>
-                </td>
-                <td>{{ project.course }}
-                </td>
-                {% if project.proceso == 'Aprobado' %}
-                <td>
-                  <span class="badge bg-light-success text-success w-100">
-                    {{ project.proceso }}
-                  </span>
-                </td>
-                {% elif project.proceso == 'Activo' %}
-                <td>
-                  <span class="badge bg-light-warning text-warning w-100">
-                    {{ project.proceso }}
-                  </span>
-                </td>
-                {% elif project.proceso == 'Subsanación' %}
-                <td>
-                  <span class="badge bg-light-warning text-success w-100">
-                    {{ project.proceso }}
-                  </span>
-                </td>
-                {% elif project.proceso == 'Rechazado' %}
-                <td>
-                  <span class="badge bg-light-danger text-danger w-100">
-                    {{ project.proceso }}
-                  </span>
-                </td>
-                {% endif %}
-
-
-                <td>
-                  <div class="table-actions d-flex align-items-center gap-3 fs-6">
-                  <a class="dropdown-item" href="{% url "proyectos:project_edit" project.id %}" title="Editar Proyecto" >  <ion-icon name="create-outline"></ion-icon></a>
-                  <a class="dropdown-item" href="{% url "proyectos:project_work_plan_update" project.id %}" title="Agregar Plan de trabajo"><ion-icon name="calendar"></ion-icon></a>
-                  <a class="dropdown-item" href="{% url "proyectos:project_biblio_update" project.id %}" title="Agregar bibliografia"> <ion-icon name="bookmarks"></ion-icon></a>
-                  <a class="dropdown-item" href="{% url "proyectos:project_author_update" project.id %}" title="Agregar Autores"> <ion-icon name="person-add-outline"></ion-icon></a>
                  
-                  {% if project.authors.count > 0 %}
-                <a class="dropdown-item"  href="{% url "proyectos:module_content_list" project.authors.first.id %}" title="Agregar Curriculm Vitale" ><ion-icon name="document-attach-outline"></ion-icon></ion-icon></a>
-                
-                {% endif %}
-               
-                <a class="dropdown-item" href="{% url "proyectos:project_delete" project.id %}" title="Eliminar Proyecto" style="color:red;" ><ion-icon name="trash-outline"></ion-icon></a>
-                  </div>
-
-                
-                </td>
-              </tr>
-            
-              {% empty %}
-              <tr>
-               
-<p>Usted todavia no ha creado un proyecto para postular en las convocatorias para la línea de fomento editorial y literaria.</p>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
+                </div>
+              </div>
+            </div>
       </div>
-    </div>
-   
-
-
-   
+    {% endfor %}
    </div>
 </div>
         
@@ -146,3 +145,92 @@
 
 
 {% endblock %}
+
+
+<div class="table-responsive mt-3">
+  <table class="table align-middle">
+    <thead class="table-secondary">
+      <tr>
+       <th># de Autores</th>
+       <th>Nombre de Usuario</th>
+       <th>Titulo de obra literaria</th>
+       <th>Nombre de convocatoria a postular </th>
+       <th>Proceso</th>
+       <th>Configuraciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for project in object_list %}
+      <tr>
+       <td>
+        {{ project.authors.count }}
+
+       </td>
+       <td>{{ project.owner }}</td>
+        <td>
+          <div class="d-flex align-items-center gap-3 cursor-pointer">
+            {% thumbnail project.portada "300x200" crop="center" as p %}
+             <img src="{{ p.url }}" class="rounded-circle" width="44" height="44" alt="">
+             {% endthumbnail %}
+             <div class="">
+               <p class="mb-0">{{ project.title }}</p>        
+             </div>
+          </div>
+        </td>
+        <td>{{ project.course }}
+        </td>
+        {% if project.proceso == 'Aprobado' %}
+        <td>
+          <span class="badge bg-light-success text-success w-100">
+            {{ project.proceso }}
+          </span>
+        </td>
+        {% elif project.proceso == 'Activo' %}
+        <td>
+          <span class="badge bg-light-warning text-warning w-100">
+            {{ project.proceso }}
+          </span>
+        </td>
+        {% elif project.proceso == 'Subsanación' %}
+        <td>
+          <span class="badge bg-light-warning text-success w-100">
+            {{ project.proceso }}
+          </span>
+        </td>
+        {% elif project.proceso == 'Rechazado' %}
+        <td>
+          <span class="badge bg-light-danger text-danger w-100">
+            {{ project.proceso }}
+          </span>
+        </td>
+        {% endif %}
+
+
+        <td>
+          <div class="table-actions d-flex align-items-center gap-3 fs-6">
+          <a class="dropdown-item" href="{% url "proyectos:project_edit" project.id %}" title="Editar Proyecto" >  <ion-icon name="create-outline"></ion-icon></a>
+          <a class="dropdown-item" href="{% url "proyectos:project_work_plan_update" project.id %}" title="Agregar Plan de trabajo"><ion-icon name="calendar"></ion-icon></a>
+          <a class="dropdown-item" href="{% url "proyectos:project_biblio_update" project.id %}" title="Agregar bibliografia"> <ion-icon name="bookmarks"></ion-icon></a>
+          <a class="dropdown-item" href="{% url "proyectos:project_author_update" project.id %}" title="Agregar Autores"> <ion-icon name="person-add-outline"></ion-icon></a>
+         
+          {% if project.authors.count > 0 %}
+        <a class="dropdown-item"  href="{% url "proyectos:module_content_list" project.authors.first.id %}" title="Agregar Curriculm Vitale" ><ion-icon name="document-attach-outline"></ion-icon></ion-icon></a>
+        
+        {% endif %}
+       
+        <a class="dropdown-item" href="{% url "proyectos:project_delete" project.id %}" title="Eliminar Proyecto" style="color:red;" ><ion-icon name="trash-outline"></ion-icon></a>
+          </div>
+
+        
+        </td>
+      </tr>
+    
+      {% empty %}
+      <tr>
+       
+<p>Usted todavia no ha creado un proyecto para postular en las convocatorias para la línea de fomento editorial y literaria.</p>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>  

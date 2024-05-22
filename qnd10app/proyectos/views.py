@@ -39,8 +39,30 @@ class OwnerProjectMixin(OwnerMixin, LoginRequiredMixin):
     fields = ['course','subject', 'title', 'slug', 'overview','plan','cv']
     success_url = reverse_lazy('proyectos:manage_project_list')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Agregar las variables adicionales al contexto
+        context['profile'] = self.profile()
+        context['actividad'] = self.get_profile()
+        context['acepta_terminos_condiciones'] = self.get_declaracion()
+        return context
+    
 
+    
+    def profile(self):
+        user = self.request.user
+        profile = get_object_or_404(Profile, user=user)
+        return profile
 
+    def get_profile(self):
+        user = self.request.user
+        profile = get_object_or_404(Profile, user=user)
+        return profile.activity
+    
+    def get_declaracion(self):
+        user = self.request.user
+        declaracion = get_object_or_404(DeclaracionVeracidad, user=user)
+        return declaracion.acepta_terminos_condiciones
 
 class OwnerProjectEditMixin(OwnerProjectMixin, OwnerEditMixin):
     fields = ['course','subject', 'title', 'slug', 'overview','plan','cv']

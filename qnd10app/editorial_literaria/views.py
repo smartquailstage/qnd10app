@@ -155,6 +155,7 @@ class ContentCreateUpdateView(TemplateResponseMixin, View):
 class ContentDeleteView(View):
 
     def post(self, request, id):
+        
         content = get_object_or_404(Content,
                                     id=id,
                                     module__course__owner=request.user)
@@ -169,12 +170,20 @@ class ModuleContentListView(TemplateResponseMixin, View):
     
 
     def get(self, request, module_id):
+        profile = Profile.objects.get(user=request.user)
+        actividad = profile.activity
+        declaracion = DeclaracionVeracidad.objects.get(user=request.user)
+        acepta_terminos_condiciones = declaracion.acepta_terminos_condiciones
        # project_form = ProjectEnrollForm(usuario=request.user)
         module = get_object_or_404(Module,
                                    id=module_id,
                                    course__owner=request.user)
+        
 
-        return self.render_to_response({'module': module})
+        return self.render_to_response({'module': module, 'actividad':actividad, 'acepta_terminos_condiciones':acepta_terminos_condiciones})
+    
+
+
 
 
 class ModuleOrderView(CsrfExemptMixin,

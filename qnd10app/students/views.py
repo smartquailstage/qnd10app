@@ -8,6 +8,8 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from editorial_literaria.models import Course
 from .forms import CourseEnrollForm
+from usuarios.models import Profile, DeclaracionVeracidad
+from django.shortcuts import redirect, get_object_or_404
 
 
 class StudentRegistrationView(CreateView):
@@ -47,6 +49,7 @@ class StudentCourseListView(LoginRequiredMixin, ListView):
     template_name = 'students/course/list.html'
 
     def get_queryset(self):
+        
         qs = super(StudentCourseListView, self).get_queryset()
         return qs.filter(students__in=[self.request.user])
 
@@ -54,21 +57,33 @@ class StudentCourseListView(LoginRequiredMixin, ListView):
 class StudentCourseDetailView(DetailView):
     model = Course
     template_name = 'students/course/detail.html'
+    context_object_name = 'course'  # Cambié el nombre del objeto de contexto para mayor claridad
 
     def get_queryset(self):
-        qs = super(StudentCourseDetailView, self).get_queryset()
+        qs = super().get_queryset()
         return qs.filter(students__in=[self.request.user])
 
     def get_context_data(self, **kwargs):
-        context = super(StudentCourseDetailView,
-                        self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)  # Mover esta línea al principio para evitar errores
         # get course object
         course = self.get_object()
         if 'module_id' in self.kwargs:
             # get current module
-            context['module'] = course.modules.get(
-                                    id=self.kwargs['module_id'])
+            context['module'] = course.modules.get(id=self.kwargs['module_id'])
         else:
             # get first module
-            context['module'] = course.modules.all()[0]
+            context['module'] = course.modules.first()
+        # Agregar actividad y acepta_terminos_condiciones al contexto
+        context['actividad'] = self.get_profile()
+        context['acepta_terminos_condiciones'] = self.get_declaracion()
         return context
+    
+    def get_profile(self):
+        user = self.request.user
+        profile = get_object_or_404(Profile, user=user)
+        return profile.activity
+    
+    def get_declaracion(self):
+        user = self.request.user
+        declaracion = get_object_or_404(DeclaracionVeracidad, user=user)
+        return declaracion.acepta_terminos_condiciones
