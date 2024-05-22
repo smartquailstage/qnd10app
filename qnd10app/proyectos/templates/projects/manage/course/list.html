@@ -40,11 +40,11 @@
     
   
       <div class="card-body">
-        {% for project in object_list %}
+        
             <div class="tab-content" id="pills-tabContent">
               <div class="tab-pane fade show active" id="credit-card" role="tabpanel">
                 <div class="p-2 border rounded">
-              
+                  {% for project in object_list %}
                   <div class="col-12 col-lg-7">
                     <div class="product-info-section p-3">
                      
@@ -177,14 +177,14 @@
                     </div>  
                     <a class="btn btn-danger btn-ecomm" href="{% url "proyectos:project_delete" project.id %}" title="Eliminar Proyecto" style="color:rgb(255, 255, 255);" ><ion-icon name="trash-outline"></ion-icon>Desistimar proyecto de convocatoria</a>
                 </div>
-
+                {% endfor %}
               
                 
               </div>
               
             </div>
           </div>
-          {% endfor %}
+          
       </div>
 
 
