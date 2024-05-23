@@ -46,6 +46,7 @@ django-rosetta
 wagtail-localize
 django-memcache-status
 wagtailmedia
+django-forms-bootstrap
 
 djangorestframework 
 django-debug-toolbar 
