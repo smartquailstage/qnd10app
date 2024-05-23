@@ -5,7 +5,7 @@ from .models import Project, Author, BibliographicReference,WorkPlan
 
 ModuleFormSet = inlineformset_factory(Project,
                                       Author,
-                                      fields=['title', 'description',],
+                                      fields=['title', 'description'],
                                       extra=2,
                                       can_delete=True)
 class CourseEnrollForm(forms.Form):

@@ -4,6 +4,7 @@
 {% load widget_tweaks %}
 {% load static %}
 {% load menu_tags %}
+{% load bootstrap4 %}
 
 <!doctype html>
 <html lang="en">
@@ -43,6 +44,7 @@
   
 
   <title>Plataforma- QuitoCultura</title>
+
 </head>
 
 <body>
@@ -82,7 +84,7 @@
 
   
   <!--end wrapper-->
-
+  {% bootstrap_javascript jquery='full' %}
   <script src="{% static 'assets/plugins/datetimepicker/js/legacy.js' %}"></script>
   <script src="{% static 'assets/plugins/datetimepicker/js/picker.js' %}"></script>
   <script src="{% static 'assets/plugins/datetimepicker/js/picker.time.js' %}"></script>

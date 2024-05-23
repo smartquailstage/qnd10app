@@ -43,6 +43,8 @@ class Project(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     course = models.ForeignKey(Course, related_name='proyectos_course', on_delete=models.CASCADE,null=True,blank=True,verbose_name="Elija la convocatoria que desea postular este proyecto.")
     proceso =  models.CharField(max_length=255, blank=True, null=True, verbose_name="Proceso del proyecto postulado", choices=PROCESS, help_text="Elija el proceso en la que se encuentra esta postulacion", default="Activo")
+    recomend = RichTextField(help_text="Si el proceso se encuentrta en subsanamiento, Escribir en el re-cuadro, las recomendaciones.", null=True,blank=True)
+    dictamen = RichTextField(help_text="Si el proceso se encuentrta en Aprobado y calificado, Escribir en el re-cuadro el dicatmen final de jurado.", null=True,blank=True)
 
     class Meta:
         ordering = ['-created']
@@ -84,7 +86,10 @@ class BibliographicReference(models.Model):
 class Author(models.Model):
     user = models.ForeignKey(User, related_name='projects_authors', on_delete=models.CASCADE, blank=True,null=True)
     project = models.ForeignKey(Project, related_name='authors', on_delete=models.CASCADE)
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=200,verbose_name="Nombre completo de Autor")
+   # first_name = models.CharField(max_length=200,null=True,blank=True)
+   # last_name = models.CharField(max_length=200,null=True,blank=True)
+
     description = models.TextField(blank=True)
     order = OrderField(blank=True, for_fields=['project'])
 

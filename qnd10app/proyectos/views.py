@@ -108,6 +108,7 @@ class ProjectDeleteView(
 
 class ProjectAuthorUpdateView(TemplateResponseMixin, View):
     template_name = 'projects/manage/module/formset.html'
+    fields = ['title','description']
     project = None
 
     def get_formset(self, data=None):
@@ -142,7 +143,7 @@ class ContentCreateUpdateView(TemplateResponseMixin, View):
     template_name = 'projects/manage/content/form.html'
 
     def get_model(self, model_name):
-        if model_name in ['CV']:
+        if model_name in ['cv']:
             return apps.get_model(app_label='proyectos',
                                   model_name=model_name)
         return None
@@ -184,7 +185,7 @@ class ContentCreateUpdateView(TemplateResponseMixin, View):
                 # new content
                 Content.objects.create(author=self.author,
                                        item=obj)
-            return redirect('proyectos:module_content_list', self.author.id)
+            return redirect('proyectos:author_content_list', self.author.id)
 
         return self.render_to_response({'form': form,
                                         'object': self.obj})
@@ -199,7 +200,7 @@ class ContentDeleteView(View):
         author = content.author
         content.item.delete()
         content.delete()
-        return redirect('proyectos:module_content_list', author.id)
+        return redirect('proyectos:author_content_list', author.id)
 
 
 class AuthorContentListView(TemplateResponseMixin, View):

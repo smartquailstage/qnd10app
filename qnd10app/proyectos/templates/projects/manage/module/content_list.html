@@ -6,6 +6,7 @@
 {% load static %}
 {% load menu_tags %}
 {% load course %}
+{% load bootstrap_tags %}
 
 {% block title %}
   Module {{ module.order|add:1 }}: {{ module.title }}
@@ -18,15 +19,17 @@
 
   <!--start breadcrumb-->
   <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-    <div class="breadcrumb-title pe-3">Subir contenido adjunto a la convocatoria.</div>
+    <div class="breadcrumb-title pe-3">Subir curriculum vitae adjunto al proyecto</div>
     <div class="ps-3">
-  
+  {% with project=author.project %}
+  {{ project.title }}
+  {% endwith %}
     </div>
 
   </div>
   <!--end breadcrumb-->
 
-  {% with project=module.project %}
+  {% with project=author.project %}
   <section class="shop-page">
     <div class="shop-container">
 
@@ -39,23 +42,17 @@
               
                 <div class="col-12 col-lg-7">
                   <div class="product-info-section p-3">
-                    <h3 class="mt-3 mt-lg-0 mb-0">{{ project.title }}</h3>
+                   
                     <div class="product-rating d-flex align-items-center mt-2">
                     </div>
                     <div class="d-flex align-items-center mt-3 gap-2">
-                      <h4 class="mb-0">Categoría: {{project.subject }}</h4>
+                      <h4 class="mb-0">Nombre de Autor: {{author.title }}</h4>
                     </div>
                     <div class="mt-3">
-                      <h6>Resumen de la convocatoria:</h6>
-                      <p class="mb-0">{{ project.overview }}</p>
+                      <h6>Rol en el proyecto:</h6>
+                      <p class="mb-0">{{ author.description }}</p>
                     </div>
-                    <dl class="row mt-3">	<dt class="col-sm-3">Fecha de creación: </dt>
-                      <dd class="col-sm-9">{{ project.created }}</dd>	
-                      <dt class="col-sm-3">Fecha de vencimiento:</dt>
-                      <dd class="col-sm-9">{{ project.vencimiento }}</dd>
-                      <dt class="col-sm-3">Creado por:</dt>
-                      <dd class="col-sm-9">{{ project.owner }}</dd>
-                    </dl>
+                
                   </div>
                 </div>
               </div>
@@ -72,7 +69,7 @@
 
 
               <li class="nav-item" role="presentation">
-                <a class="nav-link active"  href="{% url "proyectos:module_content_create" author.id "archivo" %}" role="tab" aria-selected="false">
+                <a class="nav-link active"  href="{% url "proyectos:author_content_create" author.id "cv" %}" role="tab" aria-selected="false">
                   <div class="d-flex align-items-center">
                     <div class="tab-title text-uppercase fw-500">Subir un archivo pdf </div>
                   </div>
@@ -85,16 +82,16 @@
                 <div class="row">
                   <div class="col col-lg-8">
                     <div class="product-review">
-                      <h5 class="mb-4"> {% for content in module.contents.all %}
+                      <h5 class="mb-4"> {% for content in author.contents.all %}
                         {% empty %}
                  
                       {% endfor %}</h5>
                       <div class="review-list">
-                        {% for content in module.contents.all %}
+                        {% for content in author.contents.all %}
                         {% with item=content.item %}
                         <div class="d-flex align-items-start">
                           <div class="review-user">
-                           {% if item|model_name == 'File' %}
+                           {% if item|model_name == 'cv' %}
                            <h5> <ion-icon name="attach-outline"></ion-icon></h5>
                  
                            {% endif %}
@@ -103,8 +100,8 @@
                           
                             <div class="d-flex align-items-center mb-2">
                               <h6 class="mb-0"> {{ item }} </h6>
-                              <a href="{% url "editorial_literaria:module_content_update" module.id item|model_name item.id %}"><h2><ion-icon name="create-outline"></ion-icon></h2></a>
-                              <form action="{% url "editorial_literaria:module_content_delete" content.id %}" method="post">
+                              <a href="{% url "proyectos:author_content_update" author.id item|model_name item.id %}"><h2><ion-icon name="create-outline"></ion-icon></h2></a>
+                              <form action="{% url "proyectos:author_content_delete" content.id %}" method="post">
                                 <button class="btn-danger" type="submit" value="Delete"><ion-icon name="trash-outline"></ion-icon> </button>
                                 {% csrf_token %}
                               </form>
@@ -117,7 +114,9 @@
                         </div>
                         <hr/>
                         {% empty %}
-                        <p>Esta convocatoria no contiene archivos adjuntos ni contenidos adicionales.</p>
+                        <p>La acción de subir un currículum vitae al sistema de gestión de convocatorias y levantamiento de actividades públicas es un proceso que implica cargar un archivo que contiene información sobre la experiencia laboral, educación, habilidades y otras calificaciones relevantes de un individuo. Es una acción que generalmente se realiza una sola vez y es fundamental para participar en procesos de selección, evaluación o presentación de propuestas.
+
+                          Antes de subir el currículum vitae al sistema, es crucial asegurarse de que se esté cargando el archivo correcto. Esto implica verificar que el archivo seleccionado contenga la información precisa y actualizada del currículum vitae del individuo. Una vez que el archivo correcto ha sido seleccionado y cargado en el sistema, se considera completada la acción de subir el currículum vitae.</p>
                       {% endfor %}
                       </div>
                     </div>
@@ -146,43 +145,7 @@
 
 
 <hr/>
-<div class="card">
-  <div class="card-body">
-    <div class="table-responsive">
-      <table id="example" class="table table-striped table-bordered" style="width:100%">
-        <thead>
-          <tr>
-            <th>Convocatoria</th>
-            <th>Titulo de sección de Base técnica</th>
-            <th>Número de secciones </th>
-          </tr>
-        </thead>
-        <tbody>
-          {% with course=module.course %}
-          {% for m in course.modules.all %}
-          <tr>
-            <td>{{ course.title }}</td>
-           
-            <td> <a href="{% url "editorial_literaria:module_content_list" m.id %}">{{ m.title }}</a></td>
-            <td>{{ m.order|add:1 }}</td>
-        
-          </tr>
-          {% empty %}
-          <h3>No existe base técnica creada todavía. .</h3>
-        {% endfor %}
-        {% endwith %}
-        </tbody>
-        <tfoot>
-          <tr>
-            <th>Convocatoria</th>
-            <th>Titulo de sección de Base técnica</th>
-            <th>Número de secciones </th>
-          </tr>
-        </tfoot>
-      </table>
-    </div>
-  </div>
-</div>
+
 
 
 

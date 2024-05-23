@@ -97,6 +97,7 @@ INSTALLED_APPS = [
     'webapp_0',
     'streams',
     'widget_tweaks',
+    'django_forms_bootstrap',
    # 'datetimewidget',
    #SMARTQUAIL-BUSINESS-CONSULTING
     #'shop',

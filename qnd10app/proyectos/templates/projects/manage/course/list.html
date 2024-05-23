@@ -17,13 +17,13 @@
 
      <!--start breadcrumb-->
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-      <div class="breadcrumb-title pe-3">Inicio</div>
+      <div class="breadcrumb-title pe-3"><ion-icon name="share-outline"></ion-icon> Mis postulaciones</div>
       <div class="ps-3">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb mb-0 p-0 align-items-center">
-            <li class="breadcrumb-item"><a href="javascript:;"><ion-icon name="home-outline"></ion-icon></a>
+            <li class="breadcrumb-item"><a href="javascript:;"><ion-icon name="folder"></ion-icon></a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">Convocatorias para línea de fomento Editorial y Literaria</li>
+            <li class="breadcrumb-item active" aria-current="page">Gestión de proyectos para línea de fomento Editorial y Literaria</li>
           </ol>
         </nav>
       </div>
@@ -33,7 +33,7 @@
     </div>
 
     <div class="demo-seprater">
-      <h6 class="mb-0 text-uppercase">Mis proyectos postulados </h6>
+      <h6 class="mb-0 text-uppercase"> Proyectos postulados </h6>
       <div class="my-3 border-bottom"></div>
     </div>
 
@@ -52,7 +52,7 @@
                       {% if project.proceso == 'Aprobado' %}
                       <td>
                         <span class="badge bg-light-success text-success w-100">
-                         <p>{{ project.proceso }}</p> 
+                         <p style="font-size: 20px;">{{ project.proceso }}</p> 
                         </span>
                       </td>
                       <div class="form-body p-3 rounded border bg-light-success">
@@ -64,7 +64,7 @@
                       {% elif project.proceso == 'Activo' %}
                       <td>
                         <span class="badge bg-light-warning text-warning w-100">
-                          {{ project.proceso }}
+                         <p style="font-size: 20px;">{{ project.proceso }}</p> 
                         </span>
                       </td>
                       <div class="form-body p-3 rounded border bg-warning">
@@ -75,18 +75,19 @@
                       {% elif project.proceso == 'Subsanación' %}
                       <td>
                         <span class="badge bg-secondary text-success w-100">
-                          {{ project.proceso }}
+                         <p style="font-size: 15px;" > {{ project.proceso }}</p> 
                         </span>
                       </td>
                       <div class="form-body p-3 rounded border bg-secondary">
                         <p class="mb-4" style="color:azure;margin-bottom:-0.5rem;">El  proyecto editorial "{{ project.title }}" ha sido verificado en la
                            convocatoria de fomento editorial y literario, {{project.course}}, en la categoría de {{project.subject}}.
                            Cuya recomendaciones son las siguientes:</p>
+                          <p class="mb-0" style="color:azure;margin-bottom:-0.5rem;" >{{ project.recomend|richtext}}</p> 
                       </div>
                       {% elif project.proceso == 'Rechazado' %}
                       <td>
                         <span class="badge bg-light-danger text-danger w-100">
-                          {{ project.proceso }}
+                          <p style="font-size: 15px;" > {{ project.proceso }}</p>
                         </span>
                       </td>
                       <div class="form-body p-3 rounded border bg-danger">
@@ -96,6 +97,7 @@
                       </div>
                       {% endif %}
 
+                      <hr/>
                       
                       <h3 class="mt-3 mt-lg-0 mb-0">Calificación Actual</h3>
                       <p>1/10</p>
@@ -106,8 +108,14 @@
                       <div class="mt-3">
                         <h6>Resumen de proyecto:</h6>
                         <p class="mb-0" style="text-align: justify;">{{ project.overview | richtext }}</p>
+                        <hr/>
                       </div>
+                     
                       <dl class="row mt-3">	
+                        <dt class="col-sm-3">Convocatoria:</dt>
+                        <dd class="col-sm-9">{{ project.course }}</dd>	
+                        <dt class="col-sm-3">Categoría de convocatoria:</dt>
+                        <dd class="col-sm-9">{{ project.subject }}</dd>	
 
                         <dt class="col-sm-3">Última actualización:</dt>
                         <dd class="col-sm-9">{{ project.created }}</dd>	
@@ -115,6 +123,8 @@
                         <dd class="col-sm-9">{{ project.owner.get_full_name }}</dd>
                         <dt class="col-sm-3">Número de autores en el proyecto:</dt>
                         <dd class="col-sm-9">{{ project.authors.count }}</dd>
+                        
+                        
                        
                       </dl>
 
@@ -131,7 +141,7 @@
                         </a> 
 
                         {% if project.authors.count > 0 %}
-                        <a class="btn btn-light btn-ecomm"   href="{% url "proyectos:module_content_list" project.authors.first.id %}" title="Agregar Curriculm Vitale" ><ion-icon name="document-attach-outline"></ion-icon>Agregar hojas de vida</a>
+                        <a class="btn btn-light btn-ecomm"   href="{% url "proyectos:author_content_list" project.authors.first.id %}" title="Agregar Curriculm Vitale" ><ion-icon name="document-attach-outline"></ion-icon>Agregar hojas de vida</a>
                         
                         {% endif %}
 
