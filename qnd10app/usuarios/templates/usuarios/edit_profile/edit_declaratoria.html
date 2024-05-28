@@ -104,14 +104,14 @@
               {% if field.name == 'acepta_terminos_condiciones' %}
                 <label for="{{ field.id }}" class="form-label">Marque aquí si acepta esta declaratoria de vercidad de la información.</label>
                 {% if field.errors %}
-                  {% render_field field class="form-check-input  is-invalid" %}
+                  {% render_field field class="form-check-input" %}
                   {% for error in field.errors %}
                     <div class="invalid-feedback">
                       {{ error }}
                     </div>
                   {% endfor %}
                 {% else %}
-                  {% render_field field class="form-check-input is-valid"  %}
+                  {% render_field field class="form-check-input"  %}
                 {% endif %}
                 {% if field.help_text %}
                   <small class="form-text text-muted">{{ field.help_text }}</small>

@@ -95,9 +95,11 @@ INSTALLED_APPS = [
     'proyectos',
     'students',
     'webapp_0',
+    'actividades_espacio_publico',
     'streams',
     'widget_tweaks',
     'django_forms_bootstrap',
+
    # 'datetimewidget',
    #SMARTQUAIL-BUSINESS-CONSULTING
     #'shop',

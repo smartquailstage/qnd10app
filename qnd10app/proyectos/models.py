@@ -101,7 +101,7 @@ class Author(models.Model):
 
 
 class Content(models.Model):
-    author = models.ForeignKey(Author, related_name='authors_contents', on_delete=models.CASCADE)
+    author = models.ForeignKey(Author, related_name='authors_contents_project', on_delete=models.CASCADE)
     content_type = models.ForeignKey(ContentType, limit_choices_to={'model__in': ('file',)}, on_delete=models.CASCADE, related_name='%(app_label)s_%(class)s_content_set')
     object_id = models.PositiveIntegerField()
     item = GenericForeignKey('content_type', 'object_id')

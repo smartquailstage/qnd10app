@@ -35,6 +35,7 @@ urlpatterns = [
     path('rosetta/', include('rosetta.urls')),
     path('QuitoCultura/', include('usuarios.urls', namespace='usuarios')),
     path('editorial_literaria/', include('editorial_literaria.urls')),
+    path('proponer_actividades_espacio_publico/', include('actividades_espacio_publico.urls', namespace='actividades')),
     path('proyectos/', include('proyectos.urls')),
     path('convocatorias_disponibles/', CourseListView.as_view(), name='course_list'),
     path('postularse/', include('students.urls')),

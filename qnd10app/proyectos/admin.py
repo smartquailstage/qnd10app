@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Subject, Project, Author,BibliographicReference
+from .models import Subject, Project, Author,BibliographicReference,Content
 
 @admin.register(Subject)
 class SubjectAdmin(admin.ModelAdmin):
@@ -9,6 +9,7 @@ class SubjectAdmin(admin.ModelAdmin):
 
 class AuthorInline(admin.StackedInline):
     model = Author
+
 
 class BibliographicReferenceInline(admin.StackedInline):
     model = BibliographicReference

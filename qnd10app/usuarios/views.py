@@ -20,6 +20,7 @@ import weasyprint
 from django.core.cache import cache
 from editorial_literaria.models import ManualCreateConvocatoria, ManualEditConvocatoria,ManualInscripcion
 from .models import PrivacyPolicy, TermsOfUse, ActivityPrivacyPolicy,ActivityTermsOfUse
+from actividades_espacio_publico.models import Evento_30000, Evento_20000, Evento_10000, Evento_5000
 
 def user_login(request):
     if request.method == 'POST':
@@ -81,8 +82,7 @@ def register(request):
             new_user.set_password(user_form.cleaned_data['password'])
             # Save the User object
             new_user.save()
-            group = Group.objects.get(name='Postular_a_convocatorias')
-            new_user.groups.add(group)
+           
 
             # Create the user profile and related objects
             Profile.objects.create(user=new_user)
@@ -92,6 +92,12 @@ def register(request):
             Legal.objects.create(user=new_user)
             Activity.objects.create(user=new_user)
             DeclaracionVeracidad.objects.create(user=new_user)
+            #Espacio publico
+            Evento_30000.objects.create(usuario=new_user)
+            Evento_20000.objects.create(usuario=new_user)
+            Evento_10000.objects.create(usuario=new_user)
+            Evento_5000.objects.create(usuario=new_user)
+
             return render(request, 'usuarios/register_done.html', {'new_user': new_user})
     else:
         user_form = UserRegistrationForm()
