@@ -66,7 +66,7 @@ def admin_evento_30000_pdf(request, profile_id):
     response['Content-Disposition'] = 'filename="order_{}.pdf"'.format(profile.id)
 
     # Renderizando el PDF
-    weasyprint.HTML(string=html,  base_url=request.build_absolute_uri() ).write_pdf(response,stylesheets=[weasyprint.CSS('static/css/pdf.css')], presentational_hints=True)
+    weasyprint.HTML(string=html, base_url=request.build_absolute_uri()).write_pdf(response, stylesheets=[weasyprint.CSS('pdf.css')], presentational_hints=True)
     return response
 
 @login_required
