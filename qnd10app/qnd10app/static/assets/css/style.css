@@ -38,7 +38,7 @@ body {
 }
 
 a {
-    color: #923eb9;
+    color: #4e9acf;
     text-decoration: none;
 }
 
@@ -339,7 +339,7 @@ ion-icon {
     padding: 0 1.5rem;
     border-bottom: 1px solid rgba(233, 236, 239, 0);
     background-clip: border-box;
-    background-color: #ffffff;
+    background-color: #72d5f329;
     z-index: 5;
     transition: 0.3s all;
     box-shadow: none;
@@ -705,6 +705,7 @@ ion-icon {
 .breadcrumb-title {
     font-size: 20px;
     border-right: 1.5px solid #ced3da;
+    color: #303f86;
 	
 }
 
@@ -1312,15 +1313,14 @@ ul.categories-list li {
 
 .login-bg-overlay {
     width: 100%;
-    height: 420px;
+    height: 110%;
     position: absolute;
     top: 0;
     right: 0;
     left: 0;
-    background-color: #8436a8;
-    background-image: linear-gradient( 310deg,#7928ca,#ff0080);
-
-}
+    background-color: #273681;
+    background-image: linear-gradient( 310deg,#273681,#ff0080);
+  }
 
 .social-login a {
     width: 50px;
@@ -1344,7 +1344,7 @@ ul.categories-list li {
 }
 
 .login-menu-2 a.nav-link {
-    color: #6d6868;
+    color: #27367f;
 }
 
 
@@ -1398,7 +1398,7 @@ ul.categories-list li {
 }
 
 .au-sign-up-basic {
-    background-image: url("../images/authentication/au-sign-up-basic.png");
+    background-image: url("../images/fomento_editorial.jpg");
     background-position: center;
     background-size: cover;
 }

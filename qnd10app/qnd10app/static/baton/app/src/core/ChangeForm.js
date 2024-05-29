@@ -1,7 +1,7 @@
 import $ from 'jquery'
 import Translator from './i18n'
 
-const ChangeForm = {
+let ChangeForm = {
   /**
    * ChangeForm component
    *
@@ -9,7 +9,7 @@ const ChangeForm = {
    * Display loading spinner if multipart
    */
   init: function (opts) {
-    const self = this
+    var self = this
     this.form = $('#content-main form')
     if (opts.confirmUnsavedChanges) {
       this.formSubmitting = false
@@ -44,14 +44,12 @@ const ChangeForm = {
     // form serialize does not detect filter_horizontal controllers because
     // in that case options are not selected, just added to the list of options,
     // and jquery form serialize only serializes values which are set!
-    let data = jQuery(':not([data-baton-excluded])', this.form).serialize()
-    $('select.filtered[multiple][id$=_to]').each(function (_, select) {
-      const optionsValues = []
-      $(select)
-        .children('option')
-        .each(function (_, option) {
-          optionsValues.push($(option).attr('value'))
-        })
+    let data = jQuery(":not([data-baton-excluded])",  this.form).serialize()
+    $('select.filtered[multiple][id$=_to]').each(function (k, select) {
+      let optionsValues = []
+      $(select).children('option').each(function (kk, option) {
+        optionsValues.push($(option).attr('value'))
+      })
       data += `&${jQuery(select).attr('name')}=${optionsValues.sort().join(',')}`
     })
     return data
@@ -63,8 +61,8 @@ const ChangeForm = {
     if (this.formSubmitting || !this.isDirty()) {
       return undefined
     }
-    const confirmationMessage = this.t.get('unsavedChangesAlert')
-    ;(e || window.event).returnValue = confirmationMessage // Gecko + IE
+    let confirmationMessage = this.t.get('unsavedChangesAlert');
+    (e || window.event).returnValue = confirmationMessage // Gecko + IE
     return confirmationMessage // Gecko + Webkit, Safari, Chrome etc.
   },
   spinner: function () {
@@ -74,24 +72,25 @@ const ChangeForm = {
   },
   showSpinner: function () {
     let run = false
-    const inputFiles = $('input[type=file]')
-    inputFiles.each(function (_, input) {
+    let inputFiles = $('input[type=file]')
+    inputFiles.each(function (index, input) {
       if (input.files.length !== 0) {
         run = true
       }
     })
     if (run) {
-      const overlay = $('<div />', { class: 'spinner-overlay' }).appendTo(document.body)
-      const spinner = $('<i />', { class: 'fa fa-spinner fa-spin fa-3x fa-fw' })
-      $('<div />')
-        .append($('<p />').text(this.t.get('uploading')), spinner)
-        .appendTo(overlay)
+      let overlay = $('<div />', {'class': 'spinner-overlay'}).appendTo(document.body)
+      let spinner = $('<i />', {'class': 'fa fa-spinner fa-spin fa-3x fa-fw'})
+      $('<div />').append(
+        $('<p />').text(this.t.get('uploading')),
+        spinner
+      ).appendTo(overlay)
     }
   },
   fixWrappedFields: function () {
-    this.form.find('.form-row').each(function (_, row) {
-      const fieldBoxes = $(row).children('.fieldBox')
-      fieldBoxes.each(function (_, fbox) {
+    this.form.find('.form-row').each(function (index, row) {
+      var fieldBoxes = $(row).children('.fieldBox')
+      fieldBoxes.each(function (index, fbox) {
         if ($(fbox).hasClass('errors')) {
           $(row).addClass('errors')
         }
@@ -107,16 +106,16 @@ const ChangeForm = {
     $('.form-row br').replaceWith('<span class="newline"></span>')
   },
   lazyLoadImages: function () {
-    $('.file-upload').each(function (_, p) {
-      const cur = $(p).find('a')
+    $('.file-upload').each(function (index, p) {
+      let cur = $(p).find('a')
       if (cur.length) {
-        const url = cur.attr('href')
-        const ext = url.split('?')[0].split('.').pop()
+        let url = cur.attr('href')
+        let ext = url.split('?')[0].split('.').pop()
         if (['jpg', 'jpeg', 'png', 'bmp', 'svg', 'gif', 'tif', 'webp'].indexOf(ext) !== -1) {
-          const spinner = $('<i />', { class: 'fa fa-spinner fa-spin fa-2x fa-fw' }).css('color', '#aaa')
-          const preview = $('<div />', { class: 'py-2' }).append(spinner)
+          let spinner = $('<i />', {'class': 'fa fa-spinner fa-spin fa-2x fa-fw'}).css('color', '#aaa')
+          let preview = $('<div />', {'class': 'py-2'}).append(spinner)
           $(p).prepend(preview)
-          const image = new Image()
+          let image = new Image()
           image.onload = function () {
             spinner.replaceWith($(image).addClass('baton-image-preview'))
           }
@@ -143,32 +142,27 @@ const ChangeForm = {
         }
       })
     $('.form-row.errors').each(function (index, el) {
-      if ($(el).parent('fieldset').siblings('h3.entry-collapsed')) {
-        $(el).parent('fieldset').siblings('h3.entry-collapsed').removeClass('entry-collapsed')
+      if ($(el).parent('fieldset').prev('h3.entry-collapsed')) {
+        $(el).parent('fieldset').prev('h3.entry-collapsed').removeClass('entry-collapsed')
       }
     })
   },
   fixExpandFirstErrorCollapsing: function () {
-    $('.expand-first').each(function (_, el) {
+    $('.expand-first').each(function (index, el) {
       if ($(el).find('.inline-related[id$=0] .form-row.errors').length) {
         // inverse logic
-        $(el).find('.inline-related[id$=0] .form-row.errors').parent('fieldset').siblings('h3')
-          .addClass('entry-collapsed')
+        $(el).find('.inline-related[id$=0] .form-row.errors').parent('fieldset').prev('h3').addClass('entry-collapsed')
       }
     })
   },
   changeFieldsetCollapseStyle: function () {
     $(window).on('load', function () {
-      $('fieldset.collapse > h2').each(function (_, title) {
-        const text = $(title)
-          .text()
-          .replace(/\(.*\)/, '')
+      $('fieldset.collapse > h2').each(function (index, title) {
+        let text = $(title).text().replace(/\(.*\)/, '')
         setTimeout(function () {
-          $(title)
-            .html(text)
-            .on('click', function () {
-              $(this).parent('.collapse').toggleClass('collapsed')
-            })
+          $(title).html(text).on('click', function () {
+            $(this).parent('.collapse').toggleClass('collapsed')
+          })
         }, 100)
       })
     })
@@ -179,22 +173,21 @@ const ChangeForm = {
       below: 'after',
       top: 'prepend',
       bottom: 'append',
-      right: 'after',
+      right: 'after'
     }
-    $('template').each(function (_, template) {
-      const field = $(template).attr('id').replace('template-', '')
-      const position = positionMap[$(template).attr('data-position')]
+    $('template').each(function (index, template) {
+      let field = $(template).attr('id').replace('template-', '')
+      let position = positionMap[$(template).attr('data-position')]
       if (position !== undefined) {
-        const el =
-          $(template).attr('data-position') === 'right'
-            ? $('.form-row.field-' + field + ' #id_' + field)
-            : $('.form-row.field-' + field)
+        let el = $(template).attr('data-position') === 'right'
+          ? $('.form-row.field-' + field + ' #id_' + field)
+          : $('.form-row.field-' + field)
         el[position]($(template).html())
       } else {
         console.error('Baton: wrong form include position detected')
       }
     })
-  },
+  }
 }
 
 export default ChangeForm

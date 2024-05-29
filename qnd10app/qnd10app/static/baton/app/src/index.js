@@ -23,18 +23,9 @@ window.Baton = {
   init: function (config) {
     console.info('Baton:', 'init')
     console.info('Baton:', `rev ${BATON_REVISION}`)
-
     this.initialized = true
-    const page = this.detectPageHook ? this.detectPageHook(this.page) : this.page()
-    console.info('Baton:', `detected page ${page}`) // eslint-disable-line
+    let page = this.detectPageHook ? this.detectPageHook(this.page) : this.page()
     $('body').addClass('page-' + page)
-
-    // theme
-    const theme = $('html').attr('data-bs-theme')
-    if (!localStorage.getItem('baton-theme')) {
-      localStorage.setItem('baton-theme', theme)
-    }
-    console.info('Baton:', 'theme: ' + theme)
 
     // toasts
     Messages.init(config)
@@ -72,9 +63,7 @@ window.Baton = {
     setTimeout(this.loadTooltips, 1000) // wait a bit for tinymce
 
     console.info('Baton:', 'ready')
-    $('.baton-startup-overlay').remove()
     document.body.className += ' baton-ready'
-
     if (config.menuAlwaysCollapsed) {
       document.body.className += ' menu-mobile'
     }

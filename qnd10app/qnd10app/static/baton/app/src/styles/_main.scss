@@ -1,9 +1,9 @@
 html {
+  background: $navbar-bg;
   height: 100%;
 }
 
 body {
-  background: var(--bs-baton-body-bg);
   font-weight: 300;
   min-height: 100%;
   opacity: 0;
@@ -12,16 +12,6 @@ body {
   &.baton-ready {
     opacity: 1;
   }
-}
-
-.baton-startup-overlay {
-  background: var(--bs-baton-body-bg);
-  height: 100%;
-  left: 0;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 9999;
 }
 
 a {
@@ -64,17 +54,3 @@ input[type=checkbox] {
   0% { transform: translateY(0) rotate(0deg); }
   100% { transform: translateY(-5px) rotate(5deg); }
 }
-
-/* skip to content link */
-.skip-to-content-link {
-  position: absolute;
-  top: -999px;
-  margin: 5px;
-  padding: 5px;
-  z-index: 1;
-}
-
-/* hide dark mode switch */
-svg.base-svgs {
-    display: none;
-} 
