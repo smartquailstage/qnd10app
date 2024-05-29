@@ -23,7 +23,7 @@
               <i class="lni lni-network"></i>
               </a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">{% block title %} Evento 30000{% endblock %}</li>
+            <li class="breadcrumb-item active" aria-current="page">{% block title %} Evento 10000{% endblock %}</li>
           </ol>
         </nav>
       </div>
@@ -42,7 +42,7 @@
             <div class="bs-stepper-circle"> <i class="lni lni-network"></i></div>
             <div class="">
               <h5 class="mb-0 steper-title">Proponer Propuesta</h5>
-              <p class="mb-0 steper-sub-title">Evento 30000 </p>
+              <p class="mb-0 steper-sub-title">Evento 10000 </p>
             </div>
           </div>
           </div>
@@ -56,7 +56,7 @@
       <div class="bs-stepper-content">
         <form method="post">
           {% csrf_token %}
-          {% for field in event_30000_form %}
+          {% for field in event_10000_form %}
             <div class="form-group">
               <label for="{{ field.id }}">{{ field.label }}</label>
               {{ field }}

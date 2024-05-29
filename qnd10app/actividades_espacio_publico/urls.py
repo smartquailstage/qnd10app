@@ -5,6 +5,10 @@ app_name = 'actividades_espacio_publico'
 
 urlpatterns = [
     #path('proponer_actividad/', views.crear_evento, name='event_create'),
-    path('proponer_actividades_espacio_publico/evento/<slug:categoria_slug>/', views.evento, name='evento'),
+   # path('proponer_actividades_espacio_publico/evento/<slug:categoria_slug>/', views.evento, name='evento'),
+    path('eventos_30000/', views.evento_30000, name='evento_30000'),
+    path('eventos_20000/', views.evento_20000, name='evento_20000'),
+    path('eventos_10000/', views.evento_10000, name='evento_10000'),
+    path('eventos_5000/', views.evento_5000, name='evento_5000'),
     path('eventos/', views.listar_categorias, name='listar_categorias'),
 ]

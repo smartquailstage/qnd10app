@@ -29,6 +29,7 @@ class Subject(models.Model):
     slug = models.SlugField(max_length=200, unique=True)
     description = models.CharField(max_length=200,verbose_name="Descripción")
     colores = models.CharField(choices=COLORS,max_length=200,null=True,blank=True)
+    url = models.CharField(max_length=200,verbose_name="Evento_url",null= True, blank= True)
 
 
     class Meta:
@@ -56,12 +57,13 @@ class Evento(models.Model):
     actividades_academicas_complementarias = models.TextField(null= True, blank= True)
     actividades_emprendimiento_complementarias = models.TextField(null= True, blank= True)
 
-    def __str__(self):
-        return f"{self.usuario}"
+   
+
+ 
 
 
 class Evento_30000(models.Model):
-    usuario = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Nombre de Usuario")
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Nombre de Usuario")
     evento= models.ForeignKey(Subject,
                                 related_name='eventos_30000',
                                 on_delete=models.CASCADE, null= True, blank= True)
@@ -74,11 +76,14 @@ class Evento_30000(models.Model):
     actividades_emprendimiento_complementarias = models.TextField(null= True, blank= True)
 
     def __str__(self):
-        return f"{self.usuario}"
+        return self.user.first_name
+
+
+
     
 
 class Evento_20000(models.Model):
-    usuario = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Nombre de Usuario")
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Nombre de Usuario")
     evento= models.ForeignKey(Subject,
                                 related_name='eventos_20000',
                                 on_delete=models.CASCADE, null= True, blank= True)
@@ -90,11 +95,9 @@ class Evento_20000(models.Model):
     actividades_academicas_complementarias = models.TextField(null= True, blank= True)
     actividades_emprendimiento_complementarias = models.TextField(null= True, blank= True)
 
-    def __str__(self):
-        return f"{self.usuario}"
     
 class Evento_10000(models.Model):
-    usuario = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Nombre de Usuario")
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Nombre de Usuario")
     evento= models.ForeignKey(Subject,
                                 related_name='eventos_10000',
                                 on_delete=models.CASCADE, null= True, blank= True)
@@ -106,11 +109,10 @@ class Evento_10000(models.Model):
     actividades_academicas_complementarias = models.TextField(null= True, blank= True)
     actividades_emprendimiento_complementarias = models.TextField(null= True, blank= True)
 
-    def __str__(self):
-        return f"{self.usuario}"
+
 
 class Evento_5000(models.Model):
-    usuario = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Nombre de Usuario")
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Nombre de Usuario")
     evento= models.ForeignKey(Subject,
                                 related_name='eventos_5000',
                                 on_delete=models.CASCADE, null= True, blank= True)
@@ -122,6 +124,5 @@ class Evento_5000(models.Model):
     actividades_academicas_complementarias = models.TextField(null= True, blank= True)
     actividades_emprendimiento_complementarias = models.TextField(null= True, blank= True)
 
-    def __str__(self):
-        return f"{self.usuario}"
+ 
     

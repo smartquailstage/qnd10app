@@ -18,7 +18,7 @@ class Evento10000Form(forms.ModelForm):
         model = Evento_10000
         fields = '__all__'
 
-class Circulacion5000Form(forms.ModelForm):
+class Evento5000Form(forms.ModelForm):
     class Meta:
         model = Evento_5000
         fields = '__all__'
