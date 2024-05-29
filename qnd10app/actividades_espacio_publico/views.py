@@ -10,6 +10,8 @@ from django.contrib import messages
 from django.template.loader import render_to_string
 from django.contrib.admin.views.decorators import staff_member_required
 import weasyprint
+from django.conf import settings
+from pathlib import Path
 
 @login_required
 def listar_categorias(request):
@@ -65,8 +67,11 @@ def admin_evento_30000_pdf(request, profile_id):
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'filename="order_{}.pdf"'.format(profile.id)
 
-    # Renderizando el PDF
-    weasyprint.HTML(string=html, base_url=request.build_absolute_uri()).write_pdf(response, stylesheets=[weasyprint.CSS('pdf.css')], presentational_hints=True)
+    # Obtener la ruta completa al archivo CSS usando Path
+    css_path = Path(settings.STATIC_ROOT) / 'css' / 'pdf.css'
+
+    # Renderizar el PDF
+    weasyprint.HTML(string=html, base_url=request.build_absolute_uri()).write_pdf(response, stylesheets=[weasyprint.CSS(str(css_path))], presentational_hints=True)
     return response
 
 @login_required
