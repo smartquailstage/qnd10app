@@ -7,7 +7,9 @@ from usuarios.models import Profile,DeclaracionVeracidad
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from django.contrib import messages
-
+from django.template.loader import render_to_string
+from django.contrib.admin.views.decorators import staff_member_required
+import weasyprint
 
 @login_required
 def listar_categorias(request):
@@ -54,6 +56,18 @@ def evento_30000(request):
     return render(request, 'eventos/30000.html', {'event_30000_form': event_30000_form, 'profile': profile, 'event': event,
                                                    'actividad': actividad,
                                                       'acepta_terminos_condiciones': acepta_terminos_condiciones})
+
+@staff_member_required
+def admin_evento_30000_pdf(request, profile_id):
+    profile = get_object_or_404(Profile, id=profile_id)
+    html = render_to_string('eventos/pdf_profiles/pdf.html', {'profile': profile})
+
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'filename="order_{}.pdf"'.format(profile.id)
+
+    # Renderizando el PDF
+    weasyprint.HTML(string=html,  base_url=request.build_absolute_uri() ).write_pdf(response,stylesheets=[weasyprint.CSS('static/css/pdf.css')], presentational_hints=True)
+    return response
 
 @login_required
 def evento_20000(request):

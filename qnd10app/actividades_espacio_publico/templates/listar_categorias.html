@@ -6,13 +6,6 @@
 {% load static %}
 {% load menu_tags %}
 
-{% block title %}
-    {% if subject %}
-    Convocatoria:  {{ subject.title }} 
-    {% else %}
-    Todas las convocatorias disponibles
-    {% endif %}
-{% endblock %}
 
 {% block content %}
 
@@ -29,9 +22,9 @@
               <li class="breadcrumb-item"><a href="javascript:;"> <ion-icon name="chatbox-ellipses-outline"></ion-icon></a>
               </li>
               <li class="breadcrumb-item active" aria-current="page">{% if subject %}
-                Convocatoria: {{ subject.title }} 
+                Evento {{ subject.title }} 
             {% else %}
-                Seleccione el tipo de evento que desea proponer actividades
+                Seleccione el tipo de evento que desea proponer actividades culturales en el espacio público
             {% endif %}</li>
             </ol>
           </nav>
