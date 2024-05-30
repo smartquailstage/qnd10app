@@ -93,11 +93,7 @@ def register(request):
             Activity.objects.create(user=new_user)
             DeclaracionVeracidad.objects.create(user=new_user)
             #Espacio publico
-            Evento_30000.objects.create(user=new_user)
-            Evento_20000.objects.create(user=new_user)
-            Evento_10000.objects.create(user=new_user)
-            Evento_5000.objects.create(user=new_user)
-
+           
             return render(request, 'usuarios/register_done.html', {'new_user': new_user})
     else:
         user_form = UserRegistrationForm()
@@ -127,6 +123,11 @@ def activity_register(request):
             Legal.objects.create(user=new_user)
             Activity.objects.create(user=new_user)
             DeclaracionVeracidad.objects.create(user=new_user)
+            Evento_30000.objects.create(user=new_user)
+            Evento_20000.objects.create(user=new_user)
+            Evento_10000.objects.create(user=new_user)
+            Evento_5000.objects.create(user=new_user)
+
             return render(request, 'usuarios/activity_register_done.html', {'new_user': new_user})
     else:
         user_form = UserRegistrationForm()
