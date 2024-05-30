@@ -1,0 +1,79 @@
+{% extends "base_dash.html" %}
+{% load wagtailimages_tags wagtailcore_tags %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load widget_tweaks %}
+{% load static %}
+{% load menu_tags %}
+{% load bootstrap_tags %}
+
+
+
+{% block content %}
+<div class="page-content-wrapper">
+  <!-- start page content-->
+  <div class="page-content">
+
+    <!--start breadcrumb-->
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+      <div class="breadcrumb-title pe-3"><ion-icon name="chatbox-ellipses-outline"></ion-icon> Propuestas de actividades culturales</div>
+      <div class="ps-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb mb-0 p-0 align-items-center">
+            <li class="breadcrumb-item"><a href="javascript:;">
+              <i class="lni lni-network"></i>
+              </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">{% block title %} Evento 5000{% endblock %}</li>
+          </ol>
+        </nav>
+      </div>
+
+    </div>
+
+    <h6 class="text-uppercase">Creación de eventos para actividades culturales en espacios públicos.</h6>
+    <hr>
+  <div id="stepper1" class="bs-stepper">
+    <div class="card">
+      
+      <div class="card-header">
+        <div class="d-lg-flex flex-lg-row align-items-lg-center justify-content-lg-between" role="tablist">
+          <div class="step" data-target="#test-nl-1">
+          <div class="step-trigger" role="tab" id="stepper1trigger1" aria-controls="test-nl-1">
+            <div class="bs-stepper-circle"> <i class="lni lni-network"></i></div>
+            <div class="">
+              <h5 class="mb-0 steper-title">Proponer Nueva Actividad Cultural</h5>
+              <p class="mb-0 steper-sub-title">Evento 5000 </p>
+            </div>
+          </div>
+          </div>
+        
+        </div>
+      </div>
+     
+     
+      <div class="card-body">
+      
+      <div class="bs-stepper-content">
+        <form method="post">
+          {% csrf_token %}
+          {{ evento_5000_form|as_bootstrap }}
+          <button type="submit" class="btn btn-primary"><ion-icon name="paper-plane"></ion-icon> Enviar propuesta de evento </button>
+        </form>
+      </div>
+       
+      </div>
+     </div>
+  </div>
+
+
+    
+  </div>
+
+
+
+
+
+  
+{% endblock %}
+

@@ -59,6 +59,46 @@ def evento_30000(request):
                                                    'actividad': actividad,
                                                       'acepta_terminos_condiciones': acepta_terminos_condiciones})
 
+
+@login_required
+def crear_propuesta_evento_30000(request):
+    profile = get_object_or_404(Profile, user=request.user)
+    actividad = profile.activity
+    declaracion = DeclaracionVeracidad.objects.get(user=request.user)
+    acepta_terminos_condiciones = declaracion.acepta_terminos_condiciones
+    # Obtener el perfil del usuario actual
+    profile = get_object_or_404(Profile, user=request.user)
+    
+    # Verificar si el usuario ya tiene un evento asociado al evento 30000
+    try:
+        event = Evento_30000.objects.get(user=request.user)
+        # Si el usuario ya tiene un evento asociado, redirigirlo a la página de éxito del evento
+        return redirect('actividades_espacio_publico:evento_fail')
+    except Evento_30000.DoesNotExist:
+        # Si el usuario no tiene un evento asociado, continuar con la creación de la propuesta
+        pass
+
+    if request.method == 'POST':
+        # Crear un formulario de evento 30000 con los datos proporcionados en la solicitud
+        evento_30000_form = Evento30000Form(request.POST)
+        if evento_30000_form.is_valid():
+            # Guardar el evento 30000 asociado al usuario actual
+            event = evento_30000_form.save(commit=False)
+            event.user = request.user
+            event.save()
+            messages.success(request, 'Evento 30000 creado exitosamente')
+            return redirect('actividades_espacio_publico:evento_success')
+        else:
+            messages.error(request, 'Error al crear el evento 30000')
+    else:
+        # Si la solicitud no es POST, mostrar un formulario vacío para crear un nuevo evento 30000
+        evento_30000_form = Evento30000Form()
+    
+    # Renderizar el formulario de evento 30000
+    return render(request, 'eventos/crear_propuesta_evento_30000.html', {'evento_30000_form': evento_30000_form, 'profile': profile,'actividad': actividad,
+                                                      'acepta_terminos_condiciones': acepta_terminos_condiciones})
+
+
 @staff_member_required
 def admin_evento_30000_pdf(request, profile_id):
     try:
@@ -109,12 +149,51 @@ def evento_20000(request):
             event.user = request.user
             event.save()
             messages.success(request, 'Event updated successfully')
-            return redirect('actividades_espacio_publico:evento_success')
+            return redirect('actividades_espacio_publico:evento_fail')
         else:
             messages.error(request, 'Error updating your event')
 
     return render(request, 'eventos/20000.html', {'event_20000_form': event_20000_form, 'profile': profile, 'event': event,
                                                    'actividad': actividad, 'acepta_terminos_condiciones': acepta_terminos_condiciones})
+
+
+@login_required
+def crear_propuesta_evento_20000(request):
+    profile = get_object_or_404(Profile, user=request.user)
+    actividad = profile.activity
+    declaracion = DeclaracionVeracidad.objects.get(user=request.user)
+    acepta_terminos_condiciones = declaracion.acepta_terminos_condiciones
+    # Obtener el perfil del usuario actual
+    profile = get_object_or_404(Profile, user=request.user)
+    
+    # Verificar si el usuario ya tiene un evento asociado al evento 30000
+    try:
+        event = Evento_20000.objects.get(user=request.user)
+        # Si el usuario ya tiene un evento asociado, redirigirlo a la página de éxito del evento
+        return redirect('actividades_espacio_publico:evento_success')
+    except Evento_20000.DoesNotExist:
+        # Si el usuario no tiene un evento asociado, continuar con la creación de la propuesta
+        pass
+
+    if request.method == 'POST':
+        # Crear un formulario de evento 30000 con los datos proporcionados en la solicitud
+        evento_20000_form = Evento20000Form(request.POST)
+        if evento_20000_form.is_valid():
+            # Guardar el evento 30000 asociado al usuario actual
+            event = evento_20000_form.save(commit=False)
+            event.user = request.user
+            event.save()
+            messages.success(request, 'Evento 30000 creado exitosamente')
+            return redirect('actividades_espacio_publico:evento_success')
+        else:
+            messages.error(request, 'Error al crear el evento 30000')
+    else:
+        # Si la solicitud no es POST, mostrar un formulario vacío para crear un nuevo evento 30000
+        evento_20000_form = Evento20000Form()
+    
+    # Renderizar el formulario de evento 30000
+    return render(request, 'eventos/crear_propuesta_evento_20000.html', {'evento_20000_form': evento_20000_form, 'profile': profile,'actividad': actividad,
+                                                      'acepta_terminos_condiciones': acepta_terminos_condiciones})
 
 
 @staff_member_required
@@ -141,6 +220,10 @@ def admin_evento_20000_pdf(request, profile_id):
     except Exception as e:
         # Manejar cualquier excepción y devolver una respuesta de error
         return HttpResponse("Ocurrió un error al generar el PDF: {}".format(str(e)), status=500)
+    
+
+
+
 
 @login_required
 def evento_10000(request):
@@ -173,6 +256,45 @@ def evento_10000(request):
 
     return render(request, 'eventos/10000.html', {'event_10000_form': event_10000_form, 'profile': profile, 'event': event,
                                                    'actividad': actividad, 'acepta_terminos_condiciones': acepta_terminos_condiciones})
+
+
+@login_required
+def crear_propuesta_evento_10000(request):
+    profile = get_object_or_404(Profile, user=request.user)
+    actividad = profile.activity
+    declaracion = DeclaracionVeracidad.objects.get(user=request.user)
+    acepta_terminos_condiciones = declaracion.acepta_terminos_condiciones
+    # Obtener el perfil del usuario actual
+    profile = get_object_or_404(Profile, user=request.user)
+    
+    # Verificar si el usuario ya tiene un evento asociado al evento 30000
+    try:
+        event = Evento_10000.objects.get(user=request.user)
+        # Si el usuario ya tiene un evento asociado, redirigirlo a la página de éxito del evento
+        return redirect('actividades_espacio_publico:evento_fail')
+    except Evento_10000.DoesNotExist:
+        # Si el usuario no tiene un evento asociado, continuar con la creación de la propuesta
+        pass
+
+    if request.method == 'POST':
+        # Crear un formulario de evento 30000 con los datos proporcionados en la solicitud
+        evento_10000_form = Evento10000Form(request.POST)
+        if evento_10000_form.is_valid():
+            # Guardar el evento 30000 asociado al usuario actual
+            event = evento_10000_form.save(commit=False)
+            event.user = request.user
+            event.save()
+            messages.success(request, 'Evento 10000 creado exitosamente')
+            return redirect('actividades_espacio_publico:evento_success')
+        else:
+            messages.error(request, 'Error al crear el evento 10000')
+    else:
+        # Si la solicitud no es POST, mostrar un formulario vacío para crear un nuevo evento 30000
+        evento_10000_form = Evento10000Form()
+    
+    # Renderizar el formulario de evento 30000
+    return render(request, 'eventos/crear_propuesta_evento_10000.html', {'evento_10000_form': evento_10000_form, 'profile': profile,'actividad': actividad,
+                                                      'acepta_terminos_condiciones': acepta_terminos_condiciones})
 
 
 @staff_member_required
@@ -233,6 +355,45 @@ def evento_5000(request):
     return render(request, 'eventos/5000.html', {'event_5000_form': event_5000_form, 'profile': profile, 'event': event,
                                                    'actividad': actividad, 'acepta_terminos_condiciones': acepta_terminos_condiciones})
 
+
+@login_required
+def crear_propuesta_evento_5000(request):
+    profile = get_object_or_404(Profile, user=request.user)
+    actividad = profile.activity
+    declaracion = DeclaracionVeracidad.objects.get(user=request.user)
+    acepta_terminos_condiciones = declaracion.acepta_terminos_condiciones
+    # Obtener el perfil del usuario actual
+    profile = get_object_or_404(Profile, user=request.user)
+    
+    # Verificar si el usuario ya tiene un evento asociado al evento 30000
+    try:
+        event = Evento_5000.objects.get(user=request.user)
+        # Si el usuario ya tiene un evento asociado, redirigirlo a la página de éxito del evento
+        return redirect('actividades_espacio_publico:evento_fail')
+    except Evento_5000.DoesNotExist:
+        # Si el usuario no tiene un evento asociado, continuar con la creación de la propuesta
+        pass
+
+    if request.method == 'POST':
+        # Crear un formulario de evento 30000 con los datos proporcionados en la solicitud
+        evento_5000_form = Evento5000Form(request.POST)
+        if evento_5000_form.is_valid():
+            # Guardar el evento 30000 asociado al usuario actual
+            event = evento_5000_form.save(commit=False)
+            event.user = request.user
+            event.save()
+            messages.success(request, 'Evento 5000 creado exitosamente')
+            return redirect('actividades_espacio_publico:evento_success')
+        else:
+            messages.error(request, 'Error al crear el evento 30000')
+    else:
+        # Si la solicitud no es POST, mostrar un formulario vacío para crear un nuevo evento 30000
+        evento_5000_form = Evento5000Form()
+    
+    # Renderizar el formulario de evento 30000
+    return render(request, 'eventos/crear_propuesta_evento_5000.html', {'evento_5000_form': evento_5000_form, 'profile': profile,'actividad': actividad,
+                                                      'acepta_terminos_condiciones': acepta_terminos_condiciones})
+
 @staff_member_required
 def admin_evento_5000_pdf(request, profile_id):
     try:
@@ -268,4 +429,16 @@ def evento_success(request):
     acepta_terminos_condiciones = declaracion.acepta_terminos_condiciones
 
     return render(request, 'eventos/evento_success.html', {'profile': profile,
+                                                   'actividad': actividad, 'acepta_terminos_condiciones': acepta_terminos_condiciones})
+
+
+
+@login_required
+def evento_fail(request):
+    profile = get_object_or_404(Profile, user=request.user)
+    actividad = profile.activity
+    declaracion = DeclaracionVeracidad.objects.get(user=request.user)
+    acepta_terminos_condiciones = declaracion.acepta_terminos_condiciones
+
+    return render(request, 'eventos/evento_fail.html', {'profile': profile,
                                                    'actividad': actividad, 'acepta_terminos_condiciones': acepta_terminos_condiciones})
