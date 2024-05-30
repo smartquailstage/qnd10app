@@ -15,4 +15,5 @@ urlpatterns = [
     path('admin/evento/<int:profile_id>/pdf_20000/', views.admin_evento_20000_pdf, name='admin_evento_20000_pdf'),
     path('admin/evento/<int:profile_id>/pdf_10000/', views.admin_evento_10000_pdf, name='admin_evento_10000_pdf'),
     path('admin/evento/<int:profile_id>/pdf_5000/', views.admin_evento_5000_pdf, name='admin_evento_5000_pdf'),
+    path('success/', views.evento_success, name='evento_success'),
 ]

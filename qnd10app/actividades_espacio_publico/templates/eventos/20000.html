@@ -5,6 +5,7 @@
 {% load widget_tweaks %}
 {% load static %}
 {% load menu_tags %}
+{% load bootstrap_tags %}
 
 
 
@@ -13,8 +14,8 @@
   <!-- start page content-->
   <div class="page-content">
 
-     <!--start breadcrumb-->
-     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <!--start breadcrumb-->
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
       <div class="breadcrumb-title pe-3"><ion-icon name="chatbox-ellipses-outline"></ion-icon> Propuestas de actividades culturales</div>
       <div class="ps-3">
         <nav aria-label="breadcrumb">
@@ -32,7 +33,6 @@
 
     <h6 class="text-uppercase">Creación de eventos para actividades culturales en espacios públicos.</h6>
     <hr>
-  
   <div id="stepper1" class="bs-stepper">
     <div class="card">
       
@@ -57,21 +57,8 @@
       <div class="bs-stepper-content">
         <form method="post">
           {% csrf_token %}
-          {% for field in event_20000_form %}
-            <div class="form-group">
-              <label for="{{ field.id }}">{{ field.label }}</label>
-              {{ field }}
-              {% if field.help_text %}
-                <small class="form-text text-muted">{{ field.help_text }}</small>
-              {% endif %}
-              {% for error in field.errors %}
-                <div class="invalid-feedback">
-                  {{ error }}
-                </div>
-              {% endfor %}
-            </div>
-          {% endfor %}
-          <button type="submit" class="btn btn-primary">Enviar</button>
+          {{ event_20000_form|as_bootstrap }}
+          <button type="submit" class="btn btn-primary"><ion-icon name="paper-plane"></ion-icon> Enviar propuesta de evento </button>
         </form>
       </div>
        

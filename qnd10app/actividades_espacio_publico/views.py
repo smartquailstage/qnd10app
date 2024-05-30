@@ -50,7 +50,7 @@ def evento_30000(request):
             event.user = request.user
             event.save()
             messages.success(request, 'Event updated successfully')
-            return redirect('usuarios:edit_declaratoria')
+            return redirect('actividades_espacio_publico:evento_success')
         else:
             messages.error(request, 'Error updating your event')
     else:
@@ -109,7 +109,7 @@ def evento_20000(request):
             event.user = request.user
             event.save()
             messages.success(request, 'Event updated successfully')
-            return redirect('usuarios:edit_declaratoria')
+            return redirect('actividades_espacio_publico:evento_success')
         else:
             messages.error(request, 'Error updating your event')
 
@@ -167,7 +167,7 @@ def evento_10000(request):
             event.user = request.user
             event.save()
             messages.success(request, 'Event updated successfully')
-            return redirect('usuarios:edit_declaratoria')
+            return redirect('actividades_espacio_publico:evento_success')
         else:
             messages.error(request, 'Error updating your event')
 
@@ -226,7 +226,7 @@ def evento_5000(request):
             event.user = request.user
             event.save()
             messages.success(request, 'Event updated successfully')
-            return redirect('usuarios:edit_declaratoria')
+            return redirect('actividades_espacio_publico:evento_success')
         else:
             messages.error(request, 'Error updating your event')
 
@@ -257,3 +257,15 @@ def admin_evento_5000_pdf(request, profile_id):
     except Exception as e:
         # Manejar cualquier excepción y devolver una respuesta de error
         return HttpResponse("Ocurrió un error al generar el PDF: {}".format(str(e)), status=500)
+    
+
+
+@login_required
+def evento_success(request):
+    profile = get_object_or_404(Profile, user=request.user)
+    actividad = profile.activity
+    declaracion = DeclaracionVeracidad.objects.get(user=request.user)
+    acepta_terminos_condiciones = declaracion.acepta_terminos_condiciones
+
+    return render(request, 'eventos/evento_success.html', {'profile': profile,
+                                                   'actividad': actividad, 'acepta_terminos_condiciones': acepta_terminos_condiciones})

@@ -5,6 +5,7 @@
 {% load widget_tweaks %}
 {% load static %}
 {% load menu_tags %}
+{% load bootstrap_tags %}
 
 
 
@@ -56,21 +57,8 @@
       <div class="bs-stepper-content">
         <form method="post">
           {% csrf_token %}
-          {% for field in event_30000_form %}
-            <div class="form-group">
-              <label for="{{ field.id }}">{{ field.label }}</label>
-              {{ field }}
-              {% if field.help_text %}
-                <small class="form-text text-muted">{{ field.help_text }}</small>
-              {% endif %}
-              {% for error in field.errors %}
-                <div class="invalid-feedback">
-                  {{ error }}
-                </div>
-              {% endfor %}
-            </div>
-          {% endfor %}
-          <button type="submit" class="btn btn-primary">Enviar</button>
+          {{ event_30000_form|as_bootstrap }}
+          <button type="submit" class="btn btn-primary"><ion-icon name="paper-plane"></ion-icon> Enviar propuesta de evento </button>
         </form>
       </div>
        
