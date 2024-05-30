@@ -10,11 +10,6 @@ from django.urls import reverse
 
 admin.site.register(Subject)
 
-admin.site.register(Evento_20000)
-admin.site.register(Evento_10000)
-admin.site.register(Evento_5000)
-
-
 def export_to_csv(modeladmin, request, queryset): 
     opts = modeladmin.model._meta 
     response = HttpResponse(content_type='text/csv') 
@@ -76,7 +71,65 @@ class Evento_30000Admin(admin.ModelAdmin):
     actions = [ export_to_csv, export_to_excel]
     verbose_name = "Información de Evento 30000"
     verbose_name_plural = "Información de Evento 30000"
+    list_filter = ['aforo', 'servicios_artisticos', 'rider_tecnico']
 
     def get_user_full_name(self, obj):
         return obj.user.get_full_name()
     get_user_full_name.short_description = 'Usuario'
+
+
+def evento20000_pdf(obj):
+    return mark_safe('<a href="{}">ver perfil</a>'.format(
+        reverse('actividades_espacio_publico:admin_evento_20000_pdf', args=[obj.id])))
+evento_pdf.short_description = 'Perfil de usuario en evento'
+
+@admin.register(Evento_20000)
+class Evento_20000Admin(admin.ModelAdmin):
+    list_display = ['get_user_full_name', 'servicios_artisticos','rider_tecnico', 'aforo', evento20000_pdf]
+    actions = [ export_to_csv, export_to_excel]
+    verbose_name = "Información de Evento 20000"
+    verbose_name_plural = "Información de Evento 20000"
+    list_filter = ['aforo', 'servicios_artisticos', 'rider_tecnico']
+
+    def get_user_full_name(self, obj):
+        return obj.user.get_full_name()
+    get_user_full_name.short_description = 'Usuario'
+
+
+def evento10000_pdf(obj):
+    return mark_safe('<a href="{}">ver perfil</a>'.format(
+        reverse('actividades_espacio_publico:admin_evento_10000_pdf', args=[obj.id])))
+evento_pdf.short_description = 'Perfil de usuario en evento'
+
+
+@admin.register(Evento_10000)
+class Evento_10000Admin(admin.ModelAdmin):
+    list_display = ['get_user_full_name', 'servicios_artisticos','rider_tecnico', 'aforo', evento10000_pdf]
+    actions = [ export_to_csv, export_to_excel]
+    verbose_name = "Información de Evento 10000"
+    verbose_name_plural = "Información de Evento 10000"
+    list_filter = ['aforo', 'servicios_artisticos', 'rider_tecnico']
+
+    def get_user_full_name(self, obj):
+        return obj.user.get_full_name()
+    get_user_full_name.short_description = 'Usuario'
+
+
+def evento5000_pdf(obj):
+    return mark_safe('<a href="{}">ver perfil</a>'.format(
+        reverse('actividades_espacio_publico:admin_evento_5000_pdf', args=[obj.id])))
+evento_pdf.short_description = 'Perfil de usuario en evento'
+
+@admin.register(Evento_5000)
+class Evento_5000Admin(admin.ModelAdmin):
+    list_display = ['get_user_full_name', 'servicios_artisticos','rider_tecnico', 'aforo', evento5000_pdf]
+    actions = [ export_to_csv, export_to_excel]
+    verbose_name = "Información de Evento 5000"
+    verbose_name_plural = "Información de Evento 5000"
+    list_filter = ['aforo', 'servicios_artisticos', 'rider_tecnico']
+
+    def get_user_full_name(self, obj):
+        return obj.user.get_full_name()
+    get_user_full_name.short_description = 'Usuario'
+
+

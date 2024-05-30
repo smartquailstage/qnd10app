@@ -1,0 +1,116 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link href="report.css" rel="stylesheet">
+    <title>Report</title>
+    <meta name="description" content="Report example">
+  </head>
+
+  <body>
+
+
+    <article id="columns">
+      <h2 id="columns-title">Reporte físico del sistema de información de la secretaría de Cultura</h2>
+    </article>
+
+    <article id="skills">
+      <h3>Este documento es oficial y se ecuentra certificado digitalmente</h3>
+      </article>
+      <section id="ligatures">
+        <hr>
+        <p>Perfil de Usuario: {{ profile.user }} </p>
+        <hr>
+        <table>
+          <tr>
+            <th>Información personal</th>
+            <th>Información de contacto</th>
+            <th>Personería Jurídica</th>
+            <th>Actividad Cultural</th>
+          </tr>
+          <tr>
+            <td>Nombre: <strong>{{ profile.user.get_full_name }}</strong></td>
+            <td>Telefono: {{ contacto.telefono }}</td>
+            <td>Personería: <strong>{{ legal.tipo_personeria }}</strong></td>
+            <td>{{ activity.disciplina_artistica }}</td>
+          </tr>
+          <tr>
+            <td>Tipo de usuario: <strong>{{ profile.activity }}</strong></td>
+            <td>Email: {{ profile.user.email }}</td>
+
+            {% if legal.ruc is none %}
+             <td><strong>R.U.C: No registra </strong></td>
+            {% else %}
+             <td><strong>R.U.C: {{ legal.ruc }} </strong></td>
+            {% endif %}
+            {% if activity.registro_ruac is False %}
+            <td>¿Tiene R.U.A.C? No </td>
+            {% else %}
+            <td>¿Tiene R.U.A.C? Si</td>
+            {% endif %}
+
+          </tr>
+          <tr>
+            <td>Genero:<strong> {{ profile.genero }}</strong></td>
+            <td>{{ contacto.direccion }}</td>
+            {% if legal.categoria_personeria is none %}
+            <td>Sociedad: No registra </td>
+            {% else %}
+            <td>Sociedad: {{ legal.categoria_personeria }}</td>
+            {% endif %}
+            {% if activity.pertenece_agremiacion_colectivo is False %}
+            <td> ¿Pertenece a algún colectivo? No </td>
+            {% else %}
+            <td> ¿Pertenece a algún colectivo? Si </td>
+            {% endif %}
+          </tr>
+        </table>
+        
+      </section>
+      <section id="ligatures">
+        <hr>
+        <p>Rubros de evento propuesto por usuario: {{ evento.evento}}</p>
+        <hr>
+        <table>
+          <tr>
+            <th> Rubros </th>
+            <th>Evento 30000 </th>
+            <th>Actividades académicas complementarias</th>
+            <th>Actividades de emprendimiento complementarias</th>
+          
+          </tr>
+          <tr>
+            <td>Servicios Artisticos</td>
+            <td><strong> $ {{ evento.servicios_artisticos  }}</strong></td>
+            <td>{{ evento.actividades_academicas_complementarias  }}</td>
+            <td>{{ evento.actividades_academicas_complementarias  }}</td>
+          
+          </tr>
+          <tr>
+            <td>Rider técnico</td>
+            <td><strong>$ {{ evento.rider_tecnico  }}</strong></td>
+            
+           
+          </tr>
+          <tr>
+            <td>Direccion artística</td>
+            <td><strong> $ {{ evento.direccion_artistica  }}</strong></td>
+           
+            
+          </tr>
+          <tr>
+            <td>Afóro</td>
+            <td><strong>{{ evento.aforo  }} personas</strong></td>
+           
+          
+          </tr>
+          
+        </table>
+        <p style="font-size: 9px;">¿El evento propuesto por el usuario, tiene ediciones anteriores? {% if evento.ediciones_anteriores is False %} No {% else %} Si {% endif %}</p>
+        <hr>
+
+        
+      </section>
+
+
+  </body>
+</html>

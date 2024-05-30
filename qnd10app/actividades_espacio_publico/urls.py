@@ -12,4 +12,7 @@ urlpatterns = [
     path('eventos_5000/', views.evento_5000, name='evento_5000'),
     path('eventos/', views.listar_categorias, name='listar_categorias'),
     path('admin/evento/<int:profile_id>/pdf/', views.admin_evento_30000_pdf, name='admin_evento_30000_pdf'),
+    path('admin/evento/<int:profile_id>/pdf_20000/', views.admin_evento_20000_pdf, name='admin_evento_20000_pdf'),
+    path('admin/evento/<int:profile_id>/pdf_10000/', views.admin_evento_10000_pdf, name='admin_evento_10000_pdf'),
+    path('admin/evento/<int:profile_id>/pdf_5000/', views.admin_evento_5000_pdf, name='admin_evento_5000_pdf'),
 ]

@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from .models import Evento
 from .forms import Evento30000Form, Evento20000Form, Evento10000Form, Evento5000Form
 from .models import Evento_30000, Evento_20000, Evento_10000, Evento_5000,Subject
-from usuarios.models import Profile,DeclaracionVeracidad
+from usuarios.models import Profile,DeclaracionVeracidad,Contacts,Legal,Activity
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from django.contrib import messages
@@ -61,18 +61,28 @@ def evento_30000(request):
 
 @staff_member_required
 def admin_evento_30000_pdf(request, profile_id):
-    profile = get_object_or_404(Profile, id=profile_id)
-    html = render_to_string('eventos/pdf_profiles/pdf.html', {'profile': profile})
+    try:
+        profile = get_object_or_404(Profile, id=profile_id)
+        contacto = get_object_or_404(Contacts, id=profile_id)
+        legal = get_object_or_404(Legal, id=profile_id)
+        activity = get_object_or_404(Activity, id=profile_id)
+        evento = get_object_or_404(Evento_30000, id=profile_id)
+        
+        html = render_to_string('eventos/pdf_profiles/pdf_30000.html', {'profile': profile, 'contacto':contacto,'legal':legal, 'activity':activity, 'evento':evento})
 
-    response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'filename="order_{}.pdf"'.format(profile.id)
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'filename="order_{}.pdf"'.format(profile.id)
 
-    # Obtener la ruta completa al archivo CSS usando Path
-    css_path = Path(settings.STATIC_ROOT) / 'css' / 'pdf.css'
+        # Obtener la ruta completa al archivo CSS usando Path
+        css_path = Path(settings.STATIC_ROOT) / 'css' / 'pdf_reports' / 'report.css'
 
-    # Renderizar el PDF
-    weasyprint.HTML(string=html, base_url=request.build_absolute_uri()).write_pdf(response, stylesheets=[weasyprint.CSS(str(css_path))], presentational_hints=True)
-    return response
+        # Renderizar el PDF
+        weasyprint.HTML(string=html, base_url=request.build_absolute_uri()).write_pdf(response, stylesheets=[weasyprint.CSS(str(css_path))], presentational_hints=True)
+        
+        return response
+    except Exception as e:
+        # Manejar cualquier excepción y devolver una respuesta de error
+        return HttpResponse("Ocurrió un error al generar el PDF: {}".format(str(e)), status=500)
 
 @login_required
 def evento_20000(request):
@@ -105,6 +115,32 @@ def evento_20000(request):
 
     return render(request, 'eventos/20000.html', {'event_20000_form': event_20000_form, 'profile': profile, 'event': event,
                                                    'actividad': actividad, 'acepta_terminos_condiciones': acepta_terminos_condiciones})
+
+
+@staff_member_required
+def admin_evento_20000_pdf(request, profile_id):
+    try:
+        profile = get_object_or_404(Profile, id=profile_id)
+        contacto = get_object_or_404(Contacts, id=profile_id)
+        legal = get_object_or_404(Legal, id=profile_id)
+        activity = get_object_or_404(Activity, id=profile_id)
+        evento = get_object_or_404(Evento_30000, id=profile_id)
+        
+        html = render_to_string('eventos/pdf_profiles/pdf_20000.html', {'profile': profile, 'contacto':contacto,'legal':legal, 'activity':activity, 'evento':evento})
+
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'filename="order_{}.pdf"'.format(profile.id)
+
+        # Obtener la ruta completa al archivo CSS usando Path
+        css_path = Path(settings.STATIC_ROOT) / 'css' / 'pdf_reports' / 'report.css'
+
+        # Renderizar el PDF
+        weasyprint.HTML(string=html, base_url=request.build_absolute_uri()).write_pdf(response, stylesheets=[weasyprint.CSS(str(css_path))], presentational_hints=True)
+        
+        return response
+    except Exception as e:
+        # Manejar cualquier excepción y devolver una respuesta de error
+        return HttpResponse("Ocurrió un error al generar el PDF: {}".format(str(e)), status=500)
 
 @login_required
 def evento_10000(request):
@@ -139,6 +175,32 @@ def evento_10000(request):
                                                    'actividad': actividad, 'acepta_terminos_condiciones': acepta_terminos_condiciones})
 
 
+@staff_member_required
+def admin_evento_10000_pdf(request, profile_id):
+    try:
+        profile = get_object_or_404(Profile, id=profile_id)
+        contacto = get_object_or_404(Contacts, id=profile_id)
+        legal = get_object_or_404(Legal, id=profile_id)
+        activity = get_object_or_404(Activity, id=profile_id)
+        evento = get_object_or_404(Evento_30000, id=profile_id)
+        
+        html = render_to_string('eventos/pdf_profiles/pdf_10000.html', {'profile': profile, 'contacto':contacto,'legal':legal, 'activity':activity, 'evento':evento})
+
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'filename="order_{}.pdf"'.format(profile.id)
+
+        # Obtener la ruta completa al archivo CSS usando Path
+        css_path = Path(settings.STATIC_ROOT) / 'css' / 'pdf_reports' / 'report.css'
+
+        # Renderizar el PDF
+        weasyprint.HTML(string=html, base_url=request.build_absolute_uri()).write_pdf(response, stylesheets=[weasyprint.CSS(str(css_path))], presentational_hints=True)
+        
+        return response
+    except Exception as e:
+        # Manejar cualquier excepción y devolver una respuesta de error
+        return HttpResponse("Ocurrió un error al generar el PDF: {}".format(str(e)), status=500)
+
+
 @login_required
 def evento_5000(request):
     profile = get_object_or_404(Profile, user=request.user)
@@ -170,3 +232,28 @@ def evento_5000(request):
 
     return render(request, 'eventos/5000.html', {'event_5000_form': event_5000_form, 'profile': profile, 'event': event,
                                                    'actividad': actividad, 'acepta_terminos_condiciones': acepta_terminos_condiciones})
+
+@staff_member_required
+def admin_evento_5000_pdf(request, profile_id):
+    try:
+        profile = get_object_or_404(Profile, id=profile_id)
+        contacto = get_object_or_404(Contacts, id=profile_id)
+        legal = get_object_or_404(Legal, id=profile_id)
+        activity = get_object_or_404(Activity, id=profile_id)
+        evento = get_object_or_404(Evento_30000, id=profile_id)
+        
+        html = render_to_string('eventos/pdf_profiles/pdf_5000.html', {'profile': profile, 'contacto':contacto,'legal':legal, 'activity':activity, 'evento':evento})
+
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'filename="order_{}.pdf"'.format(profile.id)
+
+        # Obtener la ruta completa al archivo CSS usando Path
+        css_path = Path(settings.STATIC_ROOT) / 'css' / 'pdf_reports' / 'report.css'
+
+        # Renderizar el PDF
+        weasyprint.HTML(string=html, base_url=request.build_absolute_uri()).write_pdf(response, stylesheets=[weasyprint.CSS(str(css_path))], presentational_hints=True)
+        
+        return response
+    except Exception as e:
+        # Manejar cualquier excepción y devolver una respuesta de error
+        return HttpResponse("Ocurrió un error al generar el PDF: {}".format(str(e)), status=500)
