@@ -28,23 +28,22 @@
 
 @page {
   @top-left {
-    background: #0a9fcd;
-   
-    background-size: 20px; /* Opcional: Puedes ajustar esto según tus necesidades */
+    background: #ffffff;
+    background-size: 1000px 00px; /* Opcional: Puedes ajustar esto según tus necesidades */
     height: 1cm;
     text-align: center;
     width: 1cm;
   }
   @top-center {
-    background: #0a9fcd;
-    content: '';
+    background: #38a5a500;
+    content: url("secretaria_header.png");
     display: block;
     height: .05cm;
-    opacity: .5;
+    opacity: 1;
     width: 100%;
   }
   @top-right {
-    content: string(heading);
+
     font-size: 9pt;
     height: 1cm;
     vertical-align: middle;
@@ -76,6 +75,7 @@ html {
   font-size: 11pt;
   font-weight: 300;
   line-height: 1.5;
+  margin-top: 25px;
 }
 
 h1 {
@@ -401,12 +401,15 @@ th {
   font-weight: bold; /* Texto en negrita */
   padding: 10px; /* Espaciado interno */
   border: 1px solid #ccc; /* Borde */
+  font-size: 10px;
+  width: 150px;
 }
 
 /* Estilo para celdas de datos */
 td {
   padding: 8px; /* Espaciado interno */
   border: 1px solid #ccc; /* Borde */
+  font-size: 8px;
 }
 
 /* Estilo alternativo para filas */
