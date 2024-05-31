@@ -63,6 +63,7 @@ class Evento(models.Model):
 
 
 class Evento_30000(models.Model):
+    #user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Nombre de Usuario")
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Nombre de Usuario")
     evento= models.ForeignKey(Subject,
                                 related_name='eventos_30000',
