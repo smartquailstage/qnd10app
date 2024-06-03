@@ -36,7 +36,7 @@ class OwnerEditMixin(object):
 
 class OwnerCourseMixin(OwnerMixin, LoginRequiredMixin):
     model = Course
-    fields = ['portada','subject', 'title', 'slug', 'overview']
+    fields = ['portada','portada_2','portada_3','subject', 'title', 'slug', 'overview']
     success_url = reverse_lazy('editroial_literaria:manage_course_list')
 
 
