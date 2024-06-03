@@ -53,13 +53,13 @@ class ManageCourseListView(OwnerCourseMixin, ListView):
 class CourseCreateView(PermissionRequiredMixin,
                        OwnerCourseEditMixin,
                        CreateView):
-    permission_required = 'courses.add_course'
+    permission_required = 'editroial_literaria.add_course'
 
 
 class CourseUpdateView(PermissionRequiredMixin,
                        OwnerCourseEditMixin,
                        UpdateView):
-    permission_required = 'courses.change_course'
+    permission_required = 'editroial_literaria.change_course'
 
 
 class CourseDeleteView(PermissionRequiredMixin,
@@ -67,7 +67,7 @@ class CourseDeleteView(PermissionRequiredMixin,
                        DeleteView):
     template_name = 'courses/manage/course/delete.html'
     success_url = reverse_lazy('editorial_literaria:manage_course_list')
-    permission_required = 'courses.delete_course'
+    permission_required = 'editroial_literaria.delete_course'
 
 
 class CourseModuleUpdateView(TemplateResponseMixin, View):
