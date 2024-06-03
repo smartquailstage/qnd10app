@@ -5,6 +5,7 @@
 {% load widget_tweaks %}
 {% load static %}
 {% load menu_tags %}
+{% load bootstrap_tags %}
 
 
 
@@ -61,7 +62,7 @@
             <div class="col-12 col-lg-6">
 
               {{ formset.as_p }}
-              {{ formset.management_form }}
+              {{ formset.management_form|as_bootstrap   }}
               {% csrf_token %}
             </div>
 

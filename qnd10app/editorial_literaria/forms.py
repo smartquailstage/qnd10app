@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 ModuleFormSet = inlineformset_factory(Course,
                                       Module,
-                                      fields=['title', 'description'],
+                                      fields=('title', 'description'),
                                       extra=2,
                                       can_delete=True)
 class CourseEnrollForm(forms.Form):

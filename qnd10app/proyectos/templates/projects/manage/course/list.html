@@ -79,10 +79,10 @@
                         </span>
                       </td>
                       <div class="form-body p-3 rounded border bg-secondary">
-                        <p class="mb-4" style="color:azure;margin-bottom:-0.5rem;">El  proyecto editorial "{{ project.title }}" ha sido verificado en la
+                        <p class="mb-4" style="color:rgb(255, 255, 255);margin-bottom:-0.5rem;">El  proyecto editorial "{{ project.title }}" ha sido verificado en la
                            convocatoria de fomento editorial y literario, {{project.course}}, en la categoría de {{project.subject}}.
                            Cuya recomendaciones son las siguientes:</p>
-                          <p class="mb-0" style="color:azure;margin-bottom:-0.5rem;" >{{ project.recomend|richtext}}</p> 
+                          <p class="mb-0" style="color:azure;margin-bottom:-0.5rem;" >{{ project.recomend|richtext | safe}}</p> 
                       </div>
                       {% elif project.proceso == 'Rechazado' %}
                       <td>
@@ -97,19 +97,15 @@
                       </div>
                       {% endif %}
 
+                    
+
                       <hr/>
-                      
-                      <h3 class="mt-3 mt-lg-0 mb-0">Calificación Actual</h3>
-                      <p>1/10</p>
                       <div class="d-flex align-items-center mt-3 gap-2">
-                        <h5 class="mb-0 text-light-3">{{ project.title }}</h5>
-                       
+                        <h5 class="mb-0 text-light-3">Título del proyecto postulado: "{{ project.title }}"</h5>
+                        <h3>{{ jurados.nombre_1 }}</h3>
+                      
                       </div>
-                      <div class="mt-3">
-                        <h6>Resumen de proyecto:</h6>
-                        <p class="mb-0" style="text-align: justify;">{{ project.overview | richtext }}</p>
-                        <hr/>
-                      </div>
+                    
                      
                       <dl class="row mt-3">	
                         <dt class="col-sm-3">Convocatoria:</dt>
@@ -153,7 +149,7 @@
                         </a> 
 
                         <a class="btn btn-light btn-ecomm"  href="{% url "proyectos:project_work_plan_update" project.id %}" title="Agregar Plan de trabajo">  
-                          <ion-icon name="calendar"></ion-icon> Agregar Plan de trabajo
+                          <ion-icon name="calendar"></ion-icon> Agregar plan de trabajo
                         </a> 
 
                        
@@ -166,6 +162,7 @@
                     <div class="product-sharing">
                       <ul class="list-inline">
                         <li class="list-inline-item "> 
+                         
                           <p> * Para postular proyectos editoriales en convocatorias o llamados a fomento editorial y 
                             literario, es imprescindible respetar el número de autores, bibliografías y planes 
                             de trabajo establecidos de acuerdo a las bases técnicas descritas en cada convocatoria.
@@ -185,7 +182,7 @@
                       </ul>
                       
                     </div>  
-                    <a class="btn btn-danger btn-ecomm" href="{% url "proyectos:project_delete" project.id %}" title="Eliminar Proyecto" style="color:rgb(255, 255, 255);" ><ion-icon name="trash-outline"></ion-icon>Desistimar proyecto de convocatoria</a>
+                    <a class="btn btn-danger btn-ecomm" href="{% url "proyectos:project_delete" project.id %}" title="Eliminar Proyecto" style="color:rgb(255, 255, 255);" ><ion-icon name="trash-outline"></ion-icon>Desestimar proyecto de convocatoria</a>
                 </div>
                 {% endfor %}
               

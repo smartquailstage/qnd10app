@@ -12,7 +12,7 @@ from django.forms.models import modelform_factory
 from django.apps import apps
 from braces.views import CsrfExemptMixin, JsonRequestResponseMixin
 from django.db.models import Count
-from .models import Subject, Project,Author,Content,BibliographicReference
+from .models import Subject, Project,Author,Content,BibliographicReference,WorkPlan,jurados
 from .forms import ModuleFormSet, BiblioProjectForm,BiblioProjectFormSet,WorkPlanProjectFormSet
 from students.forms import CourseEnrollForm
 #from students.forms import CourseEnrollForm
@@ -21,6 +21,14 @@ from django.shortcuts import render, redirect
 from django.views.generic.edit import FormView
 from usuarios.models import Profile,DeclaracionVeracidad
 from django.contrib import messages
+from django.http import HttpResponse
+from django.contrib import messages
+from django.template.loader import render_to_string
+from django.contrib.admin.views.decorators import staff_member_required
+import weasyprint
+from django.conf import settings
+from pathlib import Path
+from django.template.defaultfilters import linebreaksbr
 
 class OwnerMixin(object):
     def get_queryset(self):
@@ -235,26 +243,82 @@ class ContentOrderView(CsrfExemptMixin,
         return self.render_json_response({'saved': 'OK'})
 
 
+
+def split_paragraphs_by_length(text, length):
+    """
+    Divide el texto en párrafos basados en el número de letras por párrafo.
+    """
+    paragraphs = []
+    current_paragraph = ""
+    for word in text.split():
+        current_paragraph += word + " "
+        if len(current_paragraph) >= length:
+            paragraphs.append(current_paragraph.strip())
+            current_paragraph = ""
+    if current_paragraph:
+        paragraphs.append(current_paragraph.strip())
+    return paragraphs
+
 class ProjectListView(TemplateResponseMixin, View):
     model = Project
     template_name = 'projects/course/list.html'
-
+    
     def get(self, request, subject=None):
-        profile = Profile.objects.get(user=request.user)
+        profile = Profile.objects.get(project=request.project)  # Cambiar user a project
         subjects = Subject.objects.annotate(total_projects=Count('projects'))
+        jury = jurados.objects.get(project=request.project) 
+ 
         actividad = profile.activity
-        declaracion = DeclaracionVeracidad.objects.get(user=request.user)
+        declaracion = DeclaracionVeracidad.objects.get(project=request.project)  # Cambiar user a project
         acepta_terminos_condiciones = declaracion.acepta_terminos_condiciones
-      #  projects = Project.objects.annotate(total_authors=Count('authors'))
 
+        projects = Project.objects.all()  # Aquí puedes ajustar tu consulta según sea necesario
+        
         if subject:
-            subject = get_object_or_404(Subject,slug=subject)
-            projects = projects.filter(subject=subject)       
+            subject = get_object_or_404(Subject, slug=subject)
+            projects = projects.filter(subject=subject)    
+        
+        # Aquí puedes ajustar la lógica de tu vista según sea necesario
+        
         return self.render_to_response({'subjects': subjects,
                                         'projects': projects, 
-                                        'profile':profile,
-                                        'actividad':actividad,
-                                        'acepta_terminos_condiciones':acepta_terminos_condiciones,})
+                                        'profile': profile,
+                                        'actividad': actividad,
+                                        'acepta_terminos_condiciones': acepta_terminos_condiciones, 'jury':jury})
+    
+    def jurado_view(request, project_id):
+        jury = jurados.objects.filter(project_id=project_id).first()
+        return render(request, 'projects/course/list.html', {'jury': jury})
+    
+
+    
+
+@staff_member_required
+def project_pdf(request, project_id):
+    try:
+        project = get_object_or_404(Project, id=project_id)
+        workplan = get_object_or_404(WorkPlan,id=project_id)  
+        biblio =  get_object_or_404(BibliographicReference,id=project_id) 
+        jury =  get_object_or_404(jurados,id=project_id) 
+        biblio_num =  BibliographicReference.objects.filter(project=project_id).count()
+        author = get_object_or_404(Author, id=project_id) 
+        author_num =  Author.objects.filter(project=project_id).count()
+       # authors = get_object_or_404(Author,id=project_id)     
+        html = render_to_string('projects/projects_pdf/project.html', {'project':project, 'workplan':workplan, 'biblio':biblio, 'biblio_num':biblio_num, 'author':author, 'author_num':author_num, 'jury':jury })
+
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'filename="order_{}.pdf"'.format(project.id)
+
+        # Obtener la ruta completa al archivo CSS usando Path
+        css_path = Path(settings.STATIC_ROOT) / 'css' / 'pdf_reports' / 'report.css'
+
+        # Renderizar el PDF
+        weasyprint.HTML(string=html, base_url=request.build_absolute_uri()).write_pdf(response, stylesheets=[weasyprint.CSS(str(css_path))], presentational_hints=True)
+        
+        return response
+    except Exception as e:
+        # Manejar cualquier excepción y devolver una respuesta de error
+        return HttpResponse("Ocurrió un error al generar el PDF: {}".format(str(e)), status=500)
 
 
 class ProjectDetailView(DetailView):
@@ -317,3 +381,6 @@ class WorkPlanUpdateView(TemplateResponseMixin, View):
             formset.save()
             return redirect('proyectos:manage_project_list')
         return self.render_to_response({'project': self.project, 'formset': formset})
+    
+
+        

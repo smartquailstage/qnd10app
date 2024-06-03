@@ -114,7 +114,7 @@ def activity_register(request):
             new_user.set_password(user_form.cleaned_data['password'])
             # Save the User object
             new_user.save()
-            group = Group.objects.get(name='proponientes')
+            group = Group.objects.get(name='proponentes')
             new_user.groups.add(group)
 
             # Create the user profile and related objects
@@ -359,7 +359,7 @@ def dashboard(request):
     
     manuales = Dashboard.objects.all()
     user_groups = request.user.groups.all()
-    is_tecnicos_group = any(group.name == 'Administrar' for group in user_groups)
+    is_tecnicos_group = any(group.name == 'administracion' for group in user_groups)
     
     return render(request, 'usuarios/dashboard.html', {
         'section': 'dashboard',

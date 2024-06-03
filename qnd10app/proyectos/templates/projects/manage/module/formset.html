@@ -25,7 +25,7 @@
     
     <!--start breadcrumb-->
 
-    <h6 class="text-uppercase">Proceso de Inscripción para convocatorias en la línea de fomento editorial y literaria</h6>
+    <h6 class="text-uppercase">Proceso de postulación a convocatorias en la línea de fomento editorial y literaria</h6>
     <hr>
 
     <div id="stepper1" class="bs-stepper">
@@ -36,7 +36,7 @@
               <div class="step-trigger" role="tab" id="stepper1trigger1" aria-controls="test-nl-1">
                 <div class="bs-stepper-circle"><ion-icon name="people"></ion-icon></div>
                 <div class="">
-                  <h5 class="mb-0 steper-title">Agregar autores</h5>
+                  <h5 class="mb-0 steper-title">Agregar autores </h5>
                   <p class="mb-0 steper-sub-title">Al Proyecto Editorial & Literario</p>
                 </div>
               </div>
@@ -46,26 +46,71 @@
         <div class="card-body">
           <div class="bs-stepper-content">
             <form action="." method="post" enctype="multipart/form-data">
-              {% csrf_token %}
-              
+
               <div class="row g-3">
-                {% for form in formset %}
-                
-                
-
                 <div class="col-12 col-lg-6">
-                  <h3><ion-icon name="person-add"></ion-icon></h3>
-                  {{ form|as_bootstrap }}
-
-                </div>
+    
+                  {% for form in formset %}
+                  <fieldset>
+                    <legend>Autor  N. {{ forloop.counter }}</legend>
+    
+                  {% for field in form.visible_fields %}
+                  {% if field.name == 'title' %}
+                    <label for="{{ field.id }}" class="form-label">{{ field.label_tag }}</label>
+                    {% if field.errors %}
+                      {% render_field field class="form-control " %}
+                      {% for error in field.errors %}
+                        <div class="invalid-feedback">
+                          {{ error }}
+                        </div>
+                      {% endfor %}
+                    {% else %}
+                      {% render_field field class="form-control" %}
+                    {% endif %}
+                    {% if field.help_text %}
+                      <small class="form-text text-muted">{{ field.help_text }}</small>
+                    {% endif %}
+                  {% endif %}
                 {% endfor %}
+    
+                {% for field in form.visible_fields %}
+                {% if field.name == 'description' %}
+                  <label for="{{ field.id }}" class="form-label">Describa la actividad que desempeña en el proyecto</label>
+                  {% if field.errors %}
+                    {% render_field field class="form-control " %}
+                    {% for error in field.errors %}
+                      <div class="invalid-feedback">
+                        {{ error }}
+                      </div>
+                    {% endfor %}
+                  {% else %}
+                    {% render_field field class="form-control" %}
+                  {% endif %}
+                  {% if field.help_text %}
+                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+    
+             
+                  
+                  </fieldset>
+                {% endfor %}
+    
+                  {{ formset.management_form }}
+                  {% csrf_token %}
+                </div>
+    
+                {% csrf_token %}
                 <div class="col-12">
                   <div class="d-flex align-items-center gap-3">
                     <button class="btn btn-secondary px-4"  type="submit" value="Save modules"><i class='bx bx-save me-2'></i>Guardar</button>
-                    
+                    <button href ="{% url 'usuarios:register' %}" class="btn btn-primary px-4" onclick="stepper1.previous()"><i class='bx bx-right-arrow-alt me-2'></i>Siguiente</button>
+                   
                   </div>
                 </div>
               </div>
+             
             </form>
           </div>
         </div>

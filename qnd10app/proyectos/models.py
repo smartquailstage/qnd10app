@@ -8,7 +8,7 @@ from django.utils.safestring import mark_safe
 from ckeditor.fields import RichTextField
 from django.utils import timezone
 from editorial_literaria.models import Course
-
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Subject(models.Model):
     title = models.CharField(max_length=200)
@@ -35,7 +35,7 @@ class Project(models.Model):
     #portada = models.ImageField(upload_to='portada/%Y/%m/%d/', blank=True, verbose_name="Foto de portada de convocatoria")
     title = models.CharField(max_length=300, verbose_name="Título del proyecto")
     slug = models.SlugField(max_length=200, unique=True)
-    overview = models.TextField(verbose_name="Resumen breve del proyecto de tomo", help_text="Identificación de un debate o giro paradigmático y explicación sobre cómo cada uno de los capítulos que compondrán el tomo representan lo dicho.")
+    overview = RichTextField(verbose_name="Resumen breve del proyecto de tomo", help_text="Identificación de un debate o giro paradigmático y explicación sobre cómo cada uno de los capítulos que compondrán el tomo representan lo dicho.", max_length=1000 )
     plan = models.TextField(verbose_name="Describa el plan de uso de incentivo", help_text="Detalle de manera clara y sucinta.",null=True,blank=True)
     cv = models.FileField(upload_to='curriculms/',verbose_name="Perfil del postulante", help_text ="En calidad de coordinador/a o autor/a del proyecto, que acredite experiencia en el campo del conocimiento pertinente, así como experiencia en temas editoriales, de publicación, coordinación y/o de curaduría de proyectos culturales o académicos según corresponda, de al menos 2 años.", null=True,blank=True)
 
@@ -55,29 +55,29 @@ class Project(models.Model):
     
 class WorkPlan(models.Model):
     project = models.ForeignKey(Project, related_name='workplan', on_delete=models.CASCADE, null=True, blank=True)
-    title = models.CharField(max_length=200)
-    description = models.TextField()
-    start_date = models.DateField()
-    end_date = models.DateField()
+    title = models.CharField(max_length=200, verbose_name="Nombre de la Actividad")
+    description = models.TextField(verbose_name="Describa los pasos que va a seguir para desarollar la actividad en el plan")
+    start_date = models.DateField(verbose_name="Fecha de comienzo de actividad")
+    end_date = models.DateField(verbose_name="Fecha de finalización de actividad")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE,verbose_name="Nombre usuario", null=True, blank=True)
 
     def __str__(self):
         return self.title
     
 class BibliographicReference(models.Model):
     project = models.ForeignKey(Project, related_name='biblio', on_delete=models.CASCADE, null=True, blank=True)
-    title = models.CharField(max_length=255)
-    authors = models.CharField(max_length=255)
-    publication_year = models.PositiveIntegerField()
-    journal = models.CharField(max_length=255, blank=True, null=True)
-    volume = models.CharField(max_length=50, blank=True, null=True)
-    issue = models.CharField(max_length=50, blank=True, null=True)
-    pages = models.CharField(max_length=50, blank=True, null=True)
-    doi = models.CharField(max_length=100, blank=True, null=True)
-    url = models.URLField(blank=True, null=True)
-    abstract = models.TextField(blank=True, null=True)
+    title = models.CharField(max_length=255,verbose_name="Escriba el título de la obra")
+    authors = models.CharField(max_length=255,verbose_name="Escriba el nombre del primer autor")
+    publication_year = models.PositiveIntegerField(verbose_name="Escriba la fecha de publicación")
+    journal = models.CharField(max_length=255, blank=True, null=True, verbose_name="Escriba el año de publicación")
+    volume = models.CharField(max_length=50, blank=True, null=True,verbose_name="Escriba el volumen")
+    issue = models.CharField(max_length=50, blank=True, null=True, verbose_name="Escriba lugar de publicación")
+    pages = models.CharField(max_length=50, blank=True, null=True, verbose_name="Escriba el número de páginas")
+    doi = models.CharField(max_length=100, blank=True, null=True,  verbose_name="Si dispone un D.O.I (Digital Object Identifier) de publicación, escribirlo por favor")
+    url = models.URLField(blank=True, null=True,verbose_name="Si su referencia tiene una URL" )
+    abstract = models.TextField(blank=True, null=True, verbose_name="Escriba el resumen de la obra" )
 
     def __str__(self):
         return self.title
@@ -129,4 +129,36 @@ class ItemBase(models.Model):
 
 class CV(ItemBase):
     file = models.FileField(upload_to='files')
+
+
+
+class jurados(models.Model):
+
+    project = models.ForeignKey(Project, related_name='jury', on_delete=models.CASCADE, null=True, blank=True)
+    nombre_1 = models.CharField(max_length=250, verbose_name="Nombre del Primer Jurado competente", null=True, blank=True)
+    dictamen_1 = RichTextField(help_text="Escriba su dictamen, justificando la calificación impuesta en el proyecto editorial", null=True, blank=True)
+    calificacion_1 = models.DecimalField(max_digits=3, decimal_places=1, validators=[MinValueValidator(1), MaxValueValidator(10)], null=True, blank=True)
+    nombre_2 = models.CharField(max_length=250, verbose_name="Nombre del Segundo Jurado competente", null=True, blank=True)
+    dictamen_2 = RichTextField(help_text="Escriba su dictamen, justificando la calificación impuesta en el proyecto editorial", null=True, blank=True)
+    calificacion_2 = models.DecimalField(max_digits=3, decimal_places=1, validators=[MinValueValidator(1), MaxValueValidator(10)], null=True, blank=True)
+    nombre_3 = models.CharField(max_length=250, verbose_name="Nombre del tercer Jurado competente", null=True, blank=True)
+    dictamen_3 = RichTextField(help_text="Escriba su dictamen, justificando la calificación impuesta en el proyecto editorial", null=True, blank=True)
+    calificacion_3 = models.DecimalField(max_digits=3, decimal_places=1, validators=[MinValueValidator(1), MaxValueValidator(10)], null=True, blank=True)
+    resultado = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+
+    def calcular_resultado(self):
+        calificaciones = [self.calificacion_1, self.calificacion_2, self.calificacion_3]
+        calificaciones_validas = [c for c in calificaciones if c is not None]
+        # Calcula el promedio de las calificaciones
+        if calificaciones_validas:
+            self.resultado = sum(calificaciones_validas) / len(calificaciones_validas)
+        else:
+            self.resultado = None
+
+    def save(self, *args, **kwargs):
+        self.calcular_resultado()
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return str(self.resultado)
     

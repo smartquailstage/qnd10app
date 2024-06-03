@@ -24,6 +24,7 @@ urlpatterns = [
     # Uncomment and correct the following paths if needed
     path('subject/<slug:subject>/', views.ProjectListView.as_view(), name='course_list_subject'),
     path('<slug:slug>/', views.ProjectDetailView.as_view(), name='course_detail'),
+    path('admin/proyecto/<int:project_id>/proyecto_pdf/', views.project_pdf, name='project_pdf'),
     #path('enroll-course/', views.StudentEnrollCourseView.as_view(),name='student_enroll_course'),
     #path('courses/',views.StudentCourseListView.as_view(),name='student_course_list'),
     #path('course/<pk>/',views.StudentCourseDetailView.as_view(),name='student_course_detail'),

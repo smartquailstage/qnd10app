@@ -5,6 +5,7 @@
 {% load widget_tweaks %}
 {% load static %}
 {% load menu_tags %}
+{% load bootstrap_tags %}
 
 
 
@@ -33,7 +34,7 @@
 
     </div>
 
-    <h6 class="text-uppercase">Proceso de Incripsición para convocatorias en la línea de fomento editorial y literaria</h6>
+    <h6 class="text-uppercase">Proceso de postulación a convocatorias en la línea de fomento editorial y literaria</h6>
     <hr>
   <div id="stepper1" class="bs-stepper">
     <div class="card">
@@ -44,8 +45,8 @@
           <div class="step-trigger" role="tab" id="stepper1trigger1" aria-controls="test-nl-1">
             <div class="bs-stepper-circle"><i class='bx bx-plus fs-4'></i></div>
             <div class="">
-              <h5 class="mb-0 steper-title">Crear Nueva Convocatoria</h5>
-                <p class="mb-0 steper-sub-title">Con este formulario, usted esta creando una convocatoria en la línea de fomento: Editorial & literaria.</p>
+              <h5 class="mb-0 steper-title">Crear Nueva referencia bibliográfica</h5>
+                <p class="mb-0 steper-sub-title">llene los campos bibliográficos</p>
             </div>
           </div>
           </div>
@@ -60,10 +61,210 @@
           <div class="row g-3">
             <div class="col-12 col-lg-6">
 
-              {{ formset.as_p }}
+              {% for form in formset %}
+              <fieldset>
+                <legend>Refrencia N.-{{ forloop.counter }}</legend>
+
+              {% for field in form.visible_fields %}
+              {% if field.name == 'title' %}
+                <label for="{{ field.id }}" class="form-label">{{ field.label_tag }}</label>
+                {% if field.errors %}
+                  {% render_field field class="form-control " %}
+                  {% for error in field.errors %}
+                    <div class="invalid-feedback">
+                      {{ error }}
+                    </div>
+                  {% endfor %}
+                {% else %}
+                  {% render_field field class="form-control" %}
+                {% endif %}
+                {% if field.help_text %}
+                  <small class="form-text text-muted">{{ field.help_text }}</small>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+
+            {% for field in form.visible_fields %}
+            {% if field.name == 'authors' %}
+              <label for="{{ field.id }}" class="form-label">{{ field.label_tag }}</label>
+              {% if field.errors %}
+                {% render_field field class="form-control " %}
+                {% for error in field.errors %}
+                  <div class="invalid-feedback">
+                    {{ error }}
+                  </div>
+                {% endfor %}
+              {% else %}
+                {% render_field field class="form-control" %}
+              {% endif %}
+              {% if field.help_text %}
+                <small class="form-text text-muted">{{ field.help_text }}</small>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+
+          {% for field in form.visible_fields %}
+          {% if field.name == 'publication_year' %}
+            <label for="{{ field.id }}" class="form-label">{{ field.label_tag }}</label>
+            {% if field.errors %}
+              {% render_field field class="form-control " %}
+              {% for error in field.errors %}
+                <div class="invalid-feedback">
+                  {{ error }}
+                </div>
+              {% endfor %}
+            {% else %}
+              {% render_field field class="form-control" %}
+            {% endif %}
+            {% if field.help_text %}
+              <small class="form-text text-muted">{{ field.help_text }}</small>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+
+        {% for field in form.visible_fields %}
+        {% if field.name == 'journal' %}
+          <label for="{{ field.id }}" class="form-label">{{ field.label_tag }}</label>
+          {% if field.errors %}
+            {% render_field field class="form-control " %}
+            {% for error in field.errors %}
+              <div class="invalid-feedback">
+                {{ error }}
+              </div>
+            {% endfor %}
+          {% else %}
+            {% render_field field class="form-control" %}
+          {% endif %}
+          {% if field.help_text %}
+            <small class="form-text text-muted">{{ field.help_text }}</small>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+      
+
+      {% for field in form.visible_fields %}
+        {% if field.name == 'volume' %}
+          <label for="{{ field.id }}" class="form-label">{{ field.label_tag }}</label>
+          {% if field.errors %}
+            {% render_field field class="form-control " %}
+            {% for error in field.errors %}
+              <div class="invalid-feedback">
+                {{ error }}
+              </div>
+            {% endfor %}
+          {% else %}
+            {% render_field field class="form-control" %}
+          {% endif %}
+          {% if field.help_text %}
+            <small class="form-text text-muted">{{ field.help_text }}</small>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+
+      {% for field in form.visible_fields %}
+        {% if field.name == 'issue' %}
+          <label for="{{ field.id }}" class="form-label">{{ field.label_tag }}</label>
+          {% if field.errors %}
+            {% render_field field class="form-control " %}
+            {% for error in field.errors %}
+              <div class="invalid-feedback">
+                {{ error }}
+              </div>
+            {% endfor %}
+          {% else %}
+            {% render_field field class="form-control" %}
+          {% endif %}
+          {% if field.help_text %}
+            <small class="form-text text-muted">{{ field.help_text }}</small>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+
+      {% for field in form.visible_fields %}
+      {% if field.name == 'pages' %}
+        <label for="{{ field.id }}" class="form-label">{{ field.label_tag }}</label>
+        {% if field.errors %}
+          {% render_field field class="form-control " %}
+          {% for error in field.errors %}
+            <div class="invalid-feedback">
+              {{ error }}
+            </div>
+          {% endfor %}
+        {% else %}
+          {% render_field field class="form-control" %}
+        {% endif %}
+        {% if field.help_text %}
+          <small class="form-text text-muted">{{ field.help_text }}</small>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+    {% for field in form.visible_fields %}
+      {% if field.name == 'doi' %}
+        <label for="{{ field.id }}" class="form-label">{{ field.label_tag }}</label>
+        {% if field.errors %}
+          {% render_field field class="form-control " %}
+          {% for error in field.errors %}
+            <div class="invalid-feedback">
+              {{ error }}
+            </div>
+          {% endfor %}
+        {% else %}
+          {% render_field field class="form-control" %}
+        {% endif %}
+        {% if field.help_text %}
+          <small class="form-text text-muted">{{ field.help_text }}</small>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+    {% for field in form.visible_fields %}
+      {% if field.name == 'url' %}
+        <label for="{{ field.id }}" class="form-label">{{ field.label_tag }}</label>
+        {% if field.errors %}
+          {% render_field field class="form-control " %}
+          {% for error in field.errors %}
+            <div class="invalid-feedback">
+              {{ error }}
+            </div>
+          {% endfor %}
+        {% else %}
+          {% render_field field class="form-control" %}
+        {% endif %}
+        {% if field.help_text %}
+          <small class="form-text text-muted">{{ field.help_text }}</small>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+    {% for field in form.visible_fields %}
+      {% if field.name == 'abstract' %}
+        <label for="{{ field.id }}" class="form-label">{{ field.label_tag }}</label>
+        {% if field.errors %}
+          {% render_field field class="form-control " %}
+          {% for error in field.errors %}
+            <div class="invalid-feedback">
+              {{ error }}
+            </div>
+          {% endfor %}
+        {% else %}
+          {% render_field field class="form-control" %}
+        {% endif %}
+        {% if field.help_text %}
+          <small class="form-text text-muted">{{ field.help_text }}</small>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+
+              
+              </fieldset>
+            {% endfor %}
+
               {{ formset.management_form }}
               {% csrf_token %}
             </div>
+         
 
             {% csrf_token %}
             <div class="col-12">

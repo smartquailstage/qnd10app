@@ -1,0 +1,157 @@
+{% load wagtailimages_tags wagtailcore_tags %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load widget_tweaks %}
+{% load static %}
+{% load menu_tags %}
+{% load thumbnail %}
+
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link href="report.css" rel="stylesheet">
+    <title>Report</title>
+    <meta name="description" content="Report example">
+  </head>
+
+  <body>
+
+    <article id="columns">
+
+      <section>
+        <h2 id="columns-title">{{project.title }}</h2>
+        <p>
+         Resumen de proyecto proyecto literário y Editorial postulado
+        </p>
+        <p>
+          {{ project.overview | richtext }}
+        </p>
+        <p style="font-size: 7pt;">Autor principal: {{ project.owner.get_full_name }}</p>
+      </section>
+      <table>
+        <tr>
+          <th>Información de proyecto</th>
+          <th>Estado de proyecto </th>
+
+        </tr>
+        <tr>
+          <td>Nombre de categoría de la convocatoria : <strong>{{ project.subject }}</strong></td>
+          <td> {{ project.proceso  }}</td>
+
+        </tr>
+        <tr>
+          <td>Nombre de convocatoria: <strong>{{ project.course }}</strong></td>
+          <td>Observaciones técnicas: {{ project.recomend | richtext }}</td>
+        </tr>
+       
+        <tr>
+          <td>Fecha de postulación:<strong> {{ project.created }}</strong></td>
+  
+        </tr>
+      </table>
+
+
+ 
+
+
+      <table>
+        <thead>
+            <tr>
+                <th>Referencia Bibliográfica</th>
+                <th>Autores</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <fieldset>
+                        <legend>Primera Referencia bibliográfica</legend>
+                        <ul>
+                            <li><strong>Título:</strong> {{ biblio.title }}</li>
+                            <li><strong>Autor/es:</strong>
+                                <ul>
+                                   
+                                </ul>
+                            </li>
+                            <li><strong>Año de publicación:</strong> {{ biblio.publication_year }}</li>
+                            <li><strong>Revista:</strong> {{ biblio.journal }}</li>
+                            <li><strong>Volumen:</strong> {{ biblio.volume }}</li>
+                            <li><strong>Issue:</strong> {{ biblio.issue }}</li>
+                            <li><strong>Páginas:</strong> {{ biblio.pages }}</li>
+                            <li><strong>DOI:</strong> {{ biblio.doi }}</li>
+                            <li><strong>URL:</strong> {{ biblio.url }}</li>
+                            <li><strong>Abstract:</strong> {{ biblio.abstract }}</li>
+                        </ul>
+                        <legend>Número total de referencias bibliográficas en el proyecto: {{ biblio_num }}</legend>
+                    </fieldset>
+                </td>
+                <td>
+                    <fieldset>
+                        <legend>Información de autor principal</legend>
+                        <ul>
+                          <li> Nombre completo: {{ author.title}}</li>
+                          <li><strong>Actividad que desempeña en el proyecto</strong> 
+                           <p>{{ author.description}}</p> 
+                          </li>
+                        </ul>
+                    </fieldset>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table>
+      <thead>
+          <tr>
+              <th>Información del Jurado</th>
+              <th>Dictamen y Calificación</th>
+              <th>Resultado</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% if jury %}
+              <tr>
+                  <td>
+                      <ul>
+                          <li><strong>Nombre del Primer Jurado competente:</strong> {{ jury.nombre_1 }}</li>
+                          <li><strong>Nombre del Segundo Jurado competente:</strong> {{ jury.nombre_2 }}</li>
+                          <li><strong>Nombre del Tercer Jurado competente:</strong> {{ jury.nombre_3 }}</li>
+                      </ul>
+                  </td>
+                  <td>
+                      <ul>
+                          <li><strong>Dictamen del Primer Jurado:</strong> {{ jury.dictamen_1 | richtext }}</li>
+                          <li><strong>Calificación del Primer Jurado:</strong> {{ jury.calificacion_1 }}</li>
+                          <li><strong>Dictamen del Segundo Jurado:</strong> {{ jury.dictamen_2 | richtext }}</li>
+                          <li><strong>Calificación del Segundo Jurado:</strong> {{ jury.calificacion_2 }}</li>
+                          <li><strong>Dictamen del Tercer Jurado:</strong> {{ jury.dictamen_3 | richtext }}</li>
+                          <li><strong>Calificación del Tercer Jurado:</strong> {{ jury.calificacion_3 }}</li>
+                      </ul>
+                  </td>
+                  <td>
+                      <ul>
+                          <li><strong>Resultado:</strong> {{ jury.resultado }}</li>
+                      </ul>
+                  </td>
+              </tr>
+          {% else %}
+              <tr>
+                  <td colspan="3">No hay información de jurado disponible.</td>
+              </tr>
+          {% endif %}
+      </tbody>
+  </table>
+    
+      
+    </article>
+
+    <article id="skills">
+      <h3>Este documento es oficial y se ecuentra certificado digitalmente</h3>
+      </article>
+
+    
+
+
+  </body>
+</html>
