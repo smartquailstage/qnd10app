@@ -28,7 +28,9 @@ class Course(models.Model):
     subject = models.ForeignKey(Subject,
                                 related_name='courses',
                                 on_delete=models.CASCADE)
-    portada = models.ImageField(upload_to='portada/%Y/%m/%d/', blank=True, verbose_name="Foto de portada de convocatoria")
+    portada = models.ImageField(upload_to='portada/%Y/%m/%d/', blank=True, verbose_name="Foto de portada 1 de convocatoria")
+    portada_2 = models.ImageField(upload_to='portada/%Y/%m/%d/', blank=True, verbose_name="Foto de portada 2 de convocatoria")
+    portada_3 = models.ImageField(upload_to='portada/%Y/%m/%d/', blank=True, verbose_name="Foto de portada 3 de convocatoria")
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True)
     overview = models.TextField()
