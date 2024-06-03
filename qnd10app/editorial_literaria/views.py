@@ -41,7 +41,7 @@ class OwnerCourseMixin(OwnerMixin, LoginRequiredMixin):
 
 
 class OwnerCourseEditMixin(OwnerCourseMixin, OwnerEditMixin):
-    fields = ['portada','subject', 'title', 'slug', 'overview']
+    fields = ['portada','portada_2','portada_3','subject', 'title', 'slug', 'overview']
     success_url = reverse_lazy('editorial_literaria:manage_course_list')
     template_name = 'courses/manage/course/form.html'
 
