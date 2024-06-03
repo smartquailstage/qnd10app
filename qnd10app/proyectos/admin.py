@@ -2,7 +2,8 @@ import csv
 import xlsxwriter
 import datetime
 from django.contrib import admin
-from .models import Subject, Project, Author,BibliographicReference,Content,jurados,WorkPlan
+from .models import Subject, Project, Author,BibliographicReference,Content,jurados,WorkPlan,Content, CV
+from django.contrib.contenttypes.admin import GenericTabularInline
 from django.utils.safestring import mark_safe
 from django.contrib import admin
 from django.http import HttpResponse
@@ -96,14 +97,27 @@ class juradosInline(ReadOnlyAdminMixin,admin.StackedInline):
     
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ['owner','title', 'subject', 'created',proyecto_pdf]
+    list_display = ['get_owner_full_name','title', 'subject', 'created',proyecto_pdf]
     list_filter = ['created', 'subject']
     search_fields = ['title', 'overview']
     prepopulated_fields = {'slug': ('title',)}
     inlines = [BibliographicReferenceInline,AuthorInline,workplanInline,juradosInline]
     verbose_name_plural = "Convocatorias" 
 
-    def get_user_full_name(self, obj):
-        return obj.user.get_full_name()
-    get_user_full_name.short_description = 'Usuario'
+    def get_owner_full_name(self, obj):
+        return obj.owner.get_full_name() if obj.owner else ""
+    get_owner_full_name.short_description = 'Nombre del coordinador'
+
+
+class ContentInline(GenericTabularInline):
+    model = Content
+    extra = 0
+
+class CVAdmin(admin.ModelAdmin):
+    list_display = ('title', 'owner', 'created', 'updated')
+    search_fields = ('title',)
+    inlines = [ContentInline]
+    verbose_name = "Curriculums de autores"
+
+admin.site.register(CV, CVAdmin)
 

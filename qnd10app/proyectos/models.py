@@ -113,7 +113,7 @@ class Content(models.Model):
 
 class ItemBase(models.Model):
     owner = models.ForeignKey(User, related_name='%(class)s_related', on_delete=models.CASCADE)
-    title = models.CharField(max_length=250)
+    title = models.CharField(max_length=250, verbose_name="Escriba el nombre del proyecto al que desea vincular el archivo")
     created = models.DateTimeField(default=timezone.now)
     updated = models.DateTimeField(auto_now=True)
 
@@ -129,6 +129,8 @@ class ItemBase(models.Model):
 
 class CV(ItemBase):
     file = models.FileField(upload_to='files')
+    class Meta:
+        verbose_name = "Currículum de autor" 
 
 
 

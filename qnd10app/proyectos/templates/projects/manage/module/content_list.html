@@ -29,6 +29,38 @@
   </div>
   <!--end breadcrumb-->
 
+  <div class="card">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table id="example" class="table table-striped table-bordered" style="width:100%">
+          <thead>
+            <tr>
+              <th>Nombre de Proyecto</th>
+              <th>Nombre de autor registrado</th>
+          
+            </tr>
+          </thead>
+          <tbody>
+            {% with project=author.project %}
+            {% for m in project.authors.all %}
+            <tr>
+              <td>{{ project.title }}</td>
+             
+              <td> <a href="{% url "proyectos:author_content_list" m.id %}">{{ m.title }}</a></td>
+        
+          
+            </tr>
+            {% empty %}
+            <h3>No existe base técnica creada todavía. .</h3>
+          {% endfor %}
+          {% endwith %}
+          </tbody>
+
+        </table>
+      </div>
+    </div>
+  </div>
+
   {% with project=author.project %}
   <section class="shop-page">
     <div class="shop-container">
@@ -52,6 +84,8 @@
                       <h6>Rol en el proyecto:</h6>
                       <p class="mb-0">{{ author.description }}</p>
                     </div>
+
+                   
                 
                   </div>
                 </div>
@@ -121,6 +155,58 @@
                       </div>
                     </div>
                   </div>
+
+                   <div class="tab-pane fade show active" id="reviews" role="tabpanel">
+                <div class="row">
+                  <div class="col col-lg-8">
+                    <div class="product-review">
+                      <h5 class="mb-4"> {% for content in author.contents.all %}
+                        {% empty %}
+                 
+                      {% endfor %}</h5>
+                      <div class="review-list">
+                        {% for content in author.contents.all %}
+                        {% with item=content.item %}
+                        <div class="d-flex align-items-start">
+                          <div class="review-user">
+                            {% if item|model_name == 'text' %}
+                           <h5><ion-icon name="document-text-outline"></ion-icon></h5>
+                           {% elif item|model_name == 'video' %}
+                           <h5><ion-icon name="film-outline"></ion-icon></h5>
+                           {% elif item|model_name == 'file' %}
+                           <h5> <ion-icon name="attach-outline"></ion-icon></h5>
+                           {% elif item|model_name == 'image' %}
+                           <h5> <ion-icon name="image-outline"></ion-icon></h5>
+                           {% endif %}
+                          </div>
+                          <div class="review-content ms-3">
+                          
+                            <div class="d-flex align-items-center mb-2">
+                              <h6 class="mb-0"> {{ item }} </h6>
+                              <a href="{% url "proyectos:author_content_update" author.id item|model_name item.id %}"><h2><ion-icon name="create-outline"></ion-icon></h2></a>
+                              <form action="{% url "proyectos:author_content_delete" author.id %}" method="post">
+                                <button class="btn-danger" type="submit" value="Delete"><ion-icon name="trash-outline"></ion-icon> </button>
+                                {% csrf_token %}
+                              </form>
+
+                            </div>
+                      
+
+                          </div>
+                          {% endwith %}
+                        </div>
+                        <hr/>
+                        {% empty %}
+                        <p>Esta convocatoria no contiene archivos adjuntos ni contenidos adicionales.</p>
+                      {% endfor %}
+                      </div>
+                    </div>
+                  </div>
+
+ 
+                </div>
+                <!--end row-->
+              </div>
 
  
                 </div>
