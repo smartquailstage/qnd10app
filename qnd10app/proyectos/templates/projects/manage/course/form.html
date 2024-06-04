@@ -64,7 +64,7 @@
 
               {% for field in form.visible_fields %}
               {% if field.name == 'course' %}
-                <label for="{{ field.id }}" class="form-label">Convocatoría que desea postular este proyecto</label><br>
+                <label for="{{ field.id }}" class="form-label">Elija el nombre de la convocatoría, que desea postular este proyecto</label><br>
                 {% if field.errors %}
                   {% render_field field class="form-control" %}
                   {% for error in field.errors %}
@@ -85,7 +85,7 @@
 
               {% for field in form.visible_fields %}
               {% if field.name == 'subject' %}
-                <label for="{{ field.id }}" class="form-label">Categoría de convocatoría en Fomento Editorial y Literaría</label><br>
+                <label for="{{ field.id }}" class="form-label">Elija la categoría de convocatoría en Fomento Editorial y Literaría</label><br>
                 {% if field.errors %}
                   {% render_field field class="form-control" %}
                   {% for error in field.errors %}
@@ -102,6 +102,25 @@
               {% endif %}
             {% endfor %}
 
+            {% for field in form.visible_fields %}
+            {% if field.name == 'tematica' %}
+              <label for="{{ field.id }}" class="form-label">Elija la temática  para la convocatoría en Fomento Editorial y Literaría</label><br>
+              {% if field.errors %}
+                {% render_field field class="form-control" %}
+                {% for error in field.errors %}
+                  <div class="invalid-feedback">
+                    {{ error }}
+                  </div>
+                {% endfor %}
+              {% else %}
+                {% render_field field class="form-control"  %}
+              {% endif %}
+              {% if field.help_text %}
+                <small class="form-text text-muted">{{ field.help_text }}</small>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+
    
 
           
@@ -110,7 +129,7 @@
 
             {% for field in form.visible_fields %}
               {% if field.name == 'title' %}
-                <label for="{{ field.id }}" class="form-label">Título de Convocatoria</label><br>
+                <label for="{{ field.id }}" class="form-label">Escriba el título del proyecto editorial que desea postular.</label><br>
                 {% if field.errors %}
                   {% render_field field class="form-control" %}
                   {% for error in field.errors %}
@@ -131,7 +150,7 @@
 
             {% for field in form.visible_fields %}
               {% if field.name == 'slug' %}
-                <label for="{{ field.id }}" class="form-label">re-scriba el titulo de la convocatoria, en minusculas y los espacios reemplaze con - </label><br>
+                <label for="{{ field.id }}" class="form-label">Re escriba el título de la convocatoria, en minusculas y los espacios reemplaze con - </label><br>
                 {% if field.errors %}
                   {% render_field field class="form-control" %}
                   {% for error in field.errors %}
@@ -152,7 +171,7 @@
 
             {% for field in form.visible_fields %}
               {% if field.name == 'cv' %}
-                <label for="{{ field.id }}" class="form-label">Curriculm Vitale del coordinar del proyecto</label><br>
+                <label for="{{ field.id }}" class="form-label">Adjunte el curriculm vitale del coordinador principal del proyecto</label><br>
                 {% if field.errors %}
                   {% render_field field class="form-control" %}
                   {% for error in field.errors %}
@@ -178,7 +197,7 @@
           
               {% for field in form.visible_fields %}
               {% if field.name == 'overview' %}
-                <label for="{{ field.id }}" class="form-label">Resumen de Proyecto a postular</label><br>
+                <label for="{{ field.id }}" class="form-label">Escriba un breve resumen del proyecto a postular</label><br>
                 {% if field.errors %}
                   {% render_field field class="form-control" %}
                   {% for error in field.errors %}
@@ -199,7 +218,7 @@
 
             {% for field in form.visible_fields %}
             {% if field.name == 'plan' %}
-              <label for="{{ field.id }}" class="form-label">Plan de uso del incentivo.</label><br>
+              <label for="{{ field.id }}" class="form-label">Describa su plan de uso del incentivos.</label><br>
               {% if field.errors %}
                 {% render_field field class="form-control" %}
                 {% for error in field.errors %}

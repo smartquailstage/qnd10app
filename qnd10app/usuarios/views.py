@@ -17,6 +17,8 @@ from django.conf import settings
 from django.template.loader import render_to_string
 from django.contrib.admin.views.decorators import staff_member_required
 import weasyprint
+from django.conf import settings
+from pathlib import Path
 from django.core.cache import cache
 from editorial_literaria.models import ManualCreateConvocatoria, ManualEditConvocatoria,ManualInscripcion
 from .models import PrivacyPolicy, TermsOfUse, ActivityPrivacyPolicy,ActivityTermsOfUse
@@ -399,15 +401,31 @@ def config_view(request):
     return render(request, 'usuarios/config.html', {'profile': profile})
 
 
+
+
 @staff_member_required
 def admin_profile_pdf(request, profile_id):
-    profile = get_object_or_404(Profile, id=profile_id)
-    html = render_to_string('usuarios/pdf_profiles/pdf.html',
-                            {'profile': profile})
-    response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'filename=order_{}.pdf"'.format(profile.id)
-    weasyprint.HTML(string=html,  base_url=request.build_absolute_uri() ).write_pdf(response,stylesheets=[weasyprint.CSS('static/assets/css/profiles.css')], presentational_hints=True)
-    return response
+    try:
+        profile = get_object_or_404(Profile, id=profile_id) 
+        contacts = get_object_or_404(Contacts, id=profile_id)   
+        legal = get_object_or_404(Legal, id=profile_id)  
+        activity = get_object_or_404(Activity, id=profile_id)  
+        declaratoria = get_object_or_404(DeclaracionVeracidad, id=profile_id)  
+        html = render_to_string('usuarios/pdf_profiles/pdf.html', {'profile': profile,'contacts':contacts,'legal':legal, 'activity':activity, 'declaratoria':declaratoria})
+
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'filename="order_{}.pdf"'.format(profile.id)
+
+        # Obtener la ruta completa al archivo CSS usando Path
+        css_path = Path(settings.STATIC_ROOT) / 'css' / 'pdf_reports' / 'report.css'
+
+        # Renderizar el PDF
+        weasyprint.HTML(string=html, base_url=request.build_absolute_uri()).write_pdf(response, stylesheets=[weasyprint.CSS(str(css_path))], presentational_hints=True)
+        
+        return response
+    except Exception as e:
+        # Manejar cualquier excepción y devolver una respuesta de error
+        return HttpResponse("Ocurrió un error al generar el PDF: {}".format(str(e)), status=500)
 
 def sidebar(request):
     terminos  = DeclaracionVeracidad.objects.get(user=request.user)

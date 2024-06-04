@@ -44,7 +44,7 @@ class OwnerEditMixin(object):
 
 class OwnerProjectMixin(OwnerMixin, LoginRequiredMixin):
     model = Project
-    fields = ['course','subject', 'title', 'slug', 'overview','plan','cv']
+    fields = ['course','subject','tematica','title', 'slug', 'overview','plan','cv']
     success_url = reverse_lazy('proyectos:manage_project_list')
 
     def get_context_data(self, **kwargs):
@@ -83,7 +83,7 @@ class OwnerProjectMixin(OwnerMixin, LoginRequiredMixin):
         return declaracion.acepta_terminos_condiciones
 
 class OwnerProjectEditMixin(OwnerProjectMixin, OwnerEditMixin):
-    fields = ['course','subject', 'title', 'slug', 'overview','plan','cv']
+    fields = ['course','subject','tematica', 'title', 'slug', 'overview','plan','cv']
     success_url = reverse_lazy('proyectos:manage_project_list')
     template_name = 'projects/manage/course/form.html'
 
@@ -157,7 +157,7 @@ class ContentCreateUpdateView(TemplateResponseMixin, View):
         return None
 
     def get_form(self, model, *args, **kwargs):
-        Form = modelform_factory(model, exclude=['owner',
+        Form = modelform_factory(model, exclude=['user',
                                                  'order',
                                                  'created',
                                                  'updated'])

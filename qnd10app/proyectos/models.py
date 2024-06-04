@@ -20,6 +20,17 @@ class Subject(models.Model):
 
     def __str__(self):
         return self.title
+    
+class tematica(models.Model):
+    title = models.CharField(max_length=200)
+    slug = models.SlugField(max_length=200, unique=True)
+
+    class Meta:
+        ordering = ['title']
+        verbose_name_plural = "Temáticas de Convocatoria" 
+
+    def __str__(self):
+        return self.title
 
     
 class Project(models.Model):
@@ -32,6 +43,7 @@ class Project(models.Model):
     
     owner = models.ForeignKey(User, related_name='projects_created', on_delete=models.CASCADE)
     subject = models.ForeignKey(Subject, related_name='proyectos_subject', on_delete=models.CASCADE, verbose_name="Nombre de categoría de convocatoria a la que se desea postular", help_text="Seleccione la categoría de la convocatoria en la que desea postular")
+    tematica = models.ForeignKey(tematica, related_name='tematica_subject', on_delete=models.CASCADE, verbose_name="Nombre de tematica de convocatoria a la que se desea postular", help_text="Seleccione la temática de la convocatoria en la que desea postular",null=True,blank=True)
     #portada = models.ImageField(upload_to='portada/%Y/%m/%d/', blank=True, verbose_name="Foto de portada de convocatoria")
     title = models.CharField(max_length=300, verbose_name="Título del proyecto")
     slug = models.SlugField(max_length=200, unique=True)
@@ -57,8 +69,8 @@ class WorkPlan(models.Model):
     project = models.ForeignKey(Project, related_name='workplan', on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=200, verbose_name="Nombre de la Actividad")
     description = models.TextField(verbose_name="Describa los pasos que va a seguir para desarollar la actividad en el plan")
-    start_date = models.DateField(verbose_name="Fecha de comienzo de actividad")
-    end_date = models.DateField(verbose_name="Fecha de finalización de actividad")
+    start_date = models.DateField(verbose_name="Fecha de comienzo de actividad", help_text="Escribir la fecha de inicio de la actividad. Ej. 12/12/2023")
+    end_date = models.DateField(verbose_name="Fecha de finalización de actividad",help_text="Escribir la fecha de final de la actividad. Ej. 01/15/2024")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE,verbose_name="Nombre usuario", null=True, blank=True)
@@ -70,8 +82,8 @@ class BibliographicReference(models.Model):
     project = models.ForeignKey(Project, related_name='biblio', on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=255,verbose_name="Escriba el título de la obra")
     authors = models.CharField(max_length=255,verbose_name="Escriba el nombre del primer autor")
-    publication_year = models.PositiveIntegerField(verbose_name="Escriba la fecha de publicación")
-    journal = models.CharField(max_length=255, blank=True, null=True, verbose_name="Escriba el año de publicación")
+    publication_year = models.PositiveIntegerField(verbose_name="Escriba el año de publicación")
+    journal = models.CharField(max_length=255, blank=True, null=True, verbose_name="Escriba el nombre de la editorial")
     volume = models.CharField(max_length=50, blank=True, null=True,verbose_name="Escriba el volumen")
     issue = models.CharField(max_length=50, blank=True, null=True, verbose_name="Escriba lugar de publicación")
     pages = models.CharField(max_length=50, blank=True, null=True, verbose_name="Escriba el número de páginas")
@@ -90,7 +102,7 @@ class Author(models.Model):
    # first_name = models.CharField(max_length=200,null=True,blank=True)
    # last_name = models.CharField(max_length=200,null=True,blank=True)
 
-    description = models.TextField(blank=True)
+    description = models.TextField(blank=True,verbose_name="Describa la actividad que desempeña el autor en el proyecto")
     order = OrderField(blank=True, for_fields=['project'])
 
     class Meta:

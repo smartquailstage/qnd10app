@@ -9,7 +9,7 @@
 {% load bootstrap_tags %}
 
 {% block title %}
-  Module {{ module.order|add:1 }}: {{ module.title }}
+
 {% endblock %}
 
 {% block content %}
@@ -22,7 +22,7 @@
     <div class="breadcrumb-title pe-3">Subir curriculum vitae adjunto al proyecto</div>
     <div class="ps-3">
   {% with project=author.project %}
-  {{ project.title }}
+  <a href=" {% url 'proyectos:manage_project_list' %}">{{ project.title }}</a>
   {% endwith %}
     </div>
 

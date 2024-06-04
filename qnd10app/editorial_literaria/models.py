@@ -19,6 +19,7 @@ class Subject(models.Model):
 
     def __str__(self):
         return self.title
+    
 
 
 class Course(models.Model):

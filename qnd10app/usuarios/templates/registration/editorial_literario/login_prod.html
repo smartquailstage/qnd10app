@@ -18,7 +18,21 @@
         <p class="text-left">Sistema de gestión de convocatorias para fomento editorial y literario de la Secretaría de Cultura del Distrito Metropolitano de Quito. </p>
         <form class="form-body row g-3" method="post">
           {% csrf_token %}
-   
+          <div class="col-12 col-lg-12">
+            <div class="d-grid gap-2">
+              <a href="{% url 'social:begin' 'facebook' %}" class="btn border border-2 border-primary"><img
+                  src="{% static 'assets/images/icons/facebook.png' %}" width="20" alt=""><span
+                  class="ms-3 fw-500">Ingresar con Facebook</span></a>
+              <a href="{% url 'social:begin' 'twitter' %}" class="btn border border-2 border-dark"><img
+                  src="{% static 'assets/images/icons/google.png' %}" width="20" alt=""><span
+                  class="ms-3 fw-500">
+                  Ingresar con Google</span></a>
+              <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn border border-2 border-dark"><img
+                  src="{% static 'assets/images/icons/twitter.png' %}" width="20" alt=""><span
+                  class="ms-3 fw-500">
+                  Ingresar con Twitter</span></a>
+            </div>
+          </div>
           <div class="col-12 col-lg-12">
             <div class="position-relative border-bottom my-3">
               <div class="position-absolute seperator-2 translate-middle-y">O</div>

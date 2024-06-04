@@ -68,9 +68,10 @@
                         </span>
                       </td>
                       <div class="form-body p-3 rounded border bg-warning">
-                        <p class="mb-4" style="color:azure;margin-bottom:-0.5rem;" >El  proyecto editorial "{{ project.title }}" ha sido postulado satisfactoriamente a la
+                        <p class="mb-4" style="color:azure;margin-bottom:-0.5rem;" >El  proyecto editorial "{{ project.title }}" se encuentra activo a la
                            convocatoria de fomento editorial y literario, {{project.course}}, en la categoría de {{project.subject}}.
-                           Este proyecto será verficado en las próximas horas por  técnicos competentes de la secretaría de cultura del distrito metropolitano de Quito.</p>
+                           Este proyecto será verficado en las próximas horas por  técnicos competentes de la secretaría de cultura del distrito metropolitano de Quito. 
+                          Mantengase pendiente de la plataforma para futuras notificaciones.</p>
                       </div>
                       {% elif project.proceso == 'Subsanación' %}
                       <td>
@@ -112,6 +113,8 @@
                         <dd class="col-sm-9">{{ project.course }}</dd>	
                         <dt class="col-sm-3">Categoría de convocatoria:</dt>
                         <dd class="col-sm-9">{{ project.subject }}</dd>	
+                        <dt class="col-sm-3">Temática de la convocatoria:</dt>
+                        <dd class="col-sm-9">{{ project.tematica }}</dd>	
 
                         <dt class="col-sm-3">Última actualización:</dt>
                         <dd class="col-sm-9">{{ project.created }}</dd>	
@@ -137,7 +140,8 @@
                         </a> 
 
                         {% if project.authors.count > 0 %}
-                        <a class="btn btn-light btn-ecomm"   href="{% url "proyectos:author_content_list" project.authors.first.id %}" title="Agregar Curriculm Vitale" ><ion-icon name="document-attach-outline"></ion-icon>Agregar hojas de vida</a>
+                        <a class="btn btn-light btn-ecomm"   href="{% url "proyectos:author_content_list" project.authors.first.id %}" title="Agregar Curriculm Vitale" >
+                          <ion-icon name="document-attach-outline"></ion-icon>Adjuntar contenidos a autores del proyecto</a>
                         
                         {% endif %}
 
@@ -182,7 +186,7 @@
                       </ul>
                       
                     </div>  
-                    <a class="btn btn-danger btn-ecomm" href="{% url "proyectos:project_delete" project.id %}" title="Eliminar Proyecto" style="color:rgb(255, 255, 255);" ><ion-icon name="trash-outline"></ion-icon>Desestimar proyecto de convocatoria</a>
+
                 </div>
                 {% endfor %}
               
