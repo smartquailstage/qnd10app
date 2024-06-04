@@ -2,7 +2,7 @@ import csv
 import xlsxwriter
 import datetime
 from django.contrib import admin
-from .models import Subject, Project, Author,BibliographicReference,Content,jurados,WorkPlan,Content, CV
+from .models import Subject, Project, Author,BibliographicReference,Content,jurados,WorkPlan,Content, CV,tematica
 from django.contrib.contenttypes.admin import GenericTabularInline
 from django.utils.safestring import mark_safe
 from django.contrib import admin
@@ -70,6 +70,12 @@ class SubjectAdmin(admin.ModelAdmin):
     list_display = ['title', 'slug']
     prepopulated_fields = {'slug': ('title',)}
     verbose_name_plural = "Modulos de Convocatoria" 
+
+@admin.register(tematica)
+class tematicaAdmin(admin.ModelAdmin):
+    list_display = ['title', 'slug']
+    prepopulated_fields = {'slug': ('title',)}
+    verbose_name_plural = "Temáticas del proyecto 
 
 class AuthorInline(admin.StackedInline):
     model = Author
