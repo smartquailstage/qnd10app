@@ -75,7 +75,7 @@ class SubjectAdmin(admin.ModelAdmin):
 class tematicaAdmin(admin.ModelAdmin):
     list_display = ['title', 'slug']
     prepopulated_fields = {'slug': ('title',)}
-    verbose_name_plural = "Temáticas del proyecto 
+    verbose_name_plural = "Temáticas del proyecto" 
 
 class AuthorInline(admin.StackedInline):
     model = Author
