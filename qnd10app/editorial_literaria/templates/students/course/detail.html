@@ -4,7 +4,7 @@
 {% load wagtailimages_tags %}
 {% load widget_tweaks %}
 {% load static %}
-{% load cache %}
+
 
 {% block title %}
     {{ object.title }}
@@ -21,11 +21,12 @@
         <div class="card-header py-3">
              <div class="row align-items-center g-3">
                <div class="col-12 col-lg-6">
-                 <h5 class="mb-0">Bases Técnicas</h5>
+                 <h5 class="mb-0">Bases Técnicas </h5>
                </div>
 
              </div>
         </div>
+      
 
        <div class="card-body">
          <div class="table-responsive">
@@ -64,7 +65,7 @@
 
        </div>
       </div>
-{% cache 600 module_contents module %}
+
             {% for content in module.contents.all %}
                 {% with item=content.item %}
       <div class="card radius-10">
@@ -78,7 +79,7 @@
        </div>
      {% endwith %}
             {% endfor %}
-        {% endcache %}
+       
          
         <div class="card radius-10">
          <div class="card-body">
