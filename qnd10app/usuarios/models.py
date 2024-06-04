@@ -723,7 +723,7 @@ class Legal(models.Model):
     representante_legal_nombre = models.CharField(max_length=255, blank=True, null=True, verbose_name="Nombre del Representante Legal")
     representante_legal_apellido = models.CharField(max_length=255, blank=True, null=True, verbose_name="Apellido del Representante Legal")
     representante_legal_cedula = models.CharField(max_length=20, blank=True, null=True, verbose_name="Cédula del Representante Legal")
-    ruc = models.CharField(max_length=13, blank=True, null=True, verbose_name="RUC")
+    ruc = models.CharField(max_length=13, verbose_name="RUC / C.I", help_text="SEscriba su R.U.C o C.I")
     phone_regex = RegexValidator(
         regex=r'^\+?593?\d{9,15}$',
         message="El número de teléfono debe estar en formato internacional. Ejemplo: +593XXXXXXXXX."
