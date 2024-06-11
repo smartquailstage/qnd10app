@@ -161,6 +161,7 @@ class ContentCreateUpdateView(TemplateResponseMixin, View):
                                                  'order',
                                                  'created',
                                                  'updated'])
+        Form.base_fields.pop('owner', None)
         return Form(*args, **kwargs)
 
     def dispatch(self, request, author_id, model_name, id=None):
