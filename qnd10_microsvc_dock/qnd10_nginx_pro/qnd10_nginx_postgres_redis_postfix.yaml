@@ -72,15 +72,14 @@ services:
 
   postfix:
     image: smartquail/qnd10postfix:prod
-    restart: always
-    environment:
-      - PORT=25
+    restart: always      
     env_file:
       - .env_postfix
     expose:
       - 25
     environment:
-      - TZ=America/Guayaquil  # Zona horaria según tu ubicación
+      - TZ=America/Guayaquil  
+      - PORT=25 # Zona horaria según tu ubicación
     ports:
       - "25:25" 
     volumes:
