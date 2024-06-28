@@ -6,7 +6,6 @@ RUN apk add --no-cache \
     bash \
     postfix \
     postfix-pcre \
-    mailutils \
     openssl \
     && rm -rf /var/cache/apk/*
 
@@ -29,12 +28,13 @@ RUN postconf -e "myhostname = mail.smartquail.io" \
     && postconf -e "smtp_use_tls = yes" \
     && postconf -e "smtp_sasl_auth_enable = yes" \
     && postconf -e "smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd" \
-    && postconf -e "smtp_sasl_security_options = noanonymous"
+    && postconf -e "smtp_sasl_security_options = noanonymous"\
+    && postconf -e "message_size_limit = 10240000"
 
 # Crear archivo sasl_passwd
 RUN echo "[smtp.gmail.com]:587    phys.mauricio.silva@gmail.com:ms95355672" > /etc/postfix/sasl_passwd
 RUN postmap /etc/postfix/sasl_passwd
-RUN chmod 600 /etc/postfix/sasl_passwd /etc/postfix/sasl_passwd.db
+#RUN chmod 600 /etc/postfix/sasl_passwd /etc/postfix/sasl_passwd.db
 
 # Volumen para el spool de Postfix
 VOLUME ["/var/spool/postfix"]
@@ -44,3 +44,4 @@ ENTRYPOINT ["/etc/postfix/postfix-service.sh"]
 
 # Exponer el puerto 25 (SMTP)
 EXPOSE 25
+                                         
