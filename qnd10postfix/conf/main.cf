@@ -60,4 +60,4 @@ smtpd_relay_restrictions =
 ###############
 # Extra Settings
 ###############
-maillog_file = /dev/stdout
+maillog_file = /var/log/mail.log
