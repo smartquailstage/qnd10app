@@ -75,6 +75,8 @@ services:
     restart: always
     environment:
       - PORT=25
+    env_file:
+      - .env_postfix
     expose:
       - 25
     environment:
