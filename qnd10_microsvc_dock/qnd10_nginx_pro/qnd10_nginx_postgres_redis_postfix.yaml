@@ -73,15 +73,17 @@ services:
   postfix:
     image: smartquail/qnd10postfix:prod
     restart: unless-stopped
-    env_file:
-      - .env_postfix
     environment:
       - PORT=25
+    environment:
+      - TZ=America/Guayaquil  # Zona horaria según tu ubicación
+    entrypoint: /etc/postfix/entrypoint.sh
     ports:
       - "25:25" 
     volumes:
       - postfix-data-qnd10:/var/spool/postfix
       - postfix-data-qnd10:/var/mail
+      - postfix-data-qnd10:/var/log/mail.log
  
 
 
