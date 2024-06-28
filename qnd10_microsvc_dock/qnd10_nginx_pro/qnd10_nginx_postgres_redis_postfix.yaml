@@ -78,9 +78,10 @@ services:
     environment:
       - PORT=25
     ports:
-      - "25:24" 
+      - "25:25" 
     volumes:
       - postfix-data-qnd10:/var/spool/postfix
+      - postfix-data-qnd10:/var/mail
  
 
 
