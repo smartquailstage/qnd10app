@@ -79,7 +79,6 @@ services:
       - 25
     environment:
       - TZ=America/Guayaquil  # Zona horaria según tu ubicación
-    entrypoint: /etc/postfix/entrypoint.sh
     ports:
       - "25:25" 
     volumes:
