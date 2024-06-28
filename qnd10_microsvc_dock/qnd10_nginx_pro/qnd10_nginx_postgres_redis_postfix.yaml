@@ -72,7 +72,7 @@ services:
 
   postfix:
     image: smartquail/qnd10postfix:prod
-    restart: unless-stopped
+    restart: always
     environment:
       - PORT=25
     expose:
