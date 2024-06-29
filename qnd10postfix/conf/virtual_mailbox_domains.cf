@@ -1,0 +1,6 @@
+user = ${PGSQL_USER}
+password = ${PGSQL_PASSWORD}
+dbname = ${PGSQL_DBNAME}
+hosts = ${PGSQL_HOST}
+
+query = SELECT domain FROM virtual_domains WHERE domain='%s'

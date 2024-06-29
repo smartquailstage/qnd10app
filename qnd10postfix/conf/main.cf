@@ -93,3 +93,11 @@ smtpd_sasl_local_domain = $myhostname
 ###############
 
 maillog_file = /dev/stdout
+
+##############
+# PosgreSql configuration
+###############
+
+virtual_mailbox_domains = /etc/postfix/sql/virtual_mailbox_domains.cf
+virtual_mailbox_maps = /etc/postfix/sql/virtual_mailbox_maps.cf
+virtual_alias_maps = etc/postfix/sql/virtual_alias_maps.cf
