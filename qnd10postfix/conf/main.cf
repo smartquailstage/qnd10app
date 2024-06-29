@@ -27,7 +27,7 @@ relayhost = {{ RELAYHOST }}
 ###############
 
 # Delay all rejects until all information can be logged
-smtpd_delay_reject = yes
+smtpd_delay_reject = no
 append_dot_mydomain = no
 
 # Allowed senders are: the user or one of the alias destinations
