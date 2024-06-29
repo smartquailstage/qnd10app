@@ -13,10 +13,12 @@ RUN apk add --no-cache \
     cyrus-sasl-dev \
     curl
 
+# Copiar el archivo postfix-3.7.11.tar.gz desde tu contexto local al contenedor
+COPY postfix-3.7.11.tar.gz /tmp/postfix-3.7.11.tar.gz
+
 # Descargar y compilar Postfix con soporte para PostgreSQL
-RUN curl -LO http://cdn.postfix.johnriley.me/mirrors/postfix-release/official/postfix-3.7.11.tar.gz && \
-    tar -zxvf postfix-3.7.11.tar.gz && \
-    cd postfix-3.7.11 && \
+RUN tar -zxvf /tmp/postfix-3.7.11.tar.gz -C /tmp/ && \
+    cd /tmp/postfix-3.7.11 && \
     make makefiles CCARGS="-DHAS_PCRE -DUSE_TLS -DUSE_SASL_AUTH -DUSE_CYRUS_SASL -I/usr/include/sasl -DUSE_PCRE -DDEF_SERVER_SASL_TYPE=CYRUS -DDEF_SERVER_SASL_PATH=\"/var/spool/postfix/private/auth\"" AUXLIBS="-lpcre -lsasl2" && \
     make && make install
 
