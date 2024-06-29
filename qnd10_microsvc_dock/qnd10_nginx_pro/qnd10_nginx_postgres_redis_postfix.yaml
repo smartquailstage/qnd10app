@@ -94,6 +94,8 @@ services:
       - postfix-spools:/var/spool/postfix
       - postfix-mail:/var/mail
       - postfix-logs:/var/log
+    depends_on:
+      - smartquaildb
    
 
   pgadmin:
