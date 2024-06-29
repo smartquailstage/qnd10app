@@ -4,7 +4,7 @@ LABEL MAINTAINER="Mauricio Silva <mausilva@smartquail.io.com>"
 RUN apk add --no-cache bash postfix postfix-pcre 
 
 COPY conf /etc/postfix
-COPY virtual /etc/postfix/
+
 COPY mail.smartquail.io/certs/fullchain.pem /etc/ssl/certs/
 COPY mail.smartquail.io/private/privkey.pem /etc/ssl/private/
 
