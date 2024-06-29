@@ -81,7 +81,6 @@ services:
       - postfix-spools:/var/spool/postfix
       - postfix-mail:/var/mail
       - postfix-logs:/var/log
-      - ./overrides/postfix.cf:/etc/postfix/postfix.cf:ro
     env_file:
       - .env_postfix
 
