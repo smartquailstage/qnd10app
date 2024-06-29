@@ -73,6 +73,20 @@ services:
   postfix:
     image: smartquail/qnd10postfix:prod
     restart: always
+    environment:
+      - myhostname=mail.smartquail.io
+      - mydomain=smartquail.io
+      - myorigin=$mydomain
+      - mydestination=$myhostname, $mydomain
+      - inet_interfaces=all
+      - inet_protocols=ipv4
+      - smtp_bind_address=0.0.0.0
+      - smtpd_tls_cert_file=/etc/ssl/certs/fullchain.pem
+      - smtpd_tls_key_file=/etc/ssl/private/privkey.pem
+      - smtpd_sasl_auth_enable=yes
+      - smtpd_recipient_restrictions=permit_sasl_authenticated,reject_unauth_destination
+      - debug_peer_list=127.0.0.1
+      - debug_peer_level=2
     expose:
       - "25"
     ports:
@@ -81,8 +95,7 @@ services:
       - postfix-spools:/var/spool/postfix
       - postfix-mail:/var/mail
       - postfix-logs:/var/log
-    env_file:
-      - .env_postfix
+   
 
   mailhog:
     image: mailhog/mailhog:latest
