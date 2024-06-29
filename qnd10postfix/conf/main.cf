@@ -63,7 +63,7 @@ smtpd_relay_restrictions =
    permit_sasl_authenticated,
    defer_unauth_destination
 
-smtpd_relay_before_recipient_restrictions = yes
+smtpd_relay_before_recipient_restrictions = no
 
 ###############
 # Extra Settings
