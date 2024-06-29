@@ -4,6 +4,16 @@ function log {
   echo `date` $ME - $@
 }
 
+function addUserInfo {
+  # Add user 'info' if it doesn't exist
+  if ! id -u info &>/dev/null; then
+    log "Adding user 'info'"
+    adduser -D -H info
+  else
+    log "User 'info' already exists"
+  fi
+}
+
 function serviceConf {
   # Check hostname variable
   if [[ ! ${HOSTNAME} =~ \. ]]; then
@@ -40,6 +50,7 @@ function serviceConf {
 }
 
 function serviceStart {
+  addUserInfo
   serviceConf
   # Actually run Postfix
   log "[ Starting Postfix... ]"
