@@ -50,7 +50,6 @@ smtpd_sender_restrictions =
 
 # Recipient restrictions:
 smtpd_recipient_restrictions =
-   reject_unauth_pipelining,
    reject_non_fqdn_recipient,
    permit_sasl_authenticated,
    permit_mynetworks,
@@ -61,8 +60,7 @@ smtpd_recipient_restrictions =
 # Relay restrictions
 smtpd_relay_restrictions = 
    permit_mynetworks,
-   permit_sasl_authenticated,
-   defer_unauth_destination
+   permit_sasl_authenticated
 
 
 
