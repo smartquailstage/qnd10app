@@ -60,7 +60,8 @@ smtpd_recipient_restrictions =
 # Relay restrictions
 smtpd_relay_restrictions = 
    permit_mynetworks,
-   reject
+   permit_sasl_authenticated,
+   defer_unauth_destination
 
 ###############
 # Extra Settings
