@@ -13,13 +13,11 @@ message_size_limit = {{ MESSAGE_SIZE_LIMIT }}
 # Relayed networks
 mynetworks = 127.0.0.1/32 [::1]/128 {{ RELAYNETS }}
 
-local_transport = var/spool/postfix/private/transport
-
-
-
+# Local transport
+local_transport = unix:/var/spool/postfix/private/transport
 
 # Empty alias list to override the configuration variable and disable NIS
-alias_maps =
+alias_maps = 
 
 # Only accept virtual emails
 mydestination = $myhostname, $mydomain, localhost.localdomain, localhost, mail.smartquail.io, mail
@@ -40,44 +38,35 @@ smtpd_sender_login_maps = $virtual_alias_maps
 
 # Helo restrictions are specified for smtp only in master.cf
 smtpd_helo_required = yes
-smtpd_sasl_auth_enable = yes
+
 # Sender restrictions
 smtpd_sender_restrictions =
-   permit_mynetworks,
-   permit_sasl_authenticated,
-   reject_non_fqdn_sender,
-   reject_unknown_sender_domain,
-   reject_unlisted_sender,
-   reject_sender_login_mismatch,
-   reject_authenticated_sender_login_mismatch, 
-   reject_unauthenticated_sender_login_mismatch
-   permit
+    permit_mynetworks,
+    permit_sasl_authenticated,
+    reject_non_fqdn_sender,
+    reject_unknown_sender_domain,
+    reject_unlisted_sender,
+    reject_sender_login_mismatch,
+    reject_authenticated_sender_login_mismatch,
+    reject_unauthenticated_sender_login_mismatch,
+    permit
 
-# Recipient restrictions:
+# Recipient restrictions
 smtpd_recipient_restrictions =
     permit_mynetworks,
     permit_sasl_authenticated,
     permit
 
-smtpd_relay_restrictions = 
+# Relay restrictions
+smtpd_relay_restrictions =
     permit_mynetworks,
     permit_sasl_authenticated,
     reject_unauth_destination
 
+###############
+# TLS Settings
+###############
 
-
-smtpd_tls_cert_file = /etc/ssl/certs/fullchain.pem
-smtpd_tls_key_file = /etc/ssl/private/privkey.pem
-
-# Configuración SASL
-smtpd_sasl_auth_enable = yes
-smtpd_sasl_type = cyrus
-smtpd_sasl_path = smtpd
-smtpd_sasl_authenticated_header = yes
-smtpd_sasl_security_options = noanonymous
-smtpd_sasl_local_domain =
-
-# Configuración de TLS (opcional)
 smtp_tls_security_level = may
 smtpd_tls_security_level = may
 smtpd_tls_auth_only = yes
@@ -87,12 +76,19 @@ smtpd_tls_received_header = yes
 smtpd_tls_session_cache_timeout = 3600s
 tls_random_source = dev:/dev/urandom
 
+###############
+# SASL Settings
+###############
 
-
-
-
+smtpd_sasl_auth_enable = yes
+smtpd_sasl_type = cyrus
+smtpd_sasl_path = smtpd
+smtpd_sasl_authenticated_header = yes
+smtpd_sasl_security_options = noanonymous
+smtpd_sasl_local_domain =
 
 ###############
 # Extra Settings
 ###############
+
 maillog_file = /dev/stdout
