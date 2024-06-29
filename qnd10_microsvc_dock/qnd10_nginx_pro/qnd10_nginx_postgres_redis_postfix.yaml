@@ -74,12 +74,12 @@ services:
     image: smartquail/qnd10postfix:prod
     restart: always
     environment:
-      - myhostname=mail.smartquail.io
-      - mydomain=smartquail.io
-      - myorigin=$mydomain
-      - mydestination=$myhostname, $mydomain
-      - inet_interfaces=all
-      - inet_protocols=ipv4
+      - myhostname= mail.smartquail.io
+      - mydomain= smartquail.io
+      - myorigin= $mydomain
+      - mydestination= $myhostname, $mydomain
+      - inet_interfaces= all
+      - inet_protocols= ipv4
       - smtp_bind_address=0.0.0.0
       - smtpd_tls_cert_file=/etc/ssl/certs/fullchain.pem
       - smtpd_tls_key_file=/etc/ssl/private/privkey.pem
