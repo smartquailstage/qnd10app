@@ -13,7 +13,8 @@ message_size_limit = {{ MESSAGE_SIZE_LIMIT }}
 # Relayed networks
 mynetworks = 127.0.0.1/32 [::1]/128 {{ RELAYNETS }}
 
-local_transport = unix:procmail
+local_transport = unix:/var/spool/postfix/transport
+
 
 
 # Empty alias list to override the configuration variable and disable NIS
