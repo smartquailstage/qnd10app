@@ -17,7 +17,7 @@ mynetworks = 127.0.0.1/32 [::1]/128 {{ RELAYNETS }}
 alias_maps =
 
 # Only accept virtual emails
-mydestination = $myhostname, $mydomain, localhost.localdomain, localhost
+mydestination = $myhostname, $mydomain, localhost.localdomain, localhost, mail.smartquail.io, mail
 
 # Relayhost if any is configured
 relayhost = {{ RELAYHOST }}
