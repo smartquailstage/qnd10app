@@ -1,11 +1,20 @@
 FROM alpine:3.16
 LABEL MAINTAINER="Mauricio Silva <mausilva@smartquail.io.com>"
 
-# Instalar dependencias necesarias para compilar Postfix y para PostgreSQL
-RUN apk add --no-cache bash build-base linux-pam-dev openssl-dev pcre-dev postgresql-dev postgresql-client cyrus-sasl-dev
+# Instalar curl y otras dependencias necesarias para compilar Postfix y para PostgreSQL
+RUN apk add --no-cache \
+    bash \
+    build-base \
+    linux-pam-dev \
+    openssl-dev \
+    pcre-dev \
+    postgresql-dev \
+    postgresql-client \
+    cyrus-sasl-dev \
+    curl
 
 # Descargar y compilar Postfix con soporte para PostgreSQL
-RUN wget http://cdn.postfix.johnriley.me/mirrors/postfix-release/official/postfix-3.7.11.tar.gz && \
+RUN curl -LO http://cdn.postfix.johnriley.me/mirrors/postfix-release/official/postfix-3.7.11.tar.gz && \
     tar -zxvf postfix-3.7.11.tar.gz && \
     cd postfix-3.7.11 && \
     make makefiles CCARGS="-DHAS_PCRE -DUSE_TLS -DUSE_SASL_AUTH -DUSE_CYRUS_SASL -I/usr/include/sasl -DUSE_PCRE -DDEF_SERVER_SASL_TYPE=CYRUS -DDEF_SERVER_SASL_PATH=\"/var/spool/postfix/private/auth\"" AUXLIBS="-lpcre -lsasl2" && \
