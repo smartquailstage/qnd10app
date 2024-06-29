@@ -72,20 +72,19 @@ services:
 
   postfix:
     image: smartquail/qnd10postfix:prod
-    restart: always      
+    restart: always
+    environment:
+      - TZ=America/Guayaquil
+    expose:
+      - "25"
+    ports:
+      - "25:25"
+    volumes:
+      - postfix-spools:/var/spool/postfix
+      - postfix-mail:/var/mail
+      - postfix-logs:/var/log
     env_file:
       - .env_postfix
-    expose:
-      - 25
-    environment:
-      - TZ=America/Guayaquil  
-      - PORT=25 # Zona horaria según tu ubicación
-    ports:
-      - "25:25" 
-    volumes:
-      - postfix-data-qnd10:/var/spool/postfix
-      - postfix-data-qnd10:/var/mail
-      - postfix-data-qnd10:/var/log/mail.log
 
   mailhog:
     image: mailhog/mailhog:latest
@@ -103,5 +102,7 @@ volumes:
   letsencrypt_certs:
   static-data-qnd10:
   smartquaildb_data-qnode10:
-  postfix-data-qnd10:
+  postfix-spools:
+  postfix-mail:
+  postfix-logs:
 
