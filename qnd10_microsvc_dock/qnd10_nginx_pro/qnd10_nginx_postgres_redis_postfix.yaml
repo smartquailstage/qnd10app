@@ -74,9 +74,9 @@ services:
     image: smartquail/qnd10postfix:prod
     restart: always
     environment:
-      - myhostname= mail.smartquail.io
-      - mydomain= smartquail.io
-      - myorigin= $mydomain
+      - myhostname=mail.smartquail.io
+      - mydomain=smartquail.io
+      - myorigin=$mydomain
       - mydestination= $myhostname, $mydomain
       - inet_interfaces= all
       - inet_protocols= ipv4
@@ -87,9 +87,6 @@ services:
       - smtpd_recipient_restrictions=permit_sasl_authenticated,permit_mynetworks,reject_unauthenticated_sender_login_mismatch
       - debug_peer_list=127.0.0.1
       - debug_peer_level=2
-      - smtpd_sender_restrictions=permit_sasl_authenticated,reject_authenticated_sender_login_mismatch,permit_mynetworks,reject_unauthenticated_sender_login_mismatch
-      - smtpd_sasl_type=cyrus
-      - smtpd_sasl_path=smtpd
     expose:
       - "25"
     ports:
