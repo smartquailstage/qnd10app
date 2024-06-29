@@ -9,11 +9,7 @@ RUN apk add --no-cache \
     openssl-dev \
     pcre-dev \
     postgresql-dev \  # Paquete de desarrollo de PostgreSQL
-    postgresql-client \
-    cyrus-sasl-dev \
-    curl \
-    tar \
-    make
+    cyrus-sasl-dev
 
 # Copiar el archivo postfix-3.8.5.tar.gz desde tu contexto local al contenedor
 COPY postfix-3.8.5.tar.gz /tmp/postfix-3.8.5.tar.gz
