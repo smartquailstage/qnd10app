@@ -84,6 +84,8 @@ services:
       - smtpd_sasl_auth_enable=yes
       - debug_peer_list=127.0.0.1
       - debug_peer_level=2
+      - TRANSPORT_MAPS=/etc/postfix/transport
+      - PRIVATE_TRANSPORT=/var/spool/postfix/private/transport
     expose:
       - "25"
     ports:
