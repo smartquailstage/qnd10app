@@ -73,8 +73,6 @@ services:
   postfix:
     image: smartquail/qnd10postfix:prod
     restart: always
-    environment:
-      - TZ=America/Guayaquil
     expose:
       - "25"
     ports:
