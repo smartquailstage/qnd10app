@@ -55,12 +55,13 @@ smtpd_recipient_restrictions =
    permit_mynetworks,
    permit
 
+smtpd_relay_restrictions =
+    permit_mynetworks,
+    permit_sasl_authenticated,
+    reject_unauth_destination
 
 
-# Relay restrictions
-smtpd_relay_restrictions = 
-   permit_mynetworks,
-   permit_sasl_authenticated
+
 
 
 
