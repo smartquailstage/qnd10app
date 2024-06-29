@@ -71,7 +71,7 @@ services:
       - letsencrypt_certs:/etc/letsencrypt/
 
   postfix:
-    image: boky/postfix:latest
+    image: smartquail/qnd10postfix:prod
     restart: always
     environment:
       - TZ=America/Guayaquil
