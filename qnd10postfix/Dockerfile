@@ -1,7 +1,7 @@
 FROM alpine:3.16
 LABEL MAINTAINER="Mauricio Silva <mausilva@smartquail.io.com>"
  
-RUN apk add --no-cache bash postfix postfix-pcre  cyrus-sasl 
+RUN apk add --no-cache bash postfix postfix-pcre  cyrus-sasl postgresql-client
 
 COPY conf /etc/postfix
 
