@@ -17,7 +17,7 @@ mynetworks = 127.0.0.1/32 [::1]/128 {{ RELAYNETS }}
 alias_maps =
 
 # Only accept virtual emails
-mydestination =
+mydestination = $myhostname, $mydomain, localhost.localdomain, localhost
 
 # Relayhost if any is configured
 relayhost = {{ RELAYHOST }}
@@ -28,6 +28,7 @@ relayhost = {{ RELAYHOST }}
 
 # Delay all rejects until all information can be logged
 smtpd_delay_reject = yes
+append_dot_mydomain = no
 
 # Allowed senders are: the user or one of the alias destinations
 smtpd_sender_login_maps = $virtual_alias_maps
@@ -38,10 +39,13 @@ smtpd_helo_required = yes
 # Sender restrictions
 smtpd_sender_restrictions =
    permit_mynetworks,
+   permit_sasl_authenticated,
    reject_non_fqdn_sender,
    reject_unknown_sender_domain,
    reject_unlisted_sender,
    reject_sender_login_mismatch,
+   reject_authenticated_sender_login_mismatch, 
+   reject_unauthenticated_sender_login_mismatch
    permit
 
 # Recipient restrictions:
