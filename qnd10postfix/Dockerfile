@@ -8,14 +8,14 @@ RUN apk add --no-cache \
     linux-pam-dev \
     openssl-dev \
     pcre-dev \
-    postgresql-dev \
+    postgresql-dev \  # Paquete de desarrollo de PostgreSQL
     postgresql-client \
     cyrus-sasl-dev \
     curl \
     tar \
     make
 
-# Copiar el archivo postfix-3.7.11.tar.gz desde tu contexto local al contenedor
+# Copiar el archivo postfix-3.8.5.tar.gz desde tu contexto local al contenedor
 COPY postfix-3.8.5.tar.gz /tmp/postfix-3.8.5.tar.gz
 RUN tar -zxvf /tmp/postfix-3.8.5.tar.gz -C /tmp/
 
