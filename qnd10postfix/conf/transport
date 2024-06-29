@@ -1,1 +1,4 @@
-/^.*@mail.smartquail.io$/ smtp:[mail.smartquail.io]
+# transport
+gmail.com              smtp:[gmail-smtp-in.l.google.com]
+localhost.localdomain  :
+.smartquail.io         :
