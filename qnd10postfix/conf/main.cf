@@ -35,7 +35,7 @@ smtpd_sender_login_maps = $virtual_alias_maps
 
 # Helo restrictions are specified for smtp only in master.cf
 smtpd_helo_required = yes
-
+smtpd_sasl_auth_enable = yes
 # Sender restrictions
 smtpd_sender_restrictions =
    permit_mynetworks,
