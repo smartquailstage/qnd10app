@@ -8,7 +8,7 @@ COPY conf /etc/postfix
 COPY mail.smartquail.io/certs/fullchain.pem /etc/ssl/certs/
 COPY mail.smartquail.io/private/privkey.pem /etc/ssl/private/
 
-
+VOLUME ["/var/spool/postfix/private/transport"]
 VOLUME ["/var/spool/postfix"]
 
 ENTRYPOINT ["/etc/postfix/postfix-service.sh"]
