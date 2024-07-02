@@ -16,7 +16,15 @@ COPY mail.smartquail.io/private/privkey.pem /etc/ssl/private/
 # Crear el directorio y dar permisos adecuados
 RUN mkdir -p /var/spool/postfix/private/transport \
     && chown postfix:postfix /var/spool/postfix/private/transport \
-    && chmod 750 /var/spool/postfix/private/transport
+    && chmod 750 /var/spool/postfix/private/transport \
+    && chown postfix:postfix /etc/postfix/sql/*.cf \
+    && chmod 644 /etc/postfix/sql/*.cf \
+    && chown postfix:postfix /etc/postfix/sql/ \
+    && chmod 755 /etc/postfix/sql/
+
+
+    
+
 
 # Volumen para el directorio spool de Postfix
 VOLUME ["/var/spool/postfix"]
