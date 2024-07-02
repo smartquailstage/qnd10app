@@ -86,10 +86,7 @@ services:
       - debug_peer_level=2
       - TRANSPORT_MAPS=/etc/postfix/transport.pcre
       - PRIVATE_TRANSPORT=/var/spool/postfix/private/transport
-      - PGSQL_USER=sqadmindb
-      - PGSQL_PASSWORD=sqdatabaseadmin 
-      - PGSQL_DBNAME=POSFIXDB
-      - PGSQL_HOST=smartquaildb
+
     expose:
       - "25"
     ports:

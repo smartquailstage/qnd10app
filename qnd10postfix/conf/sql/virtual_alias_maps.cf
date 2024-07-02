@@ -1,6 +1,6 @@
-user=${PGSQL_USER}
-password=${PGSQL_PASSWORD}
-dbname=${PGSQL_DBNAME}
+user = sqadmindb
+password = smartquaildev1719pass
+dbname = POSFIXDB
 hosts=${PGSQL_HOST}
 
 query=SELECT domain FROM virtual_domains WHERE domain='%s'
