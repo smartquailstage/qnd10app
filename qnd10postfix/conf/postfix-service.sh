@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function log {
-  echo `date` $ME - $@
+  echo "$(date) $ME - $@"
 }
 
 function addUserInfo {
@@ -14,6 +14,17 @@ function addUserInfo {
   fi
 }
 
+function createVirtualDomainsTable {
+  log "Creating virtual_domains table in PostgreSQL..."
+  psql -U sqadmindb -d POSFIXDB -h smartquaildb -c "CREATE TABLE IF NOT EXISTS virtual_domains (
+    id SERIAL PRIMARY KEY,
+    domain VARCHAR(255) NOT NULL UNIQUE
+  );"
+  
+  log "Granting SELECT permission on virtual_domains table to sqadmindb..."
+  psql -U sqadmindb -d POSFIXDB -h smartquaildb -c "GRANT SELECT ON TABLE virtual_domains TO sqadmindb;"
+}
+
 function serviceConf {
   # Check hostname variable
   if [[ ! ${HOSTNAME} =~ \. ]]; then
@@ -21,14 +32,14 @@ function serviceConf {
   fi
 
   # Substitute configuration
-  for VARIABLE in `env | cut -f1 -d=`; do
+  for VARIABLE in $(env | cut -f1 -d=); do
     VAR=${VARIABLE//:/_}
     sed -i "s={{ $VAR }}=${!VAR}=g" /etc/postfix/*.cf
   done
 
   # Override Postfix configuration
   if [ -f /overrides/postfix.cf ]; then
-    while read line; do
+    while read -r line; do
       [[ -n "$line" && "$line" != [[:blank:]#]* ]] && postconf -e "$line"
     done < /overrides/postfix.cf
     echo "Loaded '/overrides/postfix.cf'"
@@ -51,6 +62,7 @@ function serviceConf {
 
 function serviceStart {
   addUserInfo
+  createVirtualDomainsTable  # Llama a la función para crear la tabla virtual_domains y otorgar permisos
   serviceConf
   # Actually run Postfix
   log "[ Starting Postfix... ]"
