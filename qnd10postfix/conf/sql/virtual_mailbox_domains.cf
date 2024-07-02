@@ -1,6 +1,6 @@
-user=${PGSQL_USER}
-password=${PGSQL_PASSWORD}
-dbname=${PGSQL_DBNAME}
-hosts=${PGSQL_HOST}
+user = sqadmindb
+password = smartquaildev1719pass
+dbname = POSTFIXDB
+host = smartquaildb
 
-query=SELECT domain FROM virtual_domains WHERE domain='%s'
+query = SELECT domain FROM virtual_domains WHERE domain='%s'
