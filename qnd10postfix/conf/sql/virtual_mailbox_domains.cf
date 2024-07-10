@@ -1,6 +1,6 @@
-user = sqadmindb
-password = smartquaildev1719pass
-dbname = POSFIXDB
-hosts = smartquaildb
+user = ${POSTFIX_POSTGRES_USER}
+password = ${POSTFIX_POSTGRES_PASSWORD}
+dbname = ${POSTFIX_POSTGRES_DB}
+hosts = ${POSTFIX_POSTGRES_HOST}
 
-query = SELECT domain FROM virtual_domains WHERE domain='%s'
+query = SELECT domain FROM virtual_domains WHERE domain='%s';
