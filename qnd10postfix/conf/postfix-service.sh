@@ -16,13 +16,13 @@ function addUserInfo {
 
 function createVirtualDomainsTable {
   log "Creating virtual_domains table in PostgreSQL..."
-  psql -U sqadmindb -d POSFIXDB -h smartquaildb -c "CREATE TABLE IF NOT EXISTS virtual_domains (
+  psql -U "$POSTFIX_POSTGRES_USER" -d "$POSTFIX_POSTGRES_DB" -h "$POSTFIX_POSTGRES_HOST" -c "CREATE TABLE IF NOT EXISTS virtual_domains (
     id SERIAL PRIMARY KEY,
     domain VARCHAR(255) NOT NULL UNIQUE
   );"
-  
-  log "Granting SELECT permission on virtual_domains table to sqadmindb..."
-  psql -U sqadmindb -d POSFIXDB -h smartquaildb -c "GRANT SELECT ON TABLE virtual_domains TO sqadmindb;"
+
+  log "Granting SELECT permission on virtual_domains table to $POSTFIX_POSTGRES_USER..."
+  psql -U "$POSTFIX_POSTGRES_USER" -d "$POSTFIX_POSTGRES_DB" -h "$POSTFIX_POSTGRES_HOST" -c "GRANT SELECT ON TABLE virtual_domains TO $POSTFIX_POSTGRES_USER;"
 }
 
 function serviceConf {
@@ -66,7 +66,7 @@ function serviceStart {
   serviceConf
   # Actually run Postfix
   log "[ Starting Postfix... ]"
-  /usr/sbin/postfix start-fg 
+  /usr/sbin/postfix start-fg
 }
 
 export DOMAIN=${DOMAIN:-"localdomain"}
@@ -74,5 +74,10 @@ export HOSTNAME=${HOSTNAME:-"localhost"}
 export MESSAGE_SIZE_LIMIT=${MESSAGE_SIZE_LIMIT:-"50000000"}
 export RELAYNETS=${RELAYNETS:-""}
 export RELAYHOST=${RELAYHOST:-""}
+
+export POSTFIX_POSTGRES_DB=POSFIXDB
+export POSTFIX_POSTGRES_PASSWORD=smartquaildev1719pass
+export POSTFIX_POSTGRES_USER=sqadmindb
+export POSTFIX_POSTGRES_HOST=smartquaildb
 
 serviceStart &>> /proc/1/fd/1
