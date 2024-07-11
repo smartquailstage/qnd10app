@@ -1,3 +1,5 @@
+# virtual_mailbox_maps.cf
+
 user = $POSTFIX_POSTGRES_USER
 password = $POSTFIX_POSTGRES_PASSWORD
 dbname = $POSTFIX_POSTGRES_DB
