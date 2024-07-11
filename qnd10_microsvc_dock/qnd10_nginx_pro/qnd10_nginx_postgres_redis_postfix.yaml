@@ -88,6 +88,7 @@ services:
       - debug_peer_level=2
       - TRANSPORT_MAPS=/etc/postfix/transport.pcre
       - PRIVATE_TRANSPORT=/var/spool/postfix/private/transport
+      - POSTFIX_POSTGRES_HOST=smartquaildb
     expose:
       - "25"
     ports:
