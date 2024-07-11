@@ -1,6 +1,6 @@
 user = ${POSTFIX_POSTGRES_USER}
 password = ${POSTFIX_POSTGRES_PASSWORD}
 dbname = ${POSTFIX_POSTGRES_DB}
-hosts = ${POSTFIX_POSTGRES_HOST}
+hosts=smartquaildb
 
 query = SELECT destination FROM virtual_aliases WHERE source='%s'
