@@ -1,6 +1,6 @@
-user = ${POSTFIX_POSTGRES_USER}
-password = ${POSTFIX_POSTGRES_PASSWORD}
-dbname = ${POSTFIX_POSTGRES_DB}
-hosts = ${POSTFIX_POSTGRES_HOST}
+user=${POSTFIX_POSTGRES_USER}
+password=${POSTFIX_POSTGRES_PASSWORD}
+dbname=${POSTFIX_POSTGRES_DB}
+hosts=${POSTFIX_POSTGRES_HOST}
 
 query = SELECT mailbox FROM virtual_mailboxes WHERE mailbox='%s'
