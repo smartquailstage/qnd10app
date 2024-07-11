@@ -75,6 +75,8 @@ services:
     restart: always
     env_file:
       - .env
+    depends_on:
+      - smartquaildb
     environment:
       - inet_interfaces= all
       - inet_protocols= ipv4
@@ -94,8 +96,7 @@ services:
       - postfix-spools:/var/spool/postfix
       - postfix-mail:/var/mail
       - postfix-logs:/var/log
-    depends_on:
-      - smartquaildb
+
 
 
   pgadmin:
