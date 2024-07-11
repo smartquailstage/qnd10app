@@ -35,8 +35,8 @@ services:
     ports:
       - "8001:80"
     restart: always
-      
- 
+
+
 
   smartquaildb:
     image: postgres:13-alpine
@@ -61,7 +61,7 @@ services:
       - qnd10app
     ports:
       - "80:80"
-      - "443:443"  
+      - "443:443"
     volumes:
       - static-data-qnd10:/qnd10app/qnd10app/qnd10app/staticfiles
       - static-data-qnd10:/qnd10app/qnd10app/qnd10app/media
@@ -74,7 +74,7 @@ services:
     image: smartquail/qnd10postfix:prod
     restart: always
     env_file:
-      - .env_postfix
+      - .env
     environment:
       - inet_interfaces= all
       - inet_protocols= ipv4
@@ -86,7 +86,6 @@ services:
       - debug_peer_level=2
       - TRANSPORT_MAPS=/etc/postfix/transport.pcre
       - PRIVATE_TRANSPORT=/var/spool/postfix/private/transport
-
     expose:
       - "25"
     ports:
@@ -97,7 +96,7 @@ services:
       - postfix-logs:/var/log
     depends_on:
       - smartquaildb
-   
+
 
   pgadmin:
     image: dpage/pgadmin4:latest
@@ -111,7 +110,7 @@ services:
       - "5050:80"  # Puerto de PGAdmin accesible desde fuera del contenedor
     depends_on:
       - smartquaildb
- 
+
 
 
 volumes:
@@ -124,4 +123,3 @@ volumes:
   postfix-spools:
   postfix-mail:
   postfix-logs:
-
