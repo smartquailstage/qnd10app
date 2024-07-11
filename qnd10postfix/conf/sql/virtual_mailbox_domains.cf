@@ -1,8 +1,8 @@
 # virtual_mailbox_domains.cf
 
-user={$POSTFIX_POSTGRES_USER}
-password={$POSTFIX_POSTGRES_PASSWORD}
-dbname={$POSTFIX_POSTGRES_DB}
-hosts={$POSTFIX_POSTGRES_HOST}
+user=$POSTFIX_POSTGRES_USER
+password=$POSTFIX_POSTGRES_PASSWORD
+dbname=$POSTFIX_POSTGRES_DB
+hosts=$POSTFIX_POSTGRES_HOST
 
 query = SELECT domain FROM virtual_mailbox_domains WHERE domain='%s'
