@@ -3,4 +3,4 @@ password = ${POSTFIX_POSTGRES_PASSWORD}
 dbname = ${POSTFIX_POSTGRES_DB}
 hosts = ${POSTFIX_POSTGRES_HOST}
 
-query = SELECT domain FROM virtual_domains WHERE domain='%s';
+query = SELECT mailbox FROM virtual_mailboxes WHERE mailbox='%s'
