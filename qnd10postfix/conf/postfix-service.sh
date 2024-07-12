@@ -32,12 +32,6 @@ function createVirtualDomainsTable {
     domain VARCHAR(255) NOT NULL UNIQUE
   );"
 
-  log "Creating virtual_aliases table in PostgreSQL..."
-  psql -U "$POSTFIX_POSTGRES_USER" -d "$POSTFIX_POSTGRES_DB" -h "$POSTFIX_POSTGRES_HOST" -c "CREATE TABLE IF NOT EXISTS virtual_aliases (
-    id SERIAL PRIMARY KEY,
-    source VARCHAR(255) NOT NULL,
-    destination VARCHAR(255) NOT NULL
-  );"
 
   log "Creating virtual_mailboxes table in PostgreSQL..."
   psql -U "$POSTFIX_POSTGRES_USER" -d "$POSTFIX_POSTGRES_DB" -h "$POSTFIX_POSTGRES_HOST" -c "CREATE TABLE IF NOT EXISTS virtual_mailboxes (
@@ -47,6 +41,15 @@ function createVirtualDomainsTable {
 
   log "Granting SELECT permission on virtual_domains table to $POSTFIX_POSTGRES_USER..."
   psql -U "$POSTFIX_POSTGRES_USER" -d "$POSTFIX_POSTGRES_DB" -h "$POSTFIX_POSTGRES_HOST" -c "GRANT SELECT ON TABLE virtual_domains TO $POSTFIX_POSTGRES_USER;"
+}
+
+function createVirtualAliasesTable {
+  log "Creating virtual_aliases table in PostgreSQL..."
+  psql -U "$POSTFIX_POSTGRES_USER" -d "$POSTFIX_POSTGRES_DB" -h "$POSTFIX_POSTGRES_HOST" -c "CREATE TABLE IF NOT EXISTS virtual_aliases (
+    id SERIAL PRIMARY KEY,
+    source VARCHAR(255) NOT NULL,
+    destination VARCHAR(255) NOT NULL
+  );"
 }
 
 function serviceConf {
@@ -87,6 +90,7 @@ function serviceConf {
 function serviceStart {
   addUserInfo
   createVirtualDomainsTable  # Llama a la función para crear las tablas necesarias
+  createVirtualAliasesTable # Llama a la función para crear la tabla virtual_aliases
   serviceConf
   # Actually run Postfix
   log "[ Starting Postfix... ]"
@@ -98,7 +102,5 @@ export HOSTNAME=${HOSTNAME:-"localhost"}
 export MESSAGE_SIZE_LIMIT=${MESSAGE_SIZE_LIMIT:-"50000000"}
 export RELAYNETS=${RELAYNETS:-""}
 export RELAYHOST=${RELAYHOST:-""}
-
-
 
 serviceStart &>> /proc/1/fd/1
