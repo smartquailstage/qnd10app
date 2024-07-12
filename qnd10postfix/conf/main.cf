@@ -87,6 +87,10 @@ smtpd_sasl_path = smtpd
 smtpd_sasl_authenticated_header = yes
 smtpd_sasl_security_options = noanonymous
 smtpd_sasl_local_domain = $myhostname
+broken_sasl_auth_clients = yes
+
+
+
 
 ###############
 # Extra Settings
