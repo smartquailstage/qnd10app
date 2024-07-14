@@ -23,7 +23,7 @@ alias_maps =
 mydestination = $myhostname, $mydomain, localhost.localdomain, localhost, mail.smartquail.io, mail
 
 # Relayhost if any is configured
-relayhost = {{ RELAYHOST }}
+relayhost = [smtp.mail.smartquail.io]:587
 
 ###############
 # Restrictions
