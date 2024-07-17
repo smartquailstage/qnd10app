@@ -9,10 +9,10 @@ ARG DEBIAN_FRONTEND=noninteractive
 ADD dovecot.gpg /etc/apt/keyrings/dovecot.gpg
 ADD dovecot.list /etc/apt/sources.list.d
 
-COPY mail.smartquail.io/certs/fullchain.pem /etc/dovecot/cert.pem
-COPY mail.smartquail.io/private/privkey.pem /etc/dovecot/key.pem
+COPY mail.smartquail.io/certs/fullchain.pem /etc/dovecot/
+COPY mail.smartquail.io/private/privkey.pem /etc/dovecot/
 COPY dovecot-sql.conf.ext  /etc/dovecot/dovecot-sql.conf.ext
-RUN chmod 600 /etc/dovecot/cert.pem /etc/dovecot/key.pem
+RUN chmod 600 /etc/dovecot/fullchain.pem /etc/dovecot/privkey.pem
 
 RUN apt-get -y update && apt-get -y install \
   tini \
