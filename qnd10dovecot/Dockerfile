@@ -14,7 +14,9 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # Descargar e importar la clave GPG de Dovecot
-RUN wget -qO- https://repo.dovecot.org/DOVECOT-REPO-GPG | gpg --dearmor > /etc/apt/trusted.gpg.d/dovecot.gpg
+RUN set -eux; \
+    wget -qO- https://repo.dovecot.org/DOVECOT-REPO-GPG | gpg --dearmor > /etc/apt/trusted.gpg.d/dovecot.gpg \
+    || { echo "Error: Failed to download or import GPG key."; exit 1; }
 
 # Configurar el repositorio de Dovecot
 COPY dovecot.list /etc/apt/sources.list.d/dovecot.list
