@@ -1,0 +1,10 @@
+driver = pgsql
+
+# Parámetros de conexión a la base de datos PostgreSQL
+connect = host=smartquaildb dbname=POSFIXDB user=<username> password=<password>
+
+# Consulta SQL para obtener la contraseña del usuario
+password_query = SELECT username as user, password FROM users WHERE username = '%u';
+
+# Consulta SQL para verificar si el usuario existe
+user_query = SELECT username as user, password FROM users WHERE username = '%u';
