@@ -37,13 +37,10 @@ RUN apt-get -y update && apt-get -y install \
   passwd -l vmail && \
   rm -rf /etc/dovecot && \
   mkdir /srv/mail && \
-  chown vmail:vmail /srv/mail && \
-  make-ssl-cert generate-default-snakeoil && \
-  mkdir /etc/dovecot && \
-  ln -s /etc/ssl/certs/ssl-cert-snakeoil.pem /etc/dovecot/cert.pem && \
-  ln -s /etc/ssl/private/ssl-cert-snakeoil.key /etc/dovecot/key.pem
+  chown vmail:vmail /srv/mail 
 
 ADD dovecot.conf /etc/dovecot/dovecot.conf
+ADD dovecot-sql.conf.ext  /etc/dovecot/dovecot-sql.conf.ext
 
 EXPOSE 24
 EXPOSE 110
