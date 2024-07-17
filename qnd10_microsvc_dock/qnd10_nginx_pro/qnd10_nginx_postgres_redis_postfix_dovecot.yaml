@@ -112,8 +112,8 @@ services:
       - "993:993"   # IMAPS (secure IMAP)
       - "995:995"   # POP3S (secure POP3)
     environment:
-      - DOVECOT_USER=mailuser
-      - DOVECOT_PASSWORD=mailpassword
+      - DOVECOT_USER=info
+      - DOVECOT_PASSWORD=ms95355672
     depends_on:
       - postfix
 
