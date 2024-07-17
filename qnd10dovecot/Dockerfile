@@ -6,8 +6,14 @@ ENV container=docker \
     LC_ALL=C
 ARG DEBIAN_FRONTEND=noninteractive
 
-# Copiamos los archivos de claves y listas de repositorios
-COPY dovecot.gpg /etc/apt/trusted.gpg.d/dovecot.gpg
+# Descargar e importar la clave GPG de Dovecot
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends wget \
+    && wget -O- https://repo.dovecot.org/DOVECOT-REPO-GPG | gpg --dearmor > /etc/apt/trusted.gpg.d/dovecot.gpg \
+    && apt-get purge -y --auto-remove wget \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copiamos el archivo de listas de repositorios de dovecot
 COPY dovecot.list /etc/apt/sources.list.d/dovecot.list
 
 # Instalamos paquetes necesarios
