@@ -40,7 +40,7 @@ RUN apt-get -y update && apt-get -y install \
   ln -s /etc/ssl/private/ssl-cert-snakeoil.key /etc/dovecot/key.pem
 
 ADD dovecot.conf /etc/dovecot/dovecot.conf
-
+COPY dovecot.conf /etc/dovecot/
 EXPOSE 24
 EXPOSE 110
 EXPOSE 143
