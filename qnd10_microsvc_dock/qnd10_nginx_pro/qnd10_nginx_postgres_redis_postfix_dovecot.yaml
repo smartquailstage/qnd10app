@@ -104,8 +104,8 @@ services:
     container_name: dovecot
     restart: always
     volumes:
-      - ./dovecot:/etc/dovecot
-      - ./mail:/var/mail
+      - dovecot:/etc/dovecot
+      - mail:/var/mail
     ports:
       - "143:143"   # IMAP
       - "110:110"   # POP3
@@ -144,3 +144,5 @@ volumes:
   postfix-spools:
   postfix-mail:
   postfix-logs:
+  dovecot:
+  mail:

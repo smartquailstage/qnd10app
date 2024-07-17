@@ -6,49 +6,52 @@ ENV container=docker \
     LC_ALL=C
 ARG DEBIAN_FRONTEND=noninteractive
 
-ADD dovecot.gpg /etc/apt/keyrings/dovecot.gpg
-ADD dovecot.list /etc/apt/sources.list.d
+# Copiamos los archivos de claves y listas de repositorios
+COPY dovecot.gpg /etc/apt/trusted.gpg.d/dovecot.gpg
+COPY dovecot.list /etc/apt/sources.list.d/dovecot.list
 
-RUN apt-get -y update && apt-get -y install \
-  tini \
-  dovecot-core \
-  dovecot-gssapi \
-  dovecot-imapd \
-  dovecot-ldap \
-  dovecot-lmtpd \
-  dovecot-lua \
-  dovecot-managesieved \
-  dovecot-mysql \
-  dovecot-pgsql \
-  dovecot-pop3d \
-  dovecot-sieve \
-  dovecot-solr \
-  dovecot-sqlite \
-  dovecot-submissiond \
-  ca-certificates \
-  ssl-cert && \
-  rm -rf /var/lib/apt/lists && \
-  groupadd -g 1000 vmail && \
-  useradd -u 1000 -g 1000 vmail -d /srv/vmail && \
-  passwd -l vmail && \
-  rm -rf /etc/dovecot && \
-  mkdir /srv/mail && \
-  chown vmail:vmail /srv/mail && \
-  make-ssl-cert generate-default-snakeoil && \
-  mkdir /etc/dovecot && \
-  ln -s /etc/ssl/certs/ssl-cert-snakeoil.pem /etc/dovecot/cert.pem && \
-  ln -s /etc/ssl/private/ssl-cert-snakeoil.key /etc/dovecot/key.pem
+# Instalamos paquetes necesarios
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        tini \
+        dovecot-core \
+        dovecot-gssapi \
+        dovecot-imapd \
+        dovecot-ldap \
+        dovecot-lmtpd \
+        dovecot-lua \
+        dovecot-managesieved \
+        dovecot-mysql \
+        dovecot-pgsql \
+        dovecot-pop3d \
+        dovecot-sieve \
+        dovecot-solr \
+        dovecot-sqlite \
+        dovecot-submissiond \
+        ca-certificates \
+        ssl-cert \
+    && rm -rf /var/lib/apt/lists/*
 
-ADD dovecot.conf /etc/dovecot/dovecot.conf
-COPY dovecot.conf /etc/dovecot/
-EXPOSE 24
-EXPOSE 110
-EXPOSE 143
-EXPOSE 587
-EXPOSE 990
-EXPOSE 993
-EXPOSE 4190
+# Configuración adicional
+RUN groupadd -g 1000 vmail \
+    && useradd -u 1000 -g 1000 -d /srv/vmail -s /sbin/nologin vmail \
+    && passwd -l vmail \
+    && mkdir -p /srv/mail \
+    && chown -R vmail:vmail /srv/mail \
+    && make-ssl-cert generate-default-snakeoil \
+    && mkdir -p /etc/dovecot \
+    && ln -s /etc/ssl/certs/ssl-cert-snakeoil.pem /etc/dovecot/cert.pem \
+    && ln -s /etc/ssl/private/ssl-cert-snakeoil.key /etc/dovecot/key.pem
 
+# Copiamos el archivo de configuración de Dovecot
+COPY dovecot.conf /etc/dovecot/dovecot.conf
+
+# Exponemos los puertos
+EXPOSE 24 110 143 587 990 993 4190
+
+# Volumen para configuraciones y datos
 VOLUME ["/etc/dovecot", "/srv/mail"]
+
+# Punto de entrada y comando por defecto
 ENTRYPOINT ["/usr/bin/tini", "--"]
 CMD ["/usr/sbin/dovecot", "-F"]
