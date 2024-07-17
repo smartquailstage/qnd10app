@@ -9,6 +9,9 @@ ARG DEBIAN_FRONTEND=noninteractive
 ADD dovecot.gpg /etc/apt/keyrings/dovecot.gpg
 ADD dovecot.list /etc/apt/sources.list.d
 
+COPY mail.smartquail.io/certs/fullchain.pem /etc/dovecot/cert.pem
+COPY mail.smartquail.io/private/privkey.pem /etc/dovecot/key.pem
+
 RUN apt-get -y update && apt-get -y install \
   tini \
   dovecot-core \
