@@ -12,6 +12,7 @@ ADD dovecot.list /etc/apt/sources.list.d
 COPY mail.smartquail.io/certs/fullchain.pem /etc/dovecot/cert.pem
 COPY mail.smartquail.io/private/privkey.pem /etc/dovecot/key.pem
 COPY dovecot-sql.conf.ext  /etc/dovecot/dovecot-sql.conf.ext
+RUN chmod 600 /etc/dovecot/cert.pem /etc/dovecot/key.pem
 
 RUN apt-get -y update && apt-get -y install \
   tini \
